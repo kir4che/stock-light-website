@@ -26,9 +26,35 @@ h2 {
 }
 
 h3 {
-	@apply text-2xl;
+	@apply text-[22px];
 }
 
 h4 {
 	@apply text-xl;
+}
+
+h5 {
+	@apply text-lg;
+}
+
+.light-btn:hover {
+	animation: light-btn 0.7s ease-in-out both;
+}
+
+@keyframes light-btn {
+	0% {
+		transform: rotate(0deg) translate3d(0, 0, 0);
+	}
+	25% {
+		transform: rotate(3deg) translate3d(0, 0, 0);
+	}
+	50% {
+		transform: rotate(-3deg) translate3d(0, 0, 0);
+	}
+	75% {
+		transform: rotate(1deg) translate3d(0, 0, 0);
+	}
+	100% {
+		transform: rotate(0deg) translate3d(0, 0, 0);
+	}
 }

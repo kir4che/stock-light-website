@@ -16,7 +16,7 @@ export default function Header() {
         <Link href="/team">開發團隊</Link>
         <Link href="/analysis">股市預測</Link>
       </nav>
-      <button className="inline-flex items-center px-6 py-2 mt-2 font-medium transition-all duration-300 ease-out border-0 rounded-full bg-primary_yellow focus:outline-none sm:mt-0 hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow" type="button" onClick={() => router.push('/light')}>
+      <button className="inline-flex items-center px-6 py-2 mt-2 font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer bg-primary_yellow focus:outline-none sm:mt-0 hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow" type="button" onClick={() => router.push('/light')}>
         我要點燈！
       </button>
     </div >
