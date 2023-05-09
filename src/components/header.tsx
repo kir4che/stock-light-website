@@ -8,7 +8,7 @@ export default function Header() {
 
   return (
     <div className="container flex flex-col flex-wrap items-center pt-6 mx-auto sm:flex-row">
-      <Link Link href="/" className="flex items-center font-bold sm:mb-0" >
+      <Link href="/" className="flex items-center font-bold sm:mb-0" >
         <img src="/favicon.ico" alt="股市光明燈" />
         <h4 className="ml-3">股市光明燈</h4>
       </Link >
