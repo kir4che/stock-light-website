@@ -2,11 +2,7 @@ import Footer from '@/components/footer';
 import Header from '@/components/header';
 import '../styles/globals.css';
 
-type LayoutProps = {
-  children: React.ReactNode
-}
-
-export default function RootLayout({ children }: LayoutProps) {
+export default function RootLayout({ children }) {
   return (
     <html lang="zh-Hant">
       <head>
