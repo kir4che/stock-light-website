@@ -18,7 +18,7 @@ export default function Home() {
 						<Taiex />
 					</div>
 					<div className='flex items-center w-full'>
-						<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
+						<Image className='w-10' src='../images/good-quality-64.png' alt='recommend' />
 						<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 						<button
 							className='light-btn font-medium cursor-pointer px-12 py-1.5 bg-primary_yellow'
