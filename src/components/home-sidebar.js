@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default function Home_Sidebar() {
 	return (
 		<div className='hidden row-span-3 space-y-8 w-72 lg:block'>

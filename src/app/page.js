@@ -3,6 +3,7 @@
 import Banner from '@/components/banner'
 import Sidebar from '@/components/home-sidebar'
 import Taiex from '@/components/taiex'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
