@@ -100,7 +100,7 @@ export default function Taiex() {
 							tooltip: {
 								valueDecimals: 2,
 							},
-							color: '#FFDC62', // 線條顏色
+							color: '#4FBAFF', // 線條顏色
 							// 面積顏色
 							fillColor: {
 								linearGradient: {
@@ -110,7 +110,7 @@ export default function Taiex() {
 									y2: 1,
 								},
 								stops: [
-									[0, '#FFDC62'],
+									[0, '#7DCCFF'],
 									[1, '#FFF0'],
 								],
 							},
