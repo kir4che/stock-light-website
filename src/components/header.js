@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -10,7 +9,7 @@ export default function Header() {
 	return (
 		<div className='container flex flex-col flex-wrap items-center pt-6 mx-auto sm:flex-row'>
 			<Link href='/' className='flex items-center font-bold sm:mb-0'>
-				<Image src='/favicon.ico' alt='股市光明燈' />
+				<img src='/favicon.ico' alt='股市光明燈' />
 				<h4 className='ml-3'>股市光明燈</h4>
 			</Link>
 			<nav className='flex flex-wrap items-center justify-center mt-2 space-x-3 list-none sm:mr-auto sm:mt-0 sm:ml-10 sm:space-x-6'>

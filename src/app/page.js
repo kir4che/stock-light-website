@@ -3,7 +3,6 @@
 import Banner from '@/components/banner'
 import Sidebar from '@/components/home-sidebar'
 import Taiex from '@/components/taiex'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -15,11 +14,11 @@ export default function Home() {
 			<div className='grid grid-flow-col grid-rows-3 mt-12 mb-20 lg:gap-20'>
 				<Sidebar />
 				<div className='col-span-12'>
-					<div className='mb-8 -mt-6'>
+					<div className='mb-4 -mt-8 -ml-2'>
 						<Taiex />
 					</div>
 					<div className='flex items-center w-full'>
-						<Image className='w-10' src='../images/good-quality-64.png' alt='recommend' />
+						<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
 						<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 						<button
 							className='light-btn font-medium cursor-pointer px-12 py-1.5 bg-primary_yellow'

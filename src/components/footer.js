@@ -1,11 +1,10 @@
-import Image from 'next/image'
 import Link from 'next/link'
 
 export default function Footer() {
 	return (
 		<footer className='container flex flex-col flex-wrap py-12 mx-auto border-t-[1.5px] sm:items-center lg:items-start sm:flex-row sm:flex-nowrap'>
 			<div className='w-48 mx-auto text-center'>
-				<Image className='w-full' src='https://fakeimg.pl/200x100/' alt='股市光明燈' />
+				<img className='w-full' src='https://fakeimg.pl/200x100/' alt='股市光明燈' />
 				<h4 className='mt-2.5 mb-1.5 font-bold'>股市光明燈</h4>
 				<p className='text-sm'>帶給所有投資人新的希望</p>
 			</div>
