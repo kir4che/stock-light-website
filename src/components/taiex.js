@@ -29,30 +29,66 @@ export default function Taiex() {
 			.then((data) => {
 				// 標題使用今日指數
 				const date = new Date()
-				date.setDate(date.getDate() - 1) // 設定為昨天
-				date.setUTCHours(13, 30, 0, 0) // 設定為下午 1:30
-				const timestamp = date.getTime()
+				date.setDate(date.getDate() - 1) // 設定昨天
+				date.setUTCHours(13, 30, 0, 0) // 設定下午 1:30
+				const yesterday = date
+				date.setDate(date.getDate() - 1) // 設定前天，為了後續漲跌顏色。
+				const twoDaysAgo = date
 				const dataMap = new Map(data)
-				const yesterdayIndex = dataMap.get(timestamp)
+				const yesterdayTimestamp = yesterday.getTime()
+				const yesterdayIndex = dataMap.get(yesterdayTimestamp)
+
+				const twoDaysAgoTimestamp = twoDaysAgo.getTime()
+				const twoDaysAgoIndex = dataMap.get(twoDaysAgoTimestamp)
+
+				let titleColor = yesterdayIndex >= twoDaysAgoIndex ? '#EE3234' : '#05AA02'
 
 				// 建立 Highcharts 圖表
 				Highcharts.stockChart(chartContainer.current, {
 					rangeSelector: {
 						selected: 1,
+						// 把日期區間選項靠右
+						buttonPosition: {
+							align: 'right',
+							x: 0,
+							y: 0,
+						},
+						// 關閉篩選日期區間
+						inputEnabled: false,
 					},
 
 					title: {
-						text: yesterdayIndex,
+						text: '台灣大盤指數',
 						align: 'left',
+						x: -10,
+						y: 40,
+						style: {
+							fontSize: '1.45em',
+							fontWeight: '500',
+							color: '#252525',
+						},
 					},
 
-					// 下面的導覽列
+					subtitle: {
+						text: yesterdayIndex,
+						align: 'left',
+						x: 0,
+						y: 92,
+						style: {
+							fontSize: '1.85em',
+							fontWeight: '700',
+							color: titleColor,
+						},
+					},
+
+					// 導覽列
 					navigator: {
 						series: {
 							accessibility: {
 								exposeAsGroupOnly: true,
 							},
 						},
+						maskFill: '#4FBAFF15',
 					},
 
 					series: [
@@ -83,6 +119,13 @@ export default function Taiex() {
 							},
 						},
 					],
+
+					navigation: {
+						// 隱藏可下載圖表選項
+						buttonOptions: {
+							enabled: false,
+						},
+					},
 				})
 			})
 

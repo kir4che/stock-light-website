@@ -14,12 +14,11 @@ export default function Home() {
 			<div className='grid grid-flow-col grid-rows-3 mt-12 mb-20 lg:gap-20'>
 				<Sidebar />
 				<div className='col-span-12'>
-					<div className='mb-8'>
-						<h3 className='mb-2 font-medium'>台灣大盤指數</h3>
+					<div className='mb-8 -mt-6'>
 						<Taiex />
 					</div>
 					<div className='flex items-center w-full'>
-						<img className='w-12' src='../images/good-quality-64.png' alt='recommend' />
+						<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
 						<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 						<button
 							className='light-btn font-medium cursor-pointer px-12 py-1.5 bg-primary_yellow'

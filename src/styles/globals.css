@@ -2,19 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-	:root {
-		--primary-yellow: #ffdc62;
-		--secondary-blue: #4fbaff;
-		--stock-red: #ee3234;
-		--stock-green: #05aa02;
-		--text-black: #252525;
-	}
-}
-
 body {
-	@apply h-full p-0 m-0;
-	color: var(--text-black);
+	@apply h-full p-0 m-0 text-text_black;
 }
 
 h1 {
