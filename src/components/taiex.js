@@ -1,11 +1,18 @@
-import Date_Range from '@/components/date-range'
-import Highcharts from 'highcharts'
-import HCExporting from 'highcharts/modules/exporting'
 import { useEffect, useRef, useState } from 'react'
+
+import Highcharts from 'highcharts/highstock'
+import HCAccessibility from 'highcharts/modules/accessibility'
+import HCData from 'highcharts/modules/data'
+import HCExportData from 'highcharts/modules/export-data'
+import HCExporting from 'highcharts/modules/exporting'
+import HCStockTools from 'highcharts/modules/stock-tools'
 import ReactLoading from 'react-loading'
 
-// 匯入需要使用的 Highcharts 模組
 HCExporting(Highcharts)
+HCExportData(Highcharts)
+HCAccessibility(Highcharts)
+HCStockTools(Highcharts)
+HCData(Highcharts)
 
 export default function Taiex() {
 	const [isLoading, setIsLoading] = useState(false)
@@ -14,33 +21,51 @@ export default function Taiex() {
 
 	useEffect(() => {
 		setIsLoading(true)
+
 		// 取得 JSON 資料
-		const url = 'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v10.3.3/samples/data/usdeur.json'
+		const url = 'https://demo-live-data.highcharts.com/aapl-c.json'
 		fetch(url)
 			.then((response) => response.json())
 			.then((data) => {
+				// 標題使用今日指數
+				const date = new Date()
+				date.setDate(date.getDate() - 1) // 設定為昨天
+				date.setUTCHours(13, 30, 0, 0) // 設定為下午 1:30
+				const timestamp = date.getTime()
+				const dataMap = new Map(data)
+				const yesterdayIndex = dataMap.get(timestamp)
+
 				// 建立 Highcharts 圖表
-				Highcharts.chart(chartContainer.current, {
-					chart: {
-						zoomType: 'x',
+				Highcharts.stockChart(chartContainer.current, {
+					rangeSelector: {
+						selected: 1,
 					},
+
 					title: {
-						text: 'USD to EUR exchange rate over time',
+						text: yesterdayIndex,
 						align: 'left',
 					},
-					xAxis: {
-						type: 'datetime',
-					},
-					yAxis: {
-						title: {
-							text: 'Exchange rate',
+
+					// 下面的導覽列
+					navigator: {
+						series: {
+							accessibility: {
+								exposeAsGroupOnly: true,
+							},
 						},
 					},
-					legend: {
-						enabled: false,
-					},
-					plotOptions: {
-						area: {
+
+					series: [
+						{
+							name: '加權股價指數',
+							data: data,
+							type: 'area',
+							threshold: null,
+							tooltip: {
+								valueDecimals: 2,
+							},
+							color: '#FFDC62', // 線條顏色
+							// 面積顏色
 							fillColor: {
 								linearGradient: {
 									x1: 0,
@@ -49,27 +74,13 @@ export default function Taiex() {
 									y2: 1,
 								},
 								stops: [
-									[0, Highcharts.getOptions().colors[0]],
-									[1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')],
+									[0, '#FFDC62'],
+									[1, '#FFF0'],
 								],
 							},
-							marker: {
-								radius: 2,
+							animation: {
+								duration: 2000,
 							},
-							lineWidth: 1,
-							states: {
-								hover: {
-									lineWidth: 1,
-								},
-							},
-							threshold: null,
-						},
-					},
-					series: [
-						{
-							type: 'area',
-							name: 'USD to EUR',
-							data: data,
 						},
 					],
 				})
@@ -78,10 +89,5 @@ export default function Taiex() {
 		setIsLoading(false)
 	}, [])
 
-	return (
-		<>
-			<Date_Range />
-			{isLoading ? <ReactLoading type={'spin'} /> : <div className='w-full' ref={chartContainer}></div>}
-		</>
-	)
+	return isLoading ? <ReactLoading type={'spin'} /> : <div className='w-full' ref={chartContainer}></div>
 }
