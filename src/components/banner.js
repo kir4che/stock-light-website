@@ -1,3 +1,7 @@
 export default function Banner() {
-	return <></>
+	return (
+		<div className='w-full'>
+			<img className='' src='../images/banner.png' />
+		</div>
+	)
 }
