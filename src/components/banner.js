@@ -1,8 +1,7 @@
-"use client"
-
-
 export default function Banner() {
-  return (
-    <h1>test</h1>
-  )
+	return (
+		<div className='w-full'>
+			<img src='../images/banner.png' />
+		</div>
+	)
 }

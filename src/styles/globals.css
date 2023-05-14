@@ -2,19 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-	:root {
-		--primary-yellow: #ffdc62;
-		--secondary-blue: #4fbaff;
-		--stock-red: #ee3234;
-		--stock-green: #05aa02;
-		--text-black: #252525;
-	}
-}
-
 body {
-	@apply h-full p-0 m-0;
-	color: var(--text-black);
+	@apply h-full p-0 m-0 text-text_black;
 }
 
 h1 {
@@ -26,7 +15,7 @@ h2 {
 }
 
 h3 {
-	@apply text-[22px];
+	@apply text-2xl;
 }
 
 h4 {
@@ -56,5 +45,19 @@ h5 {
 	}
 	100% {
 		transform: rotate(0deg) translate3d(0, 0, 0);
+	}
+}
+
+.team-title {
+	opacity: 0;
+	animation: fadeIn 0.8s ease-in 0s forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
 	}
 }
