@@ -63,7 +63,7 @@ export default function Taiex() {
 				x: 0,
 				y: 40,
 				style: {
-					fontSize: '1.45em',
+					fontSize: '1.4em',
 					fontWeight: '500',
 					color: '#252525',
 				},
@@ -73,9 +73,9 @@ export default function Taiex() {
 				text: todayIndex,
 				align: 'left',
 				x: 0,
-				y: 92,
+				y: 86,
 				style: {
-					fontSize: '1.85em',
+					fontSize: '1.8em',
 					fontWeight: '600',
 					color: titleColor,
 				},

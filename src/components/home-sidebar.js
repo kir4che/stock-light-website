@@ -1,8 +1,8 @@
 export default function Home_Sidebar() {
 	return (
-		<div className='hidden row-span-3 space-y-8 w-72 lg:block'>
+		<div className='hidden space-y-12 w-72 xl:block'>
 			<div>
-				<div className='flex items-center pb-1.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
+				<div className='flex items-center pb-2.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
 					<img src='https://img.icons8.com/ios/30/null/news.png' alt='news' />
 					<h5 className='font-medium'>理財新聞</h5>
 				</div>
@@ -36,7 +36,7 @@ export default function Home_Sidebar() {
 				</ul>
 			</div>
 			<div>
-				<div className='flex items-center pb-1.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
+				<div className='flex items-center pb-2.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
 					<img src='https://img.icons8.com/pastel-glyph/32/null/megaphone.png' alt='megaphone' />
 					<h5 className='font-medium'>股市公告</h5>
 				</div>
@@ -70,7 +70,7 @@ export default function Home_Sidebar() {
 				</ul>
 			</div>
 			<div>
-				<div className='flex items-center pb-1.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
+				<div className='flex items-center pb-2.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
 					<img src='https://img.icons8.com/pulsar-line/30/null/info.png' alt='info' />
 					<h5 className='font-medium'>改版資訊</h5>
 				</div>

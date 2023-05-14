@@ -11,14 +11,14 @@ export default function Home() {
 	return (
 		<main>
 			<Banner />
-			<div className='container w-full mx-auto'>
-				<div className='grid grid-flow-col grid-rows-3 mt-8 mb-20 lg:gap-20'>
+			<div className='container w-full mx-auto mt-12'>
+				<div className='flex xl:space-x-28'>
 					<Sidebar />
-					<div className='col-span-12'>
-						<div className='mb-4 -mt-8 -ml-2'>
+					<div className='mb-24'>
+						<div className='mb-5 -mt-8 -ml-2'>
 							<Taiex />
 						</div>
-						<div className='flex items-center w-full'>
+						<div className='flex items-center w-full mb-12'>
 							<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
 							<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 							<button
@@ -29,9 +29,10 @@ export default function Home() {
 								我要點燈！
 							</button>
 						</div>
-					</div>
-					<div className='col-span-12 row-span-2'>
-						<h3 className='mb-2 font-medium'>本日最佳趨勢</h3>
+						<div>
+							<h3 className='mb-4 font-medium'>本日最佳趨勢</h3>
+							<img src='https://fakeimg.pl/920x320/' />
+						</div>
 					</div>
 				</div>
 			</div>
