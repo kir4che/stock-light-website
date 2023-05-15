@@ -2,7 +2,7 @@ export default function Member_Card() {
 	const members = [
 		{
 			id: 1,
-			name: '林禹辰',
+			name: '林禹丞',
 			duty: '後端、分析數據',
 			img: 'https://assets.codepen.io/152347/crooked-colours.jpg',
 			desc: '我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我',
