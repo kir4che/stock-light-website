@@ -29,9 +29,21 @@ export default function Home() {
 								我要點燈！
 							</button>
 						</div>
+						
 						<div>
 							<h3 className='mb-4 font-medium'>本日最佳趨勢</h3>
 							<img src='https://fakeimg.pl/920x320/' />
+							<div className='flex flex-row-reverse'>
+									<button 
+										className='px-12 py-2 mt-2 
+										font-medium  duration-300  border-0 
+										rounded-full cursor-pointer bg-secondary_blue text-text_white
+										hover:ring-2 hover:ring-offset-2'
+										type='button'
+									>
+										查看更多預測模式
+									</button>
+								</div>
 						</div>
 					</div>
 				</div>
