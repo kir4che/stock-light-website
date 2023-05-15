@@ -5,7 +5,7 @@ export default function Member_Card() {
 			name: '林禹辰',
 			duty: '後端、分析數據',
 			img: 'https://assets.codepen.io/152347/crooked-colours.jpg',
-			desc: 'Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.',
+			desc: '我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我我',
 		},
 		{
 			id: 2,
