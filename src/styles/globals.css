@@ -26,6 +26,7 @@ h5 {
 	@apply text-lg;
 }
 
+/* 首頁 -「我要點燈」按鈕，不是Header上的！ */
 .light-btn:hover {
 	animation: light-btn 0.7s ease-in-out both;
 }
@@ -48,16 +49,39 @@ h5 {
 	}
 }
 
-.team-title {
-	opacity: 0;
-	animation: fadeIn 0.8s ease-in 0s forwards;
+/* 開發團隊 - 成員卡片組件 */
+.card-group {
+	@apply flex flex-wrap justify-center mx-auto mb-24 space-x-4 xl:space-x-8;
 }
 
-@keyframes fadeIn {
-	from {
+.card-group .card {
+	@apply w-full px-6 py-8 shadow-lg xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+}
+
+.card-group .card .card-img {
+	@apply object-cover object-center w-full h-40 rounded;
+}
+
+.card-group .card .back {
+	@apply hidden;
+}
+
+.card-group .card:hover .card-img {
+	@apply hidden;
+}
+
+.card-group .card:hover .back {
+	@apply block duration-75;
+	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@keyframes fade-in-left {
+	0% {
+		transform: translateY(50px);
 		opacity: 0;
 	}
-	to {
+	100% {
+		transform: translateY(0);
 		opacity: 1;
 	}
 }
