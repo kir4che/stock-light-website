@@ -12,8 +12,7 @@ module.exports = {
         secondary_blue: '#4FBAFF',
         stock_red: '#EE3234',
         stock_green: '#05AA02',
-        text_black: '#252525',
-        text_white:'#FFFFFF'
+        text_black: '#252525'
       }
     },
   },
