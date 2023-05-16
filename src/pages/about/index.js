@@ -1,3 +1,4 @@
+import Gantt from '@/components/GanttChart'
 import Skill from '@/components/Skill'
 import Team from '@/components/Team'
 
@@ -19,6 +20,7 @@ export default function About() {
 			</div>
 			<div className='text-center mb-28'>
 				<h3 className='mb-5 font-medium '>開發時程</h3>
+				<Gantt />
 			</div>
 		</div>
 	)
