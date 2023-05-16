@@ -10,7 +10,7 @@ import HCExporting from 'highcharts/modules/exporting'
 import HCStockTools from 'highcharts/modules/stock-tools'
 import ReactLoading from 'react-loading'
 
-import data from 'src/pages/api/taiex.json'
+import data from 'src/api/taiex.json'
 
 HCExporting(Highcharts)
 HCExportData(Highcharts)
