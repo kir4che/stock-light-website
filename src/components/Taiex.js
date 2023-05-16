@@ -3,20 +3,9 @@
 import { useEffect, useRef, useState } from 'react'
 
 import Highcharts from 'highcharts/highstock'
-import HCAccessibility from 'highcharts/modules/accessibility'
-import HCData from 'highcharts/modules/data'
-import HCExportData from 'highcharts/modules/export-data'
-import HCExporting from 'highcharts/modules/exporting'
-import HCStockTools from 'highcharts/modules/stock-tools'
 import ReactLoading from 'react-loading'
 
 import data from 'src/api/taiex.json'
-
-HCExporting(Highcharts)
-HCExportData(Highcharts)
-HCAccessibility(Highcharts)
-HCStockTools(Highcharts)
-HCData(Highcharts)
 
 export default function Taiex() {
 	const [isLoading, setIsLoading] = useState(false)
