@@ -13,10 +13,12 @@ export default function About() {
 				</p>
 				<Team />
 			</div>
-
-			<div className='mb-24 text-center'>
+			<div className='text-center mb-28'>
 				<h3 className='mb-5 font-medium '>本站所用技術</h3>
 				<Skill />
+			</div>
+			<div className='text-center mb-28'>
+				<h3 className='mb-5 font-medium '>開發時程</h3>
 			</div>
 		</div>
 	)

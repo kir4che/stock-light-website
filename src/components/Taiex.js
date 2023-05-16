@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useRef, useState } from 'react'
 
 import Highcharts from 'highcharts/highstock'
@@ -31,12 +33,11 @@ export default function Taiex() {
 		today.setHours(8, 0, 0, 0)
 		date.setDate(today.getDate() - 1)
 		const yesterday = date
+
 		const dataMap = new Map(data)
 
 		const todayTimestamp = today.getTime()
-		console.log('todayTimestamp', todayTimestamp)
 		const todayIndex = dataMap.get(todayTimestamp)
-		console.log('todayIndex', todayIndex)
 
 		const yesterdayTimestamp = yesterday.getTime()
 		const yesterdayIndex = dataMap.get(yesterdayTimestamp)
