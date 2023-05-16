@@ -1,4 +1,4 @@
-export default function Home_Sidebar() {
+export default function HomeSidebar() {
 	return (
 		<div className='hidden space-y-12 w-72 xl:block'>
 			<div>

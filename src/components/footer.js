@@ -10,8 +10,8 @@ export default function Footer() {
 			</div>
 			<div className='flex flex-col flex-wrap justify-center flex-grow mt-4 space-y-4 text-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
 				<nav className='flex justify-center space-x-3 list-none sm:flex-col sm:justify-start sm:space-y-2 sm:space-x-0'>
-					<Link href='/team'>開發團隊</Link>
 					<Link href='/analysis'>股市預測</Link>
+					<Link href='/about'>關於我們</Link>
 				</nav>
 				<nav className='space-y-2.5 list-none hidden sm:block'>
 					<h4 className='mb-2 font-medium'>聯絡方式</h4>

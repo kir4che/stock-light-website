@@ -49,50 +49,9 @@ h5 {
 	}
 }
 
-/* 開發團隊 - 成員卡片組件 */
-.card-group {
-	@apply flex flex-wrap justify-center mx-auto mb-24 space-x-4 xl:space-x-8;
-}
-
-.card-group .card {
-	@apply w-full px-6 py-8 shadow-lg xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
-}
-
-.card-group .card .card-img {
-	@apply object-cover object-center w-full h-40 rounded;
-}
-
-.card-group .card .back {
-	@apply hidden;
-}
-
-.card-group .card:hover .card-img {
-	@apply hidden;
-}
-
-.card-group .card:hover .back {
-	@apply block duration-75;
-	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-}
-
-@keyframes fade-in-left {
-	0% {
-		transform: translateY(50px);
-		opacity: 0;
-	}
-	100% {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
-.analysis-container {
-	background-image: url('https://i.imgur.com/x3NBazu.jpg');
-}
-
+/* 夜空背景 */
 #stars-background-container {
-	height: 100vh;
-	z-index: 0;
+	@apply z-0 h-screen;
 }
 /*stars-background-animation*/
 @-webkit-keyframes move-twink-back {
@@ -132,12 +91,7 @@ h5 {
 .stars,
 .twinkling,
 .clouds {
-	position: absolute;
-	top: 72px;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: block;
+	@apply absolute left-0 block w-full h-full top-36 sm:top-[72px];
 }
 
 .stars {
@@ -149,14 +103,51 @@ h5 {
 	background: transparent url('https://i.imgur.com/fUsesao.png') repeat top center;
 	opacity: 80%;
 	z-index: -2;
-	-webkit-animation: move-twink-back 200s linear infinite;
-	animation: move-twink-back 200s linear infinite;
+	-webkit-animation: move-twink-back 200s linear;
+	animation: move-twink-back 200s linear;
 }
 
 .clouds {
 	background: transparent url('https://i.imgur.com/KYJdAQm.png') repeat top center;
-	opacity: 10%;
+	opacity: 12%;
 	z-index: -1;
-	-webkit-animation: move-clouds-back 200s linear infinite;
-	animation: move-clouds-back 200s linear infinite;
+	-webkit-animation: move-clouds-back 300s linear infinite;
+	animation: move-clouds-back 300s linear infinite;
+}
+
+/* 開發團隊 - 成員卡片組件 */
+.card-group {
+	@apply flex flex-wrap justify-center mx-auto space-x-4 text-left xl:space-x-8;
+}
+
+.card-group .card {
+	@apply w-full px-6 py-8 shadow-lg xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+}
+
+.card-group .card .card-img {
+	@apply object-cover object-center w-full h-56 rounded xl:h-40;
+}
+
+.card-group .card .back {
+	@apply hidden;
+}
+
+.card-group .card:hover .card-img {
+	@apply hidden;
+}
+
+.card-group .card:hover .back {
+	@apply block h-56 leading-relaxed duration-75 xl:h-40;
+	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@keyframes fade-in-left {
+	0% {
+		transform: translateY(50px);
+		opacity: 0;
+	}
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
