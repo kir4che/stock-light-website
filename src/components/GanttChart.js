@@ -12,14 +12,7 @@ export default function GanttChart() {
 	useEffect(() => {
 		setIsLoading(true)
 
-		var today = new Date(),
-			day = 1000 * 60 * 60 * 24
-
-		// Set to 00:00:00:000 today
-		today.setUTCHours(0)
-		today.setUTCMinutes(0)
-		today.setUTCSeconds(0)
-		today.setUTCMilliseconds(0)
+		let today = new Date()
 
 		// 任務
 		const data = [
@@ -29,96 +22,41 @@ export default function GanttChart() {
 					{
 						name: 'Planning',
 						id: 'planning',
-						start: today.getTime(),
-						end: today.getTime() + 20 * day,
-					},
-					{
-						name: 'Requirements',
-						id: 'requirements',
-						parent: 'planning',
-						start: today.getTime(),
-						end: today.getTime() + 5 * day,
-					},
-					{
-						name: 'Design',
-						id: 'design',
-						dependency: 'requirements',
-						parent: 'planning',
-						start: today.getTime() + 3 * day,
-						end: today.getTime() + 20 * day,
+						start: Date.UTC(2023, 5 - 1, 2),
+						end: Date.UTC(2023, 5 - 1, 12),
 					},
 					{
 						name: 'Layout',
 						id: 'layout',
-						parent: 'design',
-						start: today.getTime() + 3 * day,
-						end: today.getTime() + 10 * day,
-					},
-					{
-						name: 'Graphics',
-						parent: 'design',
-						dependency: 'layout',
-						start: today.getTime() + 10 * day,
-						end: today.getTime() + 20 * day,
+						start: Date.UTC(2023, 5 - 1, 7),
+						end: Date.UTC(2023, 5 - 1, 25),
 					},
 					{
 						name: 'Develop',
 						id: 'develop',
-						start: today.getTime() + 5 * day,
-						end: today.getTime() + 30 * day,
-					},
-					{
-						name: 'Create unit tests',
-						id: 'unit_tests',
-						dependency: 'requirements',
-						parent: 'develop',
-						start: today.getTime() + 5 * day,
-						end: today.getTime() + 8 * day,
+						start: Date.UTC(2023, 6 - 1, 1),
+						end: Date.UTC(2023, 7 - 1, 2),
 					},
 					{
 						name: 'Implement',
 						id: 'implement',
-						dependency: 'unit_tests',
-						parent: 'develop',
-						start: today.getTime() + 8 * day,
-						end: today.getTime() + 30 * day,
+						start: Date.UTC(2023, 6 - 1, 16),
+						end: Date.UTC(2023, 7 - 1, 23),
 					},
 				],
 			},
 		]
 
 		Highcharts.ganttChart(chartContainer.current, {
-			xAxis: {
-				min: today.getTime() - 2 * day,
-				max: today.getTime() + 32 * day,
-			},
-			accessibility: {
-				keyboardNavigation: {
-					seriesNavigation: {
-						mode: 'serialize',
-					},
+			// x 軸：月份
+			xAxis: [
+				{
+					tickInterval: 1000 * 60 * 60 * 24 * 30,
 				},
-				point: {
-					descriptionFormatter: function (point) {
-						var dependency = point.dependency && point.series.chart.get(point.dependency).name,
-							dependsOn = dependency ? ' Depends on ' + dependency + '.' : ''
-
-						return Highcharts.format(
-							'{point.yCategory}. Start {point.x:%Y-%m-%d}, end {point.x2:%Y-%m-%d}.{dependsOn}',
-							{
-								point,
-								dependsOn,
-							}
-						)
-					},
-				},
-			},
-			lang: {
-				accessibility: {
-					axis: {
-						xAxisDescriptionPlural: 'The chart has a two-part X axis showing time in both week numbers and days.',
-					},
-				},
+			],
+			// 任務資訊的日期格式
+			tooltip: {
+				xDateFormat: '%Y/%m/%d',
 			},
 			series: data,
 		})
