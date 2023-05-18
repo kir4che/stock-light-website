@@ -336,7 +336,7 @@ h5 {
 /* 首頁Banner標題 */
 
 #banner-title {
-	@apply hidden text-[145px] tracking-wide font-black text-primary_yellow md:block lg:text-[198px] xl:text-[215px] xl:tracking-widest;
+	@apply hidden text-[145px] tracking-wide font-black text-primary_yellow md:block lg:text-[198px] xl:text-[215px] xl:tracking-[0.2em];
 }
 
 #banner-title #股 {

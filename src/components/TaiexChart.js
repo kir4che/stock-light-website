@@ -7,7 +7,7 @@ import ReactLoading from 'react-loading'
 
 import data from 'src/api/taiex.json'
 
-export default function Taiex() {
+export default function TaiexChart() {
 	const [isLoading, setIsLoading] = useState(false)
 
 	const chartContainer = useRef(null)
@@ -121,5 +121,5 @@ export default function Taiex() {
 		setIsLoading(false)
 	}, [])
 
-	return isLoading ? <ReactLoading type={'spin'} /> : <div className='w-full' ref={chartContainer}></div>
+	return isLoading ? <ReactLoading type={'spin'} /> : <div ref={chartContainer}></div>
 }

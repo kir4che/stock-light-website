@@ -2,7 +2,7 @@
 
 import Banner from '@/components/Banner'
 import Sidebar from '@/components/HomeSidebar'
-import Taiex from '@/components/Taiex'
+import TaiexChart from '@/components/TaiexChart'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 					<Sidebar />
 					<div className='mb-24'>
 						<div className='mb-5 -mt-8 -ml-2'>
-							<Taiex />
+							<TaiexChart />
 						</div>
 						<div className='flex items-center w-full mb-12'>
 							<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
