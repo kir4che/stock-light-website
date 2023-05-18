@@ -4,7 +4,7 @@ export default function Team() {
 			id: 1,
 			name: '林禹丞',
 			duty: '後端、分析數據',
-			img: '../images/109AB0752.png',
+			img: '../images/109AB0752.jpg',
 			desc: '您好我是林禹丞目前就讀臺北科技大學資訊與財金管理學系三年級。',
 		},
 		{
@@ -25,7 +25,7 @@ export default function Team() {
 			id: 4,
 			name: '蘇昶諭',
 			duty: '前端、UI/UX、分析數據',
-			img: 'https://dummyimage.com/720x400',
+			img: '../images/109AB0738.jpg',
 			desc: 'Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.',
 		},
 	]

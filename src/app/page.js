@@ -35,7 +35,7 @@ export default function Home() {
 							<img src='https://fakeimg.pl/920x320/' />
 							<div className='flex flex-row-reverse'>
 								<button
-									className='px-12 py-2 mt-2 font-medium duration-300 border-0 rounded-full cursor-pointer bg-secondary_blue text-text_white hover:ring-2 hover:ring-offset-2'
+									className='px-12 py-2 mt-4 font-medium text-white duration-300 border-0 rounded-full cursor-pointer bg-secondary_blue hover:ring-2 hover:ring-offset-2'
 									type='button'
 								>
 									查看更多預測模式
