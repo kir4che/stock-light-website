@@ -1,14 +1,13 @@
 export default function Temple() {
 	return (
 		<svg
+			className='w-[300px] h-[238px] md:w-[360px] md:h-[286px] lg:w-[450px] lg:h-[382px]'
 			id='banner-temple'
 			version='1.1'
 			xmlns='http://www.w3.org/2000/svg'
 			xmlnsXlink='http://www.w3.org/1999/xlink'
 			x='0px'
 			y='0px'
-			width='400px'
-			height='410px'
 			viewBox='0 0 303 155'
 			xmlSpace='preserve'
 		>

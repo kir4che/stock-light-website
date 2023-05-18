@@ -2,7 +2,7 @@ import Temple from '@/components/Temple'
 
 export default function Banner() {
 	return (
-		<div className='w-full text-center border-b-2 h-96 border-b-text_black'>
+		<div className='w-full text-center border-b-2 h-60 border-b-text_black md:h-72 lg:h-96'>
 			<Temple />
 			<div id='banner-title'>
 				<span id='股'>股</span>

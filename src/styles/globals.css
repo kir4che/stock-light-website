@@ -338,19 +338,19 @@ h5 {
 /* 首頁Banner標題 */
 
 #banner-title {
-	@apply font-black tracking-widest	text-[215px] text-primary_yellow;
+	@apply hidden text-[145px] tracking-wide font-black text-primary_yellow md:block lg:text-[198px] xl:text-[215px] xl:tracking-widest;
 }
 
 #banner-title #股 {
-	@apply relative -top-[410px];
+	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[385px];
 }
 
 #banner-title #市 {
-	@apply relative -top-[410px] -z-10;
+	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[385px] -z-10;
 }
 
 #banner-title #光 {
-	@apply relative -top-[500px] text-white;
+	@apply relative -top-[345px] lg:-top-[457px] xl:-top-[470px] text-white;
 	background: linear-gradient(120deg, #ffdc62 30%, #ffe791 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -358,9 +358,9 @@ h5 {
 }
 
 #banner-title #明 {
-	@apply relative -top-[410px] -z-10;
+	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[385px] -z-10;
 }
 
 #banner-title #燈 {
-	@apply relative -top-[410px];
+	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[385px];
 }
