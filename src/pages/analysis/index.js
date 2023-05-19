@@ -7,10 +7,8 @@ export default function Analysis() {
 			<div className='container flex pt-20 mx-auto space-x-6'>
 				<Sidebar />
 				<div className='flex flex-col w-full'>
-					<h3 className='mb-4 font-medium tracking-wider text-white'>天氣型態</h3>
-					<div className='h-full px-4 pt-8 bg-gray-100 rounded'>
-						<AnalChart />
-					</div>
+					<h3 className='mb-3 font-medium tracking-wider text-white'>天氣型態</h3>
+					<AnalChart />
 				</div>
 			</div>
 			<div className='stars'></div>
