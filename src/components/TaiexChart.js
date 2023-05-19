@@ -35,6 +35,9 @@ export default function TaiexChart() {
 
 		// 建立 Highcharts 圖表
 		Highcharts.stockChart(chartContainer.current, {
+			chart: {
+				backgroundColor: null,
+			},
 			rangeSelector: {
 				selected: 1,
 				// 把日期區間選項靠右
@@ -121,5 +124,9 @@ export default function TaiexChart() {
 		setIsLoading(false)
 	}, [])
 
-	return isLoading ? <ReactLoading type={'spin'} /> : <div ref={chartContainer}></div>
+	return isLoading ? (
+		<ReactLoading type={'spin'} color='#4FBAFF' width={80} height={80} />
+	) : (
+		<div ref={chartContainer}></div>
+	)
 }

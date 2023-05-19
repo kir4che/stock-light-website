@@ -28,7 +28,7 @@ export default function AnalSidebar() {
 	]
 
 	return (
-		<div className='rounded bg-gray-50'>
+		<div className='bg-white rounded'>
 			<div className='w-56 h-full'>
 				<h4 className='flex items-center pl-6 font-medium border-b h-14'>股市預測</h4>
 				<ul className='flex flex-col pt-4 pb-8 space-y-1.5'>
