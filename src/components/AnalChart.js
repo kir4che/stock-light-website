@@ -1,6 +1,8 @@
 'use client'
 
+import AnalTable from '@/components/AnalTable'
 import SelectBox from '@/components/SelectBox'
+import Tooltip from '@/components/Tooltip'
 
 import Highcharts from 'highcharts/highstock'
 import { useEffect, useRef, useState } from 'react'
@@ -34,7 +36,7 @@ const tabsChart = [
 	},
 ]
 
-export default function AnalTabs() {
+export default function AnalChart() {
 	const [isLoading, setIsLoading] = useState(false)
 
 	const [activeTabIndex, setActiveTabIndex] = useState(0)
@@ -63,9 +65,11 @@ export default function AnalTabs() {
 			chart: {
 				backgroundColor: null,
 			},
+
 			title: {
 				text: '',
 			},
+
 			xAxis: {
 				min: -0.5,
 				max: 5.5,
@@ -75,6 +79,12 @@ export default function AnalTabs() {
 				min: 0,
 				gridLineWidth: 1,
 			},
+
+			// 移除圖例
+			legend: {
+				enabled: false,
+			},
+
 			series: [
 				{
 					type: 'line',
@@ -99,6 +109,11 @@ export default function AnalTabs() {
 					color: '#FFDC62',
 				},
 			],
+
+			// 移除浮水印
+			credits: {
+				enabled: false,
+			},
 		})
 
 		setIsLoading(false)
@@ -106,14 +121,14 @@ export default function AnalTabs() {
 	}, [activeTabIndex])
 
 	return (
-		<div className='bg-white rounded'>
-			<div className='relative'>
-				<div className='flex items-center justify-between px-3 pt-3 mb-8'>
+		<div className='px-3 pt-6 pb-24 bg-white rounded'>
+			<h3 className='px-3 mb-3 font-medium tracking-wider'>天氣型態</h3>
+			<div className='relative px-2'>
+				<div className='flex items-center justify-between pt-3 mb-5'>
 					<div className='flex items-center'>
 						{tabsChart.map((tab, i) => {
 							return (
 								// 子類別選單
-
 								<button
 									className='flex items-center px-5 pb-2 space-x-1'
 									key={i}
@@ -146,32 +161,18 @@ export default function AnalTabs() {
 					style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
 				/>
 			</div>
-			<div>
-				{isLoading ? (
-					<ReactLoading type={'spin'} color='#4FBAFF' width={80} height={80} />
-				) : (
+			{isLoading ? (
+				<ReactLoading type={'spin'} color='#4FBAFF' width={80} height={80} />
+			) : (
+				<>
 					<div ref={chartContainer}></div>
-				)}
-
-				{/* <p>{tabsChart[activeTabIndex].content}</p> */}
-			</div>
-		</div>
-	)
-}
-
-function Tooltip({ isExplain, explanation, children }) {
-	return (
-		<div className='relative flex group'>
-			{children}
-			<span
-				className={`${
-					isExplain
-						? 'absolute w-36 p-2 left-1 -top-12 text-xs text-white transition-all scale-0 bg-gray-800/80 rounded text-left group-hover:scale-100'
-						: 'hidden'
-				} `}
-			>
-				{explanation}
-			</span>
+					<div className='px-5 mt-10 space-y-3'>
+						<AnalTable />
+						<p className='text-sm text-right opacity-70'>※ 所有結果皆來自歷史數據所反映</p>
+					</div>
+				</>
+			)}
+			{/* <p>{tabsChart[activeTabIndex].content}</p> */}
 		</div>
 	)
 }

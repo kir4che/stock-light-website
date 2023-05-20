@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
 	@apply h-full p-0 m-0 text-text_black;
 }
@@ -275,8 +276,36 @@ h5 {
 
 /* 夜空背景 */
 #stars-background-container {
-	@apply z-0 h-screen;
+	@apply z-0 h-full;
 }
+
+.stars,
+.twinkling,
+.clouds {
+	@apply absolute left-0 block w-full h-full min-h-[1500px] top-0;
+}
+
+.stars {
+	background: #283253 url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat top center;
+	z-index: -3;
+}
+
+.twinkling {
+	background: transparent url('https://i.imgur.com/fUsesao.png') repeat top center;
+	opacity: 80%;
+	z-index: -2;
+	-webkit-animation: move-twink-back 200s linear;
+	animation: move-twink-back 200s linear;
+}
+
+.clouds {
+	background: transparent url('https://i.imgur.com/KYJdAQm.png') repeat top center;
+	opacity: 12%;
+	z-index: -1;
+	-webkit-animation: move-clouds-back 300s linear;
+	animation: move-clouds-back 300s linear;
+}
+
 /*stars-background-animation*/
 @-webkit-keyframes move-twink-back {
 	from {
@@ -310,33 +339,6 @@ h5 {
 	to {
 		background-position: 10000px 0;
 	}
-}
-
-.stars,
-.twinkling,
-.clouds {
-	@apply absolute left-0 block w-full h-full top-36 sm:top-[72px];
-}
-
-.stars {
-	background: #283253 url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat top center;
-	z-index: -3;
-}
-
-.twinkling {
-	background: transparent url('https://i.imgur.com/fUsesao.png') repeat top center;
-	opacity: 80%;
-	z-index: -2;
-	-webkit-animation: move-twink-back 200s linear;
-	animation: move-twink-back 200s linear;
-}
-
-.clouds {
-	background: transparent url('https://i.imgur.com/KYJdAQm.png') repeat top center;
-	opacity: 12%;
-	z-index: -1;
-	-webkit-animation: move-clouds-back 300s linear;
-	animation: move-clouds-back 300s linear;
 }
 
 /* 開發團隊 - 成員卡片組件 */

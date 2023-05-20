@@ -119,6 +119,11 @@ export default function TaiexChart() {
 					enabled: false,
 				},
 			},
+
+			// 移除浮水印
+			credits: {
+				enabled: false,
+			},
 		})
 
 		setIsLoading(false)

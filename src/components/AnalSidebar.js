@@ -28,13 +28,13 @@ export default function AnalSidebar() {
 	]
 
 	return (
-		<div className='bg-white rounded'>
-			<div className='w-56 h-full'>
+		<div>
+			<div className='w-56 bg-white rounded'>
 				<h4 className='flex items-center pl-6 font-medium border-b h-14'>股市預測</h4>
 				<ul className='flex flex-col pt-4 pb-8 space-y-1.5'>
 					{categories.map((category) => (
-						<li key={category.id}>
-							<button className='flex items-center w-full py-1.5 pl-4 space-x-2 border-l-4 border-transparent hover:bg-secondary_blue/10 hover:border-secondary_blue'>
+						<li key={category.id} className=''>
+							<button className='flex items-center w-full py-1.5 pl-4 space-x-2 border-l-4 border-transparent hover:bg-yellow-200/20 hover:border-primary_yellow'>
 								<img src={category.icon} alt={category.title}></img>
 								<span className='tracking-wider'>{category.title}</span>
 							</button>
