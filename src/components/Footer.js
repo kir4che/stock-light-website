@@ -15,10 +15,24 @@ export default function Footer() {
 						<Link href='/about'>關於我們</Link>
 					</nav>
 					<nav className='space-y-2.5 list-none hidden sm:block'>
-						<h4 className='mb-2 font-medium'>聯絡方式</h4>
-						<li className='text-sm'>106台北市大安區忠孝東路三段1號</li>
-						<li className='text-sm'>xxx@gmail.com</li>
-						<li className='text-sm'>0912-345-678</li>
+						<h4 className='mb-2 font-bold text-2xl'>聯絡方式</h4>
+						<div className='flex items-center w-full mb-12'>
+							<img width="28" height="28" src="https://img.icons8.com/ios/50/address--v1.png" alt="address--v1"/>
+							<a
+								target='_blank'
+								href='https://www.google.com/maps/place/106%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%AE%89%E5%8D%80%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E4%B8%89%E6%AE%B51%E8%99%9F/@25.0424604,121.5330755,17z/data=!3m1!4b1!4m6!3m5!1s0x3442a97d14c16483:0x8bd463ae49b2e63d!8m2!3d25.0424604!4d121.5356504!16s%2Fg%2F11csf7fb9c?authuser=0'
+								className='text-sm'
+							>106台北市大安區忠孝東路三段1號</a>
+							
+						</div>
+						<div className='flex items-center w-full mb-12 gap-1'>
+							<img width="28" height="28" src="https://img.icons8.com/ios/50/new-post--v1.png" alt="new-post--v1"/>	
+							<li className='text-sm'>xxx@gmail.com</li>
+						</div>
+						<div className='flex items-center w-full mb-12'>
+							<img width="30" height="30" src="https://img.icons8.com/ios/50/phone--v1.png" alt="phone--v1"/>
+							<li className='text-sm'>0912-345-678</li>
+						</div>
 					</nav>
 				</div>
 			</div>
