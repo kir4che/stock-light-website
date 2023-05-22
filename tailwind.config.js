@@ -17,7 +17,6 @@ module.exports = {
 				stock_red: '#EE3234',
 				stock_green: '#05AA02',
 				text_black: '#252525',
-				dark_mode: '#121212',
 			},
 		},
 	},
