@@ -36,15 +36,19 @@ h5 {
 	0% {
 		transform: rotate(0deg) translate3d(0, 0, 0);
 	}
+
 	25% {
 		transform: rotate(3deg) translate3d(0, 0, 0);
 	}
+
 	50% {
 		transform: rotate(-3deg) translate3d(0, 0, 0);
 	}
+
 	75% {
 		transform: rotate(1deg) translate3d(0, 0, 0);
 	}
+
 	100% {
 		transform: rotate(0deg) translate3d(0, 0, 0);
 	}
@@ -92,6 +96,7 @@ h5 {
 	&.lamp-yellow {
 		fill: #fbc926;
 	}
+
 	&.lamp-red {
 		fill: #e40b12;
 	}
@@ -161,10 +166,12 @@ h5 {
 	from {
 		transform: scaleX(1);
 	}
+
 	0.1%,
 	5% {
 		transform: scaleX(0);
 	}
+
 	to,
 	30% {
 		transform: scaleX(1);
@@ -175,10 +182,12 @@ h5 {
 	from {
 		transform: translateY(0);
 	}
+
 	0.1%,
 	8% {
 		transform: translateY(105%);
 	}
+
 	to,
 	28% {
 		transform: translateY(0);
@@ -189,19 +198,24 @@ h5 {
 	from {
 		transform: translateY(0);
 	}
+
 	0.1%,
 	18% {
 		transform: translateY(-1000%);
 	}
+
 	21% {
 		transform: translateY(-2px);
 	}
+
 	22% {
 		transform: translateY(0);
 	}
+
 	23% {
 		transform: translateY(-1px);
 	}
+
 	24%,
 	to {
 		transform: translateY(0);
@@ -212,10 +226,12 @@ h5 {
 	from {
 		transform: scaleY(1) translateY(0);
 	}
+
 	0.1%,
 	10% {
 		transform: scaleY(0) translateY(-100%);
 	}
+
 	15%,
 	to {
 		transform: scaleY(1) translateY(0);
@@ -226,6 +242,7 @@ h5 {
 	0% {
 		transform: rotate(2deg);
 	}
+
 	100% {
 		transform: rotate(-2deg);
 	}
@@ -260,6 +277,7 @@ h5 {
 		top: -500px;
 		opacity: 0%;
 	}
+
 	100% {
 		top: -470px;
 		opacity: 100%;
@@ -311,14 +329,17 @@ h5 {
 	from {
 		background-position: 0 0;
 	}
+
 	to {
 		background-position: -10000px 5000px;
 	}
 }
+
 @keyframes move-twink-back {
 	from {
 		background-position: 0 0;
 	}
+
 	to {
 		background-position: -10000px 5000px;
 	}
@@ -328,14 +349,17 @@ h5 {
 	from {
 		background-position: 0 0;
 	}
+
 	to {
 		background-position: 10000px 0;
 	}
 }
+
 @keyframes move-clouds-back {
 	from {
 		background-position: 0 0;
 	}
+
 	to {
 		background-position: 10000px 0;
 	}
@@ -347,11 +371,11 @@ h5 {
 }
 
 .card-group .card {
-	@apply w-full px-6 py-8 shadow-lg xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+	@apply w-full bg-white rounded-2xl px-6 pt-4 pb-8 xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
 }
 
 .card-group .card .card-img {
-	@apply object-cover object-center w-full h-56 rounded xl:h-40;
+	@apply object-cover object-center w-full h-56 rounded xl:h-44;
 }
 
 .card-group .card .back {
@@ -363,7 +387,7 @@ h5 {
 }
 
 .card-group .card:hover .back {
-	@apply block h-56 leading-relaxed duration-75 xl:h-40;
+	@apply block h-40 leading-relaxed duration-75 xl:h-56;
 	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
@@ -372,8 +396,22 @@ h5 {
 		transform: translateY(50px);
 		opacity: 0;
 	}
+
 	100% {
 		transform: translateY(0);
 		opacity: 1;
 	}
+}
+
+/* 點燈後的關閉按鈕 */
+
+.circle {
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+	margin: auto;
+	background-color: floralwhite;
+	box-shadow: 1px 1px 1px #565656;
+	position: relative;
+	transition: all 0.2s;
 }

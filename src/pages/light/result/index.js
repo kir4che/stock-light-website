@@ -1,15 +1,10 @@
-import Link from 'next/link'
+import LightResult from '@/components/LightResult'
 
-import Lantern from '@/components/Lantern'
-
-export default function Light() {
+export default function Result() {
 	return (
 		<div id='stars-background-container'>
 			<div className='container flex py-20 mx-auto space-x-6'>
-				<Lantern />
-				<Link href='/light/result'>
-					<button>祈福</button>
-				</Link>
+				<LightResult />
 			</div>
 			<div className='stars'></div>
 			<div className='twinkling'></div>
