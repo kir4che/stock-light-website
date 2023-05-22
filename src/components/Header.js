@@ -15,16 +15,16 @@ export default function Header() {
 				</Link>
 				<nav className='flex items-center mt-2 space-x-4 sm:mr-auto sm:mt-0 sm:ml-10 md:space-x-8'>
 					<Link href='/news'>
-						最新消息<span className='hidden ml-1 text-xs lg:block'>News</span>
+						最新消息<span className='hidden text-xs lg:block'>News</span>
 					</Link>
 					<Link href='/analysis'>
-						股市預測<span className='hidden ml-1 text-xs lg:block'>Analysis</span>
+						股市預測<span className='hidden text-xs lg:block'>Analysis</span>
 					</Link>
 					<Link href='/about'>
-						關於我們<span className='hidden ml-1 text-xs lg:block'>About</span>
+						關於我們<span className='hidden text-xs lg:block'>About</span>
 					</Link>
 					<Link href='/feedback'>
-						意見回饋<span className='hidden ml-1 text-xs lg:block'>Feedback</span>
+						意見回饋<span className='hidden text-xs lg:block'>Feedback</span>
 					</Link>
 				</nav>
 				<button
