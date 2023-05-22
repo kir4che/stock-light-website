@@ -117,12 +117,18 @@ export default function AnalChart() {
 		})
 
 		setIsLoading(false)
+
 		return () => window.removeEventListener('resize', setTabPosition)
 	}, [activeTabIndex])
 
 	return (
 		<div className='px-3 pt-6 pb-24 bg-white rounded  w-[70vw]'>
-			<h3 className='px-3 mb-3 font-medium tracking-wider'>天氣型態</h3>
+			<div className='flex items-end mb-3 space-x-2 tracking-wider'>
+				<h3 className='pl-3 font-medium'>天氣型態</h3>
+				<p className='text-sm opacity-80'>
+					{new Date().getFullYear()}/{new Date().getMonth()}/{new Date().getDate()}
+				</p>
+			</div>
 			<div className='relative px-2'>
 				<div className='flex items-center justify-between pt-3 mb-5'>
 					<div className='flex items-center'>

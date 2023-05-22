@@ -7,10 +7,15 @@ import { useMemo } from 'react'
 const data = [
 	{
 		id: 2303,
-		name: 'Doe',
-		address: '261',
-		city: 'Ehne',
-		state: 'Ky',
+		name: '台積電',
+		price: 531.0,
+		up_down: {
+			day: -1.0,
+			week: 7.06,
+			month: 5.73,
+		},
+		volume: 17186,
+		correlation: 0.71,
 	},
 ]
 
@@ -19,35 +24,35 @@ export default function AnalTable() {
 	const columns = useMemo(
 		() => [
 			{
-				accessorKey: 'name.firstName', //access nested data with dot notation
+				accessorKey: 'id',
 				header: '代號',
 			},
 			{
-				accessorKey: 'name.lastName',
+				accessorKey: 'name',
 				header: '名稱',
 			},
 			{
-				accessorKey: 'address', //normal accessorKey
+				accessorKey: 'price',
 				header: '股價',
 			},
 			{
-				accessorKey: 'city',
+				accessorKey: 'up_down.day',
 				header: '漲跌幅(％)',
 			},
 			{
-				accessorKey: 'state',
+				accessorKey: 'up_down.week',
 				header: '週漲跌幅(％)',
 			},
 			{
-				accessorKey: 'state',
+				accessorKey: 'up_down.month',
 				header: '月漲跌幅(％)',
 			},
 			{
-				accessorKey: 'state',
+				accessorKey: 'volume',
 				header: '成交量',
 			},
 			{
-				accessorKey: 'state',
+				accessorKey: 'correlation',
 				header: '相關係數',
 			},
 		],
