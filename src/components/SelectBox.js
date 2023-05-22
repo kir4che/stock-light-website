@@ -584,7 +584,6 @@ export default function SelectBox() {
 			value: 9945,
 		},
 	]
-
 	options.sort()
 
 	return (

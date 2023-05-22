@@ -121,7 +121,7 @@ export default function AnalChart() {
 	}, [activeTabIndex])
 
 	return (
-		<div className='px-3 pt-6 pb-24 bg-white rounded'>
+		<div className='px-3 pt-6 pb-24 bg-white rounded  w-[70vw]'>
 			<h3 className='px-3 mb-3 font-medium tracking-wider'>天氣型態</h3>
 			<div className='relative px-2'>
 				<div className='flex items-center justify-between pt-3 mb-5'>
@@ -161,14 +161,15 @@ export default function AnalChart() {
 					style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
 				/>
 			</div>
+			<h3 className='px-3 mb-8 font-medium tracking-wide'>2330 台積電</h3>
 			{isLoading ? (
 				<ReactLoading type={'spin'} color='#4FBAFF' width={80} height={80} />
 			) : (
 				<>
 					<div ref={chartContainer}></div>
-					<div className='px-5 mt-10 space-y-3'>
+					<div className='px-5 mt-8 space-y-3'>
 						<AnalTable />
-						<p className='text-sm text-right opacity-70'>※ 所有結果皆來自歷史數據所反映</p>
+						<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 					</div>
 				</>
 			)}
