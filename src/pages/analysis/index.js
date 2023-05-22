@@ -1,5 +1,5 @@
-import AnalChart from '@/components/AnalChart'
-import Sidebar from '@/components/AnalSidebar'
+import AnalChart from '@/components/Analysis/AnalChart'
+import Sidebar from '@/components/Analysis/AnalSidebar'
 
 export default function Analysis() {
 	return (

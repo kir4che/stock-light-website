@@ -138,6 +138,13 @@ export default function LightTable() {
 				maxSize: 24,
 				size: 10,
 			}}
+			muiTableBodyProps={{
+				sx: {
+					'& tr:nth-of-type(odd)': {
+						backgroundColor: '#4FBAFF10',
+					},
+				},
+			}}
 			enableRowNumbers
 			rowNumberMode='original'
 			enableColumnActions={false}

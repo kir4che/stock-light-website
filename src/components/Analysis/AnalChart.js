@@ -1,8 +1,8 @@
 'use client'
 
-import AnalTable from '@/components/AnalTable'
-import SelectBox from '@/components/SelectBox'
-import Tooltip from '@/components/Tooltip'
+import AnalTable from '@/components/Analysis/AnalTable'
+import SelectBox from '@/components/Analysis/SelectBox'
+import Tooltip from '@/components/Analysis/Tooltip'
 
 import Highcharts from 'highcharts/highstock'
 import { useEffect, useRef, useState } from 'react'

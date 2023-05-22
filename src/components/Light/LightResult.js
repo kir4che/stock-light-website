@@ -1,6 +1,6 @@
 'use client'
 
-import LightTable from '@/components/LightTable'
+import LightTable from '@/components/Light/LightTable'
 
 import Highcharts from 'highcharts/highstock'
 import { useRouter } from 'next/navigation'

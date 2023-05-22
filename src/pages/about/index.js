@@ -1,6 +1,6 @@
-import Gantt from '@/components/GanttChart'
-import Skill from '@/components/Skill'
-import Team from '@/components/Team'
+import Gantt from '@/components/About/GanttChart'
+import Skill from '@/components/About/Skill'
+import Team from '@/components/About/Team'
 
 export default function About() {
 	return (

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import Lantern from '@/components/Lantern'
+import Lantern from '@/components/Light/Lantern'
 
 export default function Light() {
 	return (
