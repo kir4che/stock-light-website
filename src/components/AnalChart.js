@@ -67,6 +67,9 @@ export default function AnalChart() {
 			},
 
 			title: {
+				text: '2330 台積電的股價與氣溫的相關性分析',
+			},
+			subtitle: {
 				text: '',
 			},
 
@@ -130,7 +133,7 @@ export default function AnalChart() {
 				</p>
 			</div>
 			<div className='relative px-2'>
-				<div className='flex items-center justify-between pt-3 mb-5'>
+				<div className='flex items-center justify-between pt-3 mb-3'>
 					<div className='flex items-center'>
 						{tabsChart.map((tab, i) => {
 							return (
@@ -167,7 +170,6 @@ export default function AnalChart() {
 					style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
 				/>
 			</div>
-			<h3 className='px-3 mb-8 font-medium tracking-wide'>2330 台積電</h3>
 			{isLoading ? (
 				<ReactLoading type={'spin'} color='#4FBAFF' width={80} height={80} />
 			) : (

@@ -8,7 +8,7 @@ export default function Header() {
 
 	return (
 		<header className='bg-white'>
-			<div className='container flex flex-col items-center pt-5 pb-10 mx-auto sm:flex-row'>
+			<div className='container flex flex-col items-center py-5 mx-auto mb-2 sm:flex-row'>
 				<Link href='/' className='flex items-center font-bold sm:mb-0'>
 					<img src='/favicon.ico' alt='股市光明燈' />
 					<h4 className='ml-2'>股市光明燈</h4>

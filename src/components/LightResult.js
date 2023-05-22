@@ -1,6 +1,6 @@
 'use client'
 
-import AnalTable from '@/components/AnalTable'
+import LightTable from '@/components/LightTable'
 
 import Highcharts from 'highcharts/highstock'
 import { useRouter } from 'next/navigation'
@@ -77,7 +77,7 @@ export default function LightResult() {
 	}, [])
 
 	return (
-		<div className='w-full px-3 pt-6 pb-24 bg-white rounded'>
+		<div className='w-full px-3 pt-6 bg-white rounded-2xl pb-14'>
 			<div className='flex items-start justify-between mb-4'>
 				<div className='flex items-end space-x-2 tracking-wider'>
 					<h3 className='pl-3 font-medium'>天氣型態</h3>
@@ -108,7 +108,7 @@ export default function LightResult() {
 				<>
 					<div ref={chartContainer}></div>
 					<div className='px-5 mt-8 space-y-3'>
-						<AnalTable />
+						<LightTable />
 						<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 					</div>
 					<button

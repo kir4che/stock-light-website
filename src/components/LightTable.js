@@ -6,20 +6,86 @@ import { useMemo } from 'react'
 //nested data is ok, see accessorKeys in ColumnDef below
 const data = [
 	{
-		id: 2330,
-		name: '台積電',
-		price: 531.0,
+		id: 2303,
+		name: '聯電',
+		price: 49.95,
 		up_down: {
-			day: -1.0,
-			week: 7.06,
-			month: 5.73,
+			day: 0.2,
+			week: 1.73,
+			month: 2.1,
+			predict: 1.24,
 		},
-		volume: 17186,
-		correlation: 0.71,
+		volume: 28640,
+		correlation: 0.6712,
+	},
+	{
+		id: 2303,
+		name: '聯電',
+		price: 49.95,
+		up_down: {
+			day: 0.2,
+			week: 1.73,
+			month: 2.1,
+			predict: 1.24,
+		},
+		volume: 28640,
+		correlation: 0.6712,
+	},
+	{
+		id: 2303,
+		name: '聯電',
+		price: 49.95,
+		up_down: {
+			day: 0.2,
+			week: 1.73,
+			month: 2.1,
+			predict: 1.24,
+		},
+		volume: 28640,
+		correlation: 0.6712,
+	},
+	{
+		id: 2303,
+		name: '聯電',
+		price: 49.95,
+		up_down: {
+			day: 0.2,
+			week: 1.73,
+			month: 2.1,
+			predict: 1.24,
+		},
+		volume: 28640,
+		correlation: 0.6712,
+	},
+	{
+		id: 2303,
+		name: '聯電',
+		price: 49.95,
+		up_down: {
+			day: 0.2,
+			week: 1.73,
+			month: 2.1,
+			predict: 1.24,
+		},
+		volume: 28640,
+		correlation: 0.6712,
+	},
+	{
+		id: 2303,
+		name: '聯電',
+		price: 49.95,
+		up_down: {
+			day: 0.2,
+			week: 1.73,
+			month: 2.1,
+			predict: 1.24,
+		},
+		volume: 28640,
+		correlation: 0.6712,
 	},
 ]
 
-export default function AnalTable() {
+export default function LightTable() {
 	//should be memoized or stable
 	const columns = useMemo(
 		() => [
@@ -54,6 +120,10 @@ export default function AnalTable() {
 			{
 				accessorKey: 'correlation',
 				header: '相關係數',
+			},
+			{
+				accessorKey: 'up_down.predict',
+				header: '預測漲跌幅(％)',
 			},
 		],
 		[]
