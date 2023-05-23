@@ -1,10 +1,10 @@
 'use client'
 
-import MaterialReactTable from 'material-react-table'
-import { useMemo } from 'react'
+import { createColumnHelper, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { useState } from 'react'
 
-//nested data is ok, see accessorKeys in ColumnDef below
-const data = [
+// 股票數據（目前先定義 5 檔）
+const resultData = [
 	{
 		id: 2303,
 		name: '聯電',
@@ -19,21 +19,8 @@ const data = [
 		correlation: 0.6712,
 	},
 	{
-		id: 2303,
-		name: '聯電',
-		price: 49.95,
-		up_down: {
-			day: 0.2,
-			week: 1.73,
-			month: 2.1,
-			predict: 1.24,
-		},
-		volume: 28640,
-		correlation: 0.6712,
-	},
-	{
-		id: 2303,
-		name: '聯電',
+		id: 2330,
+		name: '台積電',
 		price: 49.95,
 		up_down: {
 			day: 0.2,
@@ -85,74 +72,83 @@ const data = [
 	},
 ]
 
+const columnHelper = createColumnHelper()
+
+// 定義欄位
+const columns = [
+	columnHelper.accessor('id', {
+		cell: (info) => info.getValue(),
+		header: () => '代號',
+		footer: (info) => info.column.id,
+	}),
+	columnHelper.accessor((row) => row.name, {
+		cell: (info) => info.getValue(),
+		header: () => '名稱',
+		footer: (info) => info.column.id,
+	}),
+	columnHelper.accessor('price', {
+		cell: (info) => info.renderValue(),
+		header: () => '股價',
+		footer: (info) => info.column.id,
+	}),
+	columnHelper.accessor('up_down', {
+		header: () => '漲跌(％)',
+		footer: (info) => info.column.id,
+	}),
+	columnHelper.accessor('週漲跌', {
+		header: 'Status',
+		footer: (info) => info.column.id,
+	}),
+	columnHelper.accessor('progress', {
+		header: 'Profile Progress',
+		footer: (info) => info.column.id,
+	}),
+]
+
 export default function LightTable() {
-	//should be memoized or stable
-	const columns = useMemo(
-		() => [
-			{
-				accessorKey: 'id',
-				header: '代號',
-			},
-			{
-				accessorKey: 'name',
-				header: '名稱',
-			},
-			{
-				accessorKey: 'price',
-				header: '股價',
-			},
-			{
-				accessorKey: 'up_down.day',
-				header: '漲跌幅(％)',
-			},
-			{
-				accessorKey: 'up_down.week',
-				header: '週漲跌幅(％)',
-			},
-			{
-				accessorKey: 'up_down.month',
-				header: '月漲跌幅(％)',
-			},
-			{
-				accessorKey: 'volume',
-				header: '成交量',
-			},
-			{
-				accessorKey: 'correlation',
-				header: '相關係數',
-			},
-			{
-				accessorKey: 'up_down.predict',
-				header: '預測漲跌幅(％)',
-			},
-		],
-		[]
-	)
+	const [data, setData] = useState(() => [...resultData])
+
+	const table = useReactTable({
+		data,
+		columns,
+		getCoreRowModel: getCoreRowModel(),
+	})
 
 	return (
-		<MaterialReactTable
-			columns={columns}
-			data={data}
-			defaultColumn={{
-				minSize: 5,
-				maxSize: 24,
-				size: 10,
-			}}
-			muiTableBodyProps={{
-				sx: {
-					'& tr:nth-of-type(odd)': {
-						backgroundColor: '#4FBAFF10',
-					},
-				},
-			}}
-			enableRowNumbers
-			rowNumberMode='original'
-			enableColumnActions={false}
-			enableColumnFilters={false}
-			enablePagination={false}
-			enableBottomToolbar={false}
-			enableTopToolbar={false}
-			muiTableBodyRowProps={{ hover: false }}
-		/>
+		<div className='p-2'>
+			<table>
+				<thead>
+					{table.getHeaderGroups().map((headerGroup) => (
+						<tr key={headerGroup.id}>
+							{headerGroup.headers.map((header) => (
+								<th key={header.id}>
+									{header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+								</th>
+							))}
+						</tr>
+					))}
+				</thead>
+				<tbody>
+					{table.getRowModel().rows.map((row) => (
+						<tr key={row.id}>
+							{row.getVisibleCells().map((cell) => (
+								<td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+							))}
+						</tr>
+					))}
+				</tbody>
+				<tfoot>
+					{table.getFooterGroups().map((footerGroup) => (
+						<tr key={footerGroup.id}>
+							{footerGroup.headers.map((header) => (
+								<th key={header.id}>
+									{header.isPlaceholder ? null : flexRender(header.column.columnDef.footer, header.getContext())}
+								</th>
+							))}
+						</tr>
+					))}
+				</tfoot>
+			</table>
+		</div>
 	)
 }
