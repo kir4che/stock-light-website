@@ -589,7 +589,7 @@ export default function SelectBox() {
 	return (
 		<Select
 			name='stock'
-			className='mt-1 text-sm '
+			className='text-sm '
 			options={options}
 			isSearchable={true}
 			placeholder='股票代號或名稱'

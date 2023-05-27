@@ -1,4 +1,4 @@
-import Temple from '@/components/Temple'
+import Temple from '@/components/Home/Temple'
 
 export default function Banner() {
 	return (

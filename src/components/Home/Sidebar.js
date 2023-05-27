@@ -1,6 +1,6 @@
-export default function HomeSidebar() {
+export default function Sidebar() {
 	return (
-		<div className='hidden space-y-12 w-72 xl:block'>
+		<div className='hidden space-y-12 w-80 lg:block'>
 			<div>
 				<div className='flex items-center pb-2.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
 					<img src='https://img.icons8.com/ios/30/null/news.png' alt='news' />

@@ -1,5 +1,3 @@
-'use client'
-
 import { useEffect, useRef, useState } from 'react'
 
 import Highcharts from 'highcharts/highstock'
@@ -36,6 +34,7 @@ export default function TaiexChart() {
 		// 建立 Highcharts 圖表
 		Highcharts.stockChart(chartContainer.current, {
 			chart: {
+				height: 450,
 				backgroundColor: null,
 			},
 			rangeSelector: {

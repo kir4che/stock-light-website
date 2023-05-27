@@ -300,7 +300,7 @@ h5 {
 .stars,
 .twinkling,
 .clouds {
-	@apply absolute left-0 block w-full h-full min-h-[1300px] top-0;
+	@apply absolute left-0 block w-full h-full min-h-[1400px] top-0;
 }
 
 .stars {

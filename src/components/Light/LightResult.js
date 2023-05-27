@@ -1,11 +1,9 @@
-'use client'
+import ResultTable from '@/components/Light/ResultTable'
 
-import LightTable from '@/components/Light/LightTable'
-
-import Highcharts from 'highcharts/highstock'
 import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
+import Highcharts from 'highcharts'
 import ReactLoading from 'react-loading'
 
 export default function LightResult() {
@@ -17,9 +15,11 @@ export default function LightResult() {
 	useEffect(() => {
 		setIsLoading(true)
 
-		// 迴歸分析圖設定
+		// 多條折線圖
+
 		Highcharts.chart(chartContainer.current, {
 			chart: {
+				height: 450,
 				backgroundColor: null,
 			},
 
@@ -27,45 +27,60 @@ export default function LightResult() {
 				text: '',
 			},
 
-			xAxis: {
-				min: -0.5,
-				max: 5.5,
-				gridLineWidth: 1,
-			},
 			yAxis: {
-				min: 0,
-				gridLineWidth: 1,
+				title: {
+					text: '股價',
+				},
 			},
 
-			// 移除圖例
-			legend: {
-				enabled: false,
+			plotOptions: {
+				series: {
+					label: {
+						connectorAllowed: false,
+					},
+					pointStart: 2010,
+				},
 			},
 
 			series: [
 				{
-					type: 'line',
-					name: 'Regression Line',
-					data: [
-						[0, 1.11],
-						[5, 4.51],
-					],
-					color: '#4FBAFF',
-					lineWidth: 1.5,
-					marker: false,
+					name: 'Installation & Developers',
+					data: [43934, 48656, 65165, 81827, 112143, 142383, 171533, 165174, 155157, 161454, 154610],
 				},
 				{
-					marker: {
-						symbol: 'circle',
-						radius: 4,
-						fillColor: '#FFDC62',
-					},
-					type: 'scatter',
-					name: 'Observations',
-					data: [1, 1.5, 2.8, 3.5, 3.9, 4.2],
-					color: '#FFDC62',
+					name: 'Manufacturing',
+					data: [24916, 37941, 29742, 29851, 32490, 30282, 38121, 36885, 33726, 34243, 31050],
+				},
+				{
+					name: 'Sales & Distribution',
+					data: [11744, 30000, 16005, 19771, 20185, 24377, 32147, 30912, 29243, 29213, 25663],
+				},
+				{
+					name: 'Operations & Maintenance',
+					data: [null, null, null, null, null, null, null, null, 11164, 11218, 10077],
+				},
+				{
+					name: 'Other',
+					data: [21908, 5548, 8105, 11248, 8989, 11816, 18274, 17300, 13053, 11906, 10073],
 				},
 			],
+
+			responsive: {
+				rules: [
+					{
+						condition: {
+							maxWidth: 500,
+						},
+						chartOptions: {
+							legend: {
+								layout: 'horizontal',
+								align: 'center',
+								verticalAlign: 'bottom',
+							},
+						},
+					},
+				],
+			},
 
 			// 移除浮水印
 			credits: {
@@ -77,12 +92,12 @@ export default function LightResult() {
 	}, [])
 
 	return (
-		<div className='w-full px-3 pt-6 bg-white rounded-2xl pb-14'>
+		<div className='w-full p-10 bg-white rounded-2xl'>
 			<div className='flex items-start justify-between mb-4'>
-				<div className='flex items-end space-x-2 tracking-wider'>
-					<h3 className='pl-3 font-medium'>天氣型態</h3>
+				<div className='flex items-end mb-6 space-x-2 tracking-wider'>
+					<h3 className='font-medium '>天氣型態</h3>
 					<p className='text-sm opacity-80'>
-						{new Date().getFullYear()}/{new Date().getMonth()}/{new Date().getDate()}
+						{new Date().getFullYear()}/{new Date().getMonth() + 1}/{new Date().getDate()}
 					</p>
 				</div>
 				<button
@@ -107,12 +122,12 @@ export default function LightResult() {
 			) : (
 				<>
 					<div ref={chartContainer}></div>
-					<div className='px-5 mt-8 space-y-3'>
-						<LightTable />
-						<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+					<div className='px-6 mb-4 space-y-5'>
+						<ResultTable />
+						<p className='text-sm opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 					</div>
 					<button
-						className='flex justify-center px-10 py-2 mx-auto text-sm font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer bg-primary_yellow focus:outline-none sm:mt-0 hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
+						className='flex justify-center px-16 py-2.5 mx-auto mb-8 text-sm font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer bg-primary_yellow focus:outline-none sm:mt-0 hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
 						type='button'
 					>
 						保存結果

@@ -1,8 +1,9 @@
 'use client'
 
-import Banner from '@/components/Banner'
-import Sidebar from '@/components/HomeSidebar'
-import TaiexChart from '@/components/TaiexChart'
+import AnalChart from '@/components/Analysis/AnalChart'
+import Banner from '@/components/Home/Banner'
+import Sidebar from '@/components/Home/Sidebar'
+import TaiexChart from '@/components/Home/TaiexChart'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -12,9 +13,9 @@ export default function Home() {
 		<main>
 			<Banner />
 			<div className='container w-full mx-auto mt-12'>
-				<div className='flex xl:space-x-28'>
+				<div className='flex lg:space-x-10 xl:space-x-24'>
 					<Sidebar />
-					<div className='mb-24'>
+					<div className='w-full mb-32'>
 						<div className='mb-5 -mt-8 -ml-2'>
 							<TaiexChart />
 						</div>
@@ -32,7 +33,7 @@ export default function Home() {
 
 						<div>
 							<h3 className='mb-4 font-medium'>本日最佳趨勢</h3>
-							<img src='https://fakeimg.pl/920x320/' />
+							<AnalChart />
 							<div className='flex flex-row-reverse'>
 								<button
 									className='px-12 py-2 mt-4 font-medium text-white duration-300 border-0 rounded-full cursor-pointer bg-secondary_blue hover:ring-2 hover:ring-offset-2'

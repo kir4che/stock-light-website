@@ -7,7 +7,7 @@ export default function Light() {
 		<div id='stars-background-container'>
 			<div className='container flex py-20 mx-auto space-x-6'>
 				<Lantern />
-				<Link href='/light/result'>
+				<Link href='/light/checkout'>
 					<button>祈福</button>
 				</Link>
 			</div>

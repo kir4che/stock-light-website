@@ -38,7 +38,7 @@ export default function Skill() {
 				},
 				{
 					icon: 'https://img.icons8.com/color/28/tailwind_css.png',
-					name: 'Tailwind',
+					name: 'Tailwind CSS',
 				},
 				{
 					icon: 'https://cdn.worldvectorlogo.com/logos/highcharts.svg',
@@ -57,18 +57,18 @@ export default function Skill() {
 		<section className='container'>
 			<div className='flex justify-center w-full'>
 				{skill_list.map((item) => (
-					<div className='p-6' key={item.id}>
+					<ul className='p-6' key={item.id}>
 						<h4 className='mb-4 font-medium'>{item.category}</h4>
 						{item.skills.map((skill) => (
-							<button
+							<li
 								className='flex items-center justify-center px-4 py-1.5 mx-auto mb-3 rounded-full button'
 								key={skill.name}
 							>
 								<img className='w-6 mr-1' src={skill.icon} alt={skill.name}></img>
 								{skill.name}
-							</button>
+							</li>
 						))}
-					</div>
+					</ul>
 				))}
 			</div>
 		</section>
