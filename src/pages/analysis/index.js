@@ -73,7 +73,7 @@ const analEvent = [
 ]
 
 export default function Analysis() {
-	const [active, setActive] = useState(2)
+	const [active, setActive] = useState(2) // 之後要改回 0
 
 	const handleClick = (eventId) => {
 		setActive(eventId)

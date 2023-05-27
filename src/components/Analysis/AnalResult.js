@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 export default function AnalResult(props) {
 	const event = props.event
 
-	const [activeTabIndex, setActiveTabIndex] = useState(0)
+	const [activeTabIndex, setActiveTabIndex] = useState(2) // 之後要改回 0
 	const [tabUnderlineWidth, setTabUnderlineWidth] = useState(0)
 	const [tabUnderlineLeft, setTabUnderlineLeft] = useState(0)
 

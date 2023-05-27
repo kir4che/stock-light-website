@@ -591,6 +591,11 @@ export default function SelectBox() {
 			name='stock'
 			className='text-sm '
 			options={options}
+			// 之後要把預設值拿掉
+			defaultValue={{
+				label: '2330 台積電',
+				value: 2330,
+			}}
 			isSearchable={true}
 			placeholder='股票代號或名稱'
 			theme={(theme) => ({

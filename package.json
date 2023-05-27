@@ -16,6 +16,8 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "echarts": "^5.4.2",
+    "echarts-stat": "^1.2.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "highcharts": "^11.0.1",
