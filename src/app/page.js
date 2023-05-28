@@ -13,7 +13,7 @@ export default function Home() {
 		<main>
 			<Banner />
 			<div className='container w-full mx-auto mt-12'>
-				<div className='flex lg:space-x-10 xl:space-x-24'>
+				<div className='flex lg:space-x-10 xl:space-x-16'>
 					<Sidebar />
 					<div className='w-full mb-32'>
 						<div className='mb-5 -mt-8 -ml-2'>

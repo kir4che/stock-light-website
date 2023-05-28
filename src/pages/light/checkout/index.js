@@ -135,7 +135,7 @@ export default function Checkout() {
 						<p>香油錢</p>
 						<p className='font-bold'>NT＄100 TWD</p>
 					</div>
-					<Button color='success' variant='contained' fullWidth={true} onClick={() => router.push('/light/result')}>
+					<Button variant='contained' fullWidth={true} onClick={() => router.push('/light/result')}>
 						完成付款
 					</Button>
 				</Paper>
