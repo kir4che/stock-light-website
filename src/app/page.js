@@ -12,14 +12,13 @@ export default function Home() {
 	return (
 		<main>
 			<Banner />
-			<div className='container w-full mx-auto mt-12'>
+			<div className='container w-full mx-auto mt-12 mb-20'>
 				<div className='flex lg:space-x-10 xl:space-x-16'>
 					<Sidebar />
-					<div className='w-full mb-32'>
+					<div className='w-full'>
 						<div className='h-96'>
 							<TaiexChart />
 						</div>
-
 						<div className='flex items-center mt-6 mb-14'>
 							<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
 							<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
@@ -31,7 +30,6 @@ export default function Home() {
 								我要點燈！
 							</button>
 						</div>
-
 						<div>
 							<h3 className='mb-4 font-medium'>本日最佳趨勢</h3>
 							<div className='h-[480px]'>

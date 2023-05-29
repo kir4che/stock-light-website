@@ -28,11 +28,11 @@ function createData(symbol, name, price, up_down_day, up_down_week, up_down_pred
 
 // 數據，目前先呈現五檔
 const rows = [
-	createData(2303, '聯電', 49.95, 0.2, 2.1, 1.24, 28640, 0.67),
-	createData(2330, '台積電', 531.0, -1.0, 7.06, 3.21, 17186, 0.71),
-	createData(2886, '兆豐金', 36.2, 0.84, 0.56, 2.0, 25379, 0.46),
-	createData(2454, '聯發科', 708.0, -0.42, 1.43, 1.7, 4655, 0.32),
-	createData(2412, '中華電', 128.0, 1.19, 0.39, 1.53, 16128, 0.12),
+	createData(2330, '台積電', 532.0, 0.0, 0.0, 0.0, 32099068, 0.0),
+	createData(2454, '聯發科', 698.0, 0.0, 0.0, 0.0, 4968629, 0.0),
+	createData(2603, '長榮', 150.5, 0.0, 0.0, 0.0, 15244624, 0.0),
+	createData(2880, '華南金', 22.75, 0.0, 0.0, 0.0, 15869113, 0.0),
+	createData(3008, '大立光', 2320.0, 0.0, 0.0, 0.0, 639460, 0.0),
 ]
 
 function descendingComparator(a, b, orderBy) {
@@ -87,7 +87,7 @@ const headCells = [
 	{
 		id: 'volume',
 		numeric: true,
-		label: '交易量',
+		label: '成交量',
 	},
 	{
 		id: 'correlation',
@@ -173,12 +173,12 @@ export default function ResultTable() {
 											{row.symbol}
 										</TableCell>
 										<TableCell align='left'>{row.name}</TableCell>
-										<TableCell align='right'>{row.price}</TableCell>
-										<TableCell align='right'>{row.up_down.day}</TableCell>
-										<TableCell align='right'>{row.up_down.week}</TableCell>
-										<TableCell align='right'>{row.volume}</TableCell>
-										<TableCell align='right'>{row.correlation}</TableCell>
-										<TableCell align='right'>{row.up_down.predict}</TableCell>
+										<TableCell align='right'>{row.price.toFixed(2)}</TableCell>
+										<TableCell align='right'>{row.up_down.day.toFixed(2)}</TableCell>
+										<TableCell align='right'>{row.up_down.week.toFixed(2)}</TableCell>
+										<TableCell align='right'>{row.volume.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</TableCell>
+										<TableCell align='right'>{row.correlation.toFixed(2)}</TableCell>
+										<TableCell align='right'>{row.up_down.predict.toFixed(2)}</TableCell>
 									</TableRow>
 								)
 							})}

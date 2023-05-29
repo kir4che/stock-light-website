@@ -1,10 +1,10 @@
 import * as echarts from 'echarts'
-import ecStat from 'echarts-stat'
-
 import ReactEcharts from 'echarts-for-react'
+import ecStat from 'echarts-stat'
+import { useEffect, useState } from 'react'
 
 export default function AnalChart() {
-	echarts.registerTransform(ecStat.transform.regression)
+	const [option, setOption] = useState(null)
 
 	const data = [
 		[24.2, 530],
@@ -252,76 +252,85 @@ export default function AnalChart() {
 		[24.1, 532],
 	]
 
-	const option = {
-		dataset: [
-			{
-				source: data,
-			},
-			{
-				transform: {
-					type: 'ecStat:regression',
+	useEffect(() => {
+		echarts.registerTransform(ecStat.transform.regression)
+
+		const option = {
+			dataset: [
+				{
+					source: data,
+				},
+				{
+					transform: {
+						type: 'ecStat:regression',
+					},
+				},
+			],
+			title: {
+				text: '2330 台積電的股價與氣溫的相關性分析',
+				left: 'center',
+				textStyle: {
+					color: '#252525',
+					fontSize: '1.2rem',
 				},
 			},
-		],
-		title: {
-			text: '2330 台積電的股價與氣溫的相關性分析',
-			left: 'center',
-			textStyle: {
-				color: '#252525',
-				fontSize: '1.2rem',
+			legend: {
+				bottom: 5,
 			},
-		},
-		legend: {
-			bottom: 5,
-		},
-		tooltip: {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'cross',
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'cross',
+				},
 			},
-		},
-		xAxis: {
-			type: 'value',
-			min: 10,
-			max: 35,
-		},
-		yAxis: {
-			type: 'value',
-			min: 300,
-			max: 600,
-		},
-		series: [
-			{
-				name: '',
-				type: 'scatter',
+			xAxis: {
+				type: 'value',
+				min: 10,
+				max: 35,
 			},
-			{
-				name: 'line',
-				type: 'line',
-				datasetIndex: 1,
-				symbolSize: 0.1,
-				symbol: 'circle',
-				label: { show: true, fontSize: 16 },
-				labelLayout: { dx: -20 },
-				encode: { label: 2, tooltip: 1 },
+			yAxis: {
+				type: 'value',
+				min: 300,
+				max: 600,
 			},
-		],
+			series: [
+				{
+					name: '',
+					type: 'scatter',
+				},
+				{
+					name: 'line',
+					type: 'line',
+					datasetIndex: 1,
+					symbolSize: 0.1,
+					symbol: 'circle',
+					label: { show: true, fontSize: 16 },
+					labelLayout: { dx: -20 },
+					encode: { label: 2, tooltip: 1 },
+				},
+			],
+			grid: {
+				x: 40,
+				y: 60,
+				x2: 8,
+				y2: 60,
+			},
+		}
 
-		grid: {
-			x: 40,
-			y: 60,
-			x2: 8,
-			y2: 60,
-		},
-	}
+		setOption(option)
+	}, [])
 
 	return (
-		<ReactEcharts
-			option={option}
-			style={{
-				height: '100%',
-				width: '100%',
-			}}
-		/>
+		<>
+			{option && (
+				<ReactEcharts
+					option={option}
+					style={{
+						height: '100%',
+						width: '100%',
+					}}
+				/>
+			)}
+		</>
 	)
 }

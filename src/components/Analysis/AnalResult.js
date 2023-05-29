@@ -32,7 +32,8 @@ export default function AnalResult(props) {
 			<div className='flex items-end mb-3 space-x-2 tracking-wider'>
 				<h3 className='pl-3 font-medium'>{event.category}</h3>
 				<p className='text-sm opacity-80'>
-					{new Date().getFullYear()}/{new Date().getMonth() + 1}/{new Date().getDate()}
+					{/* {new Date().getFullYear()}/{new Date().getMonth() + 1}/{new Date().getDate()} */}
+					2022/05/19
 				</p>
 			</div>
 			<div className='relative px-2'>
