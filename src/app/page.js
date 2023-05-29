@@ -16,10 +16,11 @@ export default function Home() {
 				<div className='flex lg:space-x-10 xl:space-x-16'>
 					<Sidebar />
 					<div className='w-full mb-32'>
-						<div className='mb-5 -mt-8 -ml-2'>
+						<div className='h-96'>
 							<TaiexChart />
 						</div>
-						<div className='flex items-center w-full mb-12'>
+
+						<div className='flex items-center mt-6 mb-14'>
 							<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
 							<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 							<button
@@ -33,7 +34,9 @@ export default function Home() {
 
 						<div>
 							<h3 className='mb-4 font-medium'>本日最佳趨勢</h3>
-							<AnalChart />
+							<div className='h-[480px]'>
+								<AnalChart />
+							</div>
 							<div className='flex flex-row-reverse'>
 								<button
 									className='px-12 py-2 mt-4 font-medium text-white duration-300 border-0 rounded-full cursor-pointer bg-secondary_blue hover:ring-2 hover:ring-offset-2'

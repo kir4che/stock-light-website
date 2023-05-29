@@ -73,7 +73,9 @@ export default function AnalResult(props) {
 					style={{ left: tabUnderlineLeft, width: tabUnderlineWidth }}
 				/>
 			</div>
-			<AnalChart />
+			<div className='h-[480px] px-4'>
+				<AnalChart />
+			</div>
 			<div className='px-5 mt-6 space-y-5'>
 				<AnalTable />
 				<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
