@@ -292,6 +292,15 @@ h5 {
 	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[370px];
 }
 
+/* 新聞敘述 */
+.news-content {
+	@apply w-full overflow-hidden leading-7 opacity-50 text-ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	box-sizing: border-box;
+}
+
 /* 夜空背景 */
 #stars-background-container {
 	@apply z-0 h-full;

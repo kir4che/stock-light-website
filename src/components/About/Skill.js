@@ -41,8 +41,8 @@ export default function Skill() {
 					name: 'Tailwind CSS',
 				},
 				{
-					icon: 'https://cdn.worldvectorlogo.com/logos/highcharts.svg',
-					name: 'Highchart.js',
+					icon: 'https://p1-jj.byteimg.com/tos-cn-i-t2oaga2asx/leancloud-assets/7761624853837b0f78cc.png~tplv-t2oaga2asx-no-mark:100:100:100:100.awebp',
+					name: 'Apache ECharts',
 				},
 			],
 		},

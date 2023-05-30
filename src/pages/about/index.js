@@ -1,6 +1,6 @@
-import Gantt from '@/components/About/GanttChart'
 import Skill from '@/components/About/Skill'
 import Team from '@/components/About/Team'
+import Timeline from '@/components/About/Timeline'
 
 export default function About() {
 	return (
@@ -14,13 +14,13 @@ export default function About() {
 				</p>
 				<Team />
 			</div>
-			<div className='text-center mb-28'>
+			<div className='mb-24 text-center'>
 				<h3 className='mb-5 font-medium '>本站所用技術</h3>
 				<Skill />
 			</div>
-			<div className='text-center mb-28'>
-				<h3 className='mb-5 font-medium '>開發時程</h3>
-				<Gantt />
+			<div className='mb-10 text-center'>
+				<h3 className='-mb-8 font-medium '>開發時程</h3>
+				<Timeline />
 			</div>
 		</div>
 	)

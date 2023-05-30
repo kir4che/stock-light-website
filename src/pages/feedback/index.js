@@ -1,34 +1,101 @@
+import Button from '@mui/material/Button'
+import Dialog from '@mui/material/Dialog'
+import DialogActions from '@mui/material/DialogActions'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import DialogTitle from '@mui/material/DialogTitle'
+import { useState } from 'react'
+
 export default function Feedback() {
+	const [email, setEmail] = useState('')
+	const [subject, setSubject] = useState('')
+	const [message, setMessage] = useState('')
+
+	const [open, setOpen] = useState(false)
+
+	const handleClickOpen = () => {
+		if (email && subject && message) setOpen(true)
+	}
+
+	const handleClose = () => {
+		setEmail('')
+		setSubject('')
+		setMessage('')
+		setOpen(false)
+	}
+
 	return (
-        <div>
-            <form>
-                <h1 className="flex justify-center font-bold text-3xl mt-10 py-10">意見回饋</h1>
-                <div className="flex flex-col items-center mb-10">
-                    <div>
-                        <p className="flex justify-center text-lg">姓名</p>
-                        <input type="text" name="name" className="mt-5 mb-5 border-2 border-black"></input> 
-                    </div>
-                    <div>
-                        <p className="flex justify-center text-lg">E-Mail</p>
-                        <input type="text" name="email" className="mt-5 mb-5 border-2 border-black"></input> 
-                    </div>
-                    <div>
-                        <p className="flex justify-center text-lg">主旨</p>
-                        <textarea name="title" rows="5" cols="30" className="mt-5 mb-5 border-2 border-black"></textarea>
-                    </div>
-                    <div>
-                        <p className="flex justify-center">內容</p>
-                        <textarea name="contents" rows="5" cols="30" className="mt-5 mb-5 border-2 border-black"></textarea>
-                    </div>
-                    <div>
-                        <button 
-                            className='flex px-12 py-2 mt-4 font-medium text-black duration-300 border-0 rounded-full cursor-pointer bg-primary_yellow hover:ring-2 hover:ring-offset-2  hover:ring-primary_yellow'
-                            type="submit"
-                        >送出</button>
-                    </div>
-                </div>
-                
-            </form>
-        </div>
+		<section>
+			<div className='max-w-screen-sm px-8 py-20 mx-auto lg:px-0'>
+				<h2 className='mb-5 font-bold tracking-tight text-center'>意見回饋</h2>
+				<p className='mb-8 text-xl font-light text-center opacity-60'>如果你有任何建議或問題，歡迎寄信給我們！</p>
+				<form action='#' className='space-y-8'>
+					<div>
+						<label for='email' className='block mb-2 text-sm font-medium'>
+							電子郵件
+						</label>
+						<input
+							id='email'
+							value={email}
+							type='email'
+							className='shadow-sm bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 '
+							required
+							onChange={(e) => {
+								setEmail(e.target.value)
+							}}
+						/>
+					</div>
+					<div>
+						<label for='subject' className='block mb-2 text-sm font-medium'>
+							標題
+						</label>
+						<input
+							id='subject'
+							value={subject}
+							type='text'
+							className='block w-full p-3 text-sm border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-primary-500 focus:border-primary-500'
+							required
+							onChange={(e) => {
+								setSubject(e.target.value)
+							}}
+						/>
+					</div>
+					<div className='sm:col-span-2'>
+						<label for='message' className='block mb-2 text-sm font-medium'>
+							內容
+						</label>
+						<textarea
+							id='message'
+							value={message}
+							rows='6'
+							className='block p-2.5 w-full text-sm bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500'
+							required
+							onChange={(e) => {
+								setMessage(e.target.value)
+							}}
+						></textarea>
+					</div>
+					<button
+						type='submit'
+						className='flex px-20 py-2 mx-auto font-medium text-center transition border-2 rounded-full tracking-wides text-secondary_blue border-secondary_blue hover:bg-secondary_blue hover:text-white'
+						onClick={handleClickOpen}
+					>
+						送出
+					</button>
+				</form>
+			</div>
+			<Dialog open={open} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
+				<DialogTitle id='alert-dialog-title'>{'送出成功'}</DialogTitle>
+				<img className='w-32 mx-auto' src='../images/mail-submit-success.png' alt='success' />
+				<DialogContent>
+					<DialogContentText id='alert-dialog-description'>您的回饋已送出，我們會盡快回覆您！</DialogContentText>
+				</DialogContent>
+				<DialogActions>
+					<Button onClick={handleClose} autoFocus>
+						沒問題
+					</Button>
+				</DialogActions>
+			</Dialog>
+		</section>
 	)
 }
