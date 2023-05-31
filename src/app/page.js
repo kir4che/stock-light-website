@@ -1,5 +1,3 @@
-'use client'
-
 import LinearRegChart from '@/components/Analysis/LinearRegChart'
 import Banner from '@/components/Home/Banner'
 import Sidebar from '@/components/Home/Sidebar'
