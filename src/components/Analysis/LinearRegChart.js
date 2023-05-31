@@ -109,7 +109,7 @@ export default function LinearRegChart(props) {
 		echarts.registerTransform(ecStat.transform.regression)
 
 		let resultData = []
-		data.forEach((item, i) => {
+		data.map((item, i) => {
 			let dataTemp = []
 			let price = stockPrice.find((item) => item.id === stock)
 			dataTemp.push(item)

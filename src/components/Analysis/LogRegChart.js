@@ -111,7 +111,7 @@ export default function LogRegChart(props) {
 		let resultData = []
 		let price = stockPrice.find((item) => item.id === stock)
 
-		price.data.forEach((item, i) => {
+		price.data.map((item, i) => {
 			let dataTemp = []
 			dataTemp.push(item)
 			dataTemp.push(data[i])
