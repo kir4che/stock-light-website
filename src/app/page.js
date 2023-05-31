@@ -56,6 +56,7 @@ export default function Home() {
 											28.3, 29.4, 19.9, 20.7, 22.4, 24.3, 24.7, 25.1, 26.9, 28.3, 29.9, 24.1,
 										],
 									}}
+									stock={2330}
 								/>
 							</div>
 							<div className='flex flex-row-reverse'>
