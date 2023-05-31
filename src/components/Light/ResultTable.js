@@ -37,6 +37,11 @@ export default function ResultTable() {
 
 	const visibleRows = useMemo(() => stableSort(data, getComparator(order, orderBy)), [order, orderBy])
 
+	const [open, setOpen] = useState(false)
+
+	const handleClickOpen = () => setOpen(true)
+	const handleClose = () => setOpen(false)
+
 	return (
 		<Box sx={{ width: '100%' }}>
 			<Paper sx={{ width: '100%', mb: 2 }}>
@@ -50,11 +55,6 @@ export default function ResultTable() {
 						/>
 						<TableBody>
 							{visibleRows.map((row) => {
-								const [open, setOpen] = useState(false)
-
-								const handleClickOpen = () => setOpen(true)
-								const handleClose = () => setOpen(false)
-
 								return (
 									<TableRow key={row.symbol} className='[&:nth-child(odd)]:bg-secondary_blue/5'>
 										<TableCell align='right' component='th' scope='row'>
