@@ -10,20 +10,16 @@ const Alert = forwardRef(function Alert(props, ref) {
 export default function SaveButton() {
 	const [open, setOpen] = useState(false)
 
-	const handleClick = () => {
-		setOpen(true)
-	}
+	const handleClickOpen = () => setOpen(true)
 
-	const handleClose = () => {
-		setOpen(false)
-	}
+	const handleClose = () => setOpen(false)
 
 	return (
 		<Stack spacing={2} sx={{ width: '100%' }}>
 			<button
 				type='button'
 				className='flex justify-center px-16 py-2.5 mx-auto text-sm font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer bg-primary_yellow focus:outline-none sm:mt-0 hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
-				onClick={handleClick}
+				onClick={handleClickOpen}
 			>
 				保存結果
 			</button>

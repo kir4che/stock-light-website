@@ -1,7 +1,6 @@
-import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import AnalChart from '@/components/Analysis/AnalChart'
 import AnalTable from '@/components/Analysis/AnalTable'
@@ -12,9 +11,13 @@ export default function AnalResult(props) {
 
 	const [activeTabIndex, setActiveTabIndex] = useState(0)
 
-	const handleChange = (event, tabIndex) => {
+	const handleChangeActive = (event, tabIndex) => {
 		setActiveTabIndex(tabIndex)
 	}
+
+	useEffect(() => {
+		setActiveTabIndex(0) // 當 event 值變化時，將 activeTabIndex 設回預設值0
+	}, [event])
 
 	return (
 		<div className='px-3 pt-6 pb-16 mb-20 bg-white rounded w-[70vw]'>
@@ -25,21 +28,15 @@ export default function AnalResult(props) {
 				</p>
 			</div>
 			<div className='relative px-2'>
-				<div className='flex items-center justify-between pt-3 mb-5'>
-					<Box sx={{ width: '100%' }}>
-						<Tabs value={activeTabIndex} onChange={handleChange}>
-							{event.sub_category.length > 0
-								? event.sub_category.map((tab, i) => {
-										return <Tab key={i} label={tab.label} />
-								  })
-								: ''}
-						</Tabs>
-					</Box>
+				<div className='flex items-center justify-between pt-3 mb-6 space-x-10'>
+					<Tabs value={activeTabIndex} onChange={handleChangeActive} variant='scrollable' scrollButtons={false}>
+						{event.tabs.length > 0 ? event.tabs.map((tab, i) => <Tab key={i} label={tab.label} />) : 'null'}
+					</Tabs>
 					<SelectBox />
 				</div>
 			</div>
 			<div className='h-[480px] px-4'>
-				<AnalChart />
+				<AnalChart tab={event.tabs[activeTabIndex]} />
 			</div>
 			<div className='px-5 mt-6 space-y-5'>
 				<AnalTable />

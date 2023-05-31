@@ -14,26 +14,6 @@ export default function TaiexChart() {
 					fontSize: '1.4rem',
 				},
 			},
-			xAxis: {
-				type: 'time',
-			},
-			yAxis: {
-				type: 'value',
-				min: function (value) {
-					return Math.floor((value.min - 100) / 100) * 100
-				},
-			},
-			dataZoom: [
-				{
-					type: 'inside',
-					start: 0,
-					end: 20,
-				},
-				{
-					start: 0,
-					end: 20,
-				},
-			],
 			dataset: {
 				source: [
 					['2023-5-19', 16174.92],
@@ -858,6 +838,27 @@ export default function TaiexChart() {
 					['2020-1-2', 12100.48],
 				],
 			},
+			xAxis: {
+				type: 'time',
+			},
+			yAxis: {
+				type: 'value',
+				name: '指數',
+				min: function (value) {
+					return Math.floor((value.min - 100) / 100) * 100
+				},
+			},
+			dataZoom: [
+				{
+					type: 'inside',
+					start: 0,
+					end: 20,
+				},
+				{
+					start: 0,
+					end: 20,
+				},
+			],
 			series: [
 				{
 					type: 'line',
@@ -884,11 +885,14 @@ export default function TaiexChart() {
 					},
 				},
 			],
+			tooltip: {
+				trigger: 'axis',
+			},
 			grid: {
 				x: 50,
-				y: 60,
+				y: 80,
 				x2: 5,
-				y2: 60,
+				y2: 75,
 			},
 		}
 

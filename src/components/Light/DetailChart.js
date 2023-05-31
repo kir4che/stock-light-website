@@ -3,10 +3,27 @@ import ReactEcharts from 'echarts-for-react'
 import ecStat from 'echarts-stat'
 import { useEffect, useState } from 'react'
 
-export default function AnalChart(props) {
-	const tab = props.tab
+export default function DetailChart(props) {
+	const { symbol, name } = props
 
-	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 40)
+	const [option, setOption] = useState(null)
+
+	const temperature = [
+		24.2, 23.7, 23, 22.9, 23.4, 22.5, 29.1, 26.3, 29, 29.5, 27.8, 22.9, 22.2, 25.1, 26.6, 28.8, 29.4, 26.1, 26.2, 28.2,
+		30.1, 29.2, 30.1, 29.3, 27.4, 29, 29.8, 29.9, 30.7, 30.2, 28.4, 27.6, 29.4, 29.2, 30.4, 31.6, 31.3, 30.8, 31.2,
+		31.7, 31.1, 29.7, 29.4, 31.7, 32.6, 32, 30.9, 31.3, 30.7, 30.5, 30, 27.4, 29.5, 29.3, 30, 31.1, 31.2, 30.9, 30.8,
+		30.5, 30.9, 30.3, 30.8, 30.2, 30.3, 32.1, 31.8, 31.6, 29.1, 30.9, 30.5, 30.8, 30.5, 28, 26.6, 29.5, 27.2, 27.7,
+		27.5, 26, 26, 27.4, 27.5, 27.9, 27.8, 26.4, 25.9, 26.2, 26, 28.3, 28.9, 29.6, 30, 29.6, 30.4, 29.4, 26.7, 25.5,
+		25.2, 21.2, 22.1, 23.1, 23.7, 23.1, 19.2, 21.2, 22.9, 24.4, 22.4, 22.1, 23.9, 24.7, 23.8, 22.3, 20.9, 21.9, 23.4,
+		21.4, 22.7, 22.8, 26.1, 25.9, 26.1, 24.2, 25.5, 23.3, 24.3, 25.1, 24.3, 25.8, 22.2, 20.8, 22.1, 25.5, 26.5, 19.6,
+		17.9, 19, 19.2, 17.6, 19.1, 18.7, 18.7, 16.4, 15.7, 14.7, 16.6, 18.7, 14.8, 19.4, 15.8, 14.3, 12.1, 15.1, 16.5,
+		16.9, 16.4, 16.5, 16.1, 16.3, 19.3, 18.2, 20.3, 19.8, 20.7, 21.5, 23.2, 12.8, 15.2, 14.7, 16.5, 17.6, 17.5, 17.5,
+		17.6, 18.8, 19.4, 18.5, 18.2, 20.8, 13.9, 12.8, 15.9, 19, 15.3, 14.1, 16.3, 18.8, 17.3, 18.6, 16.7, 17.2, 18.9,
+		20.5, 20.3, 20, 21.6, 14.7, 18.8, 20.7, 22.3, 22.3, 21.5, 24, 26.4, 25.1, 22.1, 17.1, 18, 20.7, 19.1, 18.6, 23.4,
+		17.6, 22.7, 24.4, 23.5, 25.8, 25.8, 26.1, 27.1, 25.5, 22.9, 21.2, 21.2, 20, 18.8, 22.2, 25.1, 26.6, 28, 28.3, 29.4,
+		19.9, 20.7, 22.4, 24.3, 24.7, 25.1, 26.9, 28.3, 29.9, 24.1,
+	]
+
 	const stockPrice = [
 		{
 			id: 2330,
@@ -102,23 +119,23 @@ export default function AnalChart(props) {
 		},
 	]
 
-	const [option, setOption] = useState(null)
-
 	useEffect(() => {
 		echarts.registerTransform(ecStat.transform.regression)
 
-		let resultData = []
-		data.forEach((item, i) => {
+		let data = []
+		temperature.forEach((item, i) => {
 			let dataTemp = []
-			let stock = stockPrice.find((item) => item.id === 2330)
+			let stock = stockPrice.find((item) => item.id === symbol)
 			dataTemp.push(item)
 			dataTemp.push(stock.data[i])
-			resultData.push(dataTemp)
+			data.push(dataTemp)
 		})
+
+		console.log(data)
 
 		const option = {
 			title: {
-				text: `2330 台積電的股價與${tab.label}的相關性分析`,
+				text: `${symbol} ${name}的股價與氣溫的相關性分析`,
 				left: 'center',
 				textStyle: {
 					color: '#252525',
@@ -127,7 +144,7 @@ export default function AnalChart(props) {
 			},
 			dataset: [
 				{
-					source: resultData,
+					source: data,
 				},
 				{
 					transform: {
@@ -135,8 +152,8 @@ export default function AnalChart(props) {
 					},
 				},
 			],
-			tooltip: {
-				trigger: 'axis',
+			legend: {
+				bottom: 5,
 			},
 			xAxis: {
 				type: 'value',
@@ -147,6 +164,12 @@ export default function AnalChart(props) {
 				type: 'value',
 				name: '收盤價',
 				scale: true,
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'cross',
+				},
 			},
 			series: [
 				{
@@ -168,15 +191,15 @@ export default function AnalChart(props) {
 				x: 40,
 				y: 60,
 				x2: 8,
-				y2: 40,
+				y2: 60,
 			},
 		}
 
 		setOption(option)
-	}, [tab])
+	}, [])
 
 	return (
-		<>
+		<div className='h-[450px] px-4'>
 			{option && (
 				<ReactEcharts
 					option={option}
@@ -186,6 +209,6 @@ export default function AnalChart(props) {
 					}}
 				/>
 			)}
-		</>
+		</div>
 	)
 }

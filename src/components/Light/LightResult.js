@@ -1,8 +1,8 @@
-import ResultTable from '@/components/Light/ResultTable'
-import { useRouter } from 'next/navigation'
-
 import LightChart from '@/components/Light/LightChart'
+import ResultTable from '@/components/Light/ResultTable'
 import SaveButton from '@/components/Light/SaveButton'
+
+import { useRouter } from 'next/navigation'
 
 export default function LightResult() {
 	const router = useRouter()
@@ -34,7 +34,7 @@ export default function LightResult() {
 				</button>
 			</div>
 			<LightChart />
-			<div className='px-6 mb-6 space-y-5'>
+			<div className='px-6 my-6 space-y-5'>
 				<ResultTable />
 				<p className='text-sm opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 			</div>

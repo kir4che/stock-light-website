@@ -16,7 +16,7 @@ export default function Home() {
 				<div className='flex lg:space-x-10 xl:space-x-16'>
 					<Sidebar />
 					<div className='w-full'>
-						<div className='h-96'>
+						<div className='h-[420px]'>
 							<TaiexChart />
 						</div>
 						<div className='flex items-center mt-6 mb-14'>

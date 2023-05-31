@@ -17,18 +17,13 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Checkout() {
-	const router = useRouter()
-
-	const [value, setValue] = useState('credit_card')
 	const [open, setOpen] = useState(false)
 
-	const handleChange = (event) => {
-		setValue(event.target.value)
-	}
+	const handleClickOpen = () => setOpen(true)
 
-	const handleClickOpen = () => {
-		setOpen(true)
-	}
+	const [value, setValue] = useState('credit_card')
+
+	const handleChange = (event) => setValue(event.target.value)
 
 	const [cardNumber, setCardNumber] = useState('')
 	const [nameOnCard, setNameOnCard] = useState('')
@@ -197,37 +192,7 @@ export default function Checkout() {
 					</Button>
 				</Paper>
 			</Container>
-			<Dialog
-				open={open}
-				fullWidth={true}
-				maxWidth='xs'
-				aria-labelledby='alert-dialog-title'
-				aria-describedby='alert-dialog-description'
-			>
-				<DialogContent className='space-y-4 text-center'>
-					<svg
-						aria-hidden='true'
-						class='w-24 h-24 text-green-500 rounded-full bg-green-100 p-2 mx-auto'
-						fill='currentColor'
-						viewBox='0 0 20 20'
-						xmlns='http://www.w3.org/2000/svg'
-					>
-						<path
-							fill-rule='evenodd'
-							d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-							clip-rule='evenodd'
-						></path>
-					</svg>
-					<DialogContentText id='alert-dialog-description'>
-						<span className='text-lg font-bold tracking-wider text-text_black'>付款完成</span>
-					</DialogContentText>
-				</DialogContent>
-				<DialogActions className='mx-auto'>
-					<Button onClick={() => router.push('/light/result')} autoFocus>
-						查看祈福結果
-					</Button>
-				</DialogActions>
-			</Dialog>
+			<SuccessDialog open={open} />
 			<div className='stars'></div>
 			<div className='twinkling'></div>
 			<div className='clouds'></div>
@@ -235,4 +200,42 @@ export default function Checkout() {
 	)
 }
 
-function CreditCard() {}
+function SuccessDialog(props) {
+	const router = useRouter()
+
+	const { open } = props
+
+	return (
+		<Dialog
+			open={open}
+			fullWidth={true}
+			maxWidth='xs'
+			aria-labelledby='alert-dialog-title'
+			aria-describedby='alert-dialog-description'
+		>
+			<DialogContent className='space-y-4 text-center'>
+				<svg
+					aria-hidden='true'
+					class='w-24 h-24 text-green-500 rounded-full bg-green-100 p-2 mx-auto'
+					fill='currentColor'
+					viewBox='0 0 20 20'
+					xmlns='http://www.w3.org/2000/svg'
+				>
+					<path
+						fill-rule='evenodd'
+						d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+						clip-rule='evenodd'
+					></path>
+				</svg>
+				<DialogContentText id='alert-dialog-description'>
+					<span className='text-lg font-bold tracking-wider text-text_black'>付款完成</span>
+				</DialogContentText>
+			</DialogContent>
+			<DialogActions className='mx-auto'>
+				<Button onClick={() => router.push('/light/result')} autoFocus>
+					查看祈福結果
+				</Button>
+			</DialogActions>
+		</Dialog>
+	)
+}

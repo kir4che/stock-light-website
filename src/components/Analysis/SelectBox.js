@@ -589,7 +589,7 @@ export default function SelectBox() {
 	return (
 		<Select
 			name='stock'
-			className='text-sm '
+			className='w-48 text-sm'
 			options={options}
 			// 之後要把預設值拿掉
 			defaultValue={{
