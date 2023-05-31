@@ -8,7 +8,7 @@ export default function LinearRegChart(props) {
 	const stock = props.stock
 
 	let data = []
-	data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
+	data = tab && tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
 	const stockPrice = [
 		{
 			id: 2330,
