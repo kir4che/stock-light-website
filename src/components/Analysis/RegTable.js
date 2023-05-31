@@ -21,9 +21,19 @@ function createData(symbol, name, price, up_down_day, up_down_week, volume, corr
 }
 
 // 個股數據
-const rows = [createData(2330, '台積電', 531.0, -1.0, 7.06, 17186, -0.0193)]
+const stockTable = [
+	createData(2330, '台積電', 532, 0.38, 7.26, 32099068, -0.0193),
+	createData(2454, '聯發科', 698, 1.31, 3.71, 4968629, -0.1211),
+	createData(2603, '長榮', 150.5, -0.33, -1.31, 15244624, 0.4775),
+	createData(2880, '華南金', 22.75, 0.89, 3.88, 15869113, -0.1379),
+	createData(3008, '大立光', 2260, 2.26, 7.88, 843935, -0.5256),
+]
 
-export default function RegTable() {
+export default function RegTable(props) {
+	const stock = props.stock
+
+	const rows = stockTable.filter((item) => item.symbol === stock)
+
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label='simple table'>
@@ -45,11 +55,19 @@ export default function RegTable() {
 								{row.symbol}
 							</TableCell>
 							<TableCell align='left'>{row.name}</TableCell>
-							<TableCell align='right'>{row.price}</TableCell>
-							<TableCell align='right'>{row.up_down.day}</TableCell>
-							<TableCell align='right'>{row.up_down.week}</TableCell>
-							<TableCell align='right'>{row.volume}</TableCell>
-							<TableCell align='right'>{row.correlation}</TableCell>
+							<TableCell align='right'>{row.price.toFixed(2)}</TableCell>
+							<TableCell align='right'>
+								<span className={(row.up_down.day >= 0 ? 'text-stock_red' : 'text-stock_green') + ' font-medium'}>
+									{(row.up_down.day >= 0 ? '▲ ' : '▼ ') + row.up_down.day.toFixed(2)}
+								</span>
+							</TableCell>
+							<TableCell align='right'>
+								<span className={(row.up_down.week >= 0 ? 'text-stock_red' : 'text-stock_green') + ' font-medium'}>
+									{(row.up_down.week >= 0 ? '▲ ' : '▼ ') + row.up_down.week.toFixed(2)}
+								</span>
+							</TableCell>
+							<TableCell align='right'>{row.volume.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</TableCell>
+							<TableCell align='right'>{row.correlation.toFixed(4)}</TableCell>
 						</TableRow>
 					))}
 				</TableBody>

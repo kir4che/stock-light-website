@@ -84,9 +84,14 @@ export default function Feedback() {
 					</button>
 				</form>
 			</div>
-			<Dialog open={open} aria-labelledby='alert-dialog-title' aria-describedby='alert-dialog-description'>
+			<Dialog
+				open={open}
+				className='text-center'
+				aria-labelledby='alert-dialog-title'
+				aria-describedby='alert-dialog-description'
+			>
 				<DialogTitle id='alert-dialog-title'>{'送出成功'}</DialogTitle>
-				<img className='w-32 mx-auto' src='../images/mail-submit-success.png' alt='success' />
+				<img className='w-32 mx-auto' src='../images/email-received-icon.svg' alt='success' />
 				<DialogContent>
 					<DialogContentText id='alert-dialog-description'>您的回饋已送出，我們會盡快回覆您！</DialogContentText>
 				</DialogContent>

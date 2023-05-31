@@ -82,7 +82,7 @@ export default function AnalResult(props) {
 								<LinearRegChart tab={activeTab} stock={stock} />
 							</div>
 							<div className='px-5 mt-6 space-y-5'>
-								<RegTable />
+								<RegTable stock={stock} />
 								<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 							</div>
 						</>
@@ -92,7 +92,7 @@ export default function AnalResult(props) {
 								<LogRegChart tab={activeTab} stock={stock} />
 							</div>
 							<div className='px-5 mt-6 space-y-5'>
-								<RegTable />
+								<RegTable stock={stock} />
 								<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 							</div>
 						</>
