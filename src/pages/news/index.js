@@ -110,7 +110,7 @@ export default function News() {
 					<h3 className='mb-6 font-light'>{new Date().getFullYear()} 年 5 月份</h3>
 					{news.map((el) => {
 						return (
-							<div className='mb-8'>
+							<div className='mb-8' key={el.title}>
 								<a target='_blank' href={el.link}>
 									<h4 className='mb-2 font-bold hover:text-secondary_blue'>{el.title}</h4>
 								</a>
@@ -190,7 +190,7 @@ export default function News() {
 						</div>
 						{popularTags.map((tag) => {
 							return (
-								<p className='inline-block mb-2 mr-1'>
+								<p className='inline-block mb-2 mr-1' key={tag}>
 									<span className='px-2.5 py-1.5 text-white rounded-full bg-secondary_blue text-sm'>＃{tag}</span>
 								</p>
 							)
