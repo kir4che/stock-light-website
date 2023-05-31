@@ -15,9 +15,16 @@ export default function AnalResult(props) {
 		setActiveTabIndex(tabIndex)
 	}
 
+	const [activeTab, setActiveTab] = useState(event.tabs[activeTabIndex])
+
 	useEffect(() => {
 		setActiveTabIndex(0) // 當 event 值變化時，將 activeTabIndex 設回預設值0
+		setActiveTab(event.tabs[0])
 	}, [event])
+
+	useEffect(() => {
+		setActiveTab(event.tabs[activeTabIndex])
+	}, [activeTabIndex])
 
 	return (
 		<div className='px-3 pt-6 pb-16 mb-20 bg-white rounded w-[70vw]'>
@@ -36,7 +43,7 @@ export default function AnalResult(props) {
 				</div>
 			</div>
 			<div className='h-[480px] px-4'>
-				<AnalChart tab={event.tabs[activeTabIndex]} />
+				<AnalChart tab={activeTab} />
 			</div>
 			<div className='px-5 mt-6 space-y-5'>
 				<AnalTable />

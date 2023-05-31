@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 export default function AnalChart(props) {
 	const tab = props.tab
 
-	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 40)
+	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
 	const stockPrice = [
 		{
 			id: 2330,
