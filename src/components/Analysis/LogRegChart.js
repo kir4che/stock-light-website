@@ -3,8 +3,9 @@ import ReactEcharts from 'echarts-for-react'
 import ecStat from 'echarts-stat'
 import { useEffect, useState } from 'react'
 
-export default function AnalChart(props) {
+export default function LogRegChart(props) {
 	const tab = props.tab
+	const stock = props.stock
 
 	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
 	const stockPrice = [
@@ -108,17 +109,18 @@ export default function AnalChart(props) {
 		echarts.registerTransform(ecStat.transform.regression)
 
 		let resultData = []
-		data.forEach((item, i) => {
+		let price = stockPrice.find((item) => item.id === stock)
+
+		price.data.forEach((item, i) => {
 			let dataTemp = []
-			let stock = stockPrice.find((item) => item.id === 2330)
 			dataTemp.push(item)
-			dataTemp.push(stock.data[i])
+			dataTemp.push(data[i])
 			resultData.push(dataTemp)
 		})
 
 		const option = {
 			title: {
-				text: `2330 台積電的股價與${tab.label}的相關性分析`,
+				text: `${stock} 股價與${tab.label}的相關性分析`,
 				left: 'center',
 				textStyle: {
 					color: '#252525',
@@ -132,6 +134,9 @@ export default function AnalChart(props) {
 				{
 					transform: {
 						type: 'ecStat:regression',
+						config: {
+							method: 'logarithmic',
+						},
 					},
 				},
 			],
@@ -140,12 +145,11 @@ export default function AnalChart(props) {
 			},
 			xAxis: {
 				type: 'value',
-				name: '日均溫',
+				name: '收盤價',
 				scale: true,
 			},
 			yAxis: {
 				type: 'value',
-				name: '收盤價',
 				scale: true,
 			},
 			series: [
@@ -173,7 +177,7 @@ export default function AnalChart(props) {
 		}
 
 		setOption(option)
-	}, [tab])
+	}, [tab, stock])
 
 	return (
 		<>

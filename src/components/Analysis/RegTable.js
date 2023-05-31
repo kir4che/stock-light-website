@@ -23,7 +23,7 @@ function createData(symbol, name, price, up_down_day, up_down_week, volume, corr
 // 個股數據
 const rows = [createData(2330, '台積電', 531.0, -1.0, 7.06, 17186, -0.0193)]
 
-export default function AnalTable() {
+export default function RegTable() {
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label='simple table'>

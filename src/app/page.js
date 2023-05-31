@@ -1,6 +1,6 @@
 'use client'
 
-import AnalChart from '@/components/Analysis/AnalChart'
+import LinearRegChart from '@/components/Analysis/LinearRegChart'
 import Banner from '@/components/Home/Banner'
 import Sidebar from '@/components/Home/Sidebar'
 import TaiexChart from '@/components/Home/TaiexChart'
@@ -33,7 +33,7 @@ export default function Home() {
 						<div>
 							<h3 className='mb-4 font-medium'>本日最佳趨勢</h3>
 							<div className='h-[480px]'>
-								<AnalChart
+								<LinearRegChart
 									tab={{
 										label: '氣溫',
 										isExplain: false,
