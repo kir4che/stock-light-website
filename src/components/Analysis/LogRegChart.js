@@ -7,7 +7,8 @@ export default function LogRegChart(props) {
 	const tab = props.tab
 	const stock = props.stock
 
-	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
+	let data = []
+	data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
 	const stockPrice = [
 		{
 			id: 2330,
@@ -111,7 +112,7 @@ export default function LogRegChart(props) {
 		let resultData = []
 		let price = stockPrice.find((item) => item.id === stock)
 
-		price.data.map((item, i) => {
+		price.data.forEach((item, i) => {
 			let dataTemp = []
 			dataTemp.push(item)
 			dataTemp.push(data[i])

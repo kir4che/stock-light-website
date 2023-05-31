@@ -7,7 +7,8 @@ export default function LinearRegChart(props) {
 	const tab = props.tab
 	const stock = props.stock
 
-	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
+	let data = []
+	data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
 	const stockPrice = [
 		{
 			id: 2330,
@@ -109,7 +110,7 @@ export default function LinearRegChart(props) {
 		echarts.registerTransform(ecStat.transform.regression)
 
 		let resultData = []
-		data.map((item, i) => {
+		data.forEach((item, i) => {
 			let dataTemp = []
 			let price = stockPrice.find((item) => item.id === stock)
 			dataTemp.push(item)
