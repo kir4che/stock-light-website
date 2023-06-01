@@ -38,12 +38,10 @@ export default function ResultTable() {
 	const visibleRows = useMemo(() => stableSort(data, getComparator(order, orderBy)), [order, orderBy])
 
 	const [selectedSymbol, setSelectedSymbol] = useState('')
-	const [selectedName, setSelectedName] = useState('')
 	const [open, setOpen] = useState(false)
 
-	const handleClickOpen = (symbol, name) => {
+	const handleClickOpen = (symbol) => {
 		setSelectedSymbol(symbol)
-		setSelectedName(name)
 		setOpen(true)
 	}
 	const handleClose = () => setOpen(false)
@@ -97,7 +95,7 @@ export default function ResultTable() {
 												詳細數據
 											</button>
 										</TableCell>
-										<DetailDialog open={open} symbol={selectedSymbol} name={selectedName} handleClose={handleClose} />
+										<DetailDialog open={open} symbol={selectedSymbol} handleClose={handleClose} />
 									</TableRow>
 								)
 							})}
@@ -115,7 +113,7 @@ export default function ResultTable() {
 }
 
 function DetailDialog(props) {
-	const { open, symbol, name, handleClose } = props
+	const { open, symbol, handleClose } = props
 
 	return (
 		<Dialog
