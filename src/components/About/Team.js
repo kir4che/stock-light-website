@@ -11,7 +11,7 @@ export default function Team() {
 			id: 2,
 			name: '葉柏賢',
 			duty: '後端、分析數據',
-			img: 'https://dummyimage.com/720x400',
+			img: '../images/109AB0712.jpg',
 			desc: 'Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.',
 		},
 		{
