@@ -4,7 +4,8 @@ import ecStat from 'echarts-stat'
 import { useEffect, useState } from 'react'
 
 export default function DetailChart(props) {
-	const { symbol, name } = props
+	const symbol = props.symbol
+	const name = props.name
 
 	const [option, setOption] = useState(null)
 
@@ -122,16 +123,14 @@ export default function DetailChart(props) {
 	useEffect(() => {
 		echarts.registerTransform(ecStat.transform.regression)
 
-		let data = []
+		let resultData = []
 		temperature.forEach((item, i) => {
 			let dataTemp = []
-			let stock = stockPrice.find((item) => item.id === symbol)
+			let price = stockPrice.find((item) => item.id === symbol)
 			dataTemp.push(item)
-			dataTemp.push(stock.data[i])
-			data.push(dataTemp)
+			dataTemp.push(price.data[i])
+			resultData.push(dataTemp)
 		})
-
-		console.log(data)
 
 		const option = {
 			title: {
@@ -144,7 +143,7 @@ export default function DetailChart(props) {
 			},
 			dataset: [
 				{
-					source: data,
+					source: resultData,
 				},
 				{
 					transform: {
