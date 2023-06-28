@@ -380,11 +380,11 @@ h5 {
 }
 
 .card-group .card {
-	@apply w-full bg-white rounded-2xl px-6 pt-4 pb-8 xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+	@apply w-full bg-white px-2 pt-4 pb-8 xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
 }
 
 .card-group .card .card-img {
-	@apply object-cover object-center w-full h-56 rounded xl:h-44;
+	@apply object-cover object-center w-full h-64;
 }
 
 .card-group .card .back {

@@ -30,21 +30,13 @@ export default function Checkout() {
 	const [expMonth, setExpMonth] = useState('')
 	const [expYear, setExpYear] = useState('')
 
-	const handleCardNumberChange = (event) => {
-		setCardNumber(event.target.value)
-	}
+	const handleCardNumberChange = (event) => setCardNumber(event.target.value)
 
-	const handleNameChange = (event) => {
-		setNameOnCard(event.target.value)
-	}
+	const handleNameChange = (event) => setNameOnCard(event.target.value)
 
-	const handleExpMonthChange = (event) => {
-		setExpMonth(event.target.value)
-	}
+	const handleExpMonthChange = (event) => setExpMonth(event.target.value)
 
-	const handleExpYearChange = (event) => {
-		setExpYear(event.target.value)
-	}
+	const handleExpYearChange = (event) => setExpYear(event.target.value)
 
 	return (
 		<div id='stars-background-container'>

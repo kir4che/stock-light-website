@@ -13,8 +13,8 @@ export default function Skill() {
 					name: 'Django',
 				},
 				{
-					icon: 'https://img.icons8.com/external-those-icons-flat-those-icons/24/external-MySQL-programming-and-development-those-icons-flat-those-icons.png',
-					name: 'MySQL',
+					icon: 'https://img.icons8.com/color/24/mongodb.png',
+					name: 'NoSQL',
 				},
 			],
 		},
@@ -49,22 +49,32 @@ export default function Skill() {
 		{
 			id: 4,
 			category: '統計分析',
-			skills: [],
+			skills: [
+				{
+					icon: '',
+					name: '敘述統計',
+				},
+				{
+					icon: '',
+					name: '卡方檢定',
+				},
+				{
+					icon: '',
+					name: '迴歸分析',
+				},
+			],
 		},
 	]
 
 	return (
 		<section className='container'>
-			<div className='flex justify-center w-full'>
+			<div className='flex flex-col justify-center w-full md:flex-row'>
 				{skill_list.map((item) => (
-					<ul className='p-6' key={item.id}>
-						<h4 className='mb-4 font-medium'>{item.category}</h4>
+					<ul className='flex py-3 px-14 md:px-6 md:block md:py-4' key={item.id}>
+						<h4 className='font-medium md:mb-4'>{item.category}</h4>
 						{item.skills.map((skill) => (
-							<li
-								className='flex items-center justify-center px-4 py-1.5 mx-auto mb-3 rounded-full button'
-								key={skill.name}
-							>
-								<img className='w-6 mr-1' src={skill.icon} alt={skill.name}></img>
+							<li className='flex items-center justify-center px-4 md:mx-auto md:py-1.5 md:mb-3' key={skill.name}>
+								{skill.icon !== '' ? <img className='w-6 mr-1' src={skill.icon} alt={skill.name}></img> : null}
 								{skill.name}
 							</li>
 						))}

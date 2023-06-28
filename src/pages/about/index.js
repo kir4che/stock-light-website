@@ -5,7 +5,7 @@ import Timeline from '@/components/About/Timeline'
 export default function About() {
 	return (
 		<div className='container w-full mx-auto mt-12'>
-			<div className='pt-6 pb-10 mb-20 text-center'>
+			<div className='pt-6 pb-10 mb-16 text-center'>
 				<h3 className='mb-3 font-medium'>開發團隊</h3>
 				<p className='text-sm leading-6 mb-7'>
 					一群由臺北科技大學資訊與財金管理系的學生所組成的團隊
