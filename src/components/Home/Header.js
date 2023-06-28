@@ -37,13 +37,11 @@ export default function Header() {
 	}, [])
 
 	const switchTheme = () => {
-		if (isMounted) {
-			setTheme(theme === 'light' ? 'dark' : 'light')
-		}
+		if (isMounted) setTheme(theme === 'light' ? 'dark' : 'light')
 	}
 
 	return (
-		<header>
+		<header className='bg-white dark:bg-zinc-900'>
 			<div className='container flex items-center justify-between px-4 py-2 mx-auto md:justify-start md:px-0 md:py-5'>
 				<Link href='/' className='flex items-center font-bold'>
 					<img src='/favicon.ico' alt='股市光明燈' />
@@ -59,18 +57,31 @@ export default function Header() {
 				</nav>
 				<div className='flex items-center'>
 					<button
-						className='hidden px-6 py-2 mr-2 font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer bg-primary_yellow md:block focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
+						className='hidden px-6 py-2 mr-2 font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer text-zinc-900 bg-primary_yellow md:block focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
 						type='button'
 						onClick={() => router.push('/light')}
 					>
 						我要點燈！
 					</button>
 					<BurgerMenu pages={pages} />
-					<button className='p-1.5 rounded-full hover:bg-gray-500/10' onClick={switchTheme}>
-						{theme === 'light' ? (
-							<img width='24' height='24' src='https://img.icons8.com/ios/50/moon-symbol.png' alt='moon-symbol' />
+					<button
+						className='p-1.5 rounded-full hover:bg-gray-500/10 dark:hover:hover:bg-white/10'
+						onClick={switchTheme}
+					>
+						{theme !== 'dark' ? (
+							<img
+								width='24'
+								height='24'
+								src='https://img.icons8.com/sf-regular-filled/48/moon-symbol.png'
+								alt='dark mode'
+							/>
 						) : (
-							<img width='24' height='24' src='https://img.icons8.com/ios/50/sun.png' alt='moon-symbol' />
+							<img
+								width='24'
+								height='24'
+								src='https://img.icons8.com/ios-filled/50/FFFFFF/sun--v1.png'
+								alt='light mode'
+							/>
 						)}
 					</button>
 				</div>

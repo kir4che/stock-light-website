@@ -23,7 +23,7 @@ export default function Home() {
 							<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
 							<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 							<button
-								className='light-btn font-medium cursor-pointer px-12 py-1.5 bg-primary_yellow'
+								className='light-btn font-medium text-zinc-900 cursor-pointer px-12 py-1.5 bg-primary_yellow'
 								type='button'
 								onClick={() => router.push('/light')}
 							>

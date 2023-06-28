@@ -4,27 +4,25 @@
 
 html,
 body {
-	@apply h-full p-0 m-0 text-text_black;
+	@apply h-full p-0 m-0 text-zinc-900 dark:text-white dark:bg-zinc-900;
 }
 
-h1 {
-	@apply text-4xl font-bold;
-}
-
-h2 {
-	@apply text-3xl;
-}
-
-h3 {
-	@apply text-2xl;
-}
-
-h4 {
-	@apply text-xl;
-}
-
-h5 {
-	@apply text-lg;
+@layer base {
+	h1 {
+		@apply text-4xl font-bold;
+	}
+	h2 {
+		@apply text-3xl;
+	}
+	h3 {
+		@apply text-2xl;
+	}
+	h4 {
+		@apply text-xl;
+	}
+	h5 {
+		@apply text-lg;
+	}
 }
 
 /* 首頁 -「我要點燈」按鈕，不是Header上的！ */
@@ -55,7 +53,6 @@ h5 {
 }
 
 /* 首頁寺廟SVG */
-
 #banner-temple {
 	display: block;
 	margin: 0 auto;
@@ -248,29 +245,6 @@ h5 {
 	}
 }
 
-/* 首頁Banner標題 */
-
-#banner-title {
-	@apply hidden text-[145px] tracking-wide font-black text-primary_yellow md:block lg:text-[198px] xl:text-[215px] xl:tracking-[0.2em];
-}
-
-#banner-title #股 {
-	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[370px];
-}
-
-#banner-title #市 {
-	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[370px] -z-10;
-}
-
-#banner-title #光 {
-	@apply relative -top-[345px] delay-1000 lg:-top-[457px] xl:-top-[470px] text-white;
-	background: linear-gradient(120deg, #ffdc62 30%, #ffe791 100%);
-	-webkit-background-clip: text;
-	-webkit-text-fill-color: transparent;
-	filter: drop-shadow(0px 0px 5px #fff7dc) drop-shadow(0px 0px 10px #fff1c1);
-	animation: slide-bottom 3s ease-in-out;
-}
-
 @keyframes slide-bottom {
 	0%,
 	30% {
@@ -374,24 +348,23 @@ h5 {
 	}
 }
 
-/* 開發團隊 - 成員卡片組件 */
 .card-group {
 	@apply flex flex-wrap justify-center mx-auto space-x-4 text-left xl:space-x-8;
 }
 
 .card-group .card {
-	@apply w-full bg-white px-2 pt-4 pb-8 xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+	@apply w-full px-2 pt-4 pb-8 xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
 }
 
-.card-group .card .card-img {
+.card-group .card img {
 	@apply object-cover object-center w-full h-64;
 }
 
-.card-group .card .back {
+.card-group .card:hover img {
 	@apply hidden;
 }
 
-.card-group .card:hover .card-img {
+.card-group .card .back {
 	@apply hidden;
 }
 

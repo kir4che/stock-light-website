@@ -220,7 +220,7 @@ function SuccessDialog(props) {
 					></path>
 				</svg>
 				<DialogContentText id='alert-dialog-description'>
-					<span className='text-lg font-bold tracking-wider text-text_black'>付款完成</span>
+					<span className='text-lg font-bold tracking-wider text-zinc-900'>付款完成</span>
 				</DialogContentText>
 			</DialogContent>
 			<DialogActions className='mx-auto'>

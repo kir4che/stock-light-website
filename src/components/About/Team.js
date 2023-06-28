@@ -34,9 +34,9 @@ export default function Team() {
 		<ul className='card-group'>
 			{members.map((member) => (
 				<li className='card' key={member.id}>
-					<h4 className='font-medium '>{member.name}</h4>
+					<h4>{member.name}</h4>
 					<p className='mb-4 text-xs tracking-widest opacity-75'>{member.duty}</p>
-					<img className='card-img' src={member.img} alt={member.name} />
+					<img className='object-cover object-center w-full h-64' src={member.img} alt={member.name} />
 					<p className='back'>{member.desc}</p>
 				</li>
 			))}

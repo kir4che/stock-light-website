@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Footer() {
 	return (
-		<footer className='bg-white'>
+		<footer className='bg-white dark:bg-zinc-900'>
 			<div className='container flex flex-col flex-wrap pt-12 pb-10 mx-auto border-t-[1.5px] sm:items-center lg:items-start sm:flex-row sm:flex-nowrap'>
 				<div className='w-48 mx-auto text-center md:text-left'>
 					{/* <img className='w-full' src='https://fakeimg.pl/200x100/' alt='股市光明燈' /> */}

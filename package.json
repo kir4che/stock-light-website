@@ -16,6 +16,7 @@
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "autoprefixer": "10.4.14",
+    "css-loader": "^6.8.1",
     "echarts": "^5.4.2",
     "echarts-for-react": "^3.0.2",
     "echarts-stat": "^1.2.0",
@@ -28,6 +29,7 @@
     "react-dom": "^18.2.0",
     "react-material-ui-carousel": "^3.4.2",
     "react-select": "^5.7.3",
+    "style-loader": "^3.3.3",
     "tailwindcss": "3.3.2"
   }
 }
