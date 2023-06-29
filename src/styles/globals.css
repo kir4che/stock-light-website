@@ -4,7 +4,7 @@
 
 html,
 body {
-	@apply h-full p-0 m-0 text-zinc-900 dark:text-white dark:bg-zinc-900;
+	@apply h-full p-0 m-0 text-zinc-900 dark:text-white dark:bg-zinc-800;
 }
 
 @layer base {

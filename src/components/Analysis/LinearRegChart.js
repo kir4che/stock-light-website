@@ -119,8 +119,10 @@ export default function LinearRegChart(props) {
 		})
 
 		const option = {
+			backgroundColor: '',
 			title: {
 				text: `${stock} 股價與${tab.label}的相關性分析`,
+				top: 20,
 				left: 'center',
 				textStyle: {
 					color: '#252525',
@@ -167,10 +169,10 @@ export default function LinearRegChart(props) {
 				},
 			],
 			grid: {
-				x: 40,
-				y: 60,
-				x2: 8,
-				y2: 40,
+				x: 56,
+				y: 72,
+				x2: 24,
+				y2: 45,
 			},
 		}
 
@@ -181,6 +183,7 @@ export default function LinearRegChart(props) {
 		<>
 			{option && (
 				<ReactEcharts
+					className='dark:bg-white rounded-2xl'
 					option={option}
 					style={{
 						height: '100%',

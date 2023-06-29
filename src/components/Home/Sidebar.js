@@ -3,7 +3,7 @@ export default function Sidebar() {
 		<div className='hidden space-y-12 w-80 xl:block'>
 			<div>
 				<div className='flex items-center pb-2.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
-					<img src='https://img.icons8.com/ios/30/null/news.png' alt='news' />
+					<img className='dark:fill-white' src='https://img.icons8.com/ios/30/news.png' alt='news' />
 					<h5 className='font-medium'>理財新聞</h5>
 				</div>
 				<ul className='space-y-3'>
