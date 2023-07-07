@@ -2,8 +2,11 @@
 
 import LinearRegChart from '@/components/Analysis/LinearRegChart'
 import Banner from '@/components/Home/Banner'
+import NewsTicker from '@/components/Home/NewsTicker'
 import Sidebar from '@/components/Home/Sidebar'
 import TaiexChart from '@/components/Home/TaiexChart'
+
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 export default function Home() {
@@ -12,20 +15,28 @@ export default function Home() {
 	return (
 		<div>
 			<Banner />
-			<main>
-				<div className='container w-full pt-12 mx-auto mb-20'>
-					<div className='flex lg:space-x-10 xl:space-x-16'>
-						<Sidebar />
-						<div className='w-full'>
-							<div className='h-96'>
-								<h3 className='mb-4 font-medium'>台股大盤指數</h3>
+			<NewsTicker />
+			<main className='pt-12 pb-24'>
+				<div className='container w-full mx-auto'>
+					<div className='flex justify-between md:space-x-10 xl:space-x-16'>
+						<div>
+							<Sidebar />
+						</div>
+						<div className='w-full px-4 md:px-0'>
+							<div className='flex items-baseline space-x-2'>
+								<h5 className='mb-2 text-zinc-600 dark:text-white/80'>台股大盤指數</h5>
+								<button className='px-2.5 py-1 text-sm rounded-xl bg-stock_green/10 text-stock_green dark:bg-stock_green/80 dark:text-white'>
+									↗ {(((16174.92 - 16101.88) / 16101.88) * 100).toFixed(2)}%
+								</button>
+							</div>
+							<div className='h-80 lg:h-[400px]'>
 								<TaiexChart />
 							</div>
-							<div className='flex items-center mt-20 mb-14'>
-								<img className='w-10' src='../images/good-quality-64.png' alt='recommend' />
+							<div className='flex items-center mt-16 mb-20'>
+								<Image src='/images/good-quality-64.png' width={40} height={40} alt='recommend' />
 								<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 								<button
-									className='light-btn font-medium text-zinc-900 cursor-pointer px-12 py-1.5 bg-primary_yellow'
+									className='light-btn font-medium text-zinc-900 px-12 py-1.5 bg-primary_yellow'
 									type='button'
 									onClick={() => router.push('/light')}
 								>
@@ -33,8 +44,8 @@ export default function Home() {
 								</button>
 							</div>
 							<div>
-								<h3 className='mb-4 font-medium'>本日最佳趨勢</h3>
-								<div className='h-[480px]'>
+								<h5 className='mb-4 text-zinc-600 dark:text-white/80'>本日最佳趨勢</h5>
+								<div className='h-80 sm:h-96 lg:h-[450px]'>
 									<LinearRegChart
 										tab={{
 											label: '氣溫',
@@ -64,7 +75,7 @@ export default function Home() {
 								</div>
 								<div className='flex flex-row-reverse'>
 									<button
-										className='px-12 py-2 mt-4 font-medium text-white duration-300 border-0 rounded-full cursor-pointer dark:text-zinc-900 bg-secondary_blue hover:ring-2 hover:ring-offset-2'
+										className='px-12 py-2 mt-6 font-medium duration-300 border-none rounded-full dark:text-zinc-900 bg-secondary_blue hover:ring-2 hover:ring-offset-2'
 										type='button'
 										onClick={() => router.push('/analysis')}
 									>

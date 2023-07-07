@@ -3,7 +3,7 @@ import Carousel from 'react-material-ui-carousel'
 export default function Timeline() {
 	return (
 		<Carousel
-			className='w-[740px] px-14 mx-auto'
+			className='w-[740px] h-[430px] px-12 flex items-center justify-center bg-white rounded-xl mx-auto'
 			navButtonsAlwaysVisible={true}
 			cycleNavigation={false}
 			indicators={false}

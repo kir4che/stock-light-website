@@ -826,8 +826,13 @@ export default function TaiexChart() {
 	]
 
 	const [option, setOption] = useState(null)
+	const [currentIndex, setCurrentIndex] = useState(null)
+	const [currentDate, setCurrentDate] = useState('')
 
 	useEffect(() => {
+		setCurrentIndex(16174.92)
+		setCurrentDate('2023-5-19')
+
 		const option = {
 			backgroundColor: '',
 			dataset: {
@@ -890,14 +895,20 @@ export default function TaiexChart() {
 	return (
 		<>
 			{option && (
-				<ReactEcharts
-					className='dark:bg-white rounded-2xl'
-					option={option}
-					style={{
-						height: '100%',
-						width: '100%',
-					}}
-				/>
+				<>
+					<div className='flex items-baseline mb-2 space-x-3'>
+						<h3 className='font-bold'>{currentIndex}</h3>
+						<p className='text-xs font-light'>{currentDate}</p>
+					</div>
+					<ReactEcharts
+						className='bg-white shadow-md rounded-2xl'
+						option={option}
+						style={{
+							height: '100%',
+							width: '100%',
+						}}
+					/>
+				</>
 			)}
 		</>
 	)

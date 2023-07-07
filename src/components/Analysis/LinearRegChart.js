@@ -183,7 +183,7 @@ export default function LinearRegChart(props) {
 		<>
 			{option && (
 				<ReactEcharts
-					className='dark:bg-white rounded-2xl'
+					className='bg-white shadow-md rounded-2xl'
 					option={option}
 					style={{
 						height: '100%',
