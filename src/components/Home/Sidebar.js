@@ -75,7 +75,7 @@ export default function Sidebar() {
 					<h5 className='font-medium'>版本資訊</h5>
 				</div>
 				<ul className='space-y-2 text-sm'>
-					<li>v0.1 版本上線</li>
+					<li>v0.2 版本上線</li>
 				</ul>
 			</div>
 		</div>

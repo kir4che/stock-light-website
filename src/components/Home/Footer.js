@@ -27,12 +27,15 @@ export default function Footer() {
 	return (
 		<footer className='bg-white dark:bg-zinc-900'>
 			<div className='container flex flex-col items-center py-10 mx-auto sm:items-start sm:flex-row'>
-				<div className='mx-auto text-center md:text-left'>
+				<div className='mx-auto text-center md:text-center'>
 					<img className='w-full mb-3' src='https://fakeimg.pl/180x92/' alt='股市光明燈' />
 					<h4 className='mb-2 font-bold'>股市光明燈</h4>
 					<p className='text-sm'>帶給所有投資人新的希望</p>
 				</div>
 				<div className='flex flex-col flex-wrap justify-center flex-grow mt-4 space-y-4 text-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
+					<div className='flex flex-row items-end'>
+						<p className='font-thin text-sm'>Copy right by @北科大資財四乙 2023</p>
+					</div>	
 					<nav className='flex justify-center space-x-4 sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
 						{pages.map((page) => (
 							<Link className='text-sm' href={page.url} key={page.url}>
@@ -40,8 +43,8 @@ export default function Footer() {
 							</Link>
 						))}
 					</nav>
-					<nav className='hidden space-y-5 text-sm sm:block'>
-						<h4 className='mb-2 font-medium'>聯絡方式</h4>
+					<nav className='hidden space-y-5 sm:block'>
+						<h4 className='mb-2 font-bold text-xl'>聯絡方式</h4>
 						<div className='flex items-center mb-1 space-x-2'>
 							<img src='https://img.icons8.com/ios/20/address--v1.png' alt='address' />
 							<a
