@@ -13,6 +13,7 @@ export default function Light() {
 				{Array.from({ length: lanternCount }).map((_, index) => (
 					<Lantern key={index}/>
 				))}	
+				<span className='lantern'></span>
 				<Link href='/light/checkout'>
 					<button>祈福</button>
 				</Link>

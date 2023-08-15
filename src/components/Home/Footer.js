@@ -33,9 +33,6 @@ export default function Footer() {
 					<p className='text-sm'>帶給所有投資人新的希望</p>
 				</div>
 				<div className='flex flex-col flex-wrap justify-center flex-grow mt-4 space-y-4 text-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
-					<div className='flex flex-row items-end'>
-						<p className='font-thin text-sm'>Copy right by @北科大資財四乙 2023</p>
-					</div>	
 					<nav className='flex justify-center space-x-4 sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
 						{pages.map((page) => (
 							<Link className='text-sm' href={page.url} key={page.url}>
@@ -64,6 +61,9 @@ export default function Footer() {
 						</div>
 					</nav>
 				</div>
+			</div>
+			<div className='container flex flex-col items-center py-5 mx-auto'>
+					<p className='font-thin text-sm'>copyright © 北科大資財四乙 2023 All Rights Reserved.</p>			
 			</div>
 		</footer>
 	)
