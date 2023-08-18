@@ -1,15 +1,7 @@
-import Box from '@mui/material/Box'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
-import Tab from '@mui/material/Tab'
-import Tabs from '@mui/material/Tabs'
+import { Box, FormControl, InputLabel, MenuItem, Select, Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
-
-import LinearRegChart from '@/components/Analysis/LinearRegChart'
-import LogRegChart from '@/components/Analysis/LogRegChart'
-import RegTable from '@/components/Analysis/RegTable'
+import LinearRegChart from './LinearRegChart'
+import LogRegChart from './LogRegChart'
 
 export default function AnalResult(props) {
 	const event = props.event

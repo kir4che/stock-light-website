@@ -1,3 +1,6 @@
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
+import CampaignIcon from '@mui/icons-material/Campaign'
+
 export default function News() {
 	const news = [
 		{
@@ -148,7 +151,7 @@ export default function News() {
 					</div>
 					<div>
 						<div className='flex items-center pb-2.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
-							<img src='https://img.icons8.com/pastel-glyph/32/null/megaphone.png' alt='megaphone' />
+							<CampaignIcon />
 							<h5 className='font-medium'>熱門新聞</h5>
 						</div>
 						<ul className='space-y-3'>
@@ -185,7 +188,7 @@ export default function News() {
 					</div>
 					<div>
 						<div className='flex items-center pb-2.5 mb-4 space-x-2 border-b-[3px] border-b-primary_yellow'>
-							<img src='https://img.icons8.com/ios/30/cloud--v1.png' alt='info' />
+							<AutoAwesomeIcon />
 							<h5 className='font-medium'>人氣話題</h5>
 						</div>
 						{popularTags.map((tag) => {

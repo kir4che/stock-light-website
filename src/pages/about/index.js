@@ -4,7 +4,7 @@ import Timeline from '../../components/Timeline/Timeline'
 
 export default function About() {
 	return (
-		<div className=" w-full mx-auto py-16 dark:bg-[url('https://imgur.com/SR5vJMr.jpg')] dark:bg-no-repeat dark:bg-bottom dark:bg-cover">
+		<div className='w-full py-16 mx-auto'>
 			<div className='pb-10 mb-16 text-center'>
 				<h2 className='mb-5'>開發團隊</h2>
 				<p className='text-sm leading-6 mb-7'>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import AnalResult from '@/components/Analysis/AnalResult'
+import AnalResult from '../../components/Analysis/AnalResult'
 
 export default function Analysis() {
 	const analEvent = [

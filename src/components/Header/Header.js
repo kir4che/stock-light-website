@@ -57,7 +57,7 @@ export default function Header() {
 					<Link href={'/light'}>
 						<button
 							type='button'
-							className='hidden px-5 py-1.5 mr-1.5 text-sm transition-all duration-300 ease-out border-0 rounded-full cursor-pointer text-zinc-900 bg-primary_yellow md:block focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
+							className='hidden px-5 py-1.5 mr-1.5 text-sm transition-all duration-300 ease-out border-0 rounded-full text-zinc-900 bg-primary_yellow sm:block focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow hover:ring-offset-gray-900	'
 						>
 							我要點燈
 						</button>

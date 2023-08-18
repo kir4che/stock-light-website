@@ -1,9 +1,13 @@
+import ArticleIcon from '@mui/icons-material/Article'
+import CampaignIcon from '@mui/icons-material/Campaign'
+import InfoIcon from '@mui/icons-material/Info'
+
 export default function Sidebar() {
 	return (
 		<div className='hidden w-64 space-y-12 md:block'>
 			<div>
 				<div className='flex items-center pb-2.5 mb-4 space-x-1.5 border-b-[3px] border-b-primary_yellow dark:p-1.5 dark:bg-primary_yellow dark:text-zinc-900 dark:border-none'>
-					<img src='https://img.icons8.com/ios/26/news.png' alt='news' />
+					<ArticleIcon />
 					<h5 className='font-medium'>理財新聞</h5>
 				</div>
 				<ul className='space-y-2 text-sm'>
@@ -37,7 +41,7 @@ export default function Sidebar() {
 			</div>
 			<div>
 				<div className='flex items-center pb-2.5 mb-4 space-x-1.5 border-b-[3px] border-b-primary_yellow dark:p-1.5 dark:bg-primary_yellow dark:text-zinc-900 dark:border-none'>
-					<img src='https://img.icons8.com/ios/26/megaphone.png' alt='megaphone' />
+					<CampaignIcon />
 					<h5 className='font-medium'>股市公告</h5>
 				</div>
 				<ul className='space-y-2 text-sm'>
@@ -71,7 +75,7 @@ export default function Sidebar() {
 			</div>
 			<div>
 				<div className='flex items-center pb-2.5 mb-4 space-x-1.5 border-b-[3px] border-b-primary_yellow dark:p-1.5 dark:bg-primary_yellow dark:text-zinc-900 dark:border-none'>
-					<img src='https://img.icons8.com/pulsar-line/25/info.png' alt='info' />
+					<InfoIcon />
 					<h5 className='font-medium'>版本資訊</h5>
 				</div>
 				<ul className='space-y-2 text-sm'>

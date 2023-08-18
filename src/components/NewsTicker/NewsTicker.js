@@ -1,3 +1,4 @@
+// @ts-nocheck
 export default function NewsTicker() {
 	const news = ['目前沒有最新消息...']
 
