@@ -9,12 +9,12 @@ const DarkModeToggle = () => {
 	const { toggleDarkMode } = useDarkMode()
 
 	return (
-		<button className='p-1 rounded-full hover:bg-gray-500/10 dark:hover:hover:bg-white/10' onClick={toggleDarkMode}>
+		<button className='hover:opacity-90' onClick={toggleDarkMode}>
 			<div className='hidden dark:block'>
-				<WbSunnyIcon />
+				<WbSunnyIcon fontSize='small' />
 			</div>
 			<div className='block dark:hidden'>
-				<DarkModeIcon />
+				<DarkModeIcon fontSize='small' />
 			</div>
 		</button>
 	)
