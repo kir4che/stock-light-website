@@ -2,12 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body {
-	@apply h-full p-0 m-0 text-zinc-900 dark:text-white dark:bg-zinc-800;
-}
-
 @layer base {
+	* {
+		@apply box-border p-0 m-0;
+	}
+
+	html,
+	body {
+		@apply max-w-[100vw] overflow-x-hidden bg-white text-zinc-900 dark:transition dark:bg-zinc-900 dark:text-white;
+	}
 	h1 {
 		@apply text-4xl font-bold;
 	}
@@ -23,6 +26,13 @@ body {
 	h5 {
 		@apply text-lg;
 	}
+	a {
+		@apply no-underline text-inherit;
+	}
+}
+
+.container {
+	@apply max-w-[1366px] min-h-screen m-0 py-0 px-4 md:px-10 lg:px-16;
 }
 
 /* 首頁 -「我要點燈」按鈕，不是Header上的！ */
@@ -394,15 +404,13 @@ body {
 	border-radius: 50%;
 	transform-origin: 50% 100%;
 	animation: rise 10s ease-in-out infinite;
-  }
-  
-  @keyframes rise {
+}
+
+@keyframes rise {
 	from {
-	
-		top : 300px;
- 	}
- 	to {
-	 	
-	 	top : 100px;
- }
-  }
+		top: 300px;
+	}
+	to {
+		top: 100px;
+	}
+}

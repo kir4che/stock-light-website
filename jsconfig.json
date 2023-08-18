@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "preserve",
+    "checkJs": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": ["es6", "dom"],
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"],
+  "baseUrl": ".",
+    "paths": {
+      "@/styles/*": ["styles/*"],
+    }
+}

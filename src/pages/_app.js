@@ -1,15 +1,16 @@
-import Footer from '@/components/Home/Footer'
-import Header from '@/components/Home/Header'
+import Footer from '../components/Footer/Footer'
+import Header from '../components/Header/Header'
+import { DarkModeProvider } from '../context/DarkModeContext'
 import '../styles/globals.css'
-
-import { ThemeProvider } from 'next-themes'
 
 export default function App({ Component, pageProps }) {
 	return (
-		<ThemeProvider attribute='class'>
-			<Header />
-			<Component {...pageProps} />
-			<Footer />
-		</ThemeProvider>
+		<DarkModeProvider>
+			<div className='container space-y-6'>
+				<Header />
+				<Component {...pageProps}></Component>
+				<Footer />
+			</div>
+		</DarkModeProvider>
 	)
 }

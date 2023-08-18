@@ -28,17 +28,15 @@ export default function Feedback() {
 		<section>
 			<div className='max-w-screen-sm px-8 py-20 mx-auto lg:px-0'>
 				<h2 className='mb-5 font-bold tracking-tight text-center'>意見回饋</h2>
-				<p className='mb-8 text-xl font-light text-center opacity-60'>如果你有任何建議或問題，歡迎寄信給我們！</p>
+				<p className='mb-8 text-xl font-light text-center opacity-60'>如果您有任何建議或問題，歡迎寄信給我們！</p>
 				<form action='#' className='space-y-8'>
 					<div>
-						<label for='email' className='block mb-2 text-sm font-medium'>
-							電子郵件
-						</label>
+						<label className='block mb-2 text-sm font-medium'>電子郵件</label>
 						<input
 							id='email'
 							value={email}
 							type='email'
-							className='shadow-sm bg-gray-50 border border-gray-300 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 '
+							className='shadow-sm bg-gray-50 border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 '
 							required
 							onChange={(e) => {
 								setEmail(e.target.value)
@@ -46,14 +44,12 @@ export default function Feedback() {
 						/>
 					</div>
 					<div>
-						<label for='subject' className='block mb-2 text-sm font-medium'>
-							標題
-						</label>
+						<label className='block mb-2 text-sm font-medium'>標題</label>
 						<input
 							id='subject'
 							value={subject}
 							type='text'
-							className='block w-full p-3 text-sm border border-gray-300 rounded-lg shadow-sm bg-gray-50 focus:ring-primary-500 focus:border-primary-500'
+							className='block w-full p-3 text-sm border border-gray-300 rounded-lg shadow-sm outline-none bg-gray-50 focus:ring-primary-500 focus:border-primary-500'
 							required
 							onChange={(e) => {
 								setSubject(e.target.value)
@@ -61,14 +57,13 @@ export default function Feedback() {
 						/>
 					</div>
 					<div className='sm:col-span-2'>
-						<label for='message' className='block mb-2 text-sm font-medium'>
-							內容
-						</label>
+						<label className='block mb-2 text-sm font-medium'>內容</label>
 						<textarea
 							id='message'
 							value={message}
-							rows='6'
-							className='block p-2.5 w-full text-sm bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500'
+							cols={30}
+							rows={8}
+							className='block p-2.5 w-full text-sm bg-gray-50 rounded-lg shadow-sm border border-gray-300 outline-none focus:ring-primary-500 focus:border-primary-500'
 							required
 							onChange={(e) => {
 								setMessage(e.target.value)
@@ -77,7 +72,7 @@ export default function Feedback() {
 					</div>
 					<button
 						type='submit'
-						className='flex px-20 py-2 mx-auto font-medium text-center transition border-2 rounded-full tracking-wides text-secondary_blue border-secondary_blue hover:bg-secondary_blue hover:text-white'
+						className='flex px-20 py-2 mx-auto font-medium text-center text-white transition border-2 rounded-full border-secondary_blue tracking-wides bg-secondary_blue hover:bg-white hover:border-secondary_blue hover:text-secondary_blue'
 						onClick={handleClickOpen}
 					>
 						送出

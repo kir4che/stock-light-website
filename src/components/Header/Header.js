@@ -9,12 +9,10 @@ import IconButton from '@mui/material/IconButton'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Toolbar from '@mui/material/Toolbar'
-
-import { useTheme } from 'next-themes'
 import Image from 'next/image'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import Link from '../../../node_modules/next/link'
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle'
 
 export default function Header() {
 	const pages = [
@@ -40,30 +38,9 @@ export default function Header() {
 		},
 	]
 
-	const router = useRouter()
-
-	const { theme, setTheme } = useTheme()
-	const [isMounted, setIsMounted] = useState(false)
-	const [themeIcon, setThemeIcon] = useState('https://img.icons8.com/sf-regular-filled/48/moon-symbol.png')
-
-	useEffect(() => {
-		setIsMounted(true)
-	}, [])
-
-	const switchTheme = () => {
-		if (isMounted) {
-			setTheme(theme === 'light' ? 'dark' : 'light')
-			setThemeIcon(
-				theme === 'light'
-					? 'https://img.icons8.com/ios-filled/50/FFFFFF/sun--v1.png'
-					: 'https://img.icons8.com/sf-regular-filled/48/moon-symbol.png'
-			)
-		}
-	}
-
 	return (
 		<header className='bg-white dark:bg-zinc-900'>
-			<div className='container flex items-center justify-between px-4 py-2 mx-auto md:justify-start md:px-0 md:py-4'>
+			<div className='flex items-center justify-between px-4 py-2 mx-auto md:justify-start md:px-0 md:py-4'>
 				<Link href='/' className='flex items-center'>
 					<Image src='/favicon.ico' width={32} height={32} alt='股市光明燈' />
 					<h4 className='ml-1 font-medium'>股市光明燈</h4>
@@ -77,17 +54,16 @@ export default function Header() {
 					))}
 				</nav>
 				<div className='flex items-center'>
-					<button
-						className='hidden px-5 py-1.5 mr-1.5 text-sm transition-all duration-300 ease-out border-0 rounded-full cursor-pointer text-zinc-900 bg-primary_yellow md:block focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
-						type='button'
-						onClick={() => router.push('/light')}
-					>
-						我要點燈
-					</button>
+					<Link href={'/light'}>
+						<button
+							type='button'
+							className='hidden px-5 py-1.5 mr-1.5 text-sm transition-all duration-300 ease-out border-0 rounded-full cursor-pointer text-zinc-900 bg-primary_yellow md:block focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
+						>
+							我要點燈
+						</button>
+					</Link>
 					<BurgerMenu pages={pages} />
-					<button className='p-1 rounded-full hover:bg-gray-500/10 dark:hover:hover:bg-white/10' onClick={switchTheme}>
-						<img width='24' height='24' src={themeIcon} alt='theme mode' />
-					</button>
+					<DarkModeToggle />
 				</div>
 			</div>
 		</header>

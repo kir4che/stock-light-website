@@ -26,7 +26,7 @@ export default function Footer() {
 
 	return (
 		<footer className='bg-white dark:bg-zinc-900'>
-			<div className='container flex flex-col items-center py-10 mx-auto sm:items-start sm:flex-row'>
+			<div className='flex flex-col items-center py-10 mx-auto sm:items-start sm:flex-row'>
 				<div className='mx-auto text-center md:text-center'>
 					<img className='w-full mb-3' src='https://fakeimg.pl/180x92/' alt='股市光明燈' />
 					<h4 className='mb-2 font-bold'>股市光明燈</h4>
@@ -41,7 +41,7 @@ export default function Footer() {
 						))}
 					</nav>
 					<nav className='hidden space-y-5 sm:block'>
-						<h4 className='mb-2 font-bold text-xl'>聯絡方式</h4>
+						<h4 className='mb-2 text-xl font-bold'>聯絡方式</h4>
 						<div className='flex items-center mb-1 space-x-2'>
 							<img src='https://img.icons8.com/ios/20/address--v1.png' alt='address' />
 							<a
@@ -62,8 +62,8 @@ export default function Footer() {
 					</nav>
 				</div>
 			</div>
-			<div className='container flex flex-col items-center py-5 mx-auto'>
-					<p className='font-thin text-sm'>copyright © 北科大資財四乙 2023 All Rights Reserved.</p>			
+			<div className='flex flex-col items-center py-5 mx-auto '>
+				<p className='text-sm font-thin'>copyright © 北科大資財四乙 2023 All Rights Reserved.</p>
 			</div>
 		</footer>
 	)

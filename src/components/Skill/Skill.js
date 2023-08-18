@@ -67,20 +67,18 @@ export default function Skill() {
 	]
 
 	return (
-		<section className='container'>
-			<div className='flex flex-col justify-center w-full md:flex-row'>
-				{skill_list.map((item) => (
-					<ul className='flex py-3 px-14 md:px-6 md:block md:py-4' key={item.id}>
-						<h4 className='font-medium md:mb-4'>{item.category}</h4>
-						{item.skills.map((skill) => (
-							<li className='flex items-center justify-center px-4 md:mx-auto md:py-1.5 md:mb-3' key={skill.name}>
-								{skill.icon !== '' ? <img className='w-6 mr-1' src={skill.icon} alt={skill.name}></img> : null}
-								{skill.name}
-							</li>
-						))}
-					</ul>
-				))}
-			</div>
-		</section>
+		<div className='flex flex-col justify-center w-full md:flex-row'>
+			{skill_list.map((item) => (
+				<ul className='flex py-3 px-14 md:px-6 md:block md:py-4' key={item.id}>
+					<h4 className='font-medium md:mb-4'>{item.category}</h4>
+					{item.skills.map((skill) => (
+						<li className='flex items-center justify-center px-4 md:mx-auto md:py-1.5 md:mb-3' key={skill.name}>
+							{skill.icon !== '' ? <img className='w-6 mr-1' src={skill.icon} alt={skill.name}></img> : null}
+							{skill.name}
+						</li>
+					))}
+				</ul>
+			))}
+		</div>
 	)
 }

@@ -1,13 +1,13 @@
-import React ,{ useEffect,useState } from 'react'
-
+import { useState } from 'react'
 
 export default function Lantern(start) {
-		const [position, setPosition] = useState(start);
-		const getRandomCoordinates = () => {
-			const getx = Math.random();
-			const gety = Math.random();
-			return {getx, gety};}
-		/*
+	const [position, setPosition] = useState(start)
+	const getRandomCoordinates = () => {
+		const getx = Math.random()
+		const gety = Math.random()
+		return { getx, gety }
+	}
+	/*
 		useEffect(() => {
 		  const position = getRandomCoordinates()
 
@@ -18,9 +18,5 @@ export default function Lantern(start) {
 		  return () => clearInterval(interval);
 		}, []);
 	  	*/
-		return <></>;
-	  }
-	  
-		
-
-	
+	return <></>
+}

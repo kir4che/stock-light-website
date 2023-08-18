@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import Lantern from '@/components/Light/Lantern'
-import React from 'react'
-
+import Lantern from '../../components/Light/Lantern'
 
 /*還在測試*/
 export default function Light() {
@@ -11,8 +9,8 @@ export default function Light() {
 		<div id='stars-background-container'>
 			<div className='container flex py-20 mx-auto space-x-6'>
 				{Array.from({ length: lanternCount }).map((_, index) => (
-					<Lantern key={index}/>
-				))}	
+					<Lantern key={index} />
+				))}
 				<span className='lantern'></span>
 				<Link href='/light/checkout'>
 					<button>祈福</button>
