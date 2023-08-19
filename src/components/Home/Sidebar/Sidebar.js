@@ -16,7 +16,7 @@ export default function HomeSidebar() {
 	const fetchNews = async () => {
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/top-headlines?category=business&pageSize=5&sortBy=publishedAt&apiKey=${process.env.NEWS_API_KEY2}`,
+				`https://newsapi.org/v2/top-headlines?category=business&pageSize=5&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY2}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()
@@ -27,11 +27,11 @@ export default function HomeSidebar() {
 	}
 
 	useEffect(() => {
-		// fetchNews()
+		fetchNews()
 	}, [])
 
 	return (
-		<div className='hidden space-y-10 w-80 md:block'>
+		<div className='hidden w-56 max-w-sm space-y-10 md:block'>
 			<SidebarBlock icon={<ArticleIcon />} title={'理財新聞'} data={news} />
 			<SidebarBlock icon={<InfoIcon />} title={'版本資訊'} data={versionInfo} />
 		</div>
