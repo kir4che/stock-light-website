@@ -14,12 +14,14 @@ export default function Home() {
 
 	return (
 		<>
-			<Banner />
-			<Marquee />
-			<main className='pt-12 pb-20'>
-				<div className='flex w-full md:gap-16 lg:gap-24 xl:gap-32'>
+			<div>
+				<Banner />
+				<Marquee />
+			</div>
+			<main className='py-4 sm:pt-12 sm:pb-20'>
+				<div className='flex w-full md:gap-16 lg:gap-20 xl:gap-24'>
 					<Sidebar />
-					<div className='w-full px-4 md:w-2/3 md:px-0'>
+					<div className='w-full px-4 md:w-2/3 lg:w-3/4 xl:w-4/5 md:px-0'>
 						<div className='flex items-baseline space-x-2'>
 							<h5 className='mb-2'>台股大盤指數</h5>
 							<button className='px-2.5 py-1 text-sm rounded-xl bg-stock_green/10 text-stock_green dark:bg-stock_green/80 dark:text-white'>
