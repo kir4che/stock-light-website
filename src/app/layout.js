@@ -1,6 +1,6 @@
-import { SessionProvider } from 'next-auth/react'
 import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
+import NextAuthProvider from '../components/NextAuthProvider/NextAuthProvider'
 import { DarkModeProvider } from '../context/DarkModeContext'
 import './globals.css'
 
@@ -17,13 +17,13 @@ export default function RootLayout({ children }) {
 		<html lang='en'>
 			<body className={inter.className}>
 				<DarkModeProvider>
-					<SessionProvider>
+					<NextAuthProvider>
 						<div className='container space-y-6'>
 							<Header />
 							{children}
 							<Footer />
 						</div>
-					</SessionProvider>
+					</NextAuthProvider>
 				</DarkModeProvider>
 			</body>
 		</html>
