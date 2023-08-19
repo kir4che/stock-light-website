@@ -2,8 +2,8 @@
 
 import LinearRegChart from '../components/Analysis/LinearRegChart'
 import Banner from '../components/Banner/Banner'
-import NewsTicker from '../components/NewsTicker/NewsTicker'
-import Sidebar from '../components/Sidebar/Sidebar'
+import Marquee from '../components/Home/Marquee/Marquee'
+import Sidebar from '../components/Home/Sidebar/Sidebar'
 import TaiexChart from '../components/TaiexChart/TaiexChart'
 
 import Image from 'next/image'
@@ -15,7 +15,7 @@ export default function Home() {
 	return (
 		<>
 			<Banner />
-			<NewsTicker />
+			<Marquee />
 			<main className='pt-12 pb-24'>
 				<div className='w-full mx-auto'>
 					<div className='flex justify-between md:space-x-10 xl:space-x-16'>

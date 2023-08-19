@@ -1,7 +1,7 @@
 import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
 import { DarkModeProvider } from '../context/DarkModeContext'
-import '../styles/globals.css'
+import './globals.css'
 
 import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })

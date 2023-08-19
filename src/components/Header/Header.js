@@ -14,7 +14,7 @@ import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import { useState } from 'react'
 import Link from '../../../node_modules/next/link'
-import DarkModeToggle from '../DarkModeToggle/DarkModeToggle'
+import DarkModeToggle from './DarkModeToggle/DarkModeToggle'
 
 export default function Header() {
 	const pages = [
@@ -109,8 +109,8 @@ function BurgerMenu({ pages }) {
 			</IconButton>
 			<Drawer anchor='right' open={open}>
 				<Box sx={{ width: 240 }}>
-					<IconButton sx={{ my: 1 }}>
-						<CloseIcon onClick={toggleDrawer(false)} />
+					<IconButton sx={{ my: 1 }} onClick={toggleDrawer(false)}>
+						<CloseIcon />
 					</IconButton>
 					<Divider sx={{ mb: 2 }} />
 					<Box>

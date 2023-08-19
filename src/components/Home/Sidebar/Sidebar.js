@@ -2,7 +2,7 @@ import ArticleIcon from '@mui/icons-material/Article'
 import CampaignIcon from '@mui/icons-material/Campaign'
 import InfoIcon from '@mui/icons-material/Info'
 
-export default function Sidebar() {
+export default function HomeSidebar() {
 	return (
 		<div className='hidden w-64 space-y-12 md:block'>
 			<div>

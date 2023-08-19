@@ -6,10 +6,9 @@
 	* {
 		@apply box-border p-0 m-0;
 	}
-
 	html,
 	body {
-		@apply max-w-[100vw] overflow-x-hidden bg-white text-zinc-900 dark:transition dark:bg-zinc-900 dark:text-white;
+		@apply max-w-[100vw] overflow-x-hidden bg-white text-zinc-900 dark:transition dark:bg-zinc-900 dark:text-zinc-100;
 	}
 	h1 {
 		@apply text-4xl font-bold;
@@ -276,15 +275,6 @@
 	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[370px];
 }
 
-/* 新聞敘述 */
-.news-content {
-	@apply w-full overflow-hidden leading-7 opacity-50 text-ellipsis;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-	box-sizing: border-box;
-}
-
 /* 夜空背景 */
 #stars-background-container {
 	@apply z-0 h-full;
@@ -413,4 +403,21 @@
 	to {
 		top: 100px;
 	}
+}
+
+.MuiButtonBase-root,
+.MuiPaginationItem-root {
+	@apply dark:text-zinc-100 !important;
+}
+
+.MuiPaginationItem-circular.Mui-selected {
+	@apply bg-primary_yellow/80 dark:bg-primary_yellow dark:text-zinc-900 !important;
+}
+
+.MuiPaginationItem-circular {
+	@apply hover:bg-primary_yellow/30 !important;
+}
+
+.MuiPaper-root .MuiButtonBase-root .MuiSvgIcon-root {
+	@apply text-zinc-400 hover:text-zinc-800 !important;
 }

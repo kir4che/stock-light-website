@@ -1,6 +1,6 @@
-import Skill from '../../components/Skill/Skill'
-import Team from '../../components/Team/Team'
-import Timeline from '../../components/Timeline/Timeline'
+import Skill from '../../components/About/Skill/Skill'
+import Team from '../../components/About/Team/Team'
+import Timeline from '../../components/About/Timeline/Timeline'
 
 export default function About() {
 	return (

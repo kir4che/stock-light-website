@@ -1,5 +1,5 @@
 // @ts-nocheck
-export default function NewsTicker() {
+export default function Marquee() {
 	const news = ['目前沒有最新消息...']
 
 	return (

@@ -4,6 +4,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
+import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Feedback() {
@@ -33,41 +34,32 @@ export default function Feedback() {
 					<div>
 						<label className='block mb-2 text-sm font-medium'>電子郵件</label>
 						<input
-							id='email'
 							value={email}
 							type='email'
-							className='shadow-sm bg-gray-50 border border-gray-300 outline-none text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 '
+							className='shadow-sm bg-zinc-50 border border-zinc-300 outline-none text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5'
 							required
-							onChange={(e) => {
-								setEmail(e.target.value)
-							}}
+							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
 					<div>
 						<label className='block mb-2 text-sm font-medium'>標題</label>
 						<input
-							id='subject'
 							value={subject}
 							type='text'
-							className='block w-full p-3 text-sm border border-gray-300 rounded-lg shadow-sm outline-none bg-gray-50 focus:ring-primary-500 focus:border-primary-500'
+							className='block w-full p-3 text-sm border rounded-lg shadow-sm outline-none border-zinc-300 bg-zinc-50 focus:ring-primary-500 focus:border-primary-500'
 							required
-							onChange={(e) => {
-								setSubject(e.target.value)
-							}}
+							onChange={(e) => setSubject(e.target.value)}
 						/>
 					</div>
 					<div className='sm:col-span-2'>
 						<label className='block mb-2 text-sm font-medium'>內容</label>
 						<textarea
-							id='message'
 							value={message}
 							cols={30}
 							rows={8}
-							className='block p-2.5 w-full text-sm bg-gray-50 rounded-lg shadow-sm border border-gray-300 outline-none focus:ring-primary-500 focus:border-primary-500'
+							className='block p-2.5 w-full text-sm bg-zinc-50 rounded-lg shadow-sm border border-zinc-300 outline-none focus:ring-primary-500 focus:border-primary-500'
 							required
-							onChange={(e) => {
-								setMessage(e.target.value)
-							}}
+							onChange={(e) => setMessage(e.target.value)}
 						></textarea>
 					</div>
 					<button
@@ -86,7 +78,7 @@ export default function Feedback() {
 				aria-describedby='alert-dialog-description'
 			>
 				<DialogTitle id='alert-dialog-title'>{'送出成功'}</DialogTitle>
-				<img className='w-32 mx-auto' src='../images/email-received-icon.svg' alt='success' />
+				<Image src={'/images/email-received-icon.svg'} alt='success' className='w-32 mx-auto' />
 				<DialogContent>
 					<DialogContentText id='alert-dialog-description'>您的回饋已送出，我們會盡快回覆您！</DialogContentText>
 				</DialogContent>
