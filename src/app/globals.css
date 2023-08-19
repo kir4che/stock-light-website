@@ -8,7 +8,7 @@
 	}
 	html,
 	body {
-		@apply max-w-[100vw] overflow-x-hidden bg-white text-zinc-900 dark:transition dark:bg-zinc-900 dark:text-zinc-100;
+		@apply max-w-[100vw] overflow-x-hidden bg-white text-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:transition;
 	}
 	h1 {
 		@apply text-4xl font-bold;
@@ -411,7 +411,7 @@
 }
 
 .MuiPaginationItem-circular.Mui-selected {
-	@apply bg-primary_yellow/80 dark:bg-primary_yellow dark:text-zinc-900 !important;
+	@apply bg-primary_yellow/80 dark:bg-primary_yellow dark:text-zinc-800 !important;
 }
 
 .MuiPaginationItem-circular {

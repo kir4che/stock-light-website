@@ -36,7 +36,7 @@ export default function Home() {
 								<Image src='/images/good-quality-64.png' width={40} height={40} alt='recommend' />
 								<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 								<button
-									className='light-btn font-medium text-zinc-900 px-12 py-1.5 bg-primary_yellow'
+									className='light-btn font-medium text-zinc-800 px-12 py-1.5 bg-primary_yellow'
 									type='button'
 									onClick={() => router.push('/light')}
 								>
@@ -75,7 +75,7 @@ export default function Home() {
 								</div>
 								<div className='flex flex-row-reverse'>
 									<button
-										className='px-12 py-2 mt-6 font-medium duration-300 border-none rounded-full dark:text-zinc-900 bg-secondary_blue hover:ring-2 hover:ring-offset-2'
+										className='px-12 py-2 mt-6 font-medium duration-300 border-none rounded-full dark:text-zinc-800 bg-secondary_blue hover:ring-2 hover:ring-offset-2'
 										type='button'
 										onClick={() => router.push('/analysis')}
 									>

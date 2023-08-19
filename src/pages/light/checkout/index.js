@@ -14,6 +14,7 @@ import RadioGroup from '@mui/material/RadioGroup'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
 import { useRouter } from 'next/navigation'
+import router from 'next/router'
 import { useState } from 'react'
 
 export default function Checkout() {
@@ -213,14 +214,10 @@ function SuccessDialog(props) {
 					viewBox='0 0 20 20'
 					xmlns='http://www.w3.org/2000/svg'
 				>
-					<path
-						fill-rule='evenodd'
-						d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
-						clip-rule='evenodd'
-					></path>
+					<path d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'></path>
 				</svg>
 				<DialogContentText id='alert-dialog-description'>
-					<span className='text-lg font-bold tracking-wider text-zinc-900'>付款完成</span>
+					<span className='text-lg font-bold tracking-wider text-zinc-800'>付款完成</span>
 				</DialogContentText>
 			</DialogContent>
 			<DialogActions className='mx-auto'>

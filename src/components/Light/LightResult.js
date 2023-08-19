@@ -1,6 +1,6 @@
-import LightChart from '@/components/Light/LightChart'
-import ResultTable from '@/components/Light/ResultTable'
-import SaveButton from '@/components/Light/SaveButton'
+import LightChart from '../../components/Light/LightChart'
+import ResultTable from '../../components/Light/ResultTable'
+import SaveButton from '../../components/Light/SaveButton'
 
 import { useRouter } from 'next/navigation'
 

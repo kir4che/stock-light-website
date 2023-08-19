@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Carousel from 'react-material-ui-carousel'
 
 export default function Timeline() {
@@ -9,8 +10,8 @@ export default function Timeline() {
 			indicators={false}
 			autoPlay={false}
 		>
-			<img src='../images/development-timeline-1.svg' alt='development-timeline-1' />
-			<img src='../images/development-timeline-2.svg' alt='development-timeline-2' />
+			<Image src='/images/development-timeline-1.svg' width={800} height={800} alt='development-timeline-1' />
+			<Image src='/images/development-timeline-2.svg' width={800} height={800} alt='development-timeline-2' />
 		</Carousel>
 	)
 }

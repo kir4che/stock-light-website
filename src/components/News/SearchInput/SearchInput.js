@@ -5,27 +5,30 @@ import InputBase from '@mui/material/InputBase'
 import Paper from '@mui/material/Paper'
 import { useState } from 'react'
 
-export default function SearchInput({ updateNewsByKeyword }) {
+export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 	const [keyword, setKeyword] = useState('')
 
 	// 清除搜索结果
 	const clearSearch = () => {
 		setKeyword('')
-		updateNewsByKeyword(null)
+		setNewsByKeyword(null)
 	}
 
 	const handleInputChange = (e) => setKeyword(e.target.value)
 
 	const fetchNewsByKeyword = async () => {
-		const pageSize = 1
+		const newsPerPage = 6
 
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/everything?q=${keyword}&pageSize=${pageSize}&apiKey=d65cd2341b4b4b06a3f8bb45215b997d`,
+				`https://newsapi.org/v2/top-headlines?category=business&q=${keyword}&pageSize=${newsPerPage}&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY2}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()
-			updateNewsByKeyword(data.articles)
+			setNewsByKeyword(data.articles)
+
+			// 計算並設定總頁數
+			setTotalPages(Math.ceil(data.totalResults / newsPerPage))
 		} catch (error) {
 			console.log('error', error)
 		}
