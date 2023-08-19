@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default function Skill() {
 	const skill_list = [
 		{
@@ -72,9 +74,12 @@ export default function Skill() {
 				<ul className='flex py-3 px-14 md:px-6 md:block md:py-4' key={item.id}>
 					<h4 className='font-medium md:mb-4'>{item.category}</h4>
 					{item.skills.map((skill) => (
-						<li className='flex items-center justify-center px-4 md:mx-auto md:py-1.5 md:mb-3' key={skill.name}>
-							{skill.icon !== '' ? <img className='w-6 mr-1' src={skill.icon} alt={skill.name}></img> : null}
-							{skill.name}
+						<li
+							className='flex items-center space-x-1 justify-center px-4 md:mx-auto md:py-1.5 md:mb-3'
+							key={skill.name}
+						>
+							{skill.icon !== '' ? <Image src={skill.icon} width={24} height={24} alt={skill.name} /> : null}
+							<p>{skill.name}</p>
 						</li>
 					))}
 				</ul>

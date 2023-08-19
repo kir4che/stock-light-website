@@ -13,6 +13,7 @@ import Radio from '@mui/material/Radio'
 import RadioGroup from '@mui/material/RadioGroup'
 import Select from '@mui/material/Select'
 import TextField from '@mui/material/TextField'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import router from 'next/router'
 import { useState } from 'react'
@@ -24,24 +25,24 @@ export default function Checkout() {
 
 	const [value, setValue] = useState('credit_card')
 
-	const handleChange = (event) => setValue(event.target.value)
+	const handleChange = (e) => setValue(e.target.value)
 
 	const [cardNumber, setCardNumber] = useState('')
 	const [nameOnCard, setNameOnCard] = useState('')
 	const [expMonth, setExpMonth] = useState('')
 	const [expYear, setExpYear] = useState('')
 
-	const handleCardNumberChange = (event) => setCardNumber(event.target.value)
+	const handleCardNumberChange = (e) => setCardNumber(e.target.value)
 
-	const handleNameChange = (event) => setNameOnCard(event.target.value)
+	const handleNameChange = (e) => setNameOnCard(e.target.value)
 
-	const handleExpMonthChange = (event) => setExpMonth(event.target.value)
+	const handleExpMonthChange = (e) => setExpMonth(e.target.value)
 
-	const handleExpYearChange = (event) => setExpYear(event.target.value)
+	const handleExpYearChange = (e) => setExpYear(e.target.value)
 
 	return (
 		<div id='stars-background-container'>
-			<Container component='main' maxWidth='sm' sx={{ mt: 14, mb: 24 }}>
+			<Container component='main' maxWidth='sm' sx={{ mt: 12, mb: 16 }}>
 				<Paper className='relative' variant='outlined' sx={{ px: 5, pt: 4, pb: 8 }}>
 					<button
 						type='button'
@@ -68,30 +69,31 @@ export default function Checkout() {
 						value={value}
 						onChange={handleChange}
 					>
-						{/* <div className='flex items-center justify-between'>
-							<FormControlLabel value='paypal' control={<Radio />} label='Paypal' />
-							<img
-								className='w-20'
-								src='https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/PayPal_logo.svg/2560px-PayPal_logo.svg.png'
-								alt='paypal'
-							/>
-						</div> */}
 						<div className='flex items-center justify-between'>
-							<FormControlLabel value='credit_card' control={<Radio />} label='Credit Card' />
-							<img
-								className='w-28'
+							<FormControlLabel value='credit_card' control={<Radio />} label='信用卡' />
+							<Image
+								width={120}
+								height={40}
 								src='https://www.freepnglogos.com/uploads/visa-and-mastercard-logo-26.png'
-								alt='visa_mastercard'
+								alt='visa-mastercard'
 							/>
 						</div>
 					</RadioGroup>
-					<div className='h-56 mx-auto my-6 text-white transition-transform transform shadow-xl rounded-2xl w-96 hover:scale-110'>
-						<img
-							className='relative object-cover w-full h-full rounded-2xl'
+					<div className='mx-auto my-6 text-white transition-transform transform shadow-xl w-96 rounded-2xl hover:scale-110'>
+						<Image
+							width={400}
+							height={400}
 							src='https://i.imgur.com/kGkSg1v.png'
-							alt='credit-card-bg'
+							alt='card'
+							className='relative h-56 rounded-2xl'
 						/>
-						<img className='absolute w-12 top-8 left-8' src='https://i.imgur.com/eReh766.png' alt='card-chip' />
+						<Image
+							width={48}
+							height={48}
+							src='https://i.imgur.com/eReh766.png'
+							alt='card-chip'
+							className='absolute top-8 left-8'
+						/>
 						<div className='absolute w-full px-8 top-[5.5rem]'>
 							<p className='pb-1 text-sm font-light'>卡號</p>
 							<p className='font-medium tracking-widest'>
@@ -180,7 +182,7 @@ export default function Checkout() {
 						<p>香油錢</p>
 						<p className='font-bold'>NT＄100 TWD</p>
 					</div>
-					<Button type='submit' variant='contained' fullWidth={true} onClick={handleClickOpen}>
+					<Button type='submit' fullWidth={true} onClick={handleClickOpen}>
 						完成付款
 					</Button>
 				</Paper>
@@ -209,7 +211,7 @@ function SuccessDialog(props) {
 			<DialogContent className='space-y-4 text-center'>
 				<svg
 					aria-hidden='true'
-					class='w-24 h-24 text-green-500 rounded-full bg-green-100 p-2 mx-auto'
+					className='w-24 h-24 p-2 mx-auto text-green-500 bg-green-100 rounded-full'
 					fill='currentColor'
 					viewBox='0 0 20 20'
 					xmlns='http://www.w3.org/2000/svg'

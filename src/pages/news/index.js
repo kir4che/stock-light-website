@@ -24,7 +24,7 @@ export default function News() {
 
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/top-headlines?category=business&page=${offset}&pageSize=${newsPerPage}&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY2}`,
+				`https://newsapi.org/v2/top-headlines?category=business&page=${offset}&pageSize=${newsPerPage}&sortBy=publishedAt&apiKey=${process.env.NEWS_API_KEY2}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()
@@ -47,7 +47,7 @@ export default function News() {
 
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/everything?q=stock&pageSize=5&sortBy=popularity&from=${fromDate}&to=${toDate}&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY2}`,
+				`https://newsapi.org/v2/everything?q=stock&pageSize=5&sortBy=popularity&from=${fromDate}&to=${toDate}&apiKey=${process.env.NEWS_API_KEY2}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()
@@ -58,10 +58,16 @@ export default function News() {
 	}
 
 	useEffect(() => {
+		setIsLoading(true)
+
 		// 從 localStorage 中取出上個月更新的熱門新聞
 		const storedHotNews = localStorage.getItem('hotNews')
 		if (storedHotNews) setHotNews(JSON.parse(storedHotNews))
 		if (!storedHotNews) setHotNews(currentDate)
+
+		setTimeout(() => {
+			setIsLoading(false)
+		}, 1000)
 	}, [])
 
 	useEffect(() => {
@@ -75,7 +81,9 @@ export default function News() {
 
 		if (!newsByKeyword) fetchAllNews()
 
-		setIsLoading(false)
+		setTimeout(() => {
+			setIsLoading(false)
+		}, 1000)
 	}, [page, newsByKeyword])
 
 	return (
@@ -86,7 +94,7 @@ export default function News() {
 						{newsByKeyword || allNews ? (
 							(newsByKeyword || allNews).map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
-							<p>No news available.</p>
+							<p className='text-stock_red'>No news available.</p>
 						)}
 					</div>
 				) : (

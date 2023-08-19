@@ -21,7 +21,7 @@ export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/top-headlines?category=business&q=${keyword}&pageSize=${newsPerPage}&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY2}`,
+				`https://newsapi.org/v2/top-headlines?category=business&q=${keyword}&pageSize=${newsPerPage}&apiKey=${process.env.NEWS_API_KEY2}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()
