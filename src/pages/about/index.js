@@ -1,6 +1,6 @@
+import GanttCarousel from '../../components/About/GanttCarousel/GanttCarousel'
 import Skill from '../../components/About/Skill/Skill'
 import Team from '../../components/About/Team/Team'
-import Timeline from '../../components/About/Timeline/Timeline'
 
 export default function About() {
 	return (
@@ -19,8 +19,8 @@ export default function About() {
 				<Skill />
 			</div>
 			<div className='text-center'>
-				<h3 className='mb-6 font-medium'>開發時程</h3>
-				<Timeline />
+				<h3 className='mb-3 font-medium dark:mb-6 '>開發時程</h3>
+				<GanttCarousel />
 			</div>
 		</div>
 	)
