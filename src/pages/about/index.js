@@ -4,7 +4,7 @@ import Timeline from '../../components/About/Timeline/Timeline'
 
 export default function About() {
 	return (
-		<div className='w-full py-16 mx-auto'>
+		<div className='w-full py-4 mx-auto sm:py-16'>
 			<div className='pb-10 mb-16 text-center'>
 				<h2 className='mb-5'>開發團隊</h2>
 				<p className='text-sm leading-6 mb-7'>
