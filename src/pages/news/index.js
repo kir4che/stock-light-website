@@ -72,7 +72,8 @@ export default function News() {
 				{!isLoading ? (
 					<article className='w-full space-y-12'>
 						{newsByKeyword
-							? newsByKeyword.map((news, index) => (
+							? newsByKeyword &&
+							  newsByKeyword.map((news, index) => (
 									<div key={index}>
 										<Link href={news.url} target='_blank'>
 											<h4 className='mb-2 font-bold hover:text-zinc-300'>{news.title}</h4>
@@ -83,7 +84,8 @@ export default function News() {
 										</p>
 									</div>
 							  ))
-							: allNews.map((news, index) => (
+							: allNews &&
+							  allNews.map((news, index) => (
 									<div key={index}>
 										<Link href={news.url} target='_blank'>
 											<h4 className='mb-2 font-bold hover:text-zinc-300'>{news.title}</h4>
