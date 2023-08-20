@@ -19,7 +19,7 @@ export default function About() {
 				<Skill />
 			</div>
 			<div className='text-center'>
-				<h3 className='mb-3 font-medium dark:mb-6 '>開發時程</h3>
+				<h3 className='mb-6 font-medium '>開發時程</h3>
 				<GanttCarousel />
 			</div>
 		</div>
