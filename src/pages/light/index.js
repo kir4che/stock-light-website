@@ -3,7 +3,7 @@ import Lantern from '../../components/Light/Lantern'
 
 /*還在測試*/
 export default function Light() {
-	const lanternCount = 5
+
 
 	return (
 		<div id='stars-background-container'>

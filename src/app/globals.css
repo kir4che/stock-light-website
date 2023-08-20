@@ -420,9 +420,9 @@
 	width: 80px;
 	position: absolute;
 	border-radius: 50%;
-	background: #ffdd1b;
-	 box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffdd1b,
-	 0 0 70px #ffdd1b, 0 0 80px #ffdd1b, 0 0 100px #ffdd1b, 0 0 150px #ffdd1b;
+	background: #fbc926;
+	 box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fbc926,
+	 0 0 70px #fbc926, 0 0 80px #fbc926, 0 0 100px #fbc926, 0 0 150px #fbc926;
    animation: blink 5s ease-in-out infinite;
 }
 
@@ -511,16 +511,66 @@
 }
 
 @keyframes rise {
-	from {
-		top: 300px;
-	}
-	to {
-		top: 150px;
-	}
+	0% { transform:translateY(350px);}
+	100% {transform:translateY(0px);}
 }
 
-.one {
+.lanternone {
 	position: absolute;
-	top: 150px;
+	top: 500px;
+	animation: rise 3s ease-in-out;	
+}
+.lanterntwo {
+	position: absolute;
+	left: 500px;
+  	top: 200px;
+	animation: rise 3s ease-in-out;	
+}
+.lanternthree {
+	position: absolute;
+	left: 350px;
+  	top: 250px;
+	animation: rise 3s ease-in-out;	
+}
+.lanternfour {
+	position: absolute;
+	right: 0px;
+  	top: 120px;
+	animation: rise 3s ease-in-out;	
+}
+.lanternfive {
+	position: absolute;
+	right: 200px;
+  	top: 150px;
+	animation: rise 3s ease-in-out;	
+}
+.lanternsix {
+	position: absolute;
+	right: 400px;
+  	top: 400px;
+	animation: rise 3s ease-in-out;	
+}
+.lanternseven {
+	position: absolute;
+	right: 180px;
+  	top: 450px;
+	animation: rise 3s ease-in-out;	
+}
+.lanterneight {
+	position: absolute;
+	left: 50px;
+  	top: 230px;
+	animation: rise 3s ease-in-out;	
+}
+.lanternnight {
+	position: absolute;
+	right: 370px;
+  	top: 140px;
+	animation: rise 3s ease-in-out;	
+}
+.lanternten {
+	position: absolute;
+	left: 430px;
+  	top: 460px;
 	animation: rise 3s ease-in-out;	
 }
