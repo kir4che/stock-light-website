@@ -252,7 +252,7 @@ export default function Analysis() {
 										}
 										onClick={() => handleClickActive(event.id)}
 									>
-										<Image src={event.icon} width={100} height={100} alt={event.category} />
+										<Image src={event.icon} width={36} height={36} alt={event.category} />
 										<span className='tracking-wider'>{event.category}</span>
 									</button>
 								</li>
