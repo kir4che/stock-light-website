@@ -45,8 +45,8 @@ export default function UserMenu() {
 					<MenuItem onClick={handleClose}>用戶頁面</MenuItem>
 				</Link>
 				<Link href={'/'}>
-					<MenuItem onClick={handleSignOut}>
-						登出
+					<MenuItem className='space-x-1' onClick={handleSignOut}>
+						<p>登出</p>
 						<LogoutIcon fontSize='small' />
 					</MenuItem>
 				</Link>

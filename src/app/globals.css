@@ -421,3 +421,7 @@
 .MuiPaper-root .MuiButtonBase-root .MuiSvgIcon-root {
 	@apply text-zinc-400 hover:text-zinc-800 !important;
 }
+
+.MuiPaper-root .MuiList-root a .MuiButtonBase-root {
+	@apply text-zinc-800 !important;
+}
