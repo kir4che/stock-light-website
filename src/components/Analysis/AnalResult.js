@@ -5,12 +5,10 @@ import LinearRegChart from './LinearRegChart'
 import LogRegChart from './LogRegChart'
 import RegTable from './RegTable'
 
-export default function AnalResult(props) {
-	const event = props.event
-
+export default function AnalResult({ event }) {
 	const [activeTabIndex, setActiveTabIndex] = useState(0)
 
-	const handleChangeActive = (event, tabIndex) => {
+	const handleChangeActive = (e, tabIndex) => {
 		setActiveTabIndex(tabIndex)
 	}
 

@@ -3,10 +3,7 @@ import ReactEcharts from 'echarts-for-react'
 import ecStat from 'echarts-stat'
 import { useEffect, useState } from 'react'
 
-export default function DetailChart(props) {
-	const symbol = props.symbol
-	const name = props.name
-
+export default function DetailChart({ symbol, name }) {
 	const [option, setOption] = useState(null)
 
 	const temperature = [

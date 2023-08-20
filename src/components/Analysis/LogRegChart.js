@@ -3,10 +3,7 @@ import ReactEcharts from 'echarts-for-react'
 import ecStat from 'echarts-stat'
 import { useEffect, useState } from 'react'
 
-export default function LogRegChart(props) {
-	const tab = props.tab
-	const stock = props.stock
-
+export default function LogRegChart({ stock, tab }) {
 	let data = []
 	data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
 	const stockPrice = [

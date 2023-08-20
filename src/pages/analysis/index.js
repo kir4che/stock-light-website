@@ -1,5 +1,5 @@
+import Image from 'next/image'
 import { useState } from 'react'
-
 import AnalResult from '../../components/Analysis/AnalResult'
 
 export default function Analysis() {
@@ -234,9 +234,7 @@ export default function Analysis() {
 
 	const [active, setActive] = useState(1) // 最低設定 1
 
-	const handleClickActive = (eventId) => {
-		setActive(eventId)
-	}
+	const handleClickActive = (eventId) => setActive(eventId)
 
 	return (
 		<div id='stars-background-container'>
@@ -254,7 +252,7 @@ export default function Analysis() {
 										}
 										onClick={() => handleClickActive(event.id)}
 									>
-										<img src={event.icon} alt={event.category}></img>
+										<Image src={event.icon} width={100} height={100} alt={event.category} />
 										<span className='tracking-wider'>{event.category}</span>
 									</button>
 								</li>
