@@ -18,7 +18,7 @@ export default function Home() {
 				<Banner />
 				<Marquee />
 			</div>
-			<main className='py-4 sm:pt-12 sm:pb-20'>
+			<main className='py-4 sm:pt-14 sm:pb-10'>
 				<div className='flex w-full md:gap-16 lg:gap-20 xl:gap-24'>
 					<Sidebar />
 					<div className='w-full px-4 md:w-2/3 lg:w-3/4 xl:w-4/5 md:px-0'>
