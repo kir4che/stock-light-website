@@ -8,7 +8,7 @@
 	}
 	html,
 	body {
-		@apply max-w-[100vw] overflow-x-hidden bg-white text-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:transition;
+		@apply max-w-[100vw] overflow-x-hidden text-zinc-800 dark:text-zinc-100;
 	}
 	h1 {
 		@apply text-4xl font-bold;
@@ -31,7 +31,7 @@
 }
 
 .container {
-	@apply w-full max-w-full min-h-screen p-0 px-4 m-0 md:px-10 lg:px-16;
+	@apply w-full max-w-full min-h-screen p-0 m-0;
 }
 
 /* 首頁 -「我要點燈」按鈕，不是Header上的！ */
@@ -277,13 +277,14 @@
 
 /* 夜空背景 */
 #stars-background-container {
-	@apply z-0 h-full;
+	@apply relative z-0 w-full;
 }
 
 .stars,
 .twinkling,
 .clouds {
-	@apply absolute left-0 block w-full h-full min-h-[1400px] top-0;
+	@apply absolute top-0 left-0 w-full;
+	height: 100%;
 }
 
 .stars {
@@ -414,16 +415,16 @@
 	width: 180px;
 }
 
-.laternlight{
+.laternlight {
 	transform: translate(60%, 50%);
 	height: 80px;
 	width: 80px;
 	position: absolute;
 	border-radius: 50%;
 	background: #fbc926;
-	 box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fbc926,
-	 0 0 70px #fbc926, 0 0 80px #fbc926, 0 0 100px #fbc926, 0 0 150px #fbc926;
-   animation: blink 5s ease-in-out infinite;
+	box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fbc926, 0 0 70px #fbc926, 0 0 80px #fbc926,
+		0 0 100px #fbc926, 0 0 150px #fbc926;
+	animation: blink 5s ease-in-out infinite;
 }
 
 .right {
@@ -474,7 +475,7 @@
 
 	&:after,
 	&:before {
-		content: "";
+		content: '';
 		width: 20px;
 		height: 20px;
 		display: block;
@@ -511,66 +512,70 @@
 }
 
 @keyframes rise {
-	0% { transform:translateY(350px);}
-	100% {transform:translateY(0px);}
+	0% {
+		transform: translateY(350px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
 }
 
 .lanternone {
 	position: absolute;
 	top: 500px;
-	animation: rise 3s ease-in-out;	
+	animation: rise 3s ease-in-out;
 }
 .lanterntwo {
 	position: absolute;
 	left: 500px;
-  	top: 200px;
-	animation: rise 3s ease-in-out;	
+	top: 200px;
+	animation: rise 3s ease-in-out;
 }
 .lanternthree {
 	position: absolute;
 	left: 350px;
-  	top: 250px;
-	animation: rise 3s ease-in-out;	
+	top: 250px;
+	animation: rise 3s ease-in-out;
 }
 .lanternfour {
 	position: absolute;
 	right: 0px;
-  	top: 120px;
-	animation: rise 3s ease-in-out;	
+	top: 120px;
+	animation: rise 3s ease-in-out;
 }
 .lanternfive {
 	position: absolute;
 	right: 200px;
-  	top: 150px;
-	animation: rise 3s ease-in-out;	
+	top: 150px;
+	animation: rise 3s ease-in-out;
 }
 .lanternsix {
 	position: absolute;
 	right: 400px;
-  	top: 400px;
-	animation: rise 3s ease-in-out;	
+	top: 400px;
+	animation: rise 3s ease-in-out;
 }
 .lanternseven {
 	position: absolute;
 	right: 180px;
-  	top: 450px;
-	animation: rise 3s ease-in-out;	
+	top: 450px;
+	animation: rise 3s ease-in-out;
 }
 .lanterneight {
 	position: absolute;
 	left: 50px;
-  	top: 230px;
-	animation: rise 3s ease-in-out;	
+	top: 230px;
+	animation: rise 3s ease-in-out;
 }
 .lanternnight {
 	position: absolute;
 	right: 370px;
-  	top: 140px;
-	animation: rise 3s ease-in-out;	
+	top: 140px;
+	animation: rise 3s ease-in-out;
 }
 .lanternten {
 	position: absolute;
 	left: 430px;
-  	top: 460px;
-	animation: rise 3s ease-in-out;	
+	top: 460px;
+	animation: rise 3s ease-in-out;
 }

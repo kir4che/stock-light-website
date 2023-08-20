@@ -18,7 +18,7 @@ export default function RootLayout({ children }) {
 			<body className={inter.className}>
 				<DarkModeProvider>
 					<NextAuthProvider>
-						<div className='container'>
+						<div className='container bg-white dark:bg-zinc-900'>
 							<Header />
 							{children}
 							<Footer />

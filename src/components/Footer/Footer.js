@@ -29,8 +29,8 @@ export default function Footer() {
 	]
 
 	return (
-		<footer className='bg-white dark:bg-zinc-900'>
-			<div className='flex flex-col items-center py-10 mx-auto sm:items-start sm:flex-row'>
+		<footer>
+			<div className='flex flex-col items-center px-4 py-10 mx-auto md:px-10 lg:px-16 sm:items-start sm:flex-row'>
 				<div className='mx-auto text-center md:text-center'>
 					<Image src='https://fakeimg.pl/180x92/' width={180} height={92} alt='股市光明燈' />
 					<h4 className='my-2 font-bold'>股市光明燈</h4>
