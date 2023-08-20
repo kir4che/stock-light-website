@@ -8,10 +8,7 @@ export default function Light() {
 	return (
 		<div id='stars-background-container'>
 			<div className='container flex py-20 mx-auto space-x-6'>
-				{Array.from({ length: lanternCount }).map((_, index) => (
-					<Lantern key={index} />
-				))}
-				<span className='lantern'></span>
+				<Lantern/>
 				<Link href='/light/checkout'>
 					<button>祈福</button>
 				</Link>
