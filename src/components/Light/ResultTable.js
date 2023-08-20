@@ -15,7 +15,7 @@ import {
 import { visuallyHidden } from '@mui/utils'
 import PropTypes from 'prop-types'
 import { useMemo, useState } from 'react'
-import LinearRegChart from './LinearRegChart'
+import LinearRegChart from './Analysis/LinearRegChart'
 
 export default function ResultTable() {
 	// 數據，目前先呈現五檔(預測漲跌亂寫的)
