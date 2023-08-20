@@ -1,20 +1,21 @@
-import Box from '@mui/material/Box'
-import Dialog from '@mui/material/Dialog'
-import DialogContent from '@mui/material/DialogContent'
-import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import TableSortLabel from '@mui/material/TableSortLabel'
+import {
+	Box,
+	Dialog,
+	DialogContent,
+	IconButton,
+	Paper,
+	Table,
+	TableBody,
+	TableCell,
+	TableContainer,
+	TableHead,
+	TableRow,
+	TableSortLabel,
+} from '@mui/material'
 import { visuallyHidden } from '@mui/utils'
 import PropTypes from 'prop-types'
 import { useMemo, useState } from 'react'
-
-import LinearRegChart from '@/components/Analysis/LinearRegChart'
+import LinearRegChart from './LinearRegChart'
 
 export default function ResultTable() {
 	// 數據，目前先呈現五檔(預測漲跌亂寫的)

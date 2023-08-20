@@ -26,10 +26,8 @@ export default async function auth(req, res) {
 			secret: process.env.SECRET,
 		},
 		session: {
-			// This is the default. The session is saved in a cookie and never persisted anywhere.
 			strategy: 'jwt',
 		},
-		// Enable debug messages in the console if you are having problems
 		debug: true,
 
 		pages: {
@@ -40,7 +38,6 @@ export default async function auth(req, res) {
 
 		callbacks: {
 			async session({ session, token }) {
-				// Send properties to the client, like an access_token from a provider.
 				session.accessToken = token.accessToken
 				session.refreshToken = token.refreshToken
 				session.idToken = token.idToken
@@ -49,7 +46,6 @@ export default async function auth(req, res) {
 				return session
 			},
 			async jwt({ token, user, account }) {
-				// Persist the OAuth access_token to the token right after signin
 				if (account) {
 					token.accessToken = account.access_token
 					token.refreshToken = account.refresh_token
