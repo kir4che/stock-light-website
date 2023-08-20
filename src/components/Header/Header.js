@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Toolbar from '@mui/material/Toolbar'
-import { signIn } from 'next-auth/react'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useState } from 'react'
 import Link from '../../../node_modules/next/link'
@@ -40,6 +40,8 @@ export default function Header() {
 		},
 	]
 
+	const { session, status } = useSession()
+
 	return (
 		<header className='bg-white dark:bg-zinc-900'>
 			<div className='flex items-center justify-between px-4 py-2 mx-auto md:justify-start md:px-0 md:py-4'>
@@ -64,10 +66,17 @@ export default function Header() {
 							我要點燈
 						</button>
 					</Link>
-					<button type='button' className='hidden space-x-1 text-sm md:block' onClick={signIn}>
-						<span>登入／註冊</span>
-						<LogoutIcon fontSize='small' />
-					</button>
+					{session ? (
+						<button type='button' className='hidden space-x-1 text-sm md:block' onClick={signOut}>
+							<span>登出</span>
+							<LogoutIcon fontSize='small' />
+						</button>
+					) : (
+						<button type='button' className='hidden space-x-1 text-sm md:block' onClick={signIn}>
+							<span>登入／註冊</span>
+							<LogoutIcon fontSize='small' />
+						</button>
+					)}
 					<BurgerMenu pages={pages} />
 					<DarkModeToggle />
 				</div>
