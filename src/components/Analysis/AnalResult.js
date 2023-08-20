@@ -1,7 +1,9 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Tab, Tabs } from '@mui/material'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import LinearRegChart from './LinearRegChart'
 import LogRegChart from './LogRegChart'
+import RegTable from './RegTable'
 
 export default function AnalResult(props) {
 	const event = props.event
@@ -23,7 +25,7 @@ export default function AnalResult(props) {
 	useEffect(() => {
 		setActiveTab(event.tabs[activeTabIndex])
 		setStock(stock)
-	}, [activeTabIndex])
+	}, [activeTabIndex, event.tabs, stock])
 
 	const [stock, setStock] = useState(2330)
 
@@ -90,21 +92,41 @@ export default function AnalResult(props) {
 						</>
 					)
 				) : activeTab.label == '基本面－財務指標技術雷達' ? (
-					<img src='../images/stock-analysis-chart/基本面 - 財務指標技術雷達.png' />
+					<Image src='/images/stock-analysis-chart/基本面 - 財務指標技術雷達.png' width={400} hieght={400} alt={''} />
 				) : activeTab.label == '本益比成長' ? (
 					<div className='w-full space-y-8'>
-						<img src='../images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長.png' />
-						<img src='../images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長 2.png' />
-						<img src='../images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長 3.png' />
+						<Image
+							src='/images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長.png'
+							width={400}
+							hieght={400}
+							alt={''}
+						/>
+						<Image
+							src='/images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長 2.png'
+							width={400}
+							hieght={400}
+							alt={''}
+						/>
+						<Image
+							src='/images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長 3.png'
+							width={400}
+							hieght={400}
+							alt={''}
+						/>
 					</div>
 				) : activeTab.label == '類股漲跌幅' ? (
-					<img src='../images/stock-analysis-chart/基本面 - 漲跌幅板塊圖.png' />
+					<Image src='/images/stock-analysis-chart/基本面 - 漲跌幅板塊圖.png' width={400} hieght={400} alt={''} />
 				) : activeTab.label == '策略部位旭日圖' ? (
-					<img src='../images/stock-analysis-chart/基本面 - 策略部位旭日圖.png' />
+					<Image src='/images/stock-analysis-chart/基本面 - 策略部位旭日圖.png' width={400} hieght={400} alt={''} />
 				) : activeTab.label == '技術面－技術指標圖組' ? (
-					<img src='../images/stock-analysis-chart/技術面 - 技術指標圖組.png' />
+					<Image src='/images/stock-analysis-chart/技術面 - 技術指標圖組.png' width={400} hieght={400} alt={''} />
 				) : activeTab.label == '股價站在十日均線之上' ? (
-					<img src='../images/stock-analysis-chart/技術面 - 股價站在十日均線之上.png' />
+					<Image
+						src='/images/stock-analysis-chart/技術面 - 股價站在十日均線之上.png'
+						width={400}
+						hieght={400}
+						alt={''}
+					/>
 				) : null
 			}
 		</div>
