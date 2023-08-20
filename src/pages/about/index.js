@@ -6,7 +6,7 @@ export default function About() {
 	return (
 		<div className='w-full py-4 mx-auto sm:py-16'>
 			<div className='pb-10 mb-16 text-center'>
-				<h2 className='mb-5'>開發團隊</h2>
+				<h2 className='mb-5 font-bold'>開發團隊</h2>
 				<p className='text-sm leading-6 mb-7'>
 					一群由臺北科技大學資訊與財金管理系的學生所組成的團隊
 					<br />
