@@ -1,20 +1,12 @@
 'use client'
 
-import CloseIcon from '@mui/icons-material/Close'
-import LogoutIcon from '@mui/icons-material/Logout'
-import MenuIcon from '@mui/icons-material/Menu'
-import Box from '@mui/material/Box'
-import Divider from '@mui/material/Divider'
-import Drawer from '@mui/material/Drawer'
-import IconButton from '@mui/material/IconButton'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import Toolbar from '@mui/material/Toolbar'
-import { signIn, signOut, useSession } from 'next-auth/react'
+import LoginIcon from '@mui/icons-material/Login'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useState } from 'react'
 import Link from '../../../node_modules/next/link'
+import BurgerMenu from './BurgerMenu/BurgerMenu'
 import DarkModeToggle from './DarkModeToggle/DarkModeToggle'
+import UserMenu from './UserMenu/UserMenu'
 
 export default function Header() {
 	const pages = [
@@ -40,7 +32,7 @@ export default function Header() {
 		},
 	]
 
-	const { session, status } = useSession()
+	const session = useSession()
 
 	return (
 		<header className='bg-white dark:bg-zinc-900'>
@@ -61,82 +53,23 @@ export default function Header() {
 					<Link href={'/light'}>
 						<button
 							type='button'
-							className='block px-4 py-1 text-sm transition-all duration-300 ease-out border-0 rounded-full text-zinc-800 bg-primary_yellow focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow hover:ring-offset-gray-900'
+							className='block mr-2.5 md:mr-0 px-4 py-1 text-sm transition-all duration-300 ease-out rounded-full dark:text-zinc-800 bg-primary_yellow focus:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow dark:hover:ring-offset-zinc-900'
 						>
 							我要點燈
 						</button>
 					</Link>
-					{session ? (
-						<button type='button' className='hidden space-x-1 text-sm md:block' onClick={signOut}>
-							<span>登出</span>
-							<LogoutIcon fontSize='small' />
-						</button>
+					{session.status === 'authenticated' ? (
+						<UserMenu />
 					) : (
-						<button type='button' className='hidden space-x-1 text-sm md:block' onClick={signIn}>
+						<Link href={'/dashboard/login'} className='hidden space-x-1 text-sm md:block'>
 							<span>登入／註冊</span>
-							<LogoutIcon fontSize='small' />
-						</button>
+							<LoginIcon fontSize='small' />
+						</Link>
 					)}
-					<BurgerMenu pages={pages} />
+					<BurgerMenu pages={pages} session={session} />
 					<DarkModeToggle />
 				</div>
 			</div>
 		</header>
-	)
-}
-
-function BurgerMenu({ pages }) {
-	const [open, setState] = useState(false)
-	const toggleDrawer = (open) => (event) => {
-		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return
-		setState(open)
-	}
-
-	return (
-		<Toolbar className='flex px-1 m-0 md:hidden'>
-			<Box
-				component='div'
-				sx={{
-					display: {
-						sm: 'none',
-						md: 'flex',
-					},
-				}}
-			></Box>
-			<IconButton
-				className='dark:text-white'
-				aria-label='open drawer'
-				onClick={toggleDrawer(true)}
-				sx={{
-					display: {
-						sm: 'flex',
-						md: 'none',
-					},
-				}}
-			>
-				<MenuIcon />
-			</IconButton>
-			<Drawer anchor='right' open={open}>
-				<Box sx={{ width: 240 }}>
-					<IconButton sx={{ my: 1 }} onClick={toggleDrawer(false)}>
-						<CloseIcon />
-					</IconButton>
-					<Divider sx={{ mb: 2 }} />
-					<Box>
-						{pages.map((page) => (
-							<ListItemButton key={page.url}>
-								<Link href={page.url} key={page.url}>
-									<ListItemText primary={page.name} />
-								</Link>
-							</ListItemButton>
-						))}
-						<button type='button' className='ml-3.5 absolute bottom-10 space-x-1'>
-							<span>登入／註冊</span>
-							<LogoutIcon fontSize='small' />
-						</button>
-					</Box>
-				</Box>
-			</Drawer>
-		</Toolbar>
 	)
 }
