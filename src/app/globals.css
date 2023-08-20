@@ -413,6 +413,13 @@
 	perspective: 500px;
 	height: 150px;
 	width: 180px;
+	animation: rise 3s ease-in-out;	
+}
+.lantern:hover{
+	cursor: pointer;
+	border-radius: 50%;
+	box-shadow: 0 0 5px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffc404,
+	0 0 70px #ffc404, 0 0 80px #ffc404, 0 0 100px #ffc404, 0 0 150px #ffc404;
 }
 
 .laternlight {
@@ -422,9 +429,9 @@
 	position: absolute;
 	border-radius: 50%;
 	background: #fbc926;
-	box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fbc926, 0 0 70px #fbc926, 0 0 80px #fbc926,
-		0 0 100px #fbc926, 0 0 150px #fbc926;
-	animation: blink 5s ease-in-out infinite;
+	 box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fbc926,
+	 0 0 70px #fbc926, 0 0 80px #fbc926, 0 0 100px #fbc926, 0 0 150px #fbc926;
+   animation: blink 5s ease-in-out infinite;
 }
 
 .right {
@@ -523,59 +530,49 @@
 .lanternone {
 	position: absolute;
 	top: 500px;
-	animation: rise 3s ease-in-out;
 }
 .lanterntwo {
 	position: absolute;
 	left: 500px;
-	top: 200px;
-	animation: rise 3s ease-in-out;
+  	top: 200px;
 }
 .lanternthree {
 	position: absolute;
 	left: 350px;
-	top: 250px;
-	animation: rise 3s ease-in-out;
+  	top: 250px;
 }
 .lanternfour {
 	position: absolute;
 	right: 0px;
-	top: 120px;
-	animation: rise 3s ease-in-out;
+  	top: 120px;
 }
 .lanternfive {
 	position: absolute;
 	right: 200px;
-	top: 150px;
-	animation: rise 3s ease-in-out;
+  	top: 150px;
 }
 .lanternsix {
 	position: absolute;
 	right: 400px;
-	top: 400px;
-	animation: rise 3s ease-in-out;
+  	top: 400px;
 }
 .lanternseven {
 	position: absolute;
 	right: 180px;
-	top: 450px;
-	animation: rise 3s ease-in-out;
+  	top: 450px;	
 }
 .lanterneight {
 	position: absolute;
 	left: 50px;
-	top: 230px;
-	animation: rise 3s ease-in-out;
+  	top: 230px;
 }
 .lanternnight {
 	position: absolute;
 	right: 370px;
-	top: 140px;
-	animation: rise 3s ease-in-out;
+  	top: 140px;
 }
 .lanternten {
 	position: absolute;
 	left: 430px;
-	top: 460px;
-	animation: rise 3s ease-in-out;
+  	top: 460px;
 }
