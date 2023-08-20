@@ -1,4 +1,4 @@
-import LightResult from '@/components/Light/LightResult'
+import LightResult from '../../../components/Light/LightResult'
 
 export default function Result() {
 	return (
