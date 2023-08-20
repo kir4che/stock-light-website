@@ -35,7 +35,7 @@ export default function Header() {
 	const session = useSession()
 
 	return (
-		<div className='flex items-center justify-between mx-auto md:py-4'>
+		<div className='flex items-center justify-between py-1 mx-auto md:py-4'>
 			<Link href='/' className='flex items-center'>
 				<Image src='/favicon.ico' width={32} height={32} alt='股市光明燈' />
 				<h4 className='ml-1 font-medium'>股市光明燈</h4>
