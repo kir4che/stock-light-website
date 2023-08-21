@@ -16,7 +16,7 @@ export default function HomeSidebar() {
 	const fetchNews = async () => {
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/top-headlines?category=business&pageSize=5&sortBy=publishedAt&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY2}`,
+				`https://newsapi.org/v2/top-headlines?category=business&pageSize=5&sortBy=publishedAt&apiKey=${process.env.NEWS_API_KEY}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()
