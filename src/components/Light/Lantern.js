@@ -1,65 +1,77 @@
 export default function Lantern() {
 	return (
-		<div>
-			<div class="lantern lanternone">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+		<div className="float">
+			<div className="lantern lanternone">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanterntwo">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanterntwo">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanternthree">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanternthree">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanternfour">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanternfour">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanternfive">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanternfive">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanternsix">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanternsix">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanternseven">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanternseven">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanterneight">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanterneight">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanternnight">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanternnight">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
-			<div class="lantern lanternten">
-				<div class="laternlight"></div>
-				<div class="left"></div>
-				<div class="right"></div>
-				<div class="flame"></div>
+			<div className="lantern lanternten">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
+			</div>
+			<div className="lantern lanterneleven">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
+			</div>
+			<div className="lantern lanterntwelve">
+				<div className="laternlight"></div>
+				<div className="left"></div>
+				<div className="right"></div>
+				<div className="flame"></div>
 			</div>
 		</div>
 	)

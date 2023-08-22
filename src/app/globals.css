@@ -418,8 +418,7 @@
 .lantern:hover{
 	cursor: pointer;
 	border-radius: 50%;
-	box-shadow: 0 0 5px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ffc404,
-	0 0 70px #ffc404, 0 0 80px #ffc404, 0 0 100px #ffc404, 0 0 150px #ffc404;
+	box-shadow:0 0 150px -20px #ffc404;
 }
 
 .laternlight {
@@ -429,9 +428,9 @@
 	position: absolute;
 	border-radius: 50%;
 	background: #fbc926;
-	 box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fbc926,
-	 0 0 70px #fbc926, 0 0 80px #fbc926, 0 0 100px #fbc926, 0 0 150px #fbc926;
-   animation: blink 5s ease-in-out infinite;
+	box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #fbc926,
+		0 0 70px #fbc926, 0 0 80px #fbc926, 0 0 100px #fbc926, 0 0 150px #fbc926;
+	animation: blink 5s ease-in-out infinite;
 }
 
 .right {
@@ -450,6 +449,7 @@
 	transform: rotateY(137deg) translateX(-20px) scaleY(0.98);
 }
 
+/* 閃光動畫 */
 @keyframes blink {
 	0% {
 		opacity: 1;
@@ -464,6 +464,7 @@
 	}
 }
 
+/* 天燈內部火焰動畫 */
 .flame {
 	opacity: 0.7;
 	left: 40%;
@@ -518,61 +519,110 @@
 	}
 }
 
+/* 上升動畫 */
 @keyframes rise {
 	0% {
 		transform: translateY(350px);
 	}
+
 	100% {
 		transform: translateY(0px);
 	}
 }
 
+/* 漂浮動畫 */
+.float {
+	animation-name: Floating;
+	animation-duration: 2.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes Floating {
+	from {
+		-webkit-transform: translate(0, 0px);
+	}
+
+	65% {
+		-webkit-transform: translate(0, 15px);
+	}
+
+	to {
+		-webkit-transform: translate(0, 0px);
+	}
+}
+
+/* 天燈位置 */
 .lanternone {
 	position: absolute;
 	top: 500px;
 }
+
 .lanterntwo {
 	position: absolute;
 	left: 500px;
-  	top: 200px;
+	top: 200px;
 }
+
 .lanternthree {
 	position: absolute;
 	left: 350px;
-  	top: 250px;
+	top: 250px;
+	scale: 0.7;
 }
+
 .lanternfour {
 	position: absolute;
 	right: 0px;
-  	top: 120px;
+	top: 120px;
 }
+
 .lanternfive {
 	position: absolute;
 	right: 200px;
-  	top: 150px;
+	top: 150px;
+	scale: 0.7;
 }
+
 .lanternsix {
 	position: absolute;
 	right: 400px;
-  	top: 400px;
+	top: 400px;
 }
+
 .lanternseven {
 	position: absolute;
 	right: 180px;
-  	top: 450px;	
+	top: 450px;
 }
+
 .lanterneight {
 	position: absolute;
 	left: 50px;
-  	top: 230px;
+	top: 230px;
 }
+
 .lanternnight {
 	position: absolute;
 	right: 370px;
-  	top: 140px;
+	top: 140px;
 }
+
 .lanternten {
 	position: absolute;
 	left: 430px;
-  	top: 460px;
+	top: 460px;
+}
+
+.lanterneleven {
+	position: absolute;
+	left: 210px;
+	top: 80px;
+}
+
+.lanterntwelve {
+	position: absolute;
+	left: 200px;
+	top: 480px;
+	scale: 0.8;
 }
