@@ -13,6 +13,9 @@ module.exports = {
 	important: true,
 	theme: {
 		extend: {
+			screens: {
+				md: '800px',
+			},
 			colors: {
 				primary_yellow: '#FFDC62',
 				secondary_blue: '#4FBAFF',

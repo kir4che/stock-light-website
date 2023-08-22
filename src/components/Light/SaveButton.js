@@ -18,7 +18,7 @@ export default function SaveButton() {
 		<Stack spacing={2} sx={{ width: '100%' }}>
 			<button
 				type='button'
-				className='flex justify-center px-16 py-2.5 mx-auto text-sm font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer bg-primary_yellow focus:outline-none sm:mt-0 hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
+				className='flex justify-center px-16 py-2.5 mx-auto text-sm font-medium transition-all duration-300 ease-out border-0 rounded-full cursor-pointer bg-primary_yellow sm:mt-0 hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow'
 				onClick={handleClickOpen}
 			>
 				保存結果

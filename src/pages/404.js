@@ -11,7 +11,7 @@ export default function Custom404() {
 			</h2>
 			<p className='mt-6 text-sm opacity-60'>您所尋找的頁面不存在，請點擊下面的按鈕返回首頁。</p>
 			<button
-				className='mt-6 px-6 py-1.5 transition duration-200 ease-in border-[1.5px] border-secondary_blue rounded-full hover:bg-secondary_blue hover:text-white focus:outline-none'
+				className='mt-6 px-6 py-1.5 transition duration-200 ease-in border-[1.5px] border-secondary_blue rounded-full hover:bg-secondary_blue hover:text-white'
 				type='button'
 				onClick={() => router.push('/')}
 			>

@@ -1,8 +1,6 @@
-import CallIcon from '@mui/icons-material/Call'
-import MailIcon from '@mui/icons-material/Mail'
-import PlaceIcon from '@mui/icons-material/Place'
 import Image from 'next/image'
 import Link from 'next/link'
+import { EnvelopeFill, GeoAltFill, TelephoneFill } from 'react-bootstrap-icons'
 
 export default function Footer() {
 	const pages = [
@@ -30,7 +28,7 @@ export default function Footer() {
 
 	return (
 		<footer>
-			<div className='flex flex-col items-center px-4 py-10 mx-auto md:px-10 lg:px-16 sm:items-start sm:flex-row'>
+			<div className='flex flex-col items-center py-10 mx-auto sm:items-start sm:flex-row'>
 				<div className='mx-auto text-center md:text-center'>
 					<Image src='https://fakeimg.pl/180x92/' width={180} height={92} alt='股市光明燈' />
 					<h4 className='my-2 font-bold'>股市光明燈</h4>
@@ -46,8 +44,8 @@ export default function Footer() {
 					</nav>
 					<nav className='hidden space-y-5 sm:block'>
 						<h4 className='mb-2 text-xl font-bold'>聯絡方式</h4>
-						<div className='flex items-center mb-1 space-x-2'>
-							<PlaceIcon />
+						<div className='flex items-center space-x-2 text-sm'>
+							<GeoAltFill size={20} />
 							<Link
 								target='_blank'
 								href='https://www.google.com/maps/place/106%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%AE%89%E5%8D%80%E5%BF%A0%E5%AD%9D%E6%9D%B1%E8%B7%AF%E4%B8%89%E6%AE%B51%E8%99%9F/@25.0424604,121.5330755,17z/data=!3m1!4b1!4m6!3m5!1s0x3442a97d14c16483:0x8bd463ae49b2e63d!8m2!3d25.0424604!4d121.5356504!16s%2Fg%2F11csf7fb9c?authuser=0'
@@ -55,12 +53,12 @@ export default function Footer() {
 								106台北市大安區忠孝東路三段1號
 							</Link>
 						</div>
-						<div className='flex items-center mb-12 space-x-2.5'>
-							<MailIcon />
+						<div className='flex items-center space-x-2 text-sm'>
+							<EnvelopeFill size={20} />
 							<p>xxx@gmail.com</p>
 						</div>
-						<div className='flex items-center mb-12 space-x-2.5'>
-							<CallIcon />
+						<div className='flex items-center space-x-2 text-sm'>
+							<TelephoneFill size={20} />
 							<p>0912-345-678</p>
 						</div>
 					</nav>

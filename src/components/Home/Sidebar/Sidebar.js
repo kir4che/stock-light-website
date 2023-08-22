@@ -1,6 +1,5 @@
-import ArticleIcon from '@mui/icons-material/Article'
-import InfoIcon from '@mui/icons-material/Info'
 import { useEffect, useState } from 'react'
+import { InfoCircleFill, Newspaper } from 'react-bootstrap-icons'
 import SidebarBlock from '../../SidebarBlock/SidebarBlock2'
 
 export default function HomeSidebar() {
@@ -32,8 +31,8 @@ export default function HomeSidebar() {
 
 	return (
 		<div className='hidden w-56 max-w-sm space-y-10 md:block'>
-			<SidebarBlock icon={<ArticleIcon />} title={'理財新聞'} data={news} />
-			<SidebarBlock icon={<InfoIcon />} title={'版本資訊'} data={versionInfo} />
+			<SidebarBlock icon={<Newspaper size={20} />} title={'理財新聞'} data={news} />
+			<SidebarBlock icon={<InfoCircleFill size={20} />} title={'版本資訊'} data={versionInfo} />
 		</div>
 	)
 }

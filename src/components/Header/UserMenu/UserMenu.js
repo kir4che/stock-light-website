@@ -1,13 +1,13 @@
 'use client'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import LogoutIcon from '@mui/icons-material/Logout'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Unindent } from 'react-bootstrap-icons'
 
 export default function UserMenu() {
 	const router = useRouter()
@@ -47,7 +47,7 @@ export default function UserMenu() {
 				<Link href={'/'}>
 					<MenuItem className='space-x-1' onClick={handleSignOut}>
 						<p>登出</p>
-						<LogoutIcon fontSize='small' />
+						<Unindent size={20} />
 					</MenuItem>
 				</Link>
 			</Menu>
