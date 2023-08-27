@@ -1,12 +1,14 @@
 export default function Lantern() {
 	return (
 		<div className="float">
-			<div className="lantern lanternone">
-				<div className="laternlight"></div>
-				<div className="left"></div>
-				<div className="right"></div>
-				<div className="flame"></div>
-			</div>
+			<a href="/light/checkout">
+				<div className="lantern lanternone">
+					<div className="laternlight"></div>
+					<div className="left"></div>
+					<div className="right"></div>
+					<div className="flame"></div>
+				</div>
+			</a>
 			<div className="lantern lanterntwo">
 				<div className="laternlight"></div>
 				<div className="left"></div>

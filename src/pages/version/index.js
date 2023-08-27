@@ -7,13 +7,13 @@ export default function Version() {
 			<ul className='space-y-3'>
 				<li>
 					<h5 className='font-bold text-center '>Version 0.2</h5>
-					<Image src='https://fakeimg.pl/640x320/' width={640} height={320} alt='股市光明燈' className='my-5' />
+					<Image src='/images/version/version0.2.png' width={640} height={320} alt='股市光明燈' className='my-5' />
 					<p className='mb-5 font-light text-center'>banner動畫設計</p>
 					<hr></hr>
 				</li>
 				<li>
 					<h5 className='font-bold text-center '>Version 0.1</h5>
-					<Image src='https://fakeimg.pl/640x320/' width={640} height={320} alt='股市光明燈' className='my-5' />
+					<Image src='/images/version/version0.1.png' width={640} height={320} alt='股市光明燈' className='my-5' />
 					<p className='mb-5 font-light text-center'>確認網站的架構以及主色調</p>
 				</li>
 			</ul>

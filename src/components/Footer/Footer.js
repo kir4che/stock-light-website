@@ -65,7 +65,7 @@ export default function Footer() {
 				</div>
 			</div>
 			<div className='flex flex-col items-center py-5 mx-auto '>
-				<p className='text-sm font-thin'>copyright © 北科大資財四乙 2023 All Rights Reserved.</p>
+				<p className='text-sm font-thin'>Copyright © 北科大資財四乙 2023 All Rights Reserved.</p>
 			</div>
 		</footer>
 	)
