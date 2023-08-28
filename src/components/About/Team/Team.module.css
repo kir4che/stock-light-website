@@ -1,0 +1,25 @@
+.card_group {
+	@apply flex flex-wrap justify-center mx-auto sm:gap-8 xl:gap-0 xl:space-x-8;
+}
+
+.card {
+	@apply w-full xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+}
+
+.card_content {
+	@apply mb-4 text-xs tracking-widest;
+}
+
+.card_img {
+	@apply object-cover object-center w-full h-64;
+}
+
+.card:hover .card_img,
+.card_back {
+	@apply hidden;
+}
+
+.card:hover .card_back {
+	@apply block h-40 leading-relaxed duration-75;
+	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}

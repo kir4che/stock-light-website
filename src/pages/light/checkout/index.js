@@ -17,6 +17,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import router from 'next/router'
 import { useState } from 'react'
+import StarryBackground from '../../../components/StarryBackground/StarryBackground'
 
 export default function Checkout() {
 	const [open, setOpen] = useState(false)
@@ -41,7 +42,7 @@ export default function Checkout() {
 	const handleExpYearChange = (e) => setExpYear(e.target.value)
 
 	return (
-		<div id='stars-background-container'>
+		<StarryBackground>
 			<Container component='main' maxWidth='sm' sx={{ mt: 12, mb: 16 }}>
 				<Paper className='relative' variant='outlined' sx={{ px: 5, pt: 4, pb: 8 }}>
 					<button
@@ -188,10 +189,7 @@ export default function Checkout() {
 				</Paper>
 			</Container>
 			<SuccessDialog open={open} />
-			<div className='stars'></div>
-			<div className='twinkling'></div>
-			<div className='clouds'></div>
-		</div>
+		</StarryBackground>
 	)
 }
 

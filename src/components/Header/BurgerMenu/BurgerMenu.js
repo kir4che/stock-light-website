@@ -11,7 +11,7 @@ import Toolbar from '@mui/material/Toolbar'
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function BurgerMenu({ session, pages }) {
+export default function BurgerMenu({ session, navigationLinks }) {
 	const [open, setState] = useState(false)
 	const toggleDrawer = (open) => (e) => {
 		if (e.type === 'keydown' && (e.key === 'Tab' || e.key === 'Shift')) return
@@ -49,7 +49,7 @@ export default function BurgerMenu({ session, pages }) {
 					</IconButton>
 					<Divider sx={{ mb: 2 }} />
 					<Box>
-						{pages.map((page) => (
+						{navigationLinks.map((page) => (
 							<ListItemButton key={page.url}>
 								<Link href={page.url} key={page.url}>
 									<ListItemText primary={page.name} />

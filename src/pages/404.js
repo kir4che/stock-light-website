@@ -6,7 +6,7 @@ export default function Custom404() {
 			<h1 className='mb-6 font-extrabold tracking-wider text-transparent text-8xl bg-clip-text bg-gradient-to-r from-secondary_blue to-sky-200'>
 				404
 			</h1>
-			<h2 className='font-bold'>
+			<h2>
 				<span className='text-stock_red'>OOPS！</span>找不到頁面
 			</h2>
 			<p className='mt-6 text-sm opacity-60'>您所尋找的頁面不存在，請點擊下面的按鈕返回首頁。</p>

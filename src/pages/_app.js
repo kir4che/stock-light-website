@@ -12,10 +12,16 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 	return (
 		<DarkModeProvider>
 			<NextAuthProvider session={session}>
-				<div className={`container bg-white dark:bg-zinc-900 ${isExcludedPage ? 'p-0' : 'px-4 md:px-10 lg:px-16'}`}>
-					<Header />
-					<Component {...pageProps}></Component>
-					<Footer />
+				<div
+					className={`container bg-white dark:bg-zinc-900 ${isExcludedPage ? '' : 'px-4 sm:px-6 md:px-10 lg:px-16'}`}
+				>
+					<div className={`${isExcludedPage ? 'px-4 sm:px-6 md:px-10 lg:px-16' : ''}`}>
+						<Header />
+					</div>
+					<Component {...pageProps} />{' '}
+					<div className={`${isExcludedPage ? 'px-4 sm:px-6 md:px-10 lg:px-16' : ''}`}>
+						<Footer />
+					</div>
 				</div>
 			</NextAuthProvider>
 		</DarkModeProvider>

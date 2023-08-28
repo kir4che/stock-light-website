@@ -1,0 +1,84 @@
+#starry_background_container {
+	@apply relative z-0 w-full sm:px-6 md:px-10 lg:px-16;
+}
+
+.stars,
+.twinkling,
+.clouds {
+	@apply absolute top-0 left-0 w-full;
+	height: 100%;
+}
+
+.stars {
+	background: #283253 url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat top center;
+	z-index: -3;
+}
+
+.twinkling {
+	background: transparent url('https://i.imgur.com/fUsesao.png') repeat top center;
+	opacity: 80%;
+	z-index: -2;
+	-webkit-animation: move-twink-back 200s linear;
+	animation: move-twink-back 200s linear;
+}
+
+.clouds {
+	background: transparent url('https://i.imgur.com/KYJdAQm.png') repeat top center;
+	opacity: 12%;
+	z-index: -1;
+	-webkit-animation: move-clouds-back 300s linear;
+	animation: move-clouds-back 300s linear;
+}
+
+/*stars-background-animation*/
+@-webkit-keyframes move-twink-back {
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: -10000px 5000px;
+	}
+}
+
+@keyframes move-twink-back {
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: -10000px 5000px;
+	}
+}
+
+@-webkit-keyframes move-clouds-back {
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: 10000px 0;
+	}
+}
+
+@keyframes move-clouds-back {
+	from {
+		background-position: 0 0;
+	}
+
+	to {
+		background-position: 10000px 0;
+	}
+}
+
+@keyframes fade-in-left {
+	0% {
+		transform: translateY(50px);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}

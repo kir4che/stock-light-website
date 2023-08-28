@@ -29,7 +29,7 @@ export default function Feedback() {
 				<SuccessDialog handleClose={handleClose} content={'您的回饋已送出，我們會盡快回覆您！'} />
 			) : (
 				<div className='max-w-screen-sm px-8 py-16 mx-auto lg:px-0'>
-					<h2 className='mb-5 font-bold text-center'>意見回饋</h2>
+					<h2 className='mb-5 text-center'>意見回饋</h2>
 					<p className='mb-8 text-xl font-light text-center opacity-60'>如果您有任何建議或問題，歡迎寄信給我們！</p>
 					<form action='#' className='space-y-8 text-sm'>
 						<div>

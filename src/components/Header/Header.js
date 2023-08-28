@@ -4,34 +4,12 @@ import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { BoxArrowInRight } from 'react-bootstrap-icons'
 import Link from '../../../node_modules/next/link'
+import { navigationLinks } from '../../data/navigationLinks'
 import BurgerMenu from './BurgerMenu/BurgerMenu'
 import DarkModeToggle from './DarkModeToggle/DarkModeToggle'
 import UserMenu from './UserMenu/UserMenu'
 
 export default function Header() {
-	const pages = [
-		{
-			name: '最新消息',
-			url: 'news',
-		},
-		{
-			name: '股市預測',
-			url: 'analysis',
-		},
-		{
-			name: '關於我們',
-			url: 'about',
-		},
-		{
-			name: '意見回饋',
-			url: 'feedback',
-		},
-		{
-			name: '版本資訊',
-			url: 'version',
-		},
-	]
-
 	const session = useSession()
 
 	return (
@@ -41,10 +19,10 @@ export default function Header() {
 				<h4 className='font-medium'>股市光明燈</h4>
 			</Link>
 			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 md:flex lg:space-x-8'>
-				{pages.map((page) => (
-					<Link href={page.url} key={page.url}>
-						<p>{page.name}</p>
-						<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
+				{navigationLinks.map((link) => (
+					<Link href={link.url} key={link.url}>
+						<span>{link.name}</span>
+						<span className='hidden text-sm capitalize lg:block'>{link.url}</span>
 					</Link>
 				))}
 			</nav>
@@ -65,7 +43,7 @@ export default function Header() {
 						<BoxArrowInRight size={20} />
 					</Link>
 				)}
-				<BurgerMenu pages={pages} session={session} />
+				<BurgerMenu navigationLinks={navigationLinks} session={session} />
 				<DarkModeToggle />
 			</div>
 		</div>

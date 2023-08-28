@@ -11,7 +11,7 @@ export default function LightResult() {
 		<div className='w-full p-10 pb-12 bg-white rounded-2xl'>
 			<div className='flex items-start justify-between'>
 				<div className='flex items-end mb-6 space-x-2 tracking-wider'>
-					<h3 className='font-medium '>天氣型態</h3>
+					<h3>天氣型態</h3>
 					<p className='text-sm opacity-80'>
 						{new Date().getFullYear()}/{new Date().getMonth() + 1}/{new Date().getDate()}
 					</p>

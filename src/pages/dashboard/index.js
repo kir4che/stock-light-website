@@ -17,10 +17,10 @@ export default function Dashboard() {
 
 	return (
 		<div className='py-4 sm:py-12'>
-			<h2 className='mb-20 font-bold text-center'>會員管理</h2>
+			<h2 className='mb-20 text-center'>會員管理</h2>
 			<div className='mx-auto bg-white border shadow-xl border-zinc-50 w-96'>
 				<AccountCircleIcon sx={{ fontSize: 120, color: '#4FBAFF' }} className='w-full mx-auto -mt-10' />
-				<h3 className='mt-2 font-medium text-center'>使用者</h3>
+				<h3 className='mt-2 text-center'>使用者</h3>
 				<div className='h-24'></div>
 				<hr className='mt-8' />
 				<div className='flex text-center'>

@@ -1,40 +1,26 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Tab, Tabs } from '@mui/material'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import LinearRegChart from './LinearRegChart'
-import LogRegChart from './LogRegChart'
-import RegTable from './RegTable'
 
 export default function AnalResult({ event }) {
 	const [activeTabIndex, setActiveTabIndex] = useState(0)
+	const [stock, setStock] = useState(2330)
 
-	const handleChangeActive = (event, tabIndex) => {
-		setActiveTabIndex(tabIndex)
-	}
-
-	const [activeTab, setActiveTab] = useState(event.tabs[activeTabIndex])
+	const handleChangeActive = (tabIndex) => setActiveTabIndex(tabIndex)
+	const handleChangeStock = (event) => setStock(event.target.value)
 
 	useEffect(() => {
-		setActiveTabIndex(0) // 當 event 值變化時，將 activeTabIndex 設回預設值0
-		setActiveTab(event.tabs[0])
-		setStock(2330)
+		setActiveTabIndex(0)
 	}, [event])
 
 	useEffect(() => {
-		setActiveTab(event.tabs[activeTabIndex])
-		setStock(stock)
-	}, [activeTabIndex])
-
-	const [stock, setStock] = useState(2330)
-
-	const handleChangeStock = (event) => {
-		setStock(event.target.value)
-	}
+		if (activeTabIndex < 0) setActiveTabIndex(0)
+		else if (activeTabIndex > event.tabs.length - 1) setActiveTabIndex(event.tabs.length - 1)
+	}, [activeTabIndex, event])
 
 	return (
-		<div className='px-3 pt-6 pb-16 mb-20 bg-white rounded w-[70vw]'>
+		<div className='w-full px-4 pt-6 bg-white rounded min-w-[72%]'>
 			<div className='flex items-end mb-1 space-x-2 tracking-wider'>
-				<h3 className='pl-3 font-medium'>{event.category}</h3>
+				<h3 className='pl-3'>{event.category}</h3>
 				<p className='text-sm opacity-80'>
 					{new Date().getFullYear()}/{new Date().getMonth() + 1}/{new Date().getDate()}
 				</p>
@@ -64,69 +50,6 @@ export default function AnalResult({ event }) {
 					</Box>
 				</div>
 			</div>
-
-			{
-				// 股票分析＿不做迴歸分析
-				event.category != '股票分析' ? (
-					stock != 0 && !activeTab.isLogReg ? (
-						<>
-							<div className='h-[480px] px-4'>
-								<LinearRegChart tab={activeTab} stock={stock} />
-							</div>
-							<div className='px-5 mt-6 space-y-5'>
-								<RegTable stock={stock} />
-								<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-							</div>
-						</>
-					) : (
-						<>
-							<div className='h-[480px] px-4'>
-								<LogRegChart tab={activeTab} stock={stock} />
-							</div>
-							<div className='px-5 mt-6 space-y-5'>
-								<RegTable stock={stock} />
-								<p className='text-sm text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-							</div>
-						</>
-					)
-				) : activeTab.label == '基本面－財務指標技術雷達' ? (
-					<Image src='/images/stock-analysis-chart/基本面 - 財務指標技術雷達.png' width={800} height={800} alt={''} />
-				) : activeTab.label == '本益比成長' ? (
-					<div className='w-full space-y-8'>
-						<Image
-							src='/images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長.png'
-							width={800}
-							height={800}
-							alt={''}
-						/>
-						<Image
-							src='/images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長 2.png'
-							width={800}
-							height={800}
-							alt={''}
-						/>
-						<Image
-							src='/images/stock-analysis-chart/基本面 - 策略回測分析-本益比成長 3.png'
-							width={800}
-							height={800}
-							alt={''}
-						/>
-					</div>
-				) : activeTab.label == '類股漲跌幅' ? (
-					<Image src='/images/stock-analysis-chart/基本面 - 漲跌幅板塊圖.png' width={800} height={800} alt={''} />
-				) : activeTab.label == '策略部位旭日圖' ? (
-					<Image src='/images/stock-analysis-chart/基本面 - 策略部位旭日圖.png' width={800} height={800} alt={''} />
-				) : activeTab.label == '技術面－技術指標圖組' ? (
-					<Image src='/images/stock-analysis-chart/技術面 - 技術指標圖組.png' width={800} height={800} alt={''} />
-				) : activeTab.label == '股價站在十日均線之上' ? (
-					<Image
-						src='/images/stock-analysis-chart/技術面 - 股價站在十日均線之上.png'
-						width={800}
-						height={800}
-						alt={''}
-					/>
-				) : null
-			}
 		</div>
 	)
 }
