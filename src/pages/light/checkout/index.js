@@ -10,8 +10,8 @@ export default function Checkout() {
 
 	const [cardNumber, setCardNumber] = useState('')
 	const [nameOnCard, setNameOnCard] = useState('')
-	const [selectedExpMonth, setSelectedExpMonth] = useState(1)
-	const [selectedExpYear, setSelectedExpYear] = useState(2024)
+	const [expMonth, setExpMonth] = useState(1)
+	const [expYear, setExpYear] = useState(2024)
 	const [cvv, setCvv] = useState('')
 
 	const [success, setSuccess] = useState(false)
@@ -20,7 +20,7 @@ export default function Checkout() {
 	const handleNameChange = (e) => setNameOnCard(e.target.value)
 
 	const handleSubmit = () => {
-		if (cardNumber && nameOnCard && selectedExpMonth && selectedExpYear) setSuccess(true)
+		if (cardNumber && nameOnCard && expMonth && expYear) setSuccess(true)
 		setTimeout(() => {
 			handleClose()
 		}, 5000)
@@ -93,9 +93,9 @@ export default function Checkout() {
 									</div>
 									<div>
 										<p className='pb-1 font-light'>有效期限</p>
-										<p className='font-medium tracking-widest'>{`${selectedExpMonth
+										<p className='font-medium tracking-widest'>{`${expMonth.toString().padStart(2, '0')}／${expYear
 											.toString()
-											.padStart(2, '0')}／${selectedExpYear.toString().substr(-2)}`}</p>
+											.substr(-2)}`}</p>
 									</div>
 								</div>
 							</div>
@@ -114,8 +114,8 @@ export default function Checkout() {
 								<Select
 									id='expMonth'
 									size='small'
-									value={selectedExpMonth}
-									onChange={(e) => setSelectedExpMonth(e.target.value)}
+									value={expMonth}
+									onChange={(e) => setExpMonth(e.target.value)}
 									label='expMonth'
 								>
 									<MenuItem value={1}>01</MenuItem>
@@ -134,8 +134,8 @@ export default function Checkout() {
 								<Select
 									id='expYear'
 									size='small'
-									value={selectedExpYear}
-									onChange={(e) => setSelectedExpYear(e.target.value)}
+									value={expYear}
+									onChange={(e) => setExpYear(e.target.value)}
 									label='有效年份'
 								>
 									<MenuItem value={2024}>2024</MenuItem>
