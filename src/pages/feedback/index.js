@@ -1,78 +1,61 @@
-// @ts-nocheck
-import { useState } from 'react'
-import SuccessDialog from '../../components/Feedback/SuccessDialog/SuccessDialog'
+import SendIcon from '@mui/icons-material/Send'
+import { Button, FormControl, TextField } from '@mui/material'
+import { useRef, useState } from 'react'
+import SuccessDialog from '../../components/SuccessDialog/SuccessDialog'
 
 export default function Feedback() {
-	const [feedbackData, setFeedbackData] = useState({
-		email: '',
-		subject: '',
-		message: '',
-	})
+	const emailRef = useRef('')
+	const titleRef = useRef('')
+	const contentRef = useRef('')
 
 	const [success, setSuccess] = useState(false)
 
-	const handleSend = () => {
-		const { email, subject, message } = feedbackData
-		if (email && subject && message) setSuccess(true)
+	const handleSubmit = () => {
+		const email = emailRef.current.value
+		const title = titleRef.current.value
+		const content = contentRef.current.value
+
+		if (email && title && content) setSuccess(true)
 	}
 
-	const handleClose = () => {
-		setFeedbackData({ email: '', subject: '', message: '' })
-		setSuccess(false)
-	}
-
-	const handleInputChange = (field, value) => setFeedbackData((prevData) => ({ ...prevData, [field]: value }))
+	const handleClose = () => setSuccess(false)
 
 	return (
-		<section>
+		<>
 			{success ? (
-				<SuccessDialog handleClose={handleClose} content={'您的回饋已送出，我們會盡快回覆您！'} />
+				<SuccessDialog title={'成功送出'} content={'您的回饋已送出，我們會盡快回覆您！'} handleClose={handleClose} />
 			) : (
-				<div className='max-w-screen-sm px-8 py-16 mx-auto lg:px-0'>
+				<div className='pt-12 pb-20 mx-auto lg:px-0'>
 					<h2 className='mb-5 text-center'>意見回饋</h2>
-					<p className='mb-8 text-xl font-light text-center opacity-60'>如果您有任何建議或問題，歡迎寄信給我們！</p>
-					<form action='#' className='space-y-8 text-sm'>
-						<div>
-							<label className='block mb-2'>電子郵件</label>
-							<input
-								value={feedbackData.email}
-								type='email'
-								className='block w-full p-3 border rounded-lg shadow-sm outline-none bg-zinc-50 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-500'
-								required
-								onChange={(e) => handleInputChange('email', e.target.value)}
-							/>
-						</div>
-						<div>
-							<label className='block mb-2'>標題</label>
-							<input
-								value={feedbackData.subject}
-								type='text'
-								className='block w-full p-3 border rounded-lg shadow-sm outline-none border-zinc-300 dark:border-zinc-500 bg-zinc-50 dark:bg-zinc-800'
-								required
-								onChange={(e) => handleInputChange('subject', e.target.value)}
-							/>
-						</div>
-						<div className='sm:col-span-2'>
-							<label className='block mb-2'>內容</label>
-							<textarea
-								value={feedbackData.message}
-								cols={30}
-								rows={8}
-								className='block w-full p-3 border rounded-lg shadow-sm outline-none bg-zinc-50 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-500'
-								required
-								onChange={(e) => handleInputChange('message', e.target.value)}
-							/>
-						</div>
-						<button
-							type='button'
-							className='flex px-20 py-2 mx-auto font-medium text-center text-white transition border-2 rounded-full border-secondary_blue tracking-wides bg-secondary_blue hover:bg-white hover:border-secondary_blue hover:text-secondary_blue'
-							onClick={handleSend}
+					<p className='mb-6 text-xl font-light text-center opacity-60'>如果您有任何建議或問題，歡迎寄信給我們！</p>
+					<FormControl
+						fullWidth={true}
+						className='flex max-w-xl p-10 mx-auto space-y-8 text-sm bg-white border shadow-xl sm:rounded-xl'
+					>
+						<TextField id='email' inputRef={emailRef} label='電子郵件' variant='filled' fullWidth required />
+						<TextField id='title' inputRef={titleRef} label='標題' variant='filled' fullWidth required />
+						<TextField
+							id='content'
+							inputRef={contentRef}
+							label='內容'
+							variant='filled'
+							multiline
+							minRows={10}
+							fullWidth
+							required
+						/>
+						<Button
+							fullWidth
+							size='large'
+							className='text-white bg-secondary_blue hover:bg-sky-500'
+							endIcon={<SendIcon />}
+							onClick={handleSubmit}
 						>
 							送出
-						</button>
-					</form>
+						</Button>
+					</FormControl>
 				</div>
 			)}
-		</section>
+		</>
 	)
 }

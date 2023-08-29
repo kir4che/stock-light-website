@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import AnalResult from '../../components/Analysis/AnalResult'
+import AnalResult from '../../components/Analysis/DataTable/AnalResult'
 import Sidebar from '../../components/Analysis/Sidebar/Sidebar'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 import { analEvent } from '../../data/analEvent.js'

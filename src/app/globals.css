@@ -2,279 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-	* {
-		@apply box-border p-0 m-0;
-	}
-	html,
-	body {
-		@apply max-w-[100vw] overflow-x-hidden text-zinc-800 dark:text-zinc-100;
-	}
-	h1 {
-		@apply text-4xl font-bold;
-	}
-	h2 {
-		@apply text-3xl font-bold;
-	}
-	h3 {
-		@apply text-2xl font-medium;
-	}
-	h4 {
-		@apply text-xl;
-	}
-	h5 {
-		@apply text-lg;
-	}
-	a {
-		@apply no-underline text-inherit;
-	}
+* {
+	@apply box-border p-0 m-0;
+}
+html,
+body {
+	@apply max-w-[100vw] overflow-x-hidden text-zinc-800 dark:text-zinc-100;
+}
+h1 {
+	@apply text-4xl font-bold;
+}
+h2 {
+	@apply text-3xl font-bold;
+}
+h3 {
+	@apply text-2xl font-medium;
+}
+h4 {
+	@apply text-xl;
+}
+h5 {
+	@apply text-lg;
+}
+a {
+	@apply no-underline text-inherit;
 }
 
 .container {
 	@apply w-full max-w-full min-h-screen p-0 m-0;
 }
 
-/* 首頁 -「我要點燈」按鈕，不是Header上的！ */
-.light-btn:hover {
-	animation: light-btn 0.7s ease-in-out both;
-}
-
-@keyframes light-btn {
-	0% {
-		transform: rotate(0deg) translate3d(0, 0, 0);
-	}
-
-	25% {
-		transform: rotate(3deg) translate3d(0, 0, 0);
-	}
-
-	50% {
-		transform: rotate(-3deg) translate3d(0, 0, 0);
-	}
-
-	75% {
-		transform: rotate(1deg) translate3d(0, 0, 0);
-	}
-
-	100% {
-		transform: rotate(0deg) translate3d(0, 0, 0);
-	}
-}
-
-/* 首頁寺廟SVG */
-#banner-temple {
-	display: block;
-	margin: 0 auto;
-	fill: none;
-	stroke: #222;
-	stroke-width: 2;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-miterlimit: 10;
-}
-
-.wall {
-	fill: #ede4c6;
-}
-
-.windows .window-red {
-	stroke: #e40b12;
-}
-
-.floor line {
-	stroke: #e40b12;
-}
-
-.floor rect {
-	fill: #e40b12;
-}
-
-.columns rect {
-	fill: #e40b12;
-	width: 10px;
-}
-
-.roof {
-	fill: #736357;
-}
-
-.lamp {
-	&.lamp-yellow {
-		fill: #fbc926;
-	}
-
-	&.lamp-red {
-		fill: #e40b12;
-	}
-}
-
-.base {
-	animation: animate-scale-X 10s alternate both;
-	transform-origin: 50% 0;
-}
-
-.windows {
-	animation: animate-slide-up 10s ease-in alternate both;
-}
-
-.columns {
-	animation: animate-slide-up 10s ease-in alternate both;
-}
-
-.wall {
-	animation: animate-slide-up 6s ease-in alternate both;
-}
-
-.floor {
-	animation: animate-fall-down 10s ease-in alternate;
-}
-
-.roof {
-	animation: animate-fall-down 12s ease-in alternate;
-}
-
-.wall-top {
-	animation: animate-fall-down 10s ease-in alternate;
-}
-
-.balcony {
-	animation: animate-fall-down 10s ease-in alternate;
-}
-
-.floor-top {
-	animation: animate-fall-down 10s ease-in alternate;
-}
-
-.roof-top {
-	animation: animate-fall-down 12s ease-in alternate;
-}
-
-.lamp {
-	animation: animate-grow-down 16s ease-in alternate both;
-}
-
-.animation-pendulum {
-	animation: pendulum 1.5s infinite;
-	animation-direction: alternate;
-	animation-timing-function: ease-in-out;
-	transform-origin: 50% top;
-}
-
-.animation-delayed-1 {
-	animation-delay: 0.2s;
-}
-
-.animation-delayed-2 {
-	animation-delay: 0.5s;
-}
-
-@keyframes animate-scale-X {
-	from {
-		transform: scaleX(1);
-	}
-
-	0.1%,
-	5% {
-		transform: scaleX(0);
-	}
-
-	to,
-	30% {
-		transform: scaleX(1);
-	}
-}
-
-@keyframes animate-slide-up {
-	from {
-		transform: translateY(0);
-	}
-
-	0.1%,
-	8% {
-		transform: translateY(105%);
-	}
-
-	to,
-	28% {
-		transform: translateY(0);
-	}
-}
-
-@keyframes animate-fall-down {
-	from {
-		transform: translateY(0);
-	}
-
-	0.1%,
-	18% {
-		transform: translateY(-1000%);
-	}
-
-	21% {
-		transform: translateY(-2px);
-	}
-
-	22% {
-		transform: translateY(0);
-	}
-
-	23% {
-		transform: translateY(-1px);
-	}
-
-	24%,
-	to {
-		transform: translateY(0);
-	}
-}
-
-@keyframes animate-grow-down {
-	from {
-		transform: scaleY(1) translateY(0);
-	}
-
-	0.1%,
-	10% {
-		transform: scaleY(0) translateY(-100%);
-	}
-
-	15%,
-	to {
-		transform: scaleY(1) translateY(0);
-	}
-}
-
-@keyframes pendulum {
-	0% {
-		transform: rotate(2deg);
-	}
-
-	100% {
-		transform: rotate(-2deg);
-	}
-}
-
-@keyframes slide-bottom {
-	0%,
-	30% {
-		top: -500px;
-		opacity: 0%;
-	}
-
-	100% {
-		top: -470px;
-		opacity: 100%;
-	}
-}
-
-#banner-title #明 {
-	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[370px] -z-10;
-}
-
-#banner-title #燈 {
-	@apply relative -top-[265px] lg:-top-[365px] xl:-top-[370px];
-}
-
+/* 最新消息中分頁按鈕css */
 .MuiButtonBase-root,
 .MuiPaginationItem-root {
 	@apply dark:text-zinc-100 !important;

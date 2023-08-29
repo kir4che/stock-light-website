@@ -1,13 +1,13 @@
 'use client'
 
-import LinearRegChart from '../components/Analysis/LinearRegChart'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import { ArrowRight } from 'react-bootstrap-icons'
+import LinearRegChart from '../components/Analysis/Chart/LinearRegChart'
+import TaiexChart from '../components/Analysis/Chart/TaiexChart'
 import Banner from '../components/Banner/Banner'
 import Marquee from '../components/Home/Marquee/Marquee'
 import Sidebar from '../components/Home/Sidebar/Sidebar'
-import TaiexChart from '../components/TaiexChart/TaiexChart'
-
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 
 export default function Home() {
 	const router = useRouter()
@@ -19,7 +19,7 @@ export default function Home() {
 				<Marquee />
 			</div>
 			<main className='py-8 sm:pb-10 sm:pt-14'>
-				<div className='flex w-full md:gap-16 lg:gap-20 xl:gap-24'>
+				<div className='flex w-full md:gap-12 lg:gap-20 xl:gap-24'>
 					<Sidebar />
 					<div className='w-full px-4 md:w-2/3 lg:w-3/4 xl:w-4/5 md:px-0'>
 						<div className='flex items-baseline space-x-2'>
@@ -35,11 +35,11 @@ export default function Home() {
 							<Image src='/images/good-quality-64.png' width={40} height={40} alt='recommend' />
 							<h4 className='pl-1 pr-6 font-bold'>本日預測股票</h4>
 							<button
-								className='light-btn font-medium text-zinc-800 px-12 py-1.5 bg-primary_yellow'
-								type='button'
+								class='inline-flex items-center space-x-1.5 px-5 py-2 font-medium bg-primary_yellow rounded-md hover:bg-amber-300'
 								onClick={() => router.push('/light')}
 							>
-								我要點燈！
+								<span>我要點燈</span>
+								<ArrowRight />
 							</button>
 						</div>
 						<div>
@@ -73,7 +73,7 @@ export default function Home() {
 							</div>
 							<div className='flex flex-row-reverse'>
 								<button
-									className='px-12 py-2 mt-6 font-medium duration-300 border-none rounded-full dark:text-zinc-800 bg-secondary_blue hover:ring-2 hover:ring-offset-2'
+									className='px-12 py-2 mt-6 font-medium text-white duration-300 border-none rounded-full dark:text-zinc-800 bg-secondary_blue hover:ring-2 hover:ring-offset-2'
 									type='button'
 									onClick={() => router.push('/analysis')}
 								>

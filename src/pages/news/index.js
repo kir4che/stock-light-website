@@ -51,6 +51,7 @@ export default function News() {
 				{ method: 'GET' }
 			)
 			const data = await response.json()
+			setHotNews(data.articles)
 			localStorage.setItem('hotNews', JSON.stringify(data.articles))
 		} catch (error) {
 			console.log('error', error)
@@ -63,7 +64,7 @@ export default function News() {
 		// 從 localStorage 中取出上個月更新的熱門新聞
 		const storedHotNews = localStorage.getItem('hotNews')
 		if (storedHotNews) setHotNews(JSON.parse(storedHotNews))
-		if (!storedHotNews) setHotNews(currentDate)
+		else setHotNews(currentDate)
 
 		setTimeout(() => {
 			setIsLoading(false)
@@ -100,7 +101,7 @@ export default function News() {
 				) : (
 					<Loading />
 				)}
-				<NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} setTotalPages={setTotalPages} />
+				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} setTotalPages={setTotalPages} />}
 			</div>
 			<PaginationLink totalPages={totalPages} />
 		</div>
