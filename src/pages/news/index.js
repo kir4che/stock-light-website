@@ -88,7 +88,7 @@ export default function News() {
 	}, [page, newsByKeyword])
 
 	return (
-		<div className='flex flex-col items-center px-4 py-5 md:px-0 lg:py-10'>
+		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
 			<div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>

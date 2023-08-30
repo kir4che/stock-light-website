@@ -18,7 +18,8 @@ export default function LightResult() {
 					<p className='text-sm opacity-80'>{formattedDate}</p>
 				</div>
 				<Close
-					className='absolute text-3xl cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
+					size={28}
+					className='absolute cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
 					onClick={goBack}
 				/>
 			</div>

@@ -1,7 +1,7 @@
-import SendIcon from '@mui/icons-material/Send'
 import { Button, FormControl, TextField } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
+import { SendFill } from 'react-bootstrap-icons'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog'
 import './style.css'
@@ -45,11 +45,11 @@ export default function Feedback() {
 						<Button
 							fullWidth
 							size='large'
-							className='text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-							endIcon={<SendIcon />}
+							className='space-x-1.5 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 							onClick={handleSubmit}
 						>
-							送出
+							<span>送出</span>
+							<SendFill />
 						</Button>
 					</FormControl>
 				</>

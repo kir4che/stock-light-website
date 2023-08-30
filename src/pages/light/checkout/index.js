@@ -43,7 +43,8 @@ export default function Checkout() {
 				<StarryBackground className={'pb-20 pt-14'}>
 					<div className='relative max-w-xl px-12 pt-8 pb-12 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>
 						<Close
-							className='absolute text-3xl cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
+							size={28}
+							className='absolute cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
 							onClick={() => router.push('/light')}
 						/>
 						<h3 className='mb-8 font-bold text-center'>線上付款</h3>

@@ -1,9 +1,7 @@
-import ClearIcon from '@mui/icons-material/Clear'
-import SearchIcon from '@mui/icons-material/Search'
-import IconButton from '@mui/material/IconButton'
 import InputBase from '@mui/material/InputBase'
 import Paper from '@mui/material/Paper'
 import { useState } from 'react'
+import { X as Close, Search } from 'react-bootstrap-icons'
 
 export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 	const [keyword, setKeyword] = useState('')
@@ -35,20 +33,10 @@ export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 	}
 
 	return (
-		<Paper component='form' sx={{ p: '6px 4px', display: 'flex' }}>
-			<InputBase
-				sx={{ ml: 1, flex: 1 }}
-				placeholder='Search'
-				inputProps={{ 'aria-label': 'search post' }}
-				value={keyword}
-				onChange={handleInputChange}
-			/>
-			<IconButton type='button' sx={{ p: '2px' }} aria-label='clear' onClick={clearSearch}>
-				<ClearIcon />
-			</IconButton>
-			<IconButton type='button' sx={{ p: '2px' }} aria-label='search' onClick={fetchNewsByKeyword}>
-				<SearchIcon />
-			</IconButton>
+		<Paper component='form' className='flex items-center px-3 py-1.5'>
+			<InputBase placeholder='Search' value={keyword} onChange={handleInputChange} />
+			<Close size={30} className='cursor-pointer hover:opacity-70' onClick={clearSearch} />
+			<Search size={20} className='cursor-pointer hover:opacity-70' onClick={fetchNewsByKeyword} />
 		</Paper>
 	)
 }

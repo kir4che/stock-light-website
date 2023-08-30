@@ -6,7 +6,8 @@ export default function SuccessDialog({ title, content, handleClose }) {
 		<div className='grid h-screen place-content-center'>
 			<div className='relative py-8 space-y-3 text-center w-96 rounded-xl bg-zinc-100 dark:bg-zinc-900/50'>
 				<Close
-					className='absolute text-3xl cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
+					size={28}
+					className='absolute cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
 					onClick={handleClose}
 				/>
 				<Image src='/images/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />

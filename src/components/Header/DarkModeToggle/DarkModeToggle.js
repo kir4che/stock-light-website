@@ -1,5 +1,3 @@
-'use client'
-
 import { MoonStarsFill, SunFill } from 'react-bootstrap-icons'
 import { useDarkMode } from '../../../context/DarkModeContext'
 
@@ -10,10 +8,10 @@ const DarkModeToggle = () => {
 	return (
 		<button className='hover:opacity-90' onClick={toggleDarkMode}>
 			<div className='hidden dark:block'>
-				<SunFill />
+				<SunFill size={20} />
 			</div>
 			<div className='block dark:hidden'>
-				<MoonStarsFill />
+				<MoonStarsFill size={18} />
 			</div>
 		</button>
 	)
