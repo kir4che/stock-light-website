@@ -53,7 +53,7 @@ a {
 	border-radius: 5px;
 	margin-top: 10px;
 	position: absolute;
-  }
+}
 
 .laternlight {
 	transform: translate(60%, 50%);
@@ -272,14 +272,14 @@ a {
 
 .lanternforteen {
 	position: absolute;
-	right:-50px;
+	right: -50px;
 	top: 500px;
 	scale: 0.8;
 }
 
 .lanternfifteen {
 	position: absolute;
-	left:-50px;
+	left: -50px;
 	top: 55px;
 	scale: 0.75;
 }
