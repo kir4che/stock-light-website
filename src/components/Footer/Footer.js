@@ -22,7 +22,7 @@ export default function Footer() {
 
 	return (
 		<footer>
-			<div className='flex flex-col items-center py-4 mx-auto border-t sm:py-8 sm:items-start sm:flex-row'>
+			<div className='flex flex-col items-center py-4 mx-auto border-t dark:border-none sm:py-8 sm:items-start sm:flex-row'>
 				<div className='mx-auto text-center md:text-center'>
 					<Image src='https://fakeimg.pl/180x92/' width={180} height={92} alt='股市光明燈' />
 					<h4 className='my-2 font-bold'>股市光明燈</h4>

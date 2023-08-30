@@ -29,7 +29,7 @@ const stockTable = [
 	createData(3008, '大立光', 2260, 2.26, 7.88, 843935, -0.5256),
 ]
 
-export default function RegTable({ stock }) {
+export default function ChartTable({ tab, stock }) {
 	const rows = stockTable.filter((item) => item.symbol === stock)
 
 	return (

@@ -3,7 +3,7 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -11,6 +11,7 @@ import { Unindent } from 'react-bootstrap-icons'
 
 export default function UserMenu() {
 	const router = useRouter()
+	const { data: session } = useSession()
 
 	const [anchorEl, setAnchorEl] = useState(null)
 	const open = Boolean(anchorEl)
@@ -41,8 +42,9 @@ export default function UserMenu() {
 					'aria-labelledby': 'basic-button',
 				}}
 			>
-				<Link href={'/dashboard'}>
-					<MenuItem onClick={handleClose}>用戶頁面</MenuItem>
+				{/* 後續新增 */}
+				<Link href={`/user/${session.id_token}`}>
+					<MenuItem onClick={handleClose}>使用者頁面</MenuItem>
 				</Link>
 				<Link href={'/'}>
 					<MenuItem className='space-x-1' onClick={handleSignOut}>

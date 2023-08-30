@@ -32,28 +32,6 @@ a {
 	@apply w-full max-w-full min-h-screen p-0 m-0;
 }
 
-/* 最新消息中分頁按鈕css */
-.MuiButtonBase-root,
-.MuiPaginationItem-root {
-	@apply dark:text-zinc-100 !important;
-}
-
-.MuiPaginationItem-circular.Mui-selected {
-	@apply bg-primary_yellow/80 dark:bg-primary_yellow dark:text-zinc-800 !important;
-}
-
-.MuiPaginationItem-circular {
-	@apply hover:bg-primary_yellow/30 !important;
-}
-
-.MuiPaper-root .MuiButtonBase-root .MuiSvgIcon-root {
-	@apply text-zinc-400 hover:text-zinc-800 !important;
-}
-
-.MuiPaper-root .MuiList-root a .MuiButtonBase-root {
-	@apply text-zinc-800 !important;
-}
-
 /* 天燈css */
 .lantern {
 	display: flex;

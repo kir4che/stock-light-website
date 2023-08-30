@@ -1,5 +1,6 @@
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { InfoCircleFill, Newspaper } from 'react-bootstrap-icons'
+import { CaretRightFill, InfoCircleFill, Newspaper } from 'react-bootstrap-icons'
 import SidebarBlock from '../../SidebarBlock/SidebarBlock2'
 
 export default function HomeSidebar() {
@@ -27,11 +28,15 @@ export default function HomeSidebar() {
 
 	useEffect(() => {
 		fetchNews()
-	}, [])
+	})
 
 	return (
-		<div className='hidden w-56 max-w-sm space-y-10 md:block'>
+		<div className='hidden w-56 max-w-sm md:block'>
 			<SidebarBlock icon={<Newspaper size={20} />} title={'理財新聞'} data={news} />
+			<Link href='/news' className='flex items-center justify-end mt-4 mb-10 space-x-1 text-sm'>
+				<CaretRightFill className='text-secondary_blue' />
+				<span>看更多</span>
+			</Link>
 			<SidebarBlock icon={<InfoCircleFill size={20} />} title={'版本資訊'} data={versionInfo} />
 		</div>
 	)

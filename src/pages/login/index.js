@@ -1,16 +1,17 @@
 import { getProviders, getSession, signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { Facebook, Google, Line } from 'react-bootstrap-icons'
-import PasswordInput from '../../../components/PasswordInput/PasswordInput'
+import PasswordInput from '../../components/PasswordInput/PasswordInput'
+import StarryBackground from '../../components/StarryBackground/StarryBackground'
 
 export default function Login({ providers }) {
 	return (
-		<div className='flex flex-col items-center justify-center py-6 sm:py-12'>
-			<div className='w-full px-5 pt-8 pb-5 sm:px-10 sm:border sm:rounded-xl sm:shadow-lg sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
+		<StarryBackground className={'flex flex-col items-center justify-center py-6 sm:py-12'}>
+			<div className='w-full px-5 pt-8 pb-5 bg-white dark:bg-zinc-900/50 sm:px-10 sm:border dark:border-none sm:rounded-xl sm:shadow-lg sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
 				<h3 className='font-extrabold'>登入股市光明燈</h3>
-				<p className='mt-4 text-sm opacity-70'>
+				<p className='mt-4 text-sm text-zinc-600 dark:text-zinc-300'>
 					還沒有帳號嗎？{' '}
-					<Link href={'/dashboard/signup'} className='underline cursor-pointer opacity-80'>
+					<Link href={'/signup'} className='underline opacity-80'>
 						註冊新帳號
 					</Link>
 				</p>
@@ -25,7 +26,7 @@ export default function Login({ providers }) {
 					</div>
 					<PasswordInput label='密碼' placeholder='輸入密碼' />
 				</div>
-				<button className='w-full py-3 mt-8 text-white rounded-md bg-secondary_blue hover:bg-secondary_blue/90'>
+				<button className='w-full py-3 mt-8 rounded-md text-zinc-100 bg-secondary_blue hover:bg-secondary_blue/90'>
 					登入
 				</button>
 				<div className='flex items-center w-full mt-8 mb-5 text-sm'>
@@ -48,7 +49,7 @@ export default function Login({ providers }) {
 							onClick={() => signIn(provider.id)}
 							key={provider.name}
 						>
-							<div className='text-xl text-white'>
+							<div className='text-xl text-zinc-100'>
 								{provider.id === 'facebook' ? <Facebook /> : provider.id === 'google' ? <Google /> : <Line />}
 							</div>
 						</button>
@@ -66,13 +67,14 @@ export default function Login({ providers }) {
 					.
 				</p>
 			</div>
-		</div>
+		</StarryBackground>
 	)
 }
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context)
-	if (session) return { redirect: { destination: '/dashboard', permanent: false } }
+	// 登入後自動跳轉到首頁
+	if (session) return { redirect: { destination: '/', permanent: false } }
 
 	const providers = await getProviders()
 	return { props: { providers: providers ?? [] } }

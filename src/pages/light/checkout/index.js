@@ -1,12 +1,16 @@
 import { Button, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { X as Close } from 'react-bootstrap-icons'
 import StarryBackground from '../../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../../components/SuccessDialog/SuccessDialog'
+import './style.css'
 
 export default function Checkout() {
 	const router = useRouter()
+	const { data: session } = useSession()
 
 	const [cardNumber, setCardNumber] = useState('')
 	const [nameOnCard, setNameOnCard] = useState('')
@@ -28,7 +32,7 @@ export default function Checkout() {
 
 	const handleClose = () => {
 		setSuccess(false)
-		router.push('/light/result')
+		router.push(`/light/result/${session.id_token}`)
 	}
 
 	return (
@@ -36,28 +40,16 @@ export default function Checkout() {
 			{success ? (
 				<SuccessDialog title={'付款完成'} content={'將跳至點燈結果！'} handleClose={handleClose} />
 			) : (
-				<StarryBackground className='pb-20 pt-14'>
-					<div className='max-w-xl px-12 py-8 mx-auto bg-white sm:rounded-xl'>
-						<button
-							type='button'
+				<StarryBackground className={'pb-20 pt-14'}>
+					<div className='relative max-w-xl px-12 pt-8 pb-12 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>
+						<Close
+							className='absolute text-3xl cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
 							onClick={() => router.push('/light')}
-							className='absolute text-gray-700 rounded-full top-4 right-4'
-						>
-							<svg
-								className='w-6 h-6'
-								xmlns='http://www.w3.org/2000/svg'
-								fill='none'
-								viewBox='0 0 24 24'
-								stroke='currentColor'
-								aria-hidden='true'
-							>
-								<path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 18L18 6M6 6l12 12' />
-							</svg>
-						</button>
+						/>
 						<h3 className='mb-8 font-bold text-center'>線上付款</h3>
 						<h5 className='mb-2'>付款方式</h5>
-						<RadioGroup className='mb-2' row>
-							<FormControlLabel value='credit_card' control={<Radio />} label='信用卡' />
+						<RadioGroup className='mb-2' defaultValue='credit_card' row>
+							<FormControlLabel value='credit_card' label='信用卡' control={<Radio />} />
 							<Image
 								width={120}
 								height={40}
@@ -66,7 +58,7 @@ export default function Checkout() {
 							/>
 						</RadioGroup>
 						{/* 信用卡實際顯示 */}
-						<div className='mx-auto my-10 text-white transition-transform transform shadow-xl w-96 rounded-2xl hover:scale-110'>
+						<div className='mx-auto my-10 transition-transform transform shadow-xl text-zinc-100 w-96 rounded-2xl hover:scale-110'>
 							<Image
 								width={400}
 								height={400}
@@ -100,24 +92,18 @@ export default function Checkout() {
 								</div>
 							</div>
 						</div>
-						<FormControl className='mb-16 space-y-6' fullWidth>
+						<FormControl className='mb-12 space-y-6' fullWidth>
 							<TextField
 								id='cardNumber'
 								value={cardNumber}
 								onChange={handleCardNumberChange}
-								label='信用卡卡號'
+								placeholder='信用卡卡號'
 								inputProps={{ maxLength: 16 }}
 								fullWidth
 								required
 							/>
 							<div className='flex items-center space-x-4'>
-								<Select
-									id='expMonth'
-									size='small'
-									value={expMonth}
-									onChange={(e) => setExpMonth(e.target.value)}
-									label='expMonth'
-								>
+								<Select id='expMonth' size='small' value={expMonth} onChange={(e) => setExpMonth(e.target.value)}>
 									<MenuItem value={1}>01</MenuItem>
 									<MenuItem value={2}>02</MenuItem>
 									<MenuItem value={3}>03</MenuItem>
@@ -131,13 +117,7 @@ export default function Checkout() {
 									<MenuItem value={11}>11</MenuItem>
 									<MenuItem value={12}>12</MenuItem>
 								</Select>
-								<Select
-									id='expYear'
-									size='small'
-									value={expYear}
-									onChange={(e) => setExpYear(e.target.value)}
-									label='有效年份'
-								>
+								<Select id='expYear' size='small' value={expYear} onChange={(e) => setExpYear(e.target.value)}>
 									<MenuItem value={2024}>2024</MenuItem>
 									<MenuItem value={2025}>2025</MenuItem>
 									<MenuItem value={2026}>2026</MenuItem>
@@ -151,7 +131,7 @@ export default function Checkout() {
 									size='small'
 									value={cvv}
 									onChange={(e) => setCvv(e.target.value)}
-									label='末３碼'
+									placeholder='末３碼'
 									inputProps={{ maxLength: 3 }}
 									fullWidth
 									required
@@ -161,15 +141,20 @@ export default function Checkout() {
 								id='nameOnCard'
 								value={nameOnCard}
 								onChange={handleNameChange}
-								label='持卡人姓名'
+								placeholder='持卡人姓名'
 								fullWidth
 								required
 							/>
 						</FormControl>
+						<hr />
+						<div className='flex items-center justify-between mt-4 mb-20 tracking-widest'>
+							<h5>光明燈香油錢</h5>
+							<p className='font-bold'>NT$100</p>
+						</div>
 						<Button
 							fullWidth
 							size='large'
-							className='text-white bg-secondary_blue hover:bg-sky-500'
+							className='text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 							onClick={handleSubmit}
 						>
 							付款

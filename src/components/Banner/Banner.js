@@ -1,4 +1,4 @@
-import style from './Banner.module.css'
+import style from './style.module.css'
 
 export default function Banner() {
 	return (

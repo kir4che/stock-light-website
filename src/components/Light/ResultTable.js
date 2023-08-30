@@ -15,7 +15,7 @@ import {
 import { visuallyHidden } from '@mui/utils'
 import PropTypes from 'prop-types'
 import { useMemo, useState } from 'react'
-import LinearRegChart from '../Analysis/Chart/LinearRegChart'
+import LinearRegChart from '../Chart/Chart'
 
 export default function ResultTable() {
 	// 數據，目前先呈現五檔(預測漲跌亂寫的)
@@ -90,7 +90,7 @@ export default function ResultTable() {
 										</TableCell>
 										<TableCell align='right'>
 											<button
-												className='px-3 py-1 text-xs text-white rounded-full bg-secondary_blue'
+												className='px-3 py-1 text-xs text-zinc-100 rounded-full bg-secondary_blue'
 												onClick={() => handleClickOpen(row.symbol, row.name)}
 											>
 												詳細數據

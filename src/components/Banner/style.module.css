@@ -9,10 +9,7 @@
 	@apply fill-orange-100;
 }
 
-.windows .window_red {
-	@apply stroke-stock_red;
-}
-
+.windows .window_red,
 .floor line {
 	@apply stroke-stock_red;
 }

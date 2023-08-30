@@ -5,7 +5,7 @@ export default function Tooltip({ isExplain, explanation, children }) {
 			<span
 				className={`${
 					isExplain
-						? 'absolute w-36 p-2 left-1 -top-12 text-xs text-white transition-all scale-0 bg-gray-800/80 rounded text-left group-hover:scale-100'
+						? 'absolute w-36 p-2 left-1 -top-12 text-xs text-zinc-100 transition-all scale-0 bg-gray-800/80 rounded text-left group-hover:scale-100'
 						: 'hidden'
 				} `}
 			>

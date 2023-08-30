@@ -16,7 +16,14 @@ module.exports = {
 			screens: {
 				md: '800px',
 			},
+			height: {
+				screen: 'calc(100vh - 68px - 228px)',
+				88: '22rem',
+			},
 			colors: {
+				zinc: {
+					800: '#202024',
+				},
 				primary_yellow: '#FFDC62',
 				secondary_blue: '#4FBAFF',
 				stock_red: '#EE3234',

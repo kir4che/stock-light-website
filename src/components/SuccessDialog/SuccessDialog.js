@@ -1,16 +1,17 @@
-import CloseIcon from '@mui/icons-material/Close'
 import Image from 'next/image'
+import { X as Close } from 'react-bootstrap-icons'
 
 export default function SuccessDialog({ title, content, handleClose }) {
 	return (
-		<div className='flex flex-col py-16'>
-			<div className='relative w-full max-w-md py-10 mx-auto space-y-3 text-center rounded-lg shadow bg-zinc-100 dark:bg-zinc-800'>
-				<button className='absolute text-3xl top-3 right-5 opacity-80 hover:opacity-60' onClick={handleClose}>
-					<CloseIcon />
-				</button>
-				<Image src='/images/success-symbol.svg' width={96} height={96} alt='success' className='block pb-4 mx-auto' />
-				<h2 className='pb-2'>{title}</h2>
-				<p>{content}</p>
+		<div className='grid h-screen place-content-center'>
+			<div className='relative py-8 space-y-3 text-center w-96 rounded-xl bg-zinc-100 dark:bg-zinc-900/50'>
+				<Close
+					className='absolute text-3xl cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
+					onClick={handleClose}
+				/>
+				<Image src='/images/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />
+				<h2 className='pb-4'>{title}</h2>
+				<p className='font-light text-zinc-600 dark:text-zinc-300'>{content}</p>
 			</div>
 		</div>
 	)

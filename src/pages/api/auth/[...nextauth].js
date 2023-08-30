@@ -19,12 +19,8 @@ export const authOptions = {
 			clientSecret: process.env.LINE_CHANNEL_SECRET,
 		}),
 	],
-	session: {
-		jwt: true,
-	},
-	debug: false,
 	pages: {
-		signIn: '/dashboard/login',
+		signIn: '/login',
 	},
 }
 

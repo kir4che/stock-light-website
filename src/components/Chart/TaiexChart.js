@@ -1,7 +1,14 @@
 import ReactEcharts from 'echarts-for-react'
 import { useEffect, useState } from 'react'
 
+const CURRENT_INDEX = 16174.92
+
 export default function TaiexChart() {
+	const currentDate = new Date()
+	const year = currentDate.getFullYear()
+	const month = (currentDate.getMonth() + 1).toString().padStart(2, '0')
+	const day = currentDate.getDate().toString().padStart(2, '0')
+
 	const indexData = [
 		['2023-5-19', 16174.92],
 		['2023-5-18', 16101.88],
@@ -826,13 +833,8 @@ export default function TaiexChart() {
 	]
 
 	const [option, setOption] = useState(null)
-	const [currentIndex, setCurrentIndex] = useState(null)
-	const [currentDate, setCurrentDate] = useState('')
 
 	useEffect(() => {
-		setCurrentIndex(16174.92)
-		setCurrentDate('2023-5-19')
-
 		const option = {
 			backgroundColor: '',
 			dataset: {
@@ -875,10 +877,10 @@ export default function TaiexChart() {
 				},
 			],
 			grid: {
-				x: 68,
-				y: 48,
-				x2: 20,
-				y2: 96,
+				x: 64, // 左側間距
+				y: 42, // 上側間距
+				x2: 32, // 右側間距
+				y2: 98, // 下側間距
 			},
 			dataZoom: [
 				{
@@ -896,12 +898,18 @@ export default function TaiexChart() {
 		<>
 			{option && (
 				<>
+					<div className='flex items-center mb-3 space-x-2'>
+						<h5>台股大盤指數</h5>
+						<div className='px-2 py-1.5 text-xs rounded-full bg-stock_green/10 font-medium text-stock_green dark:bg-stock_green/50 dark:text-zinc-100'>
+							↗ {(((CURRENT_INDEX - 16101.88) / 16101.88) * 100).toFixed(2)}%
+						</div>
+					</div>
 					<div className='flex items-baseline mb-2 space-x-3'>
-						<h3 className='font-bold'>{currentIndex}</h3>
-						<p className='text-xs font-light'>{currentDate}</p>
+						<h3 className='font-bold'>{CURRENT_INDEX}</h3>
+						<p className='text-xs font-light opacity-80'>{`${year}/${month}/${day}`}</p>
 					</div>
 					<ReactEcharts
-						className='bg-white shadow-md rounded-2xl'
+						className='bg-white pb-4 h-72 sm:h-88 xl:h-[480px] border rounded dark:border-none shadow-md dark:bg-zinc-900/60'
 						option={option}
 						style={{
 							height: '100%',

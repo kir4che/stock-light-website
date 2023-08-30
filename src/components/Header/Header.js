@@ -20,7 +20,7 @@ export default function Header() {
 			</Link>
 			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 md:flex lg:space-x-8'>
 				{navigationLinks.map((link) => (
-					<Link href={link.url} key={link.url}>
+					<Link href={`/${link.url}`} key={link.url}>
 						<span>{link.name}</span>
 						<span className='hidden text-sm capitalize lg:block'>{link.url}</span>
 					</Link>
@@ -30,7 +30,9 @@ export default function Header() {
 				<Link href={'/light'}>
 					<button
 						type='button'
-						className='block mr-2.5 md:mr-0 px-4 py-1 transition-all duration-300 ease-out rounded-full dark:text-zinc-800 bg-primary_yellow hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow dark:hover:ring-offset-zinc-900'
+						className={`block px-5 py-2 text-sm font-medium tracking-wide transition-all duration-300 ease-out rounded-full dark:text-zinc-800 bg-primary_yellow hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow dark:hover:ring-offset-zinc-900 ${
+							session.status === 'authenticated' ? 'mr-3 md:mr-0' : ''
+						}`}
 					>
 						我要點燈
 					</button>
@@ -38,7 +40,7 @@ export default function Header() {
 				{session.status === 'authenticated' ? (
 					<UserMenu />
 				) : (
-					<Link href={'/dashboard/login'} className='hidden md:space-x-0.5 md:flex md:items-center'>
+					<Link href={'/login'} className='hidden md:space-x-0.5 md:flex md:items-center'>
 						<span>登入</span>
 						<BoxArrowInRight size={20} />
 					</Link>

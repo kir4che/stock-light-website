@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import style from './Team.module.css'
+import style from './style.module.css'
 
 export default function Team() {
 	const members = [
