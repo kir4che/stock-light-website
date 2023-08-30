@@ -7,7 +7,6 @@ export default function Light() {
 		<StarryBackground>
 			<div className='min-h-screen'>
 				<Lantern />
-				<Link href='/light/checkout'>祈福</Link>
 			</div>
 		</StarryBackground>
 	)
