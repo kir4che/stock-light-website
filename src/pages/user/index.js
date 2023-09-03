@@ -1,7 +1,6 @@
 import Image from 'next/image'
-import { useRouter } from 'next/router'
-import StarryBackground from '../../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../../api/auth/[...nextauth]'
+import StarryBackground from '../../components/StarryBackground/StarryBackground'
+import { getServerAuthSession } from '../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
@@ -9,9 +8,6 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function User({ user }) {
-	const router = useRouter()
-	const { id } = router.query
-
 	return (
 		<StarryBackground className={'grid h-screen place-content-center'}>
 			<div className='bg-white w-96 dark:bg-zinc-900/50 rounded-xl'>

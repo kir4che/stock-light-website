@@ -1,6 +1,6 @@
 'use client'
 
-import Banner from '../components/Banner/Banner'
+import Banner from '../components/Home/Banner/Banner'
 import MainContent from '../components/Home/MainContent/MainContent'
 import Marquee from '../components/Home/Marquee/Marquee'
 import Sidebar from '../components/Home/Sidebar/Sidebar'

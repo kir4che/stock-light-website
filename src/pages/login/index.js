@@ -10,12 +10,13 @@ import { getServerAuthSession } from '../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
-	if (session) return { redirect: { destination: `/user/${session.user.id}`, permanent: false } }
+	if (session) return { redirect: { destination: `/user`, permanent: false } }
+
 	const providers = await getProviders()
-	return { props: { user: session?.user ?? [], providers: providers ?? [] } }
+	return { props: { providers: providers ?? [] } }
 }
 
-export default function Login({ user, providers }) {
+export default function Login({ providers }) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
@@ -31,8 +32,9 @@ export default function Login({ user, providers }) {
 
 		console.log('res', res)
 
-		if (res?.ok) router.push(`/user${user.id}`)
-		else alert('登入失敗，請檢查帳號密碼是否正確！', { type: 'error' })
+		if (res?.ok) {
+			router.push(`/user`)
+		} else alert('登入失敗，請檢查帳號密碼是否正確！', { type: 'error' })
 	}
 
 	const providerStyles = {
@@ -55,7 +57,7 @@ export default function Login({ user, providers }) {
 					<lable className='text-zinc-100'>Email</lable>
 					<input
 						type='email'
-						value={user.email}
+						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						placeholder='輸入您的 Email 帳號'
 						className='w-full py-3 pl-3 mt-1 mb-3 border rounded focus:outline-none bg-zinc-200'
@@ -63,7 +65,7 @@ export default function Login({ user, providers }) {
 					/>
 					<PasswordInput
 						label='密碼'
-						value={user.password}
+						value={password}
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder='輸入密碼'
 					/>

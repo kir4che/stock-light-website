@@ -10,7 +10,7 @@ import { PersonFill, Unindent } from 'react-bootstrap-icons'
 export default function UserMenu() {
 	const router = useRouter()
 
-	const [anchorEl, setAnchorEl] = useState(null)
+	const [anchorEl, setAnchorEl] = useState(true)
 	const open = Boolean(anchorEl)
 
 	const handleClick = (e) => setAnchorEl(e.currentTarget)
@@ -25,7 +25,6 @@ export default function UserMenu() {
 		<>
 			<PersonFill fontSize={22} onClick={handleClick} />
 			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-				{/* 後續新增 */}
 				<Link href={'/user'}>
 					<MenuItem onClick={handleClose}>使用者頁面</MenuItem>
 				</Link>

@@ -1,5 +1,5 @@
 import { MoonStarsFill, SunFill } from 'react-bootstrap-icons'
-import { useDarkMode } from '../../../context/DarkModeContext'
+import { useDarkMode } from '../../../provider/DarkModeProvider'
 
 const DarkModeToggle = () => {
 	// 利用 useContext 取得 ThemeContext 的值
