@@ -1,4 +1,3 @@
-import { getProviders } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -6,17 +5,8 @@ import SubmitButton from '../../components/Buttons/SubmitButton/SubmitButton'
 import PasswordInput from '../../components/PasswordInput/PasswordInput'
 import PrivacyAndTerms from '../../components/PrivacyAndTerms/PrivacyAndTerms'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../../pages/api/auth/[...nextauth]'
 
-export async function getServerSideProps(ctx) {
-	const session = await getServerAuthSession(ctx)
-	if (session) return { redirect: { destination: '/login', permanent: false } }
-
-	const providers = await getProviders()
-	return { props: { providers: providers ?? [] } }
-}
-
-export default function Register({ providers }) {
+export default function Register() {
 	const router = useRouter()
 
 	const [user, setUser] = useState({
