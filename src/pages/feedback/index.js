@@ -16,13 +16,15 @@ export default function Feedback() {
 	const handleSendEmail = (e) => {
 		e.preventDefault()
 
-		const title = e.target.title.value
 		const email = e.target.email.value
-		// 🚩email 無法傳入
-		const content = `${e.target.content.value}\n\n來自 ${email}`
+		const title = e.target.title.value
+		const content = e.target.content.value
+
+		console.log(email, title, content)
 
 		emailjs
 			.sendForm(process.env.EMAIL_SERVICE_ID, process.env.EMAIL_TEMPLATE_ID, form.current, process.env.EMAIL_API_KEY, {
+				email: email,
 				title: title,
 				content: content,
 			})
