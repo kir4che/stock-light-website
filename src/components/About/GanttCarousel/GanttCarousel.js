@@ -4,7 +4,7 @@ import Carousel from 'react-material-ui-carousel'
 export default function GanttCarousel() {
 	return (
 		<div>
-			<h3 className='mb-10 text-center'>開發時程</h3>
+			<h3 className='mb-5 text-center'>開發時程</h3>
 			<div className='overflow-x-scroll flex-nowrap'>
 				<Carousel
 					indicators={false}
