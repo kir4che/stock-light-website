@@ -1,8 +1,9 @@
 import { Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
-import LinearRegChart from '../../Chart/Chart'
+import Chart from '../../Chart/Chart'
 import ChartTable from '../../Chart/ChartTable/ChartTable'
 import StockSelect from './StockSelect/StockSelect'
+import { linearRegOption } from './options/linearRegOption'
 
 const DEFAULT_STOCK = 2330
 
@@ -34,7 +35,7 @@ export default function Result({ event }) {
 			</div>
 			{stock && (
 				<div className='space-y-8 lg:px-4 xl:px-10'>
-					<LinearRegChart tab={activeTab} stock={stock} />
+					<Chart tab={activeTab} stock={stock} option={linearRegOption(stock, tab)} />
 					<div className='space-y-4'>
 						<ChartTable tab={activeTab} stock={stock} />
 						<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>

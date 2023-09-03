@@ -1,7 +1,7 @@
 'use client'
 
 import { Menu, MenuItem } from '@mui/material'
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -9,7 +9,6 @@ import { PersonFill, Unindent } from 'react-bootstrap-icons'
 
 export default function UserMenu() {
 	const router = useRouter()
-	const { data: session } = useSession()
 
 	const [anchorEl, setAnchorEl] = useState(null)
 	const open = Boolean(anchorEl)

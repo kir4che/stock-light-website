@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { X as Close } from 'react-bootstrap-icons'
-import StarryBackground from '../../../components/StarryBackground/StarryBackground'
-import SuccessDialog from '../../../components/SuccessDialog/SuccessDialog'
+import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
+import SuccessDialog from '../../../../components/SuccessDialog/SuccessDialog'
 import './style.css'
 
 export default function Checkout() {

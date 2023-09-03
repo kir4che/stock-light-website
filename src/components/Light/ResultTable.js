@@ -15,7 +15,8 @@ import {
 import { visuallyHidden } from '@mui/utils'
 import PropTypes from 'prop-types'
 import { useMemo, useState } from 'react'
-import LinearRegChart from '../Chart/Chart'
+import Chart from '../Chart/Chart'
+import { linearRegOption } from '../Chart/options/linearRegOption'
 
 export default function ResultTable() {
 	// 數據，目前先呈現五檔(預測漲跌亂寫的)
@@ -90,7 +91,7 @@ export default function ResultTable() {
 										</TableCell>
 										<TableCell align='right'>
 											<button
-												className='px-3 py-1 text-xs text-zinc-100 rounded-full bg-secondary_blue'
+												className='px-3 py-1 text-xs rounded-full text-zinc-100 bg-secondary_blue'
 												onClick={() => handleClickOpen(row.symbol, row.name)}
 											>
 												詳細數據
@@ -137,7 +138,7 @@ function DetailDialog(props) {
 				</svg>
 			</IconButton>
 			<DialogContent className='h-[480px] px-4 space-y-4 text-center'>
-				<LinearRegChart
+				<Chart
 					tab={{
 						label: '氣溫',
 						isExplain: false,
@@ -160,6 +161,7 @@ function DetailDialog(props) {
 						],
 					}}
 					stock={symbol}
+					option={linearRegOption(stock, tab)}
 				/>
 			</DialogContent>
 		</Dialog>

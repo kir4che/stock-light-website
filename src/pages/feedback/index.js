@@ -1,5 +1,6 @@
-import { FormControl, TextField } from '@mui/material'
-import { useRouter } from 'next/router'
+import emailjs from '@emailjs/browser'
+import { TextField } from '@mui/material'
+import router from 'next/router'
 import { useRef, useState } from 'react'
 import { SendFill } from 'react-bootstrap-icons'
 import SubmitButton from '../../components/Buttons/SubmitButton/SubmitButton'
@@ -8,17 +9,32 @@ import SuccessDialog from '../../components/SuccessDialog/SuccessDialog'
 import './style.css'
 
 export default function Feedback() {
-	const router = useRouter()
-
-	const emailRef = useRef('')
-	const titleRef = useRef('')
-	const contentRef = useRef('')
+	const form = useRef()
 
 	const [success, setSuccess] = useState(false)
 
-	const handleSubmit = () => {
-		if (email && title && content) setSuccess(true)
-		setTimeout(() => handleClose(), 5000)
+	const handleSendEmail = (e) => {
+		e.preventDefault()
+
+		const title = e.target.title.value
+		const email = e.target.email.value
+		// 🚩email 無法傳入
+		const content = `${e.target.content.value}\n\n來自 ${email}`
+
+		emailjs
+			.sendForm(process.env.EMAIL_SERVICE_ID, process.env.EMAIL_TEMPLATE_ID, form.current, process.env.EMAIL_API_KEY, {
+				title: title,
+				content: content,
+			})
+			.then(
+				(response) => {
+					console.log('SUCCESS!', response.status, response.text)
+					setSuccess(true)
+				},
+				(error) => {
+					console.log('FAILED...', error)
+				}
+			)
 	}
 
 	const handleClose = () => {
@@ -36,15 +52,16 @@ export default function Feedback() {
 					<p className='mb-6 text-xl font-light text-center text-zinc-100 opacity-60'>
 						如果您有任何建議或問題，歡迎寄信給我們！
 					</p>
-					<FormControl
-						fullWidth={true}
-						className='flex max-w-xl p-10 mx-auto space-y-8 bg-white border shadow-xl dark:bg-zinc-900/50 sm:rounded-xl'
+					<form
+						ref={form}
+						className='max-w-xl p-10 mx-auto space-y-8 bg-white border shadow-xl dark:bg-zinc-900/50 sm:rounded-xl'
+						onSubmit={handleSendEmail}
 					>
-						<TextField id='email' inputRef={emailRef} label='電子郵件' fullWidth required />
-						<TextField id='title' inputRef={titleRef} label='標題' fullWidth required />
-						<TextField id='content' inputRef={contentRef} label='內容' multiline minRows={10} fullWidth required />
-						<SubmitButton text={'送出'} icon={<SendFill />} onClick={handleSubmit} />
-					</FormControl>
+						<TextField type='email' name='email' label='電子郵件' fullWidth required />
+						<TextField type='text' name='title' label='標題' fullWidth required />
+						<TextField type='text' name='content' label='內容' multiline minRows={10} fullWidth required />
+						<SubmitButton text={'送出'} icon={<SendFill />} />
+					</form>
 				</>
 			)}
 		</StarryBackground>

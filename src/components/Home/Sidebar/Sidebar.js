@@ -1,16 +1,10 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { CaretRightFill, InfoCircleFill, Newspaper } from 'react-bootstrap-icons'
+import { versionInfo } from '../../../data/versionInfo'
 import SidebarBlock from '../../SidebarBlock/SidebarBlock2'
 
 export default function HomeSidebar() {
-	const versionInfo = [
-		{
-			title: 'v0.2 版本上線',
-			url: '/version',
-		},
-	]
-
 	const [news, setNews] = useState(null)
 
 	const fetchNews = async () => {
