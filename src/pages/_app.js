@@ -7,13 +7,8 @@ import { DarkModeProvider } from '../context/DarkModeContext'
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
 	const router = useRouter()
-	const isExcludedPage =
-		router.pathname.includes('/analysis') ||
-		router.pathname.includes('/light') ||
-		router.pathname.includes('/user') ||
-		router.pathname.includes('/feedback') ||
-		router.pathname.includes('/signup') ||
-		router.pathname.includes('/login')
+	const excludedPaths = /(\/analysis|\/light|\/user|\/feedback|\/register|\/login)/
+	const isExcludedPage = excludedPaths.test(router.pathname)
 
 	return (
 		<DarkModeProvider>

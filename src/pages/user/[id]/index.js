@@ -1,16 +1,28 @@
+import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { PersonCircle } from 'react-bootstrap-icons'
 import StarryBackground from '../../../components/StarryBackground/StarryBackground'
+import { getServerAuthSession } from '../../api/auth/[...nextauth]'
 
-export default function Dashboard() {
+export async function getServerSideProps(ctx) {
+	const session = await getServerAuthSession(ctx)
+	return { props: { user: session.user } }
+}
+
+export default function User({ user }) {
 	const router = useRouter()
-	const { userId } = router.query
+	const { id } = router.query
 
 	return (
 		<StarryBackground className={'grid h-screen place-content-center'}>
-			<div className='w-96 dark:bg-zinc-900/50 rounded-xl'>
-				<PersonCircle size={120} className='mx-auto mb-3 -mt-12' />
-				<h3 className='text-center'>使用者名稱</h3>
+			<div className='bg-white w-96 dark:bg-zinc-900/50 rounded-xl'>
+				<Image
+					src={user.image}
+					width={120}
+					height={120}
+					alt='user-avater'
+					className='mx-auto mb-3 -mt-12 rounded-full'
+				/>
+				<h3 className='text-center'>{user.name}</h3>
 				<div className='h-24'></div>
 				<hr className='mt-8 dark:border-zinc-500' />
 				<div className='flex text-center'>

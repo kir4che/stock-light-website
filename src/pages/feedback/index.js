@@ -1,7 +1,8 @@
-import { Button, FormControl, TextField } from '@mui/material'
+import { FormControl, TextField } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 import { SendFill } from 'react-bootstrap-icons'
+import SubmitButton from '../../components/Buttons/SubmitButton/SubmitButton'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog'
 import './style.css'
@@ -37,20 +38,12 @@ export default function Feedback() {
 					</p>
 					<FormControl
 						fullWidth={true}
-						className='flex max-w-xl p-10 mx-auto space-y-8 text-sm bg-white border shadow-xl dark:bg-zinc-900/50 sm:rounded-xl'
+						className='flex max-w-xl p-10 mx-auto space-y-8 bg-white border shadow-xl dark:bg-zinc-900/50 sm:rounded-xl'
 					>
 						<TextField id='email' inputRef={emailRef} label='電子郵件' fullWidth required />
 						<TextField id='title' inputRef={titleRef} label='標題' fullWidth required />
 						<TextField id='content' inputRef={contentRef} label='內容' multiline minRows={10} fullWidth required />
-						<Button
-							fullWidth
-							size='large'
-							className='space-x-1.5 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-							onClick={handleSubmit}
-						>
-							<span>送出</span>
-							<SendFill />
-						</Button>
+						<SubmitButton text={'送出'} icon={<SendFill />} onClick={handleSubmit} />
 					</FormControl>
 				</>
 			)}

@@ -1,14 +1,16 @@
-export default function PasswordInput({ label, placeholder }) {
+export default function PasswordInput({ label, value, onChange, placeholder }) {
 	return (
-		<div className='w-full space-y-1'>
-			<label className='text-sm'>{label}</label>
-			<div className='relative flex items-center justify-center'>
-				<input
-					placeholder={placeholder}
-					type='password'
-					className='w-full py-3 pl-3 text-xs border rounded bg-zinc-200'
-				/>
-			</div>
-		</div>
+		<>
+			<label className='text-zinc-100'>{label}</label>
+			<input
+				name='password'
+				type='password'
+				value={value}
+				onChange={onChange}
+				placeholder={placeholder}
+				className='w-full py-3 pl-3 mt-1 mb-3 border rounded focus:outline-none dark:text-zinc-800 bg-zinc-200'
+				required
+			/>
+		</>
 	)
 }

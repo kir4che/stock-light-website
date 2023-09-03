@@ -27,7 +27,7 @@ export default function UserMenu() {
 			<PersonFill fontSize={22} onClick={handleClick} />
 			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
 				{/* 後續新增 */}
-				<Link href={`/user/${session.id_token}`}>
+				<Link href={'/user'}>
 					<MenuItem onClick={handleClose}>使用者頁面</MenuItem>
 				</Link>
 				<Link href={'/'}>
