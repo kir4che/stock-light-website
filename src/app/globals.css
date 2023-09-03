@@ -40,10 +40,16 @@ a {
 	width: 180px;
 	animation: rise 3s ease-in-out;
 }
-.lantern:hover {
+.lantern:hover{
 	cursor: pointer;
 	border-radius: 50%;
 	box-shadow: 0 0 150px -20px #ffc404;
+}
+.lanterntag_container{
+	position: relative;
+}
+.lanterntag_container:hover .laterntag{
+	opacity: 1;
 }
 
 .laterntag {
@@ -53,6 +59,7 @@ a {
 	border-radius: 5px;
 	margin-top: 10px;
 	position: absolute;
+	opacity: 0;
 }
 
 .laternlight {
