@@ -6,9 +6,10 @@ import SubmitButton from '../../components/Buttons/SubmitButton/SubmitButton'
 import PasswordInput from '../../components/PasswordInput/PasswordInput'
 import PrivacyAndTerms from '../../components/PrivacyAndTerms/PrivacyAndTerms'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
+import { getServerAuthSession } from '../../pages/api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
-	const session = await getSession(ctx)
+	const session = await getServerAuthSession(ctx)
 	if (session) return { redirect: { destination: '/login', permanent: false } }
 
 	const providers = await getProviders()
