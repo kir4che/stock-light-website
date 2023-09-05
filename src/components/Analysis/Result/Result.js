@@ -1,16 +1,12 @@
 import { Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { getCurrentDate } from '../../../utils/getCurrentDate'
 import Chart from '../../Chart/Chart'
 import ChartTable from '../../Chart/ChartTable/ChartTable'
 import { linearRegOption } from '../../Chart/options/linearRegOption'
 import StockSelect from '../../StockSelector/StockSelector'
 
 export default function Result({ event }) {
-	const currentDate = new Date()
-	const year = currentDate.getFullYear()
-	const month = (currentDate.getMonth() + 1).toString().padStart(2, '0')
-	const day = currentDate.getDate().toString().padStart(2, '0')
-
 	const [activeTabIndex, setActiveTabIndex] = useState(0)
 	const activeTab = event.tabs[activeTabIndex]
 
@@ -28,7 +24,7 @@ export default function Result({ event }) {
 		<div className='w-full px-5 pt-6 pb-10 bg-white dark:bg-zinc-900/50 sm:rounded min-w-[72%]'>
 			<div className='flex items-end mb-4 space-x-2 tracking-wider'>
 				<h3>{event.category}</h3>
-				<p className='text-sm opacity-60'>{`${year}/${month}/${day}`}</p>
+				<p className='text-sm opacity-60'>{getCurrentDate()}</p>
 			</div>
 			<div className='flex items-center justify-between mb-6 space-x-8 md:space-x-16'>
 				<Tabs value={activeTabIndex} onChange={handleTabChange} variant='scrollable' scrollButtons={false}>

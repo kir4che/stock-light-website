@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'react-bootstrap-icons'
+import { getCurrentDate } from '../../../utils/getCurrentDate'
 import Chart from '../../Chart/Chart'
 import { areaLineOption } from '../../Chart/options/areaLineOption'
 import { linearRegOption } from '../../Chart/options/linearRegOption'
@@ -24,11 +25,6 @@ const EXAMPLE_DATA = [
 export default function MainContent() {
 	const router = useRouter()
 
-	const currentDate = new Date()
-	const year = currentDate.getFullYear()
-	const month = (currentDate.getMonth() + 1).toString().padStart(2, '0')
-	const day = currentDate.getDate().toString().padStart(2, '0')
-
 	return (
 		<main className='w-full px-4 space-y-20 md:w-2/3 lg:w-3/4 xl:w-4/5 md:px-0'>
 			{/* 區塊一 */}
@@ -41,7 +37,7 @@ export default function MainContent() {
 				</div>
 				<div className='flex items-baseline mb-2 space-x-3'>
 					<h3 className='font-bold'>{16174.92}</h3>
-					<p className='text-xs font-light opacity-80'>{`${year}/${month}/${day}`}</p>
+					<p className='text-xs font-light opacity-80'>{getCurrentDate()}</p>
 				</div>
 				<Chart
 					stockSymbol={''}

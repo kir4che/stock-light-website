@@ -14,7 +14,7 @@ export default function SidebarBlock1({ icon, title, data }) {
 							<Link href={item.url} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>
 								{item.title}
 							</Link>
-							<hr className='mt-3 dark:border-zinc-600' />
+							<hr className='mt-3' />
 						</li>
 					))}
 			</ul>

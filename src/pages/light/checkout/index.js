@@ -1,16 +1,34 @@
 import { Button, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
-import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { X as Close } from 'react-bootstrap-icons'
-import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
-import SuccessDialog from '../../../../components/SuccessDialog/SuccessDialog'
-import '../../../../styles/Checkout.css'
+import StarryBackground from '../../../components/StarryBackground/StarryBackground'
+import SuccessDialog from '../../../components/SuccessDialog/SuccessDialog'
+import { INDUSTRY_CATEGORIES } from '../../../constants'
+import '../../../styles/Checkout.css'
+import { getCurrentDate } from '../../../utils/getCurrentDate'
+import { getServerAuthSession } from '../../api/auth/[...nextauth]'
 
-export default function Checkout() {
+export async function getServerSideProps(ctx) {
+	const session = await getServerAuthSession(ctx)
+	const currentURL = ctx.req.url
+	const categoryParam = decodeURIComponent(currentURL.split('category=')[1]).split('&id=')[0]
+
+	if (INDUSTRY_CATEGORIES.includes(categoryParam) && currentURL.includes(session.user.id))
+		return { props: { user: session.user, currentURL } }
+	else
+		return {
+			redirect: {
+				destination: '/error',
+			},
+		}
+}
+
+// 🚩尚未串接金流
+export default function Checkout({ user }) {
 	const router = useRouter()
-	const { data: session } = useSession()
+	const { category, id } = router.query
 
 	const [cardNumber, setCardNumber] = useState('')
 	const [nameOnCard, setNameOnCard] = useState('')
@@ -20,25 +38,32 @@ export default function Checkout() {
 
 	const [success, setSuccess] = useState(false)
 
-	const handleCardNumberChange = (e) => setCardNumber(e.target.value)
+	// 定義一個只允許 number 的 regex
+	const numberRegex = /^[0-9]*$/
+
+	const handleCardNumberChange = (e) => {
+		const inputValue = e.target.value
+		if (numberRegex.test(inputValue)) setCardNumber(inputValue)
+	}
+
 	const handleNameChange = (e) => setNameOnCard(e.target.value)
+
+	const handleCVVChange = (e) => {
+		const inputValue = e.target.value
+		if (numberRegex.test(inputValue)) setCvv(inputValue)
+	}
 
 	const handleSubmit = () => {
 		if (cardNumber && nameOnCard && expMonth && expYear) setSuccess(true)
 		setTimeout(() => {
-			handleClose()
-		}, 5000)
-	}
-
-	const handleClose = () => {
-		setSuccess(false)
-		router.push(`/light/result/${session.id_token}`)
+			router.push(`/light/result?category=${category}&date=${getCurrentDate('-')}&id=${id}`)
+		}, 3000)
 	}
 
 	return (
 		<>
 			{success ? (
-				<SuccessDialog title={'付款完成'} content={'將跳至點燈結果！'} handleClose={handleClose} />
+				<SuccessDialog title={'付款完成'} content={'將自動跳轉至點燈結果！'} />
 			) : (
 				<StarryBackground className={'pb-20 pt-14'}>
 					<div className='relative max-w-xl px-12 pt-8 pb-12 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>
@@ -52,7 +77,7 @@ export default function Checkout() {
 						<RadioGroup className='mb-2' defaultValue='credit_card' row>
 							<FormControlLabel value='credit_card' label='信用卡' control={<Radio />} />
 							<Image
-								width={120}
+								width={150}
 								height={40}
 								src='https://www.freepnglogos.com/uploads/visa-and-mastercard-logo-26.png'
 								alt='visa-mastercard'
@@ -93,7 +118,7 @@ export default function Checkout() {
 								</div>
 							</div>
 						</div>
-						<FormControl className='mb-12 space-y-6' fullWidth>
+						<FormControl className='mb-10 space-y-6' fullWidth>
 							<TextField
 								id='cardNumber'
 								value={cardNumber}
@@ -131,7 +156,7 @@ export default function Checkout() {
 									id='cvv'
 									size='small'
 									value={cvv}
-									onChange={(e) => setCvv(e.target.value)}
+									onChange={handleCVVChange}
 									placeholder='末３碼'
 									inputProps={{ maxLength: 3 }}
 									fullWidth
@@ -148,8 +173,16 @@ export default function Checkout() {
 							/>
 						</FormControl>
 						<hr />
-						<div className='flex items-center justify-between mt-4 mb-20 tracking-widest'>
-							<h5>光明燈香油錢</h5>
+						<div className='my-3 text-sm leading-6 opacity-80'>
+							<p className='mb-2'>會員資料</p>
+							<p className='opacity-60'>會員名稱：{user.name}</p>
+							<p className='opacity-60'>Email：{user.email}</p>
+						</div>
+						<hr />
+						<div className='flex items-center justify-between mt-5 mb-16 tracking-widest'>
+							<p>
+								光明燈香油錢（<span className='font-bold'>{category}</span>股）
+							</p>
 							<p className='font-bold'>NT$100</p>
 						</div>
 						<Button

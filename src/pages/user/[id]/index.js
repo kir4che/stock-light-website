@@ -36,7 +36,7 @@ export default function User({ user }) {
 				)}
 				<h3 className='text-center'>{user.name}</h3>
 				<div className='h-24'></div>
-				<hr className='mt-8 dark:border-zinc-500' />
+				<hr className='mt-8' />
 				<div className='flex text-center'>
 					<button
 						type='button'
