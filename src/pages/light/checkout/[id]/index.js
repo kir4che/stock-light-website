@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { X as Close } from 'react-bootstrap-icons'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../../../components/SuccessDialog/SuccessDialog'
-import './style.css'
+import '../../../../styles/Checkout.css'
 
 export default function Checkout() {
 	const router = useRouter()

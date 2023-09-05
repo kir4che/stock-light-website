@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Chart from '../../Chart/Chart'
 import ChartTable from '../../Chart/ChartTable/ChartTable'
 import { linearRegOption } from '../../Chart/options/linearRegOption'
-import StockSelect from './StockSelect/StockSelect'
+import StockSelect from '../../StockSelect/StockSelect'
 
 const DEFAULT_STOCK = 2330
 
@@ -13,7 +13,6 @@ export default function Result({ event }) {
 	const [stock, setStock] = useState(DEFAULT_STOCK)
 
 	const handleTabChange = (_, tabIndex) => setActiveTabIndex(tabIndex)
-	const handleStockChange = (e) => setStock(e.target.value)
 
 	useEffect(() => {
 		setActiveTabIndex(0)
@@ -31,7 +30,7 @@ export default function Result({ event }) {
 						<Tab key={index} label={tab.label} />
 					))}
 				</Tabs>
-				<StockSelect value={stock} onChange={handleStockChange} />
+				<StockSelect value={stock} onChange={(e) => setStock(e.target.value)} />
 			</div>
 			{stock && (
 				<div className='space-y-8 lg:px-4 xl:px-10'>

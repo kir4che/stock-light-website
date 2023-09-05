@@ -1,0 +1,46 @@
+/* tab bg css */
+.css-1ujnqem-MuiTabs-root {
+	@apply bg-white rounded dark:bg-zinc-800 !important;
+}
+
+/* tab text css */
+.css-1h9z7r5-MuiButtonBase-root-MuiTab-root {
+	@apply dark:text-zinc-100 hover:bg-secondary_blue/10 !important;
+}
+
+/* selected tab text css */
+.Mui-selected {
+	@apply text-sky-500 dark:text-secondary_blue !important;
+}
+
+/* tab indicator css */
+.css-1aquho2-MuiTabs-indicator {
+	@apply py-[2.8px] bg-secondary_blue dark:bg-secondary_blue !important;
+}
+
+/* checkBox css */
+.css-i4bv87-MuiSvgIcon-root {
+	@apply dark:text-zinc-200/80 !important;
+}
+
+/* ... css */
+.css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root {
+	@apply text-secondary_blue !important;
+}
+
+/* border css */
+.css-1iyq7zh-MuiDataGrid-columnHeaders,
+.MuiDataGrid-withBorderColor {
+	@apply dark:border-zinc-500 !important;
+}
+
+/* 移除最下面 row 的 border */
+.css-wop1k0-MuiDataGrid-footerContainer {
+	@apply border-none !important;
+}
+
+/* 移除點選後的 outline */
+.MuiDataGrid-columnHeader,
+.MuiDataGrid-cell {
+	@apply focus:outline-none !important;
+}

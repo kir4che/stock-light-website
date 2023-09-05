@@ -10,7 +10,7 @@ import DarkModeToggle from './DarkModeToggle/DarkModeToggle'
 import UserMenu from './UserMenu/UserMenu'
 
 export default function Header() {
-	const session = useSession()
+	const { data: session } = useSession()
 
 	return (
 		<div className='flex items-center justify-between py-1 mx-auto md:py-4'>
@@ -31,14 +31,14 @@ export default function Header() {
 					<button
 						type='button'
 						className={`block px-5 py-2 text-sm font-medium tracking-wide transition-all duration-300 ease-out rounded-full dark:text-zinc-800 bg-primary_yellow hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow dark:hover:ring-offset-zinc-900 ${
-							session.status === 'authenticated' ? 'mr-3 md:mr-0' : ''
+							session ? 'mr-3 md:mr-0' : ''
 						}`}
 					>
 						我要點燈
 					</button>
 				</Link>
-				{session.status === 'authenticated' ? (
-					<UserMenu />
+				{session ? (
+					<UserMenu session={session} />
 				) : (
 					<Link href={'/login'} className='hidden md:space-x-0.5 md:flex md:items-center'>
 						<span>登入</span>

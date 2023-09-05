@@ -3,7 +3,7 @@ import Result from '../../components/Analysis/Result/Result'
 import Sidebar from '../../components/Analysis/Sidebar/Sidebar'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 import { analEvent } from '../../data/analEvent.js'
-import './style.css'
+import '../../styles/Analysis.css'
 
 export default function Analysis() {
 	// 預設選單中的第一個選項

@@ -1,8 +1,8 @@
+import { Button } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import SubmitButton from '../../components/Buttons/SubmitButton/SubmitButton'
-import PasswordInput from '../../components/PasswordInput/PasswordInput'
+import InputField from '../../components/InputField/InputField'
 import PrivacyAndTerms from '../../components/PrivacyAndTerms/PrivacyAndTerms'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 
@@ -16,7 +16,6 @@ export default function Register() {
 		confirmPassword: '',
 	})
 
-	// 🚩待確認
 	const handleRegisterSubmit = async (e) => {
 		e.preventDefault()
 
@@ -54,39 +53,39 @@ export default function Register() {
 						登入
 					</Link>
 				</p>
-				<form className='mb-10 text-sm' onSubmit={handleRegisterSubmit}>
-					<lable className='text-zinc-100'>使用者名稱</lable>
-					<input
-						name='name'
-						type='text'
-						value={user.name}
-						onChange={(e) => setUser({ ...user, name: e.target.value })}
-						placeholder='輸入您的使用者名稱'
-						className='w-full py-3 pl-3 mt-1 mb-3 border rounded focus:outline-none dark:text-zinc-800 bg-zinc-200'
-					/>
-					<lable className='text-zinc-100'>Email</lable>
-					<input
-						name='email'
-						type='email'
-						value={user.email}
-						onChange={(e) => setUser({ ...user, email: e.target.value })}
-						placeholder='輸入您的 Email 帳號'
-						className='w-full py-3 pl-3 mt-1 mb-3 border rounded focus:outline-none dark:text-zinc-800 bg-zinc-200'
-					/>
-					<PasswordInput
-						label='密碼'
-						value={user.password}
-						onChange={(e) => setUser({ ...user, password: e.target.value })}
-						placeholder='輸入密碼'
-					/>
-					<PasswordInput
-						label='確認密碼'
-						value={user.confirmPassword}
-						onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
-						placeholder='請重複輸入密碼'
-					/>
-					<SubmitButton text={'註冊'} />
-				</form>
+				<InputField
+					label='使用者名稱'
+					type='text'
+					onChange={(e) => setUser({ ...user, name: e.target.value })}
+					placeholder='輸入您的使用者名稱'
+				/>
+				<InputField
+					label='Email'
+					type='email'
+					onChange={(e) => setUser({ ...user, email: e.target.value })}
+					placeholder='輸入您的 Email 帳號'
+				/>
+				<InputField
+					label='密碼'
+					type='password'
+					onChange={(e) => setUser({ ...user, password: e.target.value })}
+					placeholder='輸入密碼'
+				/>
+				<InputField
+					label='密碼'
+					type='password'
+					onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
+					placeholder='確認密碼'
+				/>
+				<Button
+					type='submit'
+					size='large'
+					fullWidth
+					onClick={handleRegisterSubmit}
+					className='mt-6 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
+				>
+					註冊
+				</Button>
 				<PrivacyAndTerms />
 			</div>
 		</StarryBackground>

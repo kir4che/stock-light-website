@@ -4,7 +4,7 @@ import Loading from '../../components/Loading/Loading'
 import NewsPost from '../../components/News/NewsPost/NewsPost'
 import PaginationLink from '../../components/News/PaginationLink/PaginationLink'
 import NewsSidebar from '../../components/News/Sidebar/Sidebar'
-import './style.css'
+import '../../styles/News.css'
 
 export default function News() {
 	const router = useRouter()

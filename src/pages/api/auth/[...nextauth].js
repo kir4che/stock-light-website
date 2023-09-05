@@ -48,22 +48,29 @@ export const authOptions = {
 		}),
 	],
 	callbacks: {
-		jwt({ token, account, user }) {
+		async jwt({ token, account }) {
 			if (account) {
+				token.id = account.providerAccountId
 				token.accessToken = account.access_token
-				token.id = user?.id
 			}
+			console.log(token)
+			console.log(account)
 			return token
 		},
-		session({ session, token }) {
-			session.user.id = token.id
+		async session({ session, token }) {
+			if (token) {
+				session.user.id = token.id
+				session.user.accessToken = token.accessToken
+			}
+			console.log(session)
+			console.log(token)
 			return session
 		},
 	},
 }
 
-export default NextAuth(authOptions)
-
 export const getServerAuthSession = (ctx) => {
 	return getServerSession(ctx.req, ctx.res, authOptions)
 }
+
+export default NextAuth(authOptions)

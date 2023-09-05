@@ -21,11 +21,19 @@ module.exports = {
 				88: '22rem',
 			},
 			colors: {
+				amber: {
+					300: '#FFD852',
+				},
+				sky: {
+					300: '#85CFFF',
+					400: '#52BBFF',
+					500: '#299BE6',
+				},
 				zinc: {
 					800: '#202024',
 				},
-				primary_yellow: '#FFDC62',
-				secondary_blue: '#4FBAFF',
+				primary_yellow: '#FFDE6B',
+				secondary_blue: '#40B4FF',
 				stock_red: '#EE3234',
 				stock_green: '#05AA02',
 			},
