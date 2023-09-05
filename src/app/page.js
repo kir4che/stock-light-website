@@ -10,7 +10,7 @@ export default function Home() {
 		<>
 			<Banner />
 			<Marquee />
-			<div className='py-8 sm:pb-10 sm:pt-14'>
+			<div className='pt-8 pb-12 sm:pt-12 sm:pb-16'>
 				<div className='flex w-full md:gap-12 lg:gap-20 xl:gap-24'>
 					<Sidebar />
 					<MainContent />

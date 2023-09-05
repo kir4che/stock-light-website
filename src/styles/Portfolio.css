@@ -34,9 +34,9 @@
 	@apply dark:border-zinc-500 !important;
 }
 
-/* 移除最下面 row 的 border */
+/* footer css */
 .css-wop1k0-MuiDataGrid-footerContainer {
-	@apply border-none !important;
+	@apply hidden !important;
 }
 
 /* 移除點選後的 outline */
