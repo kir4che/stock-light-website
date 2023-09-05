@@ -32,7 +32,12 @@
 	}
 
 	&.lamp_red {
-		@apply fill-stock_red;
+		@apply cursor-pointer fill-stock_red;
+		transition: filter 0.5s;
+	}
+
+	&.lamp_red:hover {
+		filter: drop-shadow(4px 3px 5px rgba(255, 204, 75, 0.6)) drop-shadow(-4px -3px 5px rgba(255, 204, 75, 0.6));
 	}
 }
 
@@ -45,7 +50,7 @@
 }
 
 .columns {
-	@apply animate-[animate\_slide\_up_10s_ease-in_alternate_both];
+	@apply animate-[animate\_slide\_up_8s];
 }
 
 .wall {
@@ -77,7 +82,7 @@
 }
 
 .lamp {
-	@apply animate-[animate\_grow\_down_16s_ease-in_alternate_both];
+	@apply animate-[animate\_grow\_down_15s_ease-in_alternate_both];
 }
 
 .animation_pendulum {
@@ -87,11 +92,11 @@
 }
 
 .animation_delayed_1 {
-	animation-delay: 0.2s;
+	animation-delay: 1.2s;
 }
 
 .animation_delayed_2 {
-	animation-delay: 0.5s;
+	animation-delay: 1.5s;
 }
 
 @keyframes animate_scale_X {

@@ -1,12 +1,12 @@
 import ReactEcharts from 'echarts-for-react'
 import { useEffect, useState } from 'react'
 
-export default function Chart({ stock, tab, option }) {
+export default function Chart({ stockSymbol, tab, option }) {
 	const [chartOption, setChartOption] = useState(null)
 
 	useEffect(() => {
 		setChartOption(option)
-	}, [stock, tab, option])
+	}, [stockSymbol, tab, option])
 
 	return (
 		chartOption && (

@@ -44,8 +44,7 @@ export default function MainContent() {
 					<p className='text-xs font-light opacity-80'>{`${year}/${month}/${day}`}</p>
 				</div>
 				<Chart
-					stock={null}
-					tab={null}
+					stockSymbol={''}
 					option={areaLineOption([
 						['2023-5-19', 16174.92],
 						['2023-5-18', 16101.88],
@@ -892,8 +891,8 @@ export default function MainContent() {
 						explanation: '',
 						data: EXAMPLE_DATA,
 					}}
-					stock={2330}
-					option={linearRegOption(2330, {
+					stockSymbol={'2330'}
+					option={linearRegOption('2330', {
 						label: '氣溫',
 						isExplain: false,
 						explanation: '',

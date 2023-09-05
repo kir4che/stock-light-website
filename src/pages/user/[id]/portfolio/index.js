@@ -4,28 +4,21 @@ import router from 'next/router'
 import { useEffect, useState } from 'react'
 import { PlusCircleFill } from 'react-bootstrap-icons'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
-import StockSelect from '../../../../components/StockSelect/StockSelect'
+import StockSelect from '../../../../components/StockSelector/StockSelector'
 import '../../../../styles/Portfolio.css'
+import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
 
-// 表格欄位配置
-const columns = [
-	{ field: 'stock_id', headerName: '代號', flex: 1 },
-	{ field: 'stock_name', headerName: '股票', flex: 1 },
-	{ field: 'price', headerName: '股價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
-	{ field: 'quote_change', headerName: '漲跌', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
-	{
-		field: 'quote_change_percent',
-		headerName: '漲跌幅 (%)',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-	},
-	{ field: 'opening_price', headerName: '開盤價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
-	{ field: 'closing_price', headerName: '收盤價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
-	{ field: 'highest_price', headerName: '最高價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
-	{ field: 'lowest_price', headerName: '最低價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
-]
+export async function getServerSideProps(ctx) {
+	const session = await getServerAuthSession(ctx)
+	const currentURL = ctx.req.url
+	if (currentURL.includes(session.user.id)) return { props: { user: session.user } }
+	else
+		return {
+			redirect: {
+				destination: '/error',
+			},
+		}
+}
 
 export default function Portfolio() {
 	const [value, setValue] = useState(0)
@@ -36,13 +29,43 @@ export default function Portfolio() {
 	const handleChange = (e, newValue) => setValue(newValue)
 	const handleChangePortfolio = (index) => setCurrentPortfolioIndex(index)
 
+	// 表格欄位配置
+	const columns = [
+		{ field: 'stock_id', headerName: '代號', flex: 1 },
+		{ field: 'stock_name', headerName: '股票', flex: 1 },
+		{ field: 'price', headerName: '股價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
+		{ field: 'quote_change', headerName: '漲跌', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
+		{
+			field: 'quote_change_percent',
+			headerName: '漲跌幅 (%)',
+			headerAlign: 'right',
+			align: 'right',
+			sortable: true,
+			flex: 1,
+			valueGetter: (params) => params.data.quote_change_percent,
+			valueFormatter: (params) => {
+				const value = params.value
+				const formattedValue = `${value.toFixed(1)}%`
+
+				// 判斷數值正負，並加上對應的 CSS 類別
+				const colorClass = value > 0 ? 'positive' : 'negative'
+
+				return `<span class="${colorClass}">${formattedValue}</span>`
+			},
+		},
+		{ field: 'opening_price', headerName: '開盤價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
+		{ field: 'closing_price', headerName: '收盤價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
+		{ field: 'highest_price', headerName: '最高價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
+		{ field: 'lowest_price', headerName: '最低價', headerAlign: 'right', align: 'right', sortable: true, flex: 1 },
+	]
+
 	const fakeData = [
 		{
 			team_name: '投資組合 1',
 			data: [
 				{
 					stock_name: '股票 A',
-					stock_id: 'ABC123',
+					stock_id: '1234',
 					price: 100,
 					quote_change: 5,
 					quote_change_percent: 5.0,
@@ -53,10 +76,10 @@ export default function Portfolio() {
 				},
 				{
 					stock_name: '股票 D',
-					stock_id: 'DEF456',
+					stock_id: '5678',
 					price: 50,
 					quote_change: -2,
-					quote_change_percent: -4.0,
+					quote_change_percent: -4.25,
 					opening_price: 52,
 					closing_price: 48,
 					highest_price: 55,
@@ -69,10 +92,10 @@ export default function Portfolio() {
 			data: [
 				{
 					stock_name: '股票 S',
-					stock_id: 'GHI789',
+					stock_id: '7890',
 					price: 75,
 					quote_change: 3,
-					quote_change_percent: 4.2,
+					quote_change_percent: 1.631,
 					opening_price: 72,
 					closing_price: 78,
 					highest_price: 80,
@@ -80,7 +103,7 @@ export default function Portfolio() {
 				},
 				{
 					stock_name: '股票 F',
-					stock_id: 'JKL012',
+					stock_id: '3456',
 					price: 120,
 					quote_change: 8,
 					quote_change_percent: 7.0,

@@ -3,6 +3,19 @@ import router from 'next/router'
 import { useState } from 'react'
 import InputField from '../../../../components/InputField/InputField'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
+import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
+
+export async function getServerSideProps(ctx) {
+	const session = await getServerAuthSession(ctx)
+	const currentURL = ctx.req.url
+	if (currentURL.includes(session.user.id)) return { props: { user: session.user } }
+	else
+		return {
+			redirect: {
+				destination: '/error',
+			},
+		}
+}
 
 export default function ChangePassword() {
 	const [newPassword, setNewPassword] = useState('')

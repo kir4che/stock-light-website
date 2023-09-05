@@ -15,8 +15,10 @@ export default function UserMenu({ session }) {
 	const handleClose = () => setAnchorEl(null)
 
 	const handleUserPage = () => {
-		if (session && session.user) router.push(`/user/${session.user.id}`)
-		handleClose()
+		if (session && session.user) {
+			handleClose()
+			router.push(`/user/${session.user.id}`)
+		}
 	}
 
 	const handleSignOut = async () => {

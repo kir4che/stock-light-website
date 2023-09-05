@@ -12,6 +12,7 @@ export default function News() {
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [allNews, setAllNews] = useState(null)
+	const [newsTags, setNewsTags] = useState(null)
 	const [hotNews, setHotNews] = useState(null)
 	const [totalPages, setTotalPages] = useState(1)
 	const [newsByKeyword, setNewsByKeyword] = useState(null)
@@ -29,6 +30,7 @@ export default function News() {
 				{ method: 'GET' }
 			)
 			const data = await response.json()
+
 			setAllNews(data.articles)
 			localStorage.setItem('allNews', JSON.stringify(data.articles))
 
@@ -52,6 +54,7 @@ export default function News() {
 				{ method: 'GET' }
 			)
 			const data = await response.json()
+
 			setHotNews(data.articles)
 			localStorage.setItem('hotNews', JSON.stringify(data.articles))
 		} catch (error) {

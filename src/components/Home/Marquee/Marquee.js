@@ -1,15 +1,10 @@
-// @ts-nocheck
-export default function Marquee() {
-	const news = ['目前沒有最新消息...']
+const ANNOUNCEMENT = '網站版本目前已更新到 Version 0.2'
 
+export default function Marquee() {
 	return (
-		<div className='flex items-center py-1 text-zinc-800 border-t-[1.35px] border-b-[1.35px] border-zinc-800 dark:border-t-[0.85px] dark:border-b-[0.85px] dark:border-white dark:text-zinc-100'>
+		<div className='flex items-center py-1 border-y-[1.35px] border-zinc-800 dark:border-y-[0.85px] dark:border-white'>
 			<marquee behavior='scroll' direction='left'>
-				{news.map((item, index) => (
-					<span key={index} className='inline-block text-sm'>
-						{item}
-					</span>
-				))}
+				<span className='inline-block text-sm'>{ANNOUNCEMENT}</span>
 			</marquee>
 		</div>
 	)

@@ -33,10 +33,12 @@ export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 	}
 
 	return (
-		<Paper component='form' className='flex items-center px-3 py-1.5'>
+		<Paper component='form' className='flex relative items-center pl-3 py-1.5'>
 			<InputBase placeholder='Search' value={keyword} onChange={handleInputChange} />
-			<Close size={30} className='cursor-pointer hover:opacity-70' onClick={clearSearch} />
-			<Search size={20} className='cursor-pointer hover:opacity-70' onClick={fetchNewsByKeyword} />
+			{keyword && (
+				<Close size={30} className='absolute cursor-pointer right-8 hover:opacity-80' onClick={clearSearch} />
+			)}
+			<Search size={20} className='absolute cursor-pointer right-3 hover:opacity-80' onClick={fetchNewsByKeyword} />
 		</Paper>
 	)
 }

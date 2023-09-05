@@ -2,6 +2,19 @@ import { Button } from '@mui/material'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
+import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
+
+export async function getServerSideProps(ctx) {
+	const session = await getServerAuthSession(ctx)
+	const currentURL = ctx.req.url
+	if (currentURL.includes(session.user.id)) return { props: { user: session.user } }
+	else
+		return {
+			redirect: {
+				destination: '/error',
+			},
+		}
+}
 
 export default function LightHistory() {
 	const [lightHistory, setLightHistory] = useState([])

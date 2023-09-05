@@ -22,15 +22,15 @@ function createData(symbol, name, price, up_down_day, up_down_week, volume, corr
 
 // 個股數據
 const stockTable = [
-	createData(2330, '台積電', 532, 0.38, 7.26, 32099068, -0.0193),
-	createData(2454, '聯發科', 698, 1.31, 3.71, 4968629, -0.1211),
-	createData(2603, '長榮', 150.5, -0.33, -1.31, 15244624, 0.4775),
-	createData(2880, '華南金', 22.75, 0.89, 3.88, 15869113, -0.1379),
-	createData(3008, '大立光', 2260, 2.26, 7.88, 843935, -0.5256),
+	createData('2330', '台積電', 532, 0.38, 7.26, 32099068, -0.0193),
+	createData('', '聯發科', 698, 1.31, 3.71, 4968629, -0.1211),
+	createData('2603', '長榮', 150.5, -0.33, -1.31, 15244624, 0.4775),
+	createData('2880', '華南金', 22.75, 0.89, 3.88, 15869113, -0.1379),
+	createData('3008', '大立光', 2260, 2.26, 7.88, 843935, -0.5256),
 ]
 
-export default function ChartTable({ tab, stock }) {
-	const rows = stockTable.filter((item) => item.symbol === stock)
+export default function ChartTable({ tab, stockSymbol }) {
+	const rows = stockTable.filter((stock) => stock.symbol === stockSymbol)
 
 	return (
 		<TableContainer component={Paper}>
