@@ -1,4 +1,8 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 網站說明
+
+登入請先使用測試帳號
+email: test@gmail.com
+password: 12345
 
 ## Getting Started
 

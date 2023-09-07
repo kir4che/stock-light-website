@@ -2,7 +2,7 @@ import { Button } from '@mui/material'
 import { getProviders, signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Facebook, Google, Line } from 'react-bootstrap-icons'
+import { Facebook, Google } from 'react-bootstrap-icons'
 import InputField from '../../components/InputField/InputField'
 import PrivacyAndTerms from '../../components/PrivacyAndTerms/PrivacyAndTerms'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
@@ -21,7 +21,17 @@ export default function Login({ providers }) {
 	const providerStyles = {
 		google: 'bg-red-500 hover:bg-red-600',
 		facebook: 'bg-blue-500 hover:bg-blue-600',
-		line: 'bg-green-500 hover:bg-green-600',
+	}
+
+	const handleLogin = async (e) => {
+		e.preventDefault()
+
+		const res = await signIn('credentials', {
+			email,
+			password,
+		})
+
+		if (res.error) alert('帳號或密碼有誤！')
 	}
 
 	return (
@@ -38,14 +48,19 @@ export default function Login({ providers }) {
 					label='Email'
 					type='email'
 					onChange={(e) => setEmail(e.target.value)}
-					placeholder='輸入您的 Email 帳號'
+					placeholder='輸入您的 Email（測試用: test@gmail.com）'
 				/>
-				<InputField label='密碼' type='password' onChange={(e) => setPassword(e.target.value)} placeholder='輸入密碼' />
+				<InputField
+					label='密碼'
+					type='password'
+					onChange={(e) => setPassword(e.target.value)}
+					placeholder='輸入密碼（測試用: 12345）'
+				/>
 				<Button
 					type='submit'
 					size='large'
 					fullWidth
-					onClick={() => signIn('credentials')}
+					onClick={handleLogin}
 					className='mt-6 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 				>
 					登入
@@ -61,12 +76,12 @@ export default function Login({ providers }) {
 							// 跳過自行註冊或登入的按鈕
 							index !== 0 && (
 								<button
-									className={`w-1/3 py-2 rounded-full flex justify-center ${providerStyles[provider.id] || ''}`}
+									className={`w-1/2 py-2 rounded-full flex justify-center ${providerStyles[provider.id] || ''}`}
 									onClick={() => signIn(provider.id)}
 									key={provider.name}
 								>
 									<span className='text-2xl text-zinc-100'>
-										{provider.id === 'facebook' ? <Facebook /> : provider.id === 'google' ? <Google /> : <Line />}
+										{provider.id === 'facebook' ? <Facebook /> : <Google />}
 									</span>
 								</button>
 							)

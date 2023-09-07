@@ -26,7 +26,7 @@ export default function Header() {
 					</Link>
 				))}
 			</nav>
-			<div className='flex items-center md:space-x-2 lg:space-x-3 xl:space-x-4'>
+			<div className='flex items-center md:space-x-3 xl:space-x-4'>
 				<Link href={'/light'}>
 					<button
 						type='button'
@@ -40,7 +40,7 @@ export default function Header() {
 				{session ? (
 					<UserMenu session={session} />
 				) : (
-					<Link href={'/login'} className='hidden md:space-x-0.5 md:flex md:items-center'>
+					<Link href={'/login'} className='items-center hidden md:flex'>
 						<span>登入</span>
 						<BoxArrowInRight size={20} />
 					</Link>

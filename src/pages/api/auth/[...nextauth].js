@@ -2,7 +2,6 @@ import NextAuth, { getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
-import LineProvider from 'next-auth/providers/line'
 
 export const authOptions = {
 	secret: process.env.NEXTAUTH_SECRET,
@@ -20,18 +19,30 @@ export const authOptions = {
 				email: { label: 'Email', type: 'email' },
 				password: { label: 'Password', type: 'password' },
 			},
-
 			async authorize(credentials) {
-				const response = await fetch(`${process.env.DB_URL}/api/user/login`, {
-					method: 'POST',
-					body: JSON.stringify(credentials),
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				})
-				const user = await response.json()
-				if (res.ok && user) return user
-				return null
+				const { email, password } = credentials
+				// 測試用
+				if (email === 'test@gmail.com' && password === '12345') {
+					const user = {
+						name: 'Tester',
+						email: email,
+						image: '',
+						id: '123',
+						access_token: '',
+					}
+					if (user) return user
+				} else return null
+
+				// const response = await fetch(`${process.env.DB_URL}/api/user/login`, {
+				// 	method: 'POST',
+				// 	body: JSON.stringify(credentials),
+				// 	headers: {
+				// 		'Content-Type': 'application/json',
+				// 	},
+				// })
+				// const user = await response.json()
+				// if (res.ok && user) return user
+				// return null
 			},
 		}),
 		GoogleProvider({
@@ -42,19 +53,13 @@ export const authOptions = {
 			clientId: process.env.FACEBOOK_CLIENT_ID,
 			clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
 		}),
-		LineProvider({
-			clientId: process.env.LINE_CHANNEL_ID,
-			clientSecret: process.env.LINE_CHANNEL_SECRET,
-		}),
 	],
 	callbacks: {
 		async jwt({ token, account }) {
 			if (account) {
 				token.id = account.providerAccountId
-				token.accessToken = account.access_token
+				token.accessToken = account.access_token || null
 			}
-			console.log(token)
-			console.log(account)
 			return token
 		},
 		async session({ session, token }) {
