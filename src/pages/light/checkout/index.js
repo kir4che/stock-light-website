@@ -3,20 +3,19 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { X as Close } from 'react-bootstrap-icons'
+import { v4 as uuidv4 } from 'uuid'
 import StarryBackground from '../../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../../components/SuccessDialog/SuccessDialog'
 import { INDUSTRY_CATEGORIES } from '../../../constants'
-import '../../../styles/Checkout.css'
 import { getCurrentDate } from '../../../utils/getCurrentDate'
 import { getServerAuthSession } from '../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
 	const currentURL = ctx.req.url
-	const categoryParam = decodeURIComponent(currentURL.split('category=')[1]).split('&id=')[0]
+	const categoryParam = decodeURIComponent(currentURL.split('category=')[1])
 
-	if (INDUSTRY_CATEGORIES.includes(categoryParam) && currentURL.includes(session.user.id))
-		return { props: { user: session.user, currentURL } }
+	if (INDUSTRY_CATEGORIES.includes(categoryParam)) return { props: { user: session.user, currentURL } }
 	else
 		return {
 			redirect: {
@@ -28,7 +27,7 @@ export async function getServerSideProps(ctx) {
 // 🚩尚未串接金流
 export default function Checkout({ user }) {
 	const router = useRouter()
-	const { category, id } = router.query
+	const { category } = router.query
 
 	const [cardNumber, setCardNumber] = useState('')
 	const [nameOnCard, setNameOnCard] = useState('')
@@ -56,7 +55,8 @@ export default function Checkout({ user }) {
 	const handleSubmit = () => {
 		if (cardNumber && nameOnCard && expMonth && expYear) setSuccess(true)
 		setTimeout(() => {
-			router.push(`/light/result?category=${category}&date=${getCurrentDate('-')}&id=${id}`)
+			const token = uuidv4()
+			router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate('-')}`)
 		}, 3000)
 	}
 

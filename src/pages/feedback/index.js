@@ -5,7 +5,6 @@ import { SendFill } from 'react-bootstrap-icons'
 import InputField from '../../components/InputField/InputField'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog'
-import '../../styles/Feedback.css'
 
 export default function Feedback() {
 	const form = useRef()

@@ -1,7 +1,7 @@
 import Footer from '../components/Footer/Footer'
 import Header from '../components/Header/Header'
-import { DarkModeProvider } from '../provider/DarkModeProvider'
-import { NextAuthProvider } from '../provider/NextAuthProvider'
+import { DarkModeProvider } from '../providers/DarkModeProvider'
+import { NextAuthProvider } from '../providers/NextAuthProvider'
 import './globals.css'
 
 import { Inter } from 'next/font/google'

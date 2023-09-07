@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { analEvent } from '../../../data/analEvent.js'
 
-export default function Sidebar({ active, handleClickActive }) {
-	const isActive = (id) => active === id
+export default function Sidebar({ activeIndex, handleActive }) {
+	const isActive = (id) => activeIndex === id
 
 	return (
 		<div className='flex items-center w-full text-sm bg-white md:text-base md:rounded md:border-none md:block md:dark:bg-zinc-900/50 dark:bg-zinc-900/60 md:w-72'>
@@ -18,7 +18,7 @@ export default function Sidebar({ active, handleClickActive }) {
 									? 'md:border-primary_yellow bg-primary_yellow/20 dark:bg-primary_yellow dark:text-zinc-800'
 									: ''
 							}`}
-							onClick={() => handleClickActive(event.id)}
+							onClick={() => handleActive(event.id)}
 						>
 							<Image src={event.icon} width={36} height={36} alt={event.category} className='hidden sm:block' />
 							<span className='tracking-wider'>{event.category}</span>

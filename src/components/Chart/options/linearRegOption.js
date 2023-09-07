@@ -1,21 +1,24 @@
 import * as echarts from 'echarts'
-import * as ecStat from 'echarts-stat'
-import { stockPrice } from '../../../data/stockPrice'
+import ecStat from 'echarts-stat'
 
 // 線性迴歸
 export function linearRegOption(stockSymbol, tab) {
 	echarts.registerTransform(ecStat.transform.regression)
 
-	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 45)
+	// 假數據
+	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 10)
+	const stockPriceList = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => 50 + Math.random() * 30)
 
 	let resultData = []
-	data.forEach((item, index) => {
-		let dataTemp = []
-		let price = stockPrice.find((stock) => stock.symbol === stockSymbol)
-		dataTemp.push(item)
-		dataTemp.push(price.data[index])
-		resultData.push(dataTemp)
-	})
+	const maxLength = Math.max(data.length, stockPriceList.length)
+
+	// 合併成二維陣列
+	for (let i = 0; i < maxLength; i++) {
+		const newData = i < data.length ? data[i] : null
+		const newStockPrice = i < stockPriceList.length ? stockPriceList[i] : null
+
+		resultData.push([newData, newStockPrice])
+	}
 
 	return {
 		// 大標題
@@ -63,12 +66,23 @@ export function linearRegOption(stockSymbol, tab) {
 				encode: { label: 2, tooltip: 1 },
 			},
 		],
+		tooltip: {
+			order: 'valueDesc',
+			trigger: 'axis',
+			axisPointer: {
+				type: 'cross',
+				label: {
+					backgroundColor: '#40B4FF',
+				},
+			},
+			valueFormatter: (value) => value.toFixed(4),
+		},
 		// 圖表位置
 		grid: {
-			x: 60, // 左側間距
+			x: 68, // 左側間距
 			y: 80, // 上側間距
-			x2: 32, // 右側間距
-			y2: 45, // 下側間距
+			x2: 48, // 右側間距
+			y2: 50, // 下側間距
 		},
 	}
 }

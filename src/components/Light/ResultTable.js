@@ -134,13 +134,7 @@ function DetailDialog(props) {
 	const { open, symbol, handleClose } = props
 
 	return (
-		<Dialog
-			open={open}
-			fullWidth={true}
-			maxWidth='md'
-			aria-labelledby='alert-dialog-title'
-			aria-describedby='alert-dialog-description'
-		>
+		<Dialog open={open} fullWidth={true} maxWidth='md'>
 			<IconButton className='absolute w-10 top-2 left-[850px]' onClick={handleClose}>
 				<svg
 					className='w-6 h-6'

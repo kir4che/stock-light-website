@@ -4,7 +4,6 @@ import Loading from '../../components/Loading/Loading'
 import NewsPost from '../../components/News/NewsPost/NewsPost'
 import PaginationLink from '../../components/News/PaginationLink/PaginationLink'
 import NewsSidebar from '../../components/News/Sidebar/Sidebar'
-import '../../styles/News.css'
 
 export default function News() {
 	const router = useRouter()
@@ -12,7 +11,7 @@ export default function News() {
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [allNews, setAllNews] = useState(null)
-	const [newsTags, setNewsTags] = useState(null)
+	// const [newsTags, setNewsTags] = useState(null)
 	const [hotNews, setHotNews] = useState(null)
 	const [totalPages, setTotalPages] = useState(1)
 	const [newsByKeyword, setNewsByKeyword] = useState(null)

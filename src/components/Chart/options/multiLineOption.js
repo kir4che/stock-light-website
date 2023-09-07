@@ -12,17 +12,8 @@ export function multiLineOption(data) {
 		legend: {
 			data: ['2330', '2454', '2603', '2880', '3008'],
 			left: 'center',
-			top: 12,
+			top: 16,
 		},
-		dataZoom: [
-			{
-				type: 'slider',
-				height: 45,
-				start: 0,
-				end: 60,
-				showDetail: false,
-			},
-		],
 		tooltip: {
 			order: 'valueDesc',
 			trigger: 'axis',
@@ -1280,12 +1271,22 @@ export function multiLineOption(data) {
 			},
 		],
 		grid: {
-			x: 24,
-			y: 52,
-			x2: 24,
-			y2: 62,
+			x: 24, // 左側間距
+			y: 54, // 上側間距
+			x2: 32, // 右側間距
+			y2: 90, // 下側間距
 			containLabel: true,
 		},
+		dataZoom: [
+			{
+				type: 'slider',
+				height: 45,
+				bottom: 32,
+				start: 0,
+				end: 60,
+				showDetail: false,
+			},
+		],
 		animationDuration: 3000, // 折線跑出時間
 	}
 }

@@ -1,9 +1,0 @@
-.css-md26zr-MuiInputBase-root-MuiOutlinedInput-root,
-.css-8ewcdo-MuiInputBase-root-MuiOutlinedInput-root,
-.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root {
-	@apply dark:bg-zinc-50;
-}
-
-.css-vqmohf-MuiButtonBase-root-MuiRadio-root {
-	@apply dark:text-zinc-200;
-}

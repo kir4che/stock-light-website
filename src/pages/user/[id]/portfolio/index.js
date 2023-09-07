@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react'
 import { CaretDownFill, CaretUpFill, PlusCircleFill } from 'react-bootstrap-icons'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
 import StockSelect from '../../../../components/StockSelector/StockSelector'
-import '../../../../styles/Portfolio.css'
 import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {

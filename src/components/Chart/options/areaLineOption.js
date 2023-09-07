@@ -1,7 +1,6 @@
 // 面積折線圖
 export function areaLineOption(data) {
 	return {
-		backgroundColor: '',
 		dataset: {
 			source: data,
 		},
@@ -42,16 +41,16 @@ export function areaLineOption(data) {
 			},
 		],
 		grid: {
-			x: 64, // 左側間距
-			y: 42, // 上側間距
-			x2: 32, // 右側間距
-			y2: 98, // 下側間距
+			x: 72, // 左側間距
+			y: 50, // 上側間距
+			x2: 36, // 右側間距
+			y2: 118, // 下側間距
 		},
 		dataZoom: [
 			{
 				type: 'slider',
 				height: 45,
-				bottom: 20,
+				bottom: 36,
 			},
 		],
 	}
