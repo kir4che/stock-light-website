@@ -1,4 +1,5 @@
-import { MoonStarsFill, SunFill } from 'react-bootstrap-icons'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
+import WbSunnyIcon from '@mui/icons-material/WbSunny'
 import { useDarkMode } from '../../../providers/DarkModeProvider'
 
 const DarkModeToggle = () => {
@@ -8,10 +9,10 @@ const DarkModeToggle = () => {
 	return (
 		<button className='hover:opacity-90' onClick={toggleDarkMode}>
 			<div className='hidden dark:block'>
-				<SunFill size={20} />
+				<WbSunnyIcon className='dark:text-white' />
 			</div>
 			<div className='block dark:hidden'>
-				<MoonStarsFill size={18} />
+				<DarkModeIcon />
 			</div>
 		</button>
 	)

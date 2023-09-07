@@ -1,8 +1,10 @@
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Input, Tab, Tabs } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
-import { CaretDownFill, CaretUpFill, PlusCircleFill } from 'react-bootstrap-icons'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
 import StockSelect from '../../../../components/StockSelector/StockSelector'
 import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
@@ -70,14 +72,14 @@ export default function Portfolio() {
 				if (value > 0) {
 					return (
 						<p className='flex items-center space-x-0.5 text-stock_red'>
-							<CaretUpFill />
+							<ArrowDropUpIcon color='error' />
 							<span>{`${value.toFixed(2)}%`}</span>
 						</p>
 					)
 				} else if (value < 0) {
 					return (
 						<p className='flex items-center space-x-0.5 text-stock_green'>
-							<CaretDownFill />
+							<ArrowDropDownIcon color='success' />
 							<span>{`${Math.abs(value.toFixed(2))}%`}</span>
 						</p>
 					)
@@ -528,7 +530,7 @@ export default function Portfolio() {
 						<Button
 							size='large'
 							startIcon={
-								<PlusCircleFill className='dark:text-zinc-100 text-sky-400 hover:text-sky-300 dark:hover:opacity-90' />
+								<AddCircleIcon className='text-2xl dark:text-zinc-100 text-sky-400 hover:text-sky-300 dark:hover:opacity-90' />
 							}
 							onClick={handleAddStock}
 						/>

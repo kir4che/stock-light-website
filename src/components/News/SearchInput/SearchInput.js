@@ -1,7 +1,8 @@
+import CloseIcon from '@mui/icons-material/Close'
+import SearchIcon from '@mui/icons-material/Search'
 import InputBase from '@mui/material/InputBase'
 import Paper from '@mui/material/Paper'
 import { useState } from 'react'
-import { X as Close, Search } from 'react-bootstrap-icons'
 
 export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 	const [keyword, setKeyword] = useState('')
@@ -36,9 +37,16 @@ export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 		<Paper component='form' className='flex relative items-center pl-3 py-1.5'>
 			<InputBase placeholder='Search' value={keyword} onChange={handleInputChange} />
 			{keyword && (
-				<Close size={30} className='absolute cursor-pointer right-8 hover:opacity-80' onClick={clearSearch} />
+				<CloseIcon
+					fontSize='small'
+					className='absolute mr-1 cursor-pointer text-zinc-800 dark:text-zinc-800 right-8 hover:opacity-80'
+					onClick={clearSearch}
+				/>
 			)}
-			<Search size={20} className='absolute cursor-pointer right-3 hover:opacity-80' onClick={fetchNewsByKeyword} />
+			<SearchIcon
+				className='absolute cursor-pointer text-zinc-800 dark:text-zinc-800 right-3 hover:opacity-80'
+				onClick={fetchNewsByKeyword}
+			/>
 		</Paper>
 	)
 }

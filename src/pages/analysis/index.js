@@ -1,7 +1,8 @@
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Tab, Tabs } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useEffect, useState } from 'react'
-import { CaretDownFill, CaretUpFill } from 'react-bootstrap-icons'
 import Sidebar from '../../components/Analysis/Sidebar/Sidebar'
 import Chart from '../../components/Chart/Chart'
 import { linearRegOption } from '../../components/Chart/options/linearRegOption'
@@ -38,14 +39,14 @@ export default function Analysis() {
 				if (value > 0) {
 					return (
 						<p className='flex items-center space-x-0.5 text-stock_red'>
-							<CaretUpFill />
+							<ArrowDropUpIcon color='error' />
 							<span>{`${value.toFixed(2)}%`}</span>
 						</p>
 					)
 				} else if (value < 0) {
 					return (
 						<p className='flex items-center space-x-0.5 text-stock_green'>
-							<CaretDownFill />
+							<ArrowDropDownIcon color='success' />
 							<span>{`${Math.abs(value.toFixed(2))}%`}</span>
 						</p>
 					)
@@ -63,14 +64,14 @@ export default function Analysis() {
 				if (value > 0) {
 					return (
 						<p className='flex items-center space-x-0.5 text-stock_red'>
-							<CaretUpFill />
+							<ArrowDropUpIcon color='error' />
 							<span>{`${value.toFixed(2)}%`}</span>
 						</p>
 					)
 				} else if (value < 0) {
 					return (
 						<p className='flex items-center space-x-0.5 text-stock_green'>
-							<CaretDownFill />
+							<ArrowDropDownIcon color='success' />
 							<span>{`${Math.abs(value.toFixed(2))}%`}</span>
 						</p>
 					)

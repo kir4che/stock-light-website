@@ -1,8 +1,9 @@
+import FacebookIcon from '@mui/icons-material/Facebook'
+import GoogleIcon from '@mui/icons-material/Google'
 import { Button } from '@mui/material'
 import { getProviders, signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
-import { Facebook, Google } from 'react-bootstrap-icons'
 import InputField from '../../components/InputField/InputField'
 import PrivacyAndTerms from '../../components/PrivacyAndTerms/PrivacyAndTerms'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
@@ -80,9 +81,11 @@ export default function Login({ providers }) {
 									onClick={() => signIn(provider.id)}
 									key={provider.name}
 								>
-									<span className='text-2xl text-zinc-100'>
-										{provider.id === 'facebook' ? <Facebook /> : <Google />}
-									</span>
+									{provider.id === 'facebook' ? (
+										<FacebookIcon className='text-white dark:text-white' />
+									) : (
+										<GoogleIcon className='text-white dark:text-white' />
+									)}
 								</button>
 							)
 					)}

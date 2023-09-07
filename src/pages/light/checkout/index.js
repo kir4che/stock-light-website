@@ -1,8 +1,8 @@
+import CloseIcon from '@mui/icons-material/Close'
 import { Button, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { X as Close } from 'react-bootstrap-icons'
 import { v4 as uuidv4 } from 'uuid'
 import StarryBackground from '../../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../../components/SuccessDialog/SuccessDialog'
@@ -67,8 +67,7 @@ export default function Checkout({ user }) {
 			) : (
 				<StarryBackground className={'pb-20 pt-14'}>
 					<div className='relative max-w-xl px-12 pt-8 pb-12 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>
-						<Close
-							size={28}
+						<CloseIcon
 							className='absolute cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
 							onClick={() => router.push('/light')}
 						/>

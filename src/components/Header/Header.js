@@ -1,8 +1,8 @@
 'use client'
 
+import LoginIcon from '@mui/icons-material/Login'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { BoxArrowInRight } from 'react-bootstrap-icons'
 import Link from '../../../node_modules/next/link'
 import { navigationLinks } from '../../data/navigationLinks'
 import BurgerMenu from './BurgerMenu/BurgerMenu'
@@ -42,7 +42,7 @@ export default function Header() {
 				) : (
 					<Link href={'/login'} className='items-center hidden md:flex'>
 						<span>登入</span>
-						<BoxArrowInRight size={20} />
+						<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
 					</Link>
 				)}
 				<BurgerMenu navigationLinks={navigationLinks} session={session} />

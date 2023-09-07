@@ -1,7 +1,7 @@
 import emailjs from '@emailjs/browser'
+import SendIcon from '@mui/icons-material/Send'
 import { Button, Input, InputLabel } from '@mui/material'
 import { useRef, useState } from 'react'
-import { SendFill } from 'react-bootstrap-icons'
 import InputField from '../../components/InputField/InputField'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog'
@@ -79,7 +79,7 @@ export default function Feedback() {
 							type='submit'
 							size='large'
 							fullWidth
-							endIcon={<SendFill size={16} />}
+							endIcon={<SendIcon className='text-white -rotate-45 dark:text-white' />}
 							onClick={handleSendEmail}
 							className='mt-12 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 						>

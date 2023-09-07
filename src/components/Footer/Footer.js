@@ -1,21 +1,23 @@
+import EmailIcon from '@mui/icons-material/Email'
+import PhoneIcon from '@mui/icons-material/Phone'
+import PlaceIcon from '@mui/icons-material/Place'
 import Image from 'next/image'
 import Link from 'next/link'
-import { EnvelopeFill, GeoAltFill, TelephoneFill } from 'react-bootstrap-icons'
 import { navigationLinks } from '../../data/navigationLinks'
 
 export default function Footer() {
 	const contactInfo = [
 		{
-			icon: <GeoAltFill size={20} />,
+			icon: <PlaceIcon />,
 			text: '106台北市大安區忠孝東路三段1號',
 			link: 'https://goo.gl/maps/Un5dRkG2Gi2TDgeV7',
 		},
 		{
-			icon: <EnvelopeFill size={20} />,
+			icon: <EmailIcon />,
 			text: 'xxx@gmail.com',
 		},
 		{
-			icon: <TelephoneFill size={20} />,
+			icon: <PhoneIcon />,
 			text: '0912-345-678',
 		},
 	]

@@ -1,7 +1,7 @@
+import CloseIcon from '@mui/icons-material/Close'
 import { Button, Dialog, DialogContent } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { X as Close } from 'react-bootstrap-icons'
 import Chart from '../../../../components/Chart/Chart'
 import { multiLineOption } from '../../../../components/Chart/options/multiLineOption'
 import ResultTable from '../../../../components/Light/ResultTable'
@@ -68,8 +68,7 @@ export default function Result() {
 						<h3>天氣型態</h3>
 						<p className='text-sm opacity-80'>{date}</p>
 					</div>
-					<Close
-						size={30}
+					<CloseIcon
 						className='absolute cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
 						onClick={() => router.push('/light')}
 					/>

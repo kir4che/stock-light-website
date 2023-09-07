@@ -1,6 +1,6 @@
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { ArrowRight } from 'react-bootstrap-icons'
 import { getCurrentDate } from '../../../utils/getCurrentDate'
 import Chart from '../../Chart/Chart'
 import { areaLineOption } from '../../Chart/options/areaLineOption'
@@ -869,11 +869,11 @@ export default function MainContent() {
 					<h4 className='pl-1 pr-6 font-bold'>查看今日股市預測</h4>
 					<button
 						type='button'
-						className='inline-flex items-center px-10 py-2 space-x-1.5 text-center font-medium rounded-md text-zinc-800 bg-primary_yellow hover:bg-amber-300 active:bg-amber-300'
+						className='inline-flex items-center py-1 pl-10 pr-6 font-medium text-center rounded-md text-zinc-800 bg-primary_yellow hover:bg-amber-300 active:bg-amber-300'
 						onClick={() => router.push('/light')}
 					>
 						<span>我要點燈</span>
-						<ArrowRight />
+						<ArrowRightIcon fontSize='large' className='text-zinc-800 dark:text-zinc-800' />
 					</button>
 				</div>
 			</div>
