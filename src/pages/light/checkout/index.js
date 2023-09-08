@@ -12,6 +12,14 @@ import { getServerAuthSession } from '../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
+	if (!session)
+		return {
+			redirect: {
+				destination: '/login',
+				permanent: false,
+			},
+		}
+
 	const currentURL = ctx.req.url
 	const categoryParam = decodeURIComponent(currentURL.split('category=')[1])
 

@@ -11,93 +11,93 @@ import StockSelect from '../../components/StockSelector/StockSelector'
 import { analEvent } from '../../data/analEvent.js'
 import { getCurrentDate } from '../../utils/getCurrentDate'
 
-export default function Analysis() {
-	const columns = [
-		{ field: 'stock_id', headerName: '代號', flex: 1 },
-		{ field: 'stock_name', headerName: '股票', flex: 1 },
-		{
-			field: 'price',
-			headerName: '股價',
-			headerAlign: 'right',
-			align: 'right',
-			flex: 1,
-			valueFormatter: (params) => `${params.value.toFixed(2)}`,
-			cellClassName: (params) => {
-				const changeValue = params.row.quote_change || 0
-				return changeValue > 0 ? 'text-stock_red' : changeValue < 0 ? 'text-stock_green' : ''
-			},
+const columns = [
+	{ field: 'stock_id', headerName: '代號', flex: 1 },
+	{ field: 'stock_name', headerName: '股票', flex: 1 },
+	{
+		field: 'price',
+		headerName: '股價',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		valueFormatter: (params) => `${params.value.toFixed(2)}`,
+		cellClassName: (params) => {
+			const changeValue = params.row.quote_change || 0
+			return changeValue > 0 ? 'text-stock_red' : changeValue < 0 ? 'text-stock_green' : ''
 		},
-		{
-			field: 'quote_change_percent',
-			headerName: '漲跌幅 (%)',
-			headerAlign: 'right',
-			align: 'right',
-			flex: 1,
-			renderCell: (params) => {
-				const value = params.value || 0
-				if (value > 0) {
-					return (
-						<p className='flex items-center space-x-0.5 text-stock_red'>
-							<ArrowDropUpIcon color='error' />
-							<span>{`${value.toFixed(2)}%`}</span>
-						</p>
-					)
-				} else if (value < 0) {
-					return (
-						<p className='flex items-center space-x-0.5 text-stock_green'>
-							<ArrowDropDownIcon color='success' />
-							<span>{`${Math.abs(value.toFixed(2))}%`}</span>
-						</p>
-					)
-				} else return `${value.toFixed(2)}%`
-			},
+	},
+	{
+		field: 'quote_change_percent',
+		headerName: '漲跌幅 (%)',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		renderCell: (params) => {
+			const value = params.value || 0
+			if (value > 0) {
+				return (
+					<p className='flex items-center space-x-0.5 text-stock_red'>
+						<ArrowDropUpIcon color='error' />
+						<span>{`${value.toFixed(2)}%`}</span>
+					</p>
+				)
+			} else if (value < 0) {
+				return (
+					<p className='flex items-center space-x-0.5 text-stock_green'>
+						<ArrowDropDownIcon color='success' />
+						<span>{`${Math.abs(value.toFixed(2))}%`}</span>
+					</p>
+				)
+			} else return `${value.toFixed(2)}%`
 		},
-		{
-			field: 'week_quote_change_percent',
-			headerName: '週漲跌幅 (%)',
-			headerAlign: 'right',
-			align: 'right',
-			flex: 1,
-			renderCell: (params) => {
-				const value = params.value || 0
-				if (value > 0) {
-					return (
-						<p className='flex items-center space-x-0.5 text-stock_red'>
-							<ArrowDropUpIcon color='error' />
-							<span>{`${value.toFixed(2)}%`}</span>
-						</p>
-					)
-				} else if (value < 0) {
-					return (
-						<p className='flex items-center space-x-0.5 text-stock_green'>
-							<ArrowDropDownIcon color='success' />
-							<span>{`${Math.abs(value.toFixed(2))}%`}</span>
-						</p>
-					)
-				} else return `${value.toFixed(2)}%`
-			},
+	},
+	{
+		field: 'week_quote_change_percent',
+		headerName: '週漲跌幅 (%)',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		renderCell: (params) => {
+			const value = params.value || 0
+			if (value > 0) {
+				return (
+					<p className='flex items-center space-x-0.5 text-stock_red'>
+						<ArrowDropUpIcon color='error' />
+						<span>{`${value.toFixed(2)}%`}</span>
+					</p>
+				)
+			} else if (value < 0) {
+				return (
+					<p className='flex items-center space-x-0.5 text-stock_green'>
+						<ArrowDropDownIcon color='success' />
+						<span>{`${Math.abs(value.toFixed(2))}%`}</span>
+					</p>
+				)
+			} else return `${value.toFixed(2)}%`
 		},
-		{
-			field: 'volume',
-			headerName: '交易量',
-			headerAlign: 'right',
-			align: 'right',
-			flex: 1,
-			valueFormatter: (params) => {
-				const volume = params.value || 0
-				return volume.toLocaleString()
-			},
+	},
+	{
+		field: 'volume',
+		headerName: '交易量',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		valueFormatter: (params) => {
+			const volume = params.value || 0
+			return volume.toLocaleString()
 		},
-		{
-			field: 'correlation',
-			headerName: '相關係數',
-			headerAlign: 'right',
-			align: 'right',
-			flex: 1,
-			valueFormatter: (params) => `${params.value.toFixed(2)}`,
-		},
-	]
+	},
+	{
+		field: 'correlation',
+		headerName: '相關係數',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		valueFormatter: (params) => `${params.value.toFixed(2)}`,
+	},
+]
 
+export default function Analysis() {
 	// 預設選單中的第一個選項
 	const [activeSidebarIndex, setActiveSidebarIndex] = useState(1)
 	const [activeTabIndex, setActiveTabIndex] = useState(0)
@@ -116,10 +116,10 @@ export default function Analysis() {
 			<Sidebar activeIndex={activeSidebarIndex} handleActive={handleSidebarActive} />
 			<div className='w-full pt-6 pb-12 bg-white dark:bg-zinc-900/50 sm:rounded min-w-[72%]'>
 				<div className='flex items-center justify-between px-5 mb-4'>
-					<div className='flex items-end space-x-2 tracking-wider'>
-						<h3>{analEvent[activeSidebarIndex - 1].category}</h3>
-						<p className='text-sm opacity-60'>{getCurrentDate()}</p>
-					</div>
+					<h3 className='inline-flex items-end tracking-wider'>
+						{analEvent[activeSidebarIndex - 1].category}
+						<span className='ml-2 text-sm opacity-60'>{getCurrentDate()}</span>
+					</h3>
 					<StockSelect value={selectedStockSymbol} onChange={handleStockSelect} />
 				</div>
 				<Tabs
@@ -150,7 +150,7 @@ export default function Analysis() {
 								id: 1,
 								stock_id: selectedStockSymbol,
 								stock_name: '台泥',
-								price: 120,
+								price: 34.5,
 								quote_change_percent: 2.26,
 								week_quote_change_percent: 0.38,
 								volume: 32099068,

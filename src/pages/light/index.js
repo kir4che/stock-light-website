@@ -4,15 +4,7 @@ import { getServerAuthSession } from '../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
-	if (session) return { props: { user: session.user } }
-	else {
-		return {
-			redirect: {
-				destination: '/login',
-				permanent: false,
-			},
-		}
-	}
+	return { props: { user: session.user } }
 }
 
 export default function Light({ user }) {
