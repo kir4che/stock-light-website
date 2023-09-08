@@ -131,7 +131,13 @@ export default function Analysis() {
 					scrollButtons
 				>
 					{analEvent[activeSidebarIndex - 1].tabs.map((tab, index) => (
-						<Tab label={tab.label} key={index} />
+						<Tab
+							label={tab.label}
+							className={`${
+								activeTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
+							} hover:bg-secondary_blue/10 `}
+							key={index}
+						/>
 					))}
 				</Tabs>
 				<div className='px-5'>
