@@ -9,7 +9,6 @@ import { linearRegOption } from '../../components/Chart/options/linearRegOption'
 import StarryBackground from '../../components/StarryBackground/StarryBackground'
 import StockSelect from '../../components/StockSelector/StockSelector'
 import { analEvent } from '../../data/analEvent.js'
-import '../../styles/Analysis.css'
 import { getCurrentDate } from '../../utils/getCurrentDate'
 
 export default function Analysis() {
@@ -127,7 +126,7 @@ export default function Analysis() {
 					variant='scrollable'
 					value={activeTabIndex}
 					onChange={handleTabActive}
-					className='mb-8 bg-white rounded shadow-md dark:bg-zinc-800 hover:bg-secondary_blue/10'
+					className='mb-8 bg-white rounded shadow-md dark:bg-zinc-800 hover:bg-sky-300/10'
 					scrollButtons
 				>
 					{analEvent[activeSidebarIndex - 1].tabs.map((tab, index) => (
@@ -135,7 +134,7 @@ export default function Analysis() {
 							label={tab.label}
 							className={`${
 								activeTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
-							} hover:bg-secondary_blue/10 `}
+							} hover:bg-sky-300/10 `}
 							key={index}
 						/>
 					))}

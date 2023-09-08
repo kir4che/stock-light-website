@@ -461,10 +461,9 @@ export default function Portfolio() {
 				{portfolioData.map((portfolio, index) => (
 					<Tab
 						label={portfolio.team_name}
-						onClick={() => handleChangePortfolio(index)}
 						className={`${
 							tabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
-						} hover:bg-secondary_blue/10 `}
+						} hover:bg-sky-300/10 `}
 						key={index}
 					/>
 				))}

@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close'
-import { Button, Dialog, DialogContent } from '@mui/material'
+import { Button, Dialog, DialogContent, Slide } from '@mui/material'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import Chart from '../../../../components/Chart/Chart'
 import { multiLineOption } from '../../../../components/Chart/options/multiLineOption'
 import ResultTable from '../../../../components/Light/ResultTable'
@@ -9,6 +9,11 @@ import SaveButton from '../../../../components/Light/SaveButton'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
 import { INDUSTRY_CATEGORIES } from '../../../../constants'
 import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
+
+// DIALOG TRANSITION
+const Transition = forwardRef(function Transition(props, ref) {
+	return <Slide direction='up' ref={ref} {...props} />
+})
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
@@ -37,12 +42,12 @@ export default function Result() {
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-14 md:pb-20'}>
 			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
-			<Dialog open={open} maxWidth='md' fullWidth>
-				<DialogContent className='flex flex-col items-center justify-between p-6 overflow-x-scroll overflow-y-hidden text-center h-[450px] dark:text-zinc-100 dark:bg-zinc-800'>
+			<Dialog open={open} maxWidth='md' TransitionComponent={Transition} keepMounted fullWidth>
+				<DialogContent className='z-10 flex flex-col items-center justify-between p-6 overflow-x-scroll overflow-y-hidden text-center h-[450px] dark:text-zinc-100 dark:bg-zinc-800'>
 					<h3 className='tracking-wider'>本日光明燈（{category}股）</h3>
 					<div className='flex items-center justify-center'>
 						{resultStocks.map((stock, index) => (
-							<div className='lantern lanterntag_container animate-none' key={index}>
+							<div className=' lantern lanterntag_container animate-none' key={index}>
 								<div className='laternlight'></div>
 								<div className='rounded-t-lg left rounded-b-md'></div>
 								<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}>

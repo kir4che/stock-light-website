@@ -15,7 +15,7 @@ export default function Sidebar({ activeIndex, handleActive }) {
 						<button
 							className={`flex items-center px-2 md:px-0 w-full py-1.5 md:pl-4 sm:space-x-1 md:space-x-2 md:border-l-8 border-transparent hover:bg-primary_yellow/20 ${
 								isActive(event.id)
-									? 'md:border-primary_yellow bg-primary_yellow/20 dark:bg-primary_yellow dark:text-zinc-800'
+									? 'md:border-primary_yellow bg-primary_yellow/10 dark:bg-primary_yellow dark:text-zinc-800'
 									: ''
 							}`}
 							onClick={() => handleActive(event.id)}
