@@ -22,12 +22,12 @@ export async function getServerSideProps(ctx) {
 }
 
 export default function Portfolio() {
-	const [value, setValue] = useState(0)
+	const [tabIndex, setTabIndex] = useState(0)
 	const [portfolioData, setPortfolioData] = useState([])
 	const [currentPortfolioIndex, setCurrentPortfolioIndex] = useState(0)
 	const [rows, setRows] = useState([])
 
-	const handleChange = (e, newValue) => setValue(newValue)
+	const handleChange = (e, index) => setTabIndex(index)
 	const handleChangePortfolio = (index) => setCurrentPortfolioIndex(index)
 
 	// 表格欄位配置
@@ -208,7 +208,7 @@ export default function Portfolio() {
 		// 			console.log('error', error)
 		// 		})
 		setPortfolioData(generateUniqueIds(fakeData))
-		setValue(0)
+		setTabIndex(0)
 	}, [])
 
 	useEffect(() => {
@@ -334,7 +334,7 @@ export default function Portfolio() {
 	}
 
 	// 新增股票
-	const [newStockId, setNewStockId] = useState('')
+	const [newStockId, setNewStockId] = useState('1101')
 
 	const handleAddStock = () => {
 		// 假設後端回傳的資料格式如下
@@ -452,9 +452,21 @@ export default function Portfolio() {
 				</button>
 				／會員投資組合
 			</p>
-			<Tabs value={value} onChange={handleChange}>
+			<Tabs
+				variant='scrollable'
+				value={tabIndex}
+				onChange={handleChange}
+				className='bg-white rounded shadow-md dark:bg-zinc-800'
+			>
 				{portfolioData.map((portfolio, index) => (
-					<Tab label={portfolio.team_name} onClick={() => handleChangePortfolio(index)} key={index} />
+					<Tab
+						label={portfolio.team_name}
+						onClick={() => handleChangePortfolio(index)}
+						className={`${
+							tabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
+						} hover:bg-secondary_blue/10 `}
+						key={index}
+					/>
 				))}
 			</Tabs>
 			{portfolioData.length === 0 ? null : (
@@ -536,14 +548,31 @@ export default function Portfolio() {
 						/>
 					</div>
 					<DataGrid
-						sx={{ pl: 2, pr: 3, pt: 0.5, pb: 1 }}
+						sx={{
+							pl: 2,
+							pr: 3,
+							pt: 0.5,
+							pb: 1,
+							'& .css-1iyq7zh-MuiDataGrid-columnHeaders, & .MuiDataGrid-withBorderColor': {
+								borderBottomWidth: '0.75px',
+								borderColor: '#71717a',
+							},
+							'& .MuiDataGrid-columnHeader:focus, & .MuiDataGrid-cell:focus': {
+								outline: 'none',
+							},
+							'& .css-i4bv87-MuiSvgIcon-root': {
+								color: '#a1a1aa',
+							},
+							'& .css-1pe4mpk-MuiButtonBase-root-MuiIconButton-root': {
+								color: '#40B4FF',
+							},
+						}}
 						rows={rows}
 						columns={columns}
 						onRowSelectionModelChange={(ids) => setRowIds(ids)}
 						className='bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
 						checkboxSelection
-						hideFooterPagination
-						hideFooterSelectedRowCount
+						hideFooter
 						disableRowSelectionOnClick
 						disableColumnMenu
 					/>

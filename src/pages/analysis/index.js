@@ -115,42 +115,52 @@ export default function Analysis() {
 	return (
 		<StarryBackground className={'w-full pt-8 pb-12 md:pb-20 md:gap-8 md:flex md:justify-between md:pt-14 lg:gap-12'}>
 			<Sidebar activeIndex={activeSidebarIndex} handleActive={handleSidebarActive} />
-			<div className='w-full px-5 pt-6 pb-12 bg-white dark:bg-zinc-900/50 sm:rounded min-w-[72%]'>
-				<div className='flex items-center justify-between mb-4'>
+			<div className='w-full pt-6 pb-12 bg-white dark:bg-zinc-900/50 sm:rounded min-w-[72%]'>
+				<div className='flex items-center justify-between px-5 mb-4'>
 					<div className='flex items-end space-x-2 tracking-wider'>
 						<h3>{analEvent[activeSidebarIndex - 1].category}</h3>
 						<p className='text-sm opacity-60'>{getCurrentDate()}</p>
 					</div>
 					<StockSelect value={selectedStockSymbol} onChange={handleStockSelect} />
 				</div>
-				<Tabs variant='scrollable' value={activeTabIndex} onChange={handleTabActive} className='mb-8' scrollButtons>
+				<Tabs
+					variant='scrollable'
+					value={activeTabIndex}
+					onChange={handleTabActive}
+					className='mb-8 bg-white rounded shadow-md dark:bg-zinc-800 hover:bg-secondary_blue/10'
+					scrollButtons
+				>
 					{analEvent[activeSidebarIndex - 1].tabs.map((tab, index) => (
 						<Tab label={tab.label} key={index} />
 					))}
 				</Tabs>
-				<Chart option={linearRegOption(selectedStockSymbol, analEvent[activeSidebarIndex - 1].tabs[activeTabIndex])} />
-				<DataGrid
-					sx={{ height: 135, pl: 2, pr: 3, pt: 0.5, pb: 1 }}
-					rows={[
-						{
-							id: 1,
-							stock_id: selectedStockSymbol,
-							stock_name: '台泥',
-							price: 120,
-							quote_change_percent: 2.26,
-							week_quote_change_percent: 0.38,
-							volume: 32099068,
-							correlation: -0.019,
-						},
-					]}
-					columns={columns}
-					className='mt-10 mb-4 bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
-					disableColumnFilter
-					disableRowSelectionOnClick
-					disableColumnMenu
-					hideFooter
-				/>
-				<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+				<div className='px-5'>
+					<Chart
+						option={linearRegOption(selectedStockSymbol, analEvent[activeSidebarIndex - 1].tabs[activeTabIndex])}
+					/>
+					<DataGrid
+						sx={{ height: 135, pl: 2, pr: 3, pt: 0.5, pb: 1 }}
+						rows={[
+							{
+								id: 1,
+								stock_id: selectedStockSymbol,
+								stock_name: '台泥',
+								price: 120,
+								quote_change_percent: 2.26,
+								week_quote_change_percent: 0.38,
+								volume: 32099068,
+								correlation: -0.019,
+							},
+						]}
+						columns={columns}
+						className='mt-10 mb-4 bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
+						disableColumnFilter
+						disableRowSelectionOnClick
+						disableColumnMenu
+						hideFooter
+					/>
+					<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+				</div>
 			</div>
 		</StarryBackground>
 	)

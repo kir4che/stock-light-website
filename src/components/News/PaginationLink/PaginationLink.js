@@ -10,8 +10,20 @@ export default function PaginationLink({ totalPages }) {
 	const page = parseInt(query.page || '1', 10)
 
 	return (
-		<div className='mt-20'>
+		<div className='mt-20 mb-2'>
 			<Pagination
+				sx={{
+					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover': {
+						bgcolor: 'rgb(255 222 107/0.3)',
+					},
+					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root': {
+						color: '#a1a1aa',
+					},
+					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected': {
+						color: '#27272a',
+						bgcolor: '#FFDE6B',
+					},
+				}}
 				page={page}
 				count={totalPages}
 				renderItem={(item) => (

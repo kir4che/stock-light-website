@@ -68,13 +68,13 @@ export default function Checkout({ user }) {
 				<StarryBackground className={'pb-20 pt-14'}>
 					<div className='relative max-w-xl px-12 pt-8 pb-12 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>
 						<CloseIcon
-							className='absolute cursor-pointer top-3 right-3 opacity-80 hover:opacity-60'
+							className='absolute cursor-pointer top-4 right-4 opacity-80 hover:opacity-60'
 							onClick={() => router.push('/light')}
 						/>
 						<h3 className='mb-8 font-bold text-center'>線上付款</h3>
 						<h5 className='mb-2'>付款方式</h5>
-						<RadioGroup className='mb-2' defaultValue='credit_card' row>
-							<FormControlLabel value='credit_card' label='信用卡' control={<Radio />} />
+						<RadioGroup defaultValue='credit_card' className='mb-2' row>
+							<FormControlLabel label='信用卡' value='credit_card' control={<Radio />} />
 							<Image
 								width={150}
 								height={40}
@@ -124,11 +124,18 @@ export default function Checkout({ user }) {
 								onChange={handleCardNumberChange}
 								placeholder='信用卡卡號'
 								inputProps={{ maxLength: 16 }}
+								className='rounded dark:bg-zinc-100'
 								fullWidth
 								required
 							/>
 							<div className='flex items-center space-x-4'>
-								<Select id='expMonth' size='small' value={expMonth} onChange={(e) => setExpMonth(e.target.value)}>
+								<Select
+									id='expMonth'
+									size='small'
+									value={expMonth}
+									onChange={(e) => setExpMonth(e.target.value)}
+									className='rounded dark:bg-zinc-100'
+								>
 									<MenuItem value={1}>01</MenuItem>
 									<MenuItem value={2}>02</MenuItem>
 									<MenuItem value={3}>03</MenuItem>
@@ -142,7 +149,13 @@ export default function Checkout({ user }) {
 									<MenuItem value={11}>11</MenuItem>
 									<MenuItem value={12}>12</MenuItem>
 								</Select>
-								<Select id='expYear' size='small' value={expYear} onChange={(e) => setExpYear(e.target.value)}>
+								<Select
+									id='expYear'
+									size='small'
+									value={expYear}
+									onChange={(e) => setExpYear(e.target.value)}
+									className='rounded dark:bg-zinc-100'
+								>
 									<MenuItem value={2024}>2024</MenuItem>
 									<MenuItem value={2025}>2025</MenuItem>
 									<MenuItem value={2026}>2026</MenuItem>
@@ -158,6 +171,7 @@ export default function Checkout({ user }) {
 									onChange={handleCVVChange}
 									placeholder='末３碼'
 									inputProps={{ maxLength: 3 }}
+									className='rounded dark:bg-zinc-100'
 									fullWidth
 									required
 								/>
@@ -167,6 +181,7 @@ export default function Checkout({ user }) {
 								value={nameOnCard}
 								onChange={handleNameChange}
 								placeholder='持卡人姓名'
+								className='rounded dark:bg-zinc-100'
 								fullWidth
 								required
 							/>
