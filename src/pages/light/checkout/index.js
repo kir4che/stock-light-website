@@ -20,6 +20,8 @@ export async function getServerSideProps(ctx) {
 			},
 		}
 
+	return { props: { user: session.user, currentURL } }
+
 	const currentURL = ctx.req.url
 	const categoryParam = decodeURIComponent(currentURL.split('category=')[1])
 

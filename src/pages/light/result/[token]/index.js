@@ -14,6 +14,8 @@ import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
+	return { props: { user: session.user, currentURL } }
+
 	const currentURL = ctx.req.url
 	const categoryParam = decodeURIComponent(currentURL.split('category=')[1]).split('&date=')[0]
 
