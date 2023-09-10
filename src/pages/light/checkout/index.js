@@ -3,11 +3,8 @@ import { Button, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Sel
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import CheckoutAnimation from '../../../components/Light/CheckoutAnimation/CheckoutAnimation'
 import StarryBackground from '../../../components/StarryBackground/StarryBackground'
-import SuccessDialog from '../../../components/SuccessDialog/SuccessDialog'
-import { INDUSTRY_CATEGORIES } from '../../../constants'
-import { getCurrentDate } from '../../../utils/getCurrentDate'
 import { getServerAuthSession } from '../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
@@ -19,17 +16,7 @@ export async function getServerSideProps(ctx) {
 				permanent: false,
 			},
 		}
-
-	const currentURL = ctx.req.url
-	const categoryParam = decodeURIComponent(currentURL.split('category=')[1])
-
-	if (INDUSTRY_CATEGORIES.includes(categoryParam)) return { props: { user: session.user, currentURL } }
-	else
-		return {
-			redirect: {
-				destination: '/error',
-			},
-		}
+	else return { props: { user: session.user } }
 }
 
 // 🚩尚未串接金流
@@ -43,7 +30,7 @@ export default function Checkout({ user }) {
 	const [expYear, setExpYear] = useState(2024)
 	const [cvv, setCvv] = useState('')
 
-	const [success, setSuccess] = useState(false)
+	const [success, setSuccess] = useState(true)
 
 	// 定義一個只允許 number 的 regex
 	const numberRegex = /^[0-9]*$/
@@ -62,16 +49,12 @@ export default function Checkout({ user }) {
 
 	const handleSubmit = () => {
 		if (cardNumber && nameOnCard && expMonth && expYear) setSuccess(true)
-		setTimeout(() => {
-			const token = uuidv4()
-			router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate('-')}`)
-		}, 3000)
 	}
 
 	return (
 		<>
 			{success ? (
-				<SuccessDialog title={'付款完成'} content={'將自動跳轉至點燈結果！'} />
+				<CheckoutAnimation user={user} />
 			) : (
 				<StarryBackground className={'pb-20 pt-14'}>
 					<div className='relative max-w-xl px-12 pt-8 pb-12 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>

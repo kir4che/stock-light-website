@@ -9,21 +9,18 @@ import Chart from '../../../../components/Chart/Chart'
 import { multiLineOption } from '../../../../components/Chart/options/multiLineOption'
 import SaveButton from '../../../../components/Light/SaveButton'
 import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
-import { INDUSTRY_CATEGORIES } from '../../../../constants'
 import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
-	const currentURL = ctx.req.url
-	const categoryParam = decodeURIComponent(currentURL.split('category=')[1]).split('&date=')[0]
-
-	if (INDUSTRY_CATEGORIES.includes(categoryParam)) return { props: { user: session.user, currentURL } }
-	else
+	if (!session)
 		return {
 			redirect: {
-				destination: '/error',
+				destination: '/login',
+				permanent: false,
 			},
 		}
+	else return { props: { user: session.user } }
 }
 
 const columns = [
