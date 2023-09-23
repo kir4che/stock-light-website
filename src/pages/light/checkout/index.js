@@ -1,11 +1,11 @@
+import CheckoutAnimation from '@/components/Light/CheckoutAnimation'
+import StarryBackground from '@/components/common/StarryBackground'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import CloseIcon from '@mui/icons-material/Close'
 import { Button, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import CheckoutAnimation from '../../../components/Light/CheckoutAnimation/CheckoutAnimation'
-import StarryBackground from '../../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
@@ -94,7 +94,7 @@ export default function Checkout({ user }) {
 								<p className='font-medium tracking-widest'>
 									{cardNumber.replace(/(.{4})/g, '$1 ') || '＊＊＊＊ ＊＊＊＊ ＊＊＊＊ ＊＊＊＊'}
 								</p>
-								<div className='flex justify-between pt-5 pr-6 text-xs'>
+								<div className='pt-5 pr-6 text-xs flex-center-between'>
 									<div>
 										<p className='pb-1 font-light'>持卡人</p>
 										<p className='font-medium tracking-widest'>{nameOnCard || '＊＊＊'}</p>
@@ -184,7 +184,7 @@ export default function Checkout({ user }) {
 							<p className='opacity-60'>Email：{user.email}</p>
 						</div>
 						<hr />
-						<div className='flex items-center justify-between mt-5 mb-16 tracking-widest'>
+						<div className='mt-5 mb-16 tracking-widest flex-center-between'>
 							<p>
 								光明燈香油錢（<span className='font-bold'>{category}</span>股）
 							</p>

@@ -67,7 +67,7 @@ export default function Skill() {
 	return (
 		<div>
 			<h3 className='mb-10 text-center'>主要技術</h3>
-			<div className='flex justify-center'>
+			<div className='flex-center'>
 				<div className='flex pb-8 overflow-x-scroll flex-nowrap'>
 					{skill_list.map((item) => (
 						<div className='inline-block mx-3 shadow-md dark:bg-zinc-700 rounded-xl' key={item.id}>

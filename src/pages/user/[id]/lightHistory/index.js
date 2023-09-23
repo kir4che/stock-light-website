@@ -1,8 +1,8 @@
+import StarryBackground from '@/components/common/StarryBackground'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import { Button } from '@mui/material'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
-import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
@@ -49,7 +49,7 @@ export default function LightHistory() {
 	}, [])
 
 	return (
-		<StarryBackground className={'w-full h-screen flex flex-col justify-center items-center text-zinc-100'}>
+		<StarryBackground className={'w-full flex-col flex-center text-zinc-100'}>
 			<h3 className='mb-10 text-center'>查詢點燈紀錄</h3>
 			<ul className='mb-16 space-y-8'>
 				{lightHistory.length !== 0 ? (
@@ -74,7 +74,7 @@ export default function LightHistory() {
 					<p className='text-center'>目前沒有點燈紀錄！</p>
 				)}
 			</ul>
-			<div className='flex justify-center'>
+			<div className='flex-center'>
 				<Button
 					variant='contained'
 					onClick={() => router.back()}

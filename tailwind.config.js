@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
+	mode: 'jit',
 	future: {
 		removeDeprecatedGapUtilities: true,
 		purgeLayersByDefault: true,
@@ -17,7 +19,7 @@ module.exports = {
 				md: '800px',
 			},
 			height: {
-				screen: 'calc(100vh - 68px - 228px)',
+				screen: 'calc(100vh - 76px)',
 				88: '22rem',
 			},
 			colors: {
@@ -27,7 +29,7 @@ module.exports = {
 				sky: {
 					300: '#85CFFF',
 					400: '#52BBFF',
-					500: '#299BE6',
+					500: '#3AADF8',
 				},
 				zinc: {
 					800: '#202024',
@@ -39,5 +41,5 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [require('@kamona/tailwindcss-perspective')],
 }

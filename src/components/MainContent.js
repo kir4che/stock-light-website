@@ -1,10 +1,10 @@
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { getCurrentDate } from '../../../utils/getCurrentDate'
-import Chart from '../../Chart/Chart'
-import { areaLineOption } from '../../Chart/options/areaLineOption'
-import { linearRegOption } from '../../Chart/options/linearRegOption'
+import { getCurrentDate } from '../utils/getCurrentDate'
+import Chart from './Chart/Chart'
+import { areaLineOption } from './Chart/options/areaLineOption'
+import { linearRegOption } from './Chart/options/linearRegOption'
 
 const EXAMPLE_DATA = [
 	24.2, 23.7, 23, 22.9, 23.4, 22.5, 29.1, 26.3, 29, 29.5, 27.8, 22.9, 22.2, 25.1, 26.6, 28.8, 29.4, 26.1, 26.2, 28.2,
@@ -865,7 +865,7 @@ export default function MainContent() {
 					])}
 				/>
 				<div className='flex items-center mt-8'>
-					<Image src='/images/good-quality-64.png' width={40} height={40} alt='recommend' />
+					<Image src='/assets/good-quality-64.png' width={40} height={40} alt='recommend' />
 					<h4 className='pl-1 pr-6 font-bold'>查看今日股市預測</h4>
 					<button
 						type='button'

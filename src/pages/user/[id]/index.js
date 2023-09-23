@@ -1,8 +1,8 @@
+import StarryBackground from '@/components/common/StarryBackground'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import StarryBackground from '../../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
@@ -20,7 +20,7 @@ export default function User({ user }) {
 	const router = useRouter()
 
 	return (
-		<StarryBackground className={'grid h-screen place-content-center'}>
+		<StarryBackground className={'grid place-content-center'}>
 			<div className='text-zinc-100 w-96 bg-white/20 backdrop-blur-xl dark:bg-zinc-900/50 rounded-xl'>
 				{user.image ? (
 					<Image

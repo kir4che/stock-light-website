@@ -3,17 +3,17 @@
 import LoginIcon from '@mui/icons-material/Login'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import Link from '../../../node_modules/next/link'
+import Link from 'next/link'
 import { navigationLinks } from '../../data/navigationLinks'
-import BurgerMenu from './BurgerMenu/BurgerMenu'
-import DarkModeToggle from './DarkModeToggle/DarkModeToggle'
-import UserMenu from './UserMenu/UserMenu'
+import BurgerMenu from '../ui/BurgerMenu'
+import DarkModeToggle from '../ui/DarkModeToggle'
+import UserMenu from '../ui/UserMenu'
 
 export default function Header() {
 	const { data: session } = useSession()
 
 	return (
-		<div className='flex items-center justify-between py-1 mx-auto md:py-4'>
+		<div className='fixed left-0 z-50 w-full px-4 py-1 bg-white sm:px-6 md:px-10 lg:px-16 dark:bg-zinc-800 flex-center-between md:py-4'>
 			<Link href='/' className='flex items-center space-x-1'>
 				<Image src='/favicon.ico' width={32} height={32} alt='股市光明燈' />
 				<h4 className='font-medium'>股市光明燈</h4>
@@ -26,7 +26,7 @@ export default function Header() {
 					</Link>
 				))}
 			</nav>
-			<div className='flex items-center md:space-x-3 xl:space-x-4'>
+			<div className='flex-center md:space-x-2 xl:space-x-3'>
 				<Link href={'/light'}>
 					<button
 						type='button'

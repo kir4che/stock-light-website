@@ -1,13 +1,13 @@
+import PrivacyAndTerms from '@/components/PrivacyAndTerms/PrivacyAndTerms'
+import StarryBackground from '@/components/common/StarryBackground'
+import InputField from '@/components/ui/InputField'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import GoogleIcon from '@mui/icons-material/Google'
 import { Button } from '@mui/material'
 import { getProviders, signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
-import InputField from '../../components/InputField/InputField'
-import PrivacyAndTerms from '../../components/PrivacyAndTerms/PrivacyAndTerms'
-import StarryBackground from '../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
@@ -36,7 +36,7 @@ export default function Login({ providers }) {
 	}
 
 	return (
-		<StarryBackground className={'flex flex-col items-center justify-center pt-10 pb-12'}>
+		<StarryBackground className={'flex-col h-[100vh-72px] flex-center pt-10 pb-12'}>
 			<div className='w-full px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
 				<h3 className='font-bold text-zinc-100'>登入股市光明燈</h3>
 				<p className='mt-4 mb-8 text-sm text-zinc-100 opacity-80'>
@@ -77,7 +77,7 @@ export default function Login({ providers }) {
 							// 跳過自行註冊或登入的按鈕
 							index !== 0 && (
 								<button
-									className={`w-1/2 py-2 rounded-full flex justify-center ${providerStyles[provider.id] || ''}`}
+									className={`w-1/2 py-2 rounded-full flex-center ${providerStyles[provider.id] || ''}`}
 									onClick={() => signIn(provider.id)}
 									key={provider.name}
 								>

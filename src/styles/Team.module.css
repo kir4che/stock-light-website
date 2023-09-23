@@ -1,5 +1,5 @@
 .card_group {
-	@apply flex flex-wrap justify-center mx-auto sm:gap-8 xl:gap-0 xl:space-x-8;
+	@apply flex-wrap mx-auto sm:gap-8 xl:gap-0 xl:space-x-8;
 }
 
 .card {

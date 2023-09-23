@@ -1,5 +1,5 @@
+import { versionInfo } from '@/data/versionInfo'
 import Image from 'next/image'
-import { versionInfo } from '../../data/versionInfo'
 
 export default function Version() {
 	return (

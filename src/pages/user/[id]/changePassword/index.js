@@ -1,9 +1,9 @@
+import StarryBackground from '@/components/common/StarryBackground'
+import InputField from '@/components/ui/InputField'
+import { getServerAuthSession } from '@/pagews/api/auth/[...nextauth]'
 import { Alert, Button, Snackbar } from '@mui/material'
 import router from 'next/router'
 import { useState } from 'react'
-import InputField from '../../../../components/InputField/InputField'
-import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)

@@ -3,8 +3,8 @@ import InfoIcon from '@mui/icons-material/Info'
 import NewspaperIcon from '@mui/icons-material/Newspaper'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { versionInfo } from '../../../data/versionInfo'
-import SidebarBlock from '../../SidebarBlock/SidebarBlock2'
+import { versionInfo } from '../../data/versionInfo'
+import SidebarBlock from './SidebarBlock2'
 
 export default function HomeSidebar() {
 	const [news, setNews] = useState(null)

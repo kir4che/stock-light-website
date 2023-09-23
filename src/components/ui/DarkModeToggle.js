@@ -1,6 +1,7 @@
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import WbSunnyIcon from '@mui/icons-material/WbSunny'
-import { useDarkMode } from '../../../providers/DarkModeProvider'
+
+import { useDarkMode } from '@/providers/DarkModeProvider'
 
 const DarkModeToggle = () => {
 	// 利用 useContext 取得 ThemeContext 的值

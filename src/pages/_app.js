@@ -1,14 +1,32 @@
+import { DarkModeProvider } from '@/providers/DarkModeProvider'
+import { NextAuthProvider } from '@/providers/NextAuthProvider'
 import { useRouter } from 'next/router'
-import '../app/globals.css'
-import Footer from '../components/Footer/Footer'
-import Header from '../components/Header/Header'
-import { DarkModeProvider } from '../providers/DarkModeProvider'
-import { NextAuthProvider } from '../providers/NextAuthProvider'
+import { useEffect } from 'react'
+
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+
+import Footer from '@/components/common/Footer'
+import Header from '@/components/common/Header'
+import '@/styles/globals.css'
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
 	const router = useRouter()
 	const excludedPaths = /(\/analysis|\/light|\/user|\/feedback|\/register|\/login)/
 	const isExcludedPage = excludedPaths.test(router.pathname)
+
+	useEffect(() => {
+		AOS.init({
+			easing: 'ease-in-out-cubic',
+			delay: 100,
+			once: false,
+			mirror: false,
+		})
+	}, [])
+
+	useEffect(() => {
+		AOS.refresh()
+	}, [])
 
 	return (
 		<DarkModeProvider>
@@ -16,10 +34,10 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 				<div
 					className={`container bg-white dark:bg-zinc-800 ${isExcludedPage ? '' : 'px-4 sm:px-6 md:px-10 lg:px-16'}`}
 				>
-					<div className={`${isExcludedPage ? 'px-4 sm:px-6 md:px-10 lg:px-16' : ''}`}>
-						<Header />
+					<Header />
+					<div className='relative top-[76px]'>
+						<Component {...pageProps} />
 					</div>
-					<Component {...pageProps} />{' '}
 					<div className={`${isExcludedPage ? 'px-4 sm:px-6 md:px-10 lg:px-16' : ''}`}>
 						<Footer />
 					</div>

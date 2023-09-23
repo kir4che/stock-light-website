@@ -1,9 +1,9 @@
+import Loading from '@/components/common/Loading'
+import NewsPost from '@/components/News/NewsPost/NewsPost'
+import PaginationLink from '@/components/News/PaginationLink/PaginationLink'
+import NewsSidebar from '@/components/News/Sidebar/Sidebar'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import Loading from '../../components/Loading/Loading'
-import NewsPost from '../../components/News/NewsPost/NewsPost'
-import PaginationLink from '../../components/News/PaginationLink/PaginationLink'
-import NewsSidebar from '../../components/News/Sidebar/Sidebar'
 
 export default function News() {
 	const router = useRouter()

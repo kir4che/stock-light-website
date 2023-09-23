@@ -3,13 +3,14 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Tab, Tabs } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useEffect, useState } from 'react'
-import Sidebar from '../../components/Analysis/Sidebar/Sidebar'
-import Chart from '../../components/Chart/Chart'
-import { linearRegOption } from '../../components/Chart/options/linearRegOption'
-import StarryBackground from '../../components/StarryBackground/StarryBackground'
-import StockSelect from '../../components/StockSelector/StockSelector'
-import { analEvent } from '../../data/analEvent.js'
-import { getCurrentDate } from '../../utils/getCurrentDate'
+
+import Sidebar from '@/components/Analysis/Sidebar/Sidebar'
+import Chart from '@/components/Chart/Chart'
+import { linearRegOption } from '@/components/Chart/options/linearRegOption'
+import StockSelect from '@/components/StockSelector/StockSelector'
+import StarryBackground from '@/components/common/StarryBackground'
+import { analEvent } from '@/data/analEvent.js'
+import { getCurrentDate } from '@/utils/getCurrentDate'
 
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },
@@ -112,10 +113,10 @@ export default function Analysis() {
 	}, [activeSidebarIndex])
 
 	return (
-		<StarryBackground className={'w-full pt-8 pb-12 md:pb-20 md:gap-8 md:flex md:justify-between md:pt-14 lg:gap-12'}>
+		<StarryBackground className={'w-full pt-8 pb-12 md:pb-20 md:gap-8 md:flex md:pt-14 lg:gap-12'}>
 			<Sidebar activeIndex={activeSidebarIndex} handleActive={handleSidebarActive} />
 			<div className='w-full pt-6 pb-12 bg-white dark:bg-zinc-900/50 sm:rounded min-w-[72%]'>
-				<div className='flex items-center justify-between px-5 mb-4'>
+				<div className='px-5 mb-4 flex-center-between'>
 					<h3 className='inline-flex items-end tracking-wider'>
 						{analEvent[activeSidebarIndex - 1].category}
 						<span className='ml-2 text-sm opacity-60'>{getCurrentDate()}</span>

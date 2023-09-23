@@ -1,4 +1,4 @@
-import style from '../../styles/StarryBackground.module.css'
+import style from '@/styles/StarryBackground.module.css'
 
 const StarryBackground = ({ children, className }) => {
 	return (

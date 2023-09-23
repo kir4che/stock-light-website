@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
-import { getCurrentDate } from '../../../utils/getCurrentDate'
+import { getCurrentDate } from '../../utils/getCurrentDate'
 
 export default function CheckoutAnimation() {
 	const router = useRouter()
@@ -19,12 +19,12 @@ export default function CheckoutAnimation() {
 	}
 
 	return (
-		<div className='h-screen donation-animation place-content-center' onAnimationEnd={handleAnimationEnd}>
+		<div className='donation-animation place-content-center' onAnimationEnd={handleAnimationEnd}>
 			<h2 className='mb-16'>香油錢已成功投遞！</h2>
 			{isCoinVisible && (
-				<Image src='/images/money_coin_blank_500_new.png' width={80} height={80} className='coin' alt='coin' />
+				<Image src='/assets/money_coin_blank_500_new.png' width={80} height={80} className='coin' alt='coin' />
 			)}
-			<Image src='/images/saisenbako2.png' width={200} height={200} className='box' alt='box' />
+			<Image src='/assets/saisenbako2.png' width={200} height={200} className='box' alt='box' />
 		</div>
 	)
 }

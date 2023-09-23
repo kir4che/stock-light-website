@@ -1,3 +1,8 @@
+import Chart from '@/components/Chart/Chart'
+import { multiLineOption } from '@/components/Chart/options/multiLineOption'
+import SaveButton from '@/components/Light/SaveButton'
+import StarryBackground from '@/components/common/StarryBackground'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import CloseIcon from '@mui/icons-material/Close'
@@ -5,11 +10,6 @@ import { Button, Dialog, DialogContent, Slide } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import { forwardRef, useState } from 'react'
-import Chart from '../../../../components/Chart/Chart'
-import { multiLineOption } from '../../../../components/Chart/options/multiLineOption'
-import SaveButton from '../../../../components/Light/SaveButton'
-import StarryBackground from '../../../../components/StarryBackground/StarryBackground'
-import { getServerAuthSession } from '../../../api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
@@ -164,9 +164,9 @@ export default function Result() {
 		<StarryBackground className={'pt-8 pb-12 md:pt-14 md:pb-20'}>
 			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
 			<Dialog open={dialogOpen} maxWidth='md' TransitionComponent={Transition} keepMounted fullWidth>
-				<DialogContent className='z-10 flex flex-col items-center justify-between p-6 overflow-x-scroll overflow-y-hidden text-center h-[450px] dark:text-zinc-100 dark:bg-zinc-800'>
+				<DialogContent className='z-10 flex-col flex-center-between p-6 overflow-x-scroll overflow-y-hidden text-center h-[450px] dark:text-zinc-100 dark:bg-zinc-800'>
 					<h3 className='tracking-wider'>本日光明燈（{category}股）</h3>
-					<div className='flex items-center justify-center'>
+					<div className='flex-center'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
 							<div className=' lantern lanterntag_container animate-none' key={index}>
 								<div className='laternlight'></div>

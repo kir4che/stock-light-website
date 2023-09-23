@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+	@apply box-border p-0 m-0;
+}
+html,
+body {
+	@apply max-w-[100vw] leading-8 overflow-x-hidden text-zinc-800 dark:text-zinc-100;
+}
+
+@layer base {
+	h1 {
+		@apply text-4xl font-bold;
+	}
+	h2 {
+		@apply text-3xl font-bold;
+	}
+	h3 {
+		@apply text-2xl font-medium;
+	}
+	h4 {
+		@apply text-xl;
+	}
+	h5 {
+		@apply text-lg;
+	}
+	a {
+		@apply no-underline cursor-pointer text-inherit;
+	}
+	button {
+		@apply cursor-pointer text-inherit;
+	}
+	hr {
+		@apply dark:border-zinc-600;
+	}
+}
+
+.container {
+	@apply w-full max-w-full min-h-screen p-0 m-0;
+}
+
+.flex-center {
+	@apply flex items-center justify-center;
+}
+
+.flex-center-between {
+	@apply flex items-center justify-between;
+}
+
+/* 天燈css */
+.lantern {
+	@apply flex h-40 w-48 perspective-5 animate-[rise_3s_ease-in-out] hover:cursor-pointer hover:shadow-[0_0_150px_-20px_#ffc404] hover:rounded-full;
+}
+.lanterntag_container {
+	@apply relative;
+}
+.lanterntag_container:hover .laterntag {
+	@apply opacity-100;
+}
+
+.laterntag {
+	@apply bg-zinc-800 text-white absolute opacity-0 mt-2.5 px-2.5 py-1.5 rounded-md;
+}
+.laternlight {
+	@apply translate-x-[60%] bg-amber-400 translate-y-2/4 h-20 w-20 absolute shadow-[0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#fbc926,0_0_70px_#fbc926,0_0_80px_#fbc926,0_0_100px_#fbc926,0_0_150px_#fbc926] animate-[blink_5s_ease-in-out_infinite] rounded-[50%];
+}
+.right {
+	@apply opacity-90 h-40 w-[100px] bg-amber-400;
+	transform: rotateY(400deg) translateX(-14px);
+}
+.left {
+	@apply opacity-90 h-40 w-[100px] bg-amber-400;
+	transform: rotateY(137deg) translateX(-20px) scaleY(0.98);
+}
+
+/* 閃光動畫 */
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 0.5;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+/* 天燈內部火焰動畫 */
+.flame {
+	@apply opacity-70 absolute w-5 h-5 rotate-[-135deg] animate-[0.1s_flame_infinite] blur-[10px] shadow-[17px_20px_90px_#700] rounded-[150px_150px_0px_150px] border-l-[25px] border-t-[25px] left-[40%] bottom-0 before:rotate-[-15deg] before:translate-x-2.5 before:translate-y-0 before:scale-90 before:top-0;
+	background: linear-gradient(-45deg, red, orange);
+}
+.flame:after,
+.flame:before {
+	@apply content-[''] w-5 h-5 block absolute animate-[0.2s_flame_infinite] rotate-[20deg] rounded-[100px_100px_0px_100px] scale-[0.8] top-5;
+	background: linear-gradient(-45deg, red, orange);
+}
+.flame:before {
+	animation-duration: 0.09s;
+}
+
+@keyframes flame {
+	0% {
+		height: 20px;
+		width: 20px;
+	}
+
+	50% {
+		height: 30px;
+		width: 30px;
+	}
+
+	100% {
+		height: 20px;
+		width: 20px;
+	}
+}
+
+/* 上升動畫 */
+@keyframes rise {
+	0% {
+		transform: translateY(350px);
+	}
+
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+/* 漂浮動畫 */
+.float {
+	animation-name: Floating;
+	animation-duration: 2.5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in-out;
+}
+
+@keyframes Floating {
+	from {
+		-webkit-transform: translate(0, 0px);
+	}
+
+	65% {
+		-webkit-transform: translate(0, 15px);
+	}
+
+	to {
+		-webkit-transform: translate(0, 0px);
+	}
+}
+
+/* 天燈位置 */
+.lanternone {
+	@apply absolute top-[500px];
+}
+.lanterntwo {
+	@apply absolute left-[500px] top-[200px];
+}
+.lanternthree {
+	@apply absolute left-[350px] top-[250px];
+	scale: 0.7;
+}
+.lanternfour {
+	@apply absolute right-0 top-[120px];
+}
+.lanternfive {
+	@apply absolute right-[200px] top-[150px];
+	scale: 0.7;
+}
+.lanternsix {
+	@apply absolute right-[400px] top-[400px];
+	scale: 0.75;
+}
+.lanternseven {
+	@apply absolute right-[180px] top-[450px];
+}
+.lanterneight {
+	@apply absolute left-[50px] top-[230px];
+}
+.lanternnight {
+	@apply absolute right-[370px] top-[140px];
+	scale: 0.85;
+}
+.lanternten {
+	@apply absolute left-[430px] top-[460px];
+}
+.lanterneleven {
+	@apply absolute left-[210px] top-20;
+}
+.lanterntwelve {
+	@apply absolute left-[200px] top-[480px];
+	scale: 0.8;
+}
+.lanternthirteen {
+	@apply absolute right-1.5 top-80;
+	scale: 0.6;
+}
+.lanternforteen {
+	@apply absolute right-[-50px] top-[500px];
+	scale: 0.8;
+}
+.lanternfifteen {
+	@apply absolute left-[-50px] top-[55px];
+	scale: 0.75;
+}
+
+/* 付款動畫 */
+
+.donation-animation {
+	@apply flex flex-col items-center;
+}
+.coin {
+	@apply animate-[bounce_1.2s_ease-in-out];
+}
+.box {
+	@apply animate-[swing_2s_ease-in-out];
+	animation-delay: 2s;
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(-50px);
+	}
+	100% {
+		transform: translateY(20px);
+	}
+}
+
+@keyframes swing {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	30% {
+		transform: rotate(-5deg);
+	}
+	65% {
+		transform: rotate(5deg);
+	}
+}

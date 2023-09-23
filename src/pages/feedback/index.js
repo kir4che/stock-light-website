@@ -1,10 +1,10 @@
+import StarryBackground from '@/components/common/StarryBackground'
+import InputField from '@/components/ui/InputField'
+import SuccessDialog from '@/components/ui/SuccessDialog'
 import emailjs from '@emailjs/browser'
 import SendIcon from '@mui/icons-material/Send'
 import { Button, Input, InputLabel } from '@mui/material'
 import { useRef, useState } from 'react'
-import InputField from '../../components/InputField/InputField'
-import StarryBackground from '../../components/StarryBackground/StarryBackground'
-import SuccessDialog from '../../components/SuccessDialog/SuccessDialog'
 
 export default function Feedback() {
 	const form = useRef()

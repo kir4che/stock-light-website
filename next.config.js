@@ -2,6 +2,7 @@ const nextConfig = {
 	images: {
 		domains: [
 			'img.icons8.com',
+			'images.unsplash.com',
 			'p1-jj.byteimg.com',
 			'fakeimg.pl',
 			'i.imgur.com',
