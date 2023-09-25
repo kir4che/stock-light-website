@@ -4,11 +4,11 @@ import { Tab, Tabs } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useEffect, useState } from 'react'
 
-import Sidebar from '@/components/Analysis/Sidebar/Sidebar'
+import Sidebar from '@/components/Analysis/Sidebar/AnalMenu'
 import Chart from '@/components/Chart/Chart'
 import { linearRegOption } from '@/components/Chart/options/linearRegOption'
-import StockSelect from '@/components/StockSelector/StockSelector'
 import StarryBackground from '@/components/common/StarryBackground'
+import StockSelect from '@/components/ui/StockSelector'
 import { analEvent } from '@/data/analEvent.js'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 

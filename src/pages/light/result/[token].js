@@ -1,7 +1,7 @@
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
-import SaveButton from '@/components/Light/SaveButton'
 import StarryBackground from '@/components/common/StarryBackground'
+import SaveButton from '@/components/ui/SaveButton'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'

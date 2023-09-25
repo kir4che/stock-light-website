@@ -1,6 +1,6 @@
-import PrivacyAndTerms from '@/components/PrivacyAndTerms/PrivacyAndTerms'
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
+import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import GoogleIcon from '@mui/icons-material/Google'
@@ -38,7 +38,7 @@ export default function Login({ providers }) {
 	return (
 		<StarryBackground className={'flex-col h-[100vh-72px] flex-center pt-10 pb-12'}>
 			<div className='w-full px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
-				<h3 className='font-bold text-zinc-100'>登入股市光明燈</h3>
+				<h3 className='text-zinc-100'>登入股市光明燈</h3>
 				<p className='mt-4 mb-8 text-sm text-zinc-100 opacity-80'>
 					還沒有帳號嗎？{' '}
 					<Link href={'/register'} className='underline opacity-80'>

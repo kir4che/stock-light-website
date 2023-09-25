@@ -1,6 +1,6 @@
-import GanttCarousel from '@/components/About/GanttCarousel/GanttCarousel'
-import Skill from '@/components/About/Skill/Skill'
-import Team from '@/components/About/Team/Team'
+import GanttCarousel from '@/components/About/GanttCarousel'
+import Skill from '@/components/About/Skill'
+import Team from '@/components/About/Team'
 
 export default function About() {
 	return (

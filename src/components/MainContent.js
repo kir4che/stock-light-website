@@ -36,7 +36,7 @@ export default function MainContent() {
 					</div>
 				</div>
 				<div className='flex items-baseline mb-2 space-x-3'>
-					<h3 className='font-bold'>{16174.92}</h3>
+					<h3>{16174.92}</h3>
 					<p className='text-xs font-light opacity-80'>{getCurrentDate()}</p>
 				</div>
 				<Chart
@@ -866,7 +866,7 @@ export default function MainContent() {
 				/>
 				<div className='flex items-center mt-8'>
 					<Image src='/assets/good-quality-64.png' width={40} height={40} alt='recommend' />
-					<h4 className='pl-1 pr-6 font-bold'>查看今日股市預測</h4>
+					<h4 className='pl-1 pr-6'>查看今日股市預測</h4>
 					<button
 						type='button'
 						className='inline-flex items-center py-1 pl-10 pr-6 font-medium text-center rounded-md text-zinc-800 bg-primary_yellow hover:bg-amber-300 active:bg-amber-300'

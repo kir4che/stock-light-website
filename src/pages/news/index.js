@@ -1,7 +1,7 @@
+import NewsPost from '@/components/News/NewsPost'
+import NewsSidebar from '@/components/News/NewsSidebar'
+import PaginationLink from '@/components/News/PaginationLink'
 import Loading from '@/components/common/Loading'
-import NewsPost from '@/components/News/NewsPost/NewsPost'
-import PaginationLink from '@/components/News/PaginationLink/PaginationLink'
-import NewsSidebar from '@/components/News/Sidebar/Sidebar'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 

@@ -1,6 +1,6 @@
-import PrivacyAndTerms from '@/components/PrivacyAndTerms/PrivacyAndTerms'
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
+import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
 import { Button } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -46,7 +46,7 @@ export default function Register() {
 	return (
 		<StarryBackground className={'flex-col flex-center pt-10 pb-12'}>
 			<div className='w-full px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
-				<h3 className='font-extrabold text-zinc-100'>註冊股市光明燈</h3>
+				<h3 className='text-zinc-100'>註冊股市光明燈</h3>
 				<p className='mt-4 mb-8 text-sm text-zinc-100 opacity-80'>
 					已經有帳號了！{' '}
 					<Link href={'/login'} className='underline opacity-80'>

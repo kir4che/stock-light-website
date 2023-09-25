@@ -12,14 +12,14 @@ export default function GanttCarousel() {
 					className='w-[780px] mx-auto rounded-xl dark:bg-white h-[420px] flex-center'
 				>
 					<Image
-						src='/assets/development-timeline-1.svg'
+						src='/assets/gantt/development-timeline-1.svg'
 						width={720}
 						height={400}
 						alt='development-timeline-1'
 						className='mx-auto'
 					/>
 					<Image
-						src='/assets/development-timeline-2.svg'
+						src='/assets/gantt/development-timeline-2.svg'
 						width={680}
 						height={400}
 						alt='development-timeline-2'

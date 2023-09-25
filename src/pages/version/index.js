@@ -8,7 +8,7 @@ export default function Version() {
 			<ul className='space-y-3'>
 				{versionInfo.map((item) => (
 					<li key={item.version}>
-						<h5 className='font-bold text-center '>{item.title}</h5>
+						<h5 className='font-bold text-center'>{item.title}</h5>
 						<Image src={item.image} width={640} height={320} alt='股市光明燈' className='my-5' />
 						<p className='mb-5 font-light text-center'>{item.desc}</p>
 						<hr />

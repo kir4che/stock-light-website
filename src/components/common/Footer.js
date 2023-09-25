@@ -27,7 +27,7 @@ export default function Footer() {
 			<div className='z-50 flex-col py-4 mx-auto bg-white border-t dark:bg-zinc-800 flex-center dark:border-none sm:py-8 sm:items-start sm:flex-row'>
 				<div className='text-center'>
 					<Image src='/assets/temple.png' width={160} height={100} alt='temple' />
-					<h4 className='mt-2 mb-1 font-bold'>股市光明燈</h4>
+					<h4 className='mt-2 mb-1'>股市光明燈</h4>
 					<p className='text-sm font-light'>帶給所有投資人新的希望</p>
 				</div>
 				<div className='flex-col flex-wrap flex-grow mt-4 space-y-4 text-center flex-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
@@ -39,7 +39,7 @@ export default function Footer() {
 						))}
 					</nav>
 					<nav className='hidden space-y-5 sm:block'>
-						<h4 className='mb-2 text-xl font-bold'>聯絡方式</h4>
+						<h4 className='mb-2 text-xl'>聯絡方式</h4>
 						{contactInfo.map((info, index) => (
 							<div className='flex items-center space-x-2 text-sm' key={index}>
 								{info.icon}

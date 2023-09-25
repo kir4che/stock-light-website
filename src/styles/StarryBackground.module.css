@@ -10,22 +10,20 @@
 }
 
 .stars {
+	@apply -z-30;
 	background: #283253 url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png') repeat top center;
-	z-index: -3;
 }
 
 .twinkling {
+	@apply opacity-80 -z-20;
 	background: transparent url('https://i.imgur.com/fUsesao.png') repeat top center;
-	opacity: 80%;
-	z-index: -2;
 	-webkit-animation: move-twink-back 200s linear;
 	animation: move-twink-back 200s linear;
 }
 
 .clouds {
+	@apply opacity-10 -z-10;
 	background: transparent url('https://i.imgur.com/KYJdAQm.png') repeat top center;
-	opacity: 12%;
-	z-index: -1;
 	-webkit-animation: move-clouds-back 300s linear;
 	animation: move-clouds-back 300s linear;
 }

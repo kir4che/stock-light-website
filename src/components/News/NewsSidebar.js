@@ -1,6 +1,6 @@
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
-import SearchInput from '../SearchInput/SearchInput'
-import SidebarBlock from '../../ui/SidebarBlock1'
+import SearchInput from '../ui/SearchInput'
+import SidebarBlock from '../ui/SidebarBlock1'
 
 export default function NewsSidebar({ hotNews, setNewsByKeyword, setTotalPages }) {
 	return (

@@ -1,118 +1,115 @@
-import CheckoutAnimation from '@/components/Light/CheckoutAnimation'
-import StarryBackground from '@/components/common/StarryBackground'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import CloseIcon from '@mui/icons-material/Close'
-import { Button, FormControl, FormControlLabel, MenuItem, Radio, RadioGroup, Select, TextField } from '@mui/material'
+import { Button, ButtonGroup, FormControl, MenuItem, Select, TextField } from '@mui/material'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
-export async function getServerSideProps(ctx) {
-	const session = await getServerAuthSession(ctx)
-	if (!session)
-		return {
-			redirect: {
-				destination: '/login',
-				permanent: false,
-			},
-		}
-	else return { props: { user: session.user } }
-}
+import StarryBackground from '@/components/common/StarryBackground'
+import { getCurrentDate } from '@/utils/getCurrentDate'
 
 // 🚩尚未串接金流
-export default function Checkout({ user }) {
+export default function Checkout() {
 	const router = useRouter()
 	const { category } = router.query
 
-	const [cardNumber, setCardNumber] = useState('')
-	const [nameOnCard, setNameOnCard] = useState('')
-	const [expMonth, setExpMonth] = useState(1)
-	const [expYear, setExpYear] = useState(2024)
-	const [cvv, setCvv] = useState('')
+	const paymentBtn = (index, imageSrc) => (
+		<Button
+			key={index}
+			onClick={() => handleButtonActive(index)}
+			className={`px-3 py-2 border-[1.5px] rounded-md ${
+				activeButtonIndex === index
+					? 'opacity-1 border-secondary_blue bg-sky-50'
+					: 'opacity-60 bg-white border-zinc-200'
+			} hover:opacity-100`}
+		>
+			<Image width={125} height={40} src={imageSrc} alt={`button-${index}`} />
+		</Button>
+	)
 
-	const [success, setSuccess] = useState(true)
+	const [activeButtonIndex, setActiveButtonIndex] = useState(1)
 
-	// 定義一個只允許 number 的 regex
-	const numberRegex = /^[0-9]*$/
+	const handleButtonActive = (index) => setActiveButtonIndex(index)
 
-	const handleCardNumberChange = (e) => {
-		const inputValue = e.target.value
-		if (numberRegex.test(inputValue)) setCardNumber(inputValue)
+	const [formData, setFormData] = useState({
+		cardNumber: '',
+		nameOnCard: '',
+		expMonth: 1,
+		expYear: 2024,
+		cvv: '',
+		success: false,
+	})
+
+	const [expMonth, setExpMonth] = useState(1) // Separate state for expMonth
+	const [expYear, setExpYear] = useState(2024) // Separate state for expYear
+
+	const handleInputChange = (e) => {
+		const { id, value } = e.target
+
+		if (id === 'cardNumber' || id === 'cvv') {
+			const numericValue = value.replace(/\D/g, '')
+			setFormData({ ...formData, [id]: numericValue })
+		} else if (id === 'nameOnCard') {
+			const nonNumericValue = value.replace(/[0-9]/g, '')
+			setFormData({ ...formData, [id]: nonNumericValue })
+		} else {
+			setFormData({ ...formData, [id]: value })
+		}
 	}
 
-	const handleNameChange = (e) => setNameOnCard(e.target.value)
-
-	const handleCVVChange = (e) => {
-		const inputValue = e.target.value
-		if (numberRegex.test(inputValue)) setCvv(inputValue)
+	const handleExpMonthChange = (e) => {
+		const value = e.target.value
+		setExpMonth(value)
+		setFormData({ ...formData, expMonth: value })
 	}
+
+	const handleExpYearChange = (e) => {
+		const value = e.target.value
+		setExpYear(value)
+		setFormData({ ...formData, expYear: value })
+	}
+
+	const [success, setSuccess] = useState(false)
 
 	const handleSubmit = () => {
-		if (cardNumber && nameOnCard && expMonth && expYear) setSuccess(true)
+		if (cardNumber && nameOnCard && expMonth && expYear) {
+			setSuccess(true)
+			setTimeout(() => {
+				const token = uuidv4()
+				router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate('-')}`)
+			}, 3000)
+		}
 	}
 
 	return (
-		<>
+		<StarryBackground className={'h-screen grid place-content-center'}>
 			{success ? (
-				<CheckoutAnimation user={user} />
+				<div className='glowing-circle-container'>
+					<div className='glowing-circle'></div>
+				</div>
 			) : (
-				<StarryBackground className={'pb-20 pt-14'}>
-					<div className='relative max-w-xl px-12 pt-8 pb-12 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>
-						<CloseIcon
-							className='absolute cursor-pointer top-4 right-4 opacity-80 hover:opacity-60'
-							onClick={() => router.push('/light')}
-						/>
-						<h3 className='mb-8 font-bold text-center'>線上付款</h3>
+				<div className='relative flex justify-between max-w-5xl gap-20 px-12 py-10 mx-auto bg-white dark:bg-zinc-800 sm:rounded-xl'>
+					<CloseIcon
+						className='absolute cursor-pointer top-4 right-4 opacity-80 hover:opacity-60'
+						onClick={() => router.push('/light')}
+					/>
+					{/* 支付區塊 */}
+					<div className='w-full max-w-md'>
+						<h3 className='mb-4'>線上付款</h3>
 						<h5 className='mb-2'>付款方式</h5>
-						<RadioGroup defaultValue='credit_card' className='mb-2' row>
-							<FormControlLabel label='信用卡' value='credit_card' control={<Radio />} />
-							<Image
-								width={150}
-								height={40}
-								src='https://www.freepnglogos.com/uploads/visa-and-mastercard-logo-26.png'
-								alt='visa-mastercard'
-							/>
-						</RadioGroup>
-						{/* 信用卡實際顯示 */}
-						<div className='mx-auto my-10 transition-transform transform shadow-xl text-zinc-100 w-96 rounded-2xl hover:scale-110'>
-							<Image
-								width={400}
-								height={400}
-								src='https://i.imgur.com/kGkSg1v.png'
-								alt='card'
-								className='relative h-56 rounded-2xl'
-							/>
-							<Image
-								width={48}
-								height={48}
-								src='https://i.imgur.com/eReh766.png'
-								alt='card-chip'
-								className='absolute top-8 left-8'
-							/>
-							<div className='absolute w-full px-8 top-[5.5rem]'>
-								<p className='pb-1 text-sm font-light'>卡號</p>
-								<p className='font-medium tracking-widest'>
-									{cardNumber.replace(/(.{4})/g, '$1 ') || '＊＊＊＊ ＊＊＊＊ ＊＊＊＊ ＊＊＊＊'}
-								</p>
-								<div className='pt-5 pr-6 text-xs flex-center-between'>
-									<div>
-										<p className='pb-1 font-light'>持卡人</p>
-										<p className='font-medium tracking-widest'>{nameOnCard || '＊＊＊'}</p>
-									</div>
-									<div>
-										<p className='pb-1 font-light'>有效期限</p>
-										<p className='font-medium tracking-widest'>{`${expMonth.toString().padStart(2, '0')}／${expYear
-											.toString()
-											.substr(-2)}`}</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<FormControl className='mb-10 space-y-6' fullWidth>
+						<ButtonGroup className='space-x-5'>
+							{paymentBtn(1, 'https://www.freepnglogos.com/uploads/visa-and-mastercard-logo-26.png')}
+							{paymentBtn(
+								2,
+								'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/PayPal.svg/2560px-PayPal.svg.png'
+							)}
+						</ButtonGroup>
+						<FormControl className='mt-6 mb-8 space-y-5' fullWidth>
 							<TextField
 								id='cardNumber'
-								value={cardNumber}
-								onChange={handleCardNumberChange}
+								value={formData.cardNumber}
+								onChange={handleInputChange}
 								placeholder='信用卡卡號'
 								inputProps={{ maxLength: 16 }}
 								className='rounded dark:bg-zinc-100'
@@ -124,7 +121,7 @@ export default function Checkout({ user }) {
 									id='expMonth'
 									size='small'
 									value={expMonth}
-									onChange={(e) => setExpMonth(e.target.value)}
+									onChange={handleExpMonthChange}
 									className='rounded dark:bg-zinc-100'
 								>
 									<MenuItem value={1}>01</MenuItem>
@@ -144,7 +141,7 @@ export default function Checkout({ user }) {
 									id='expYear'
 									size='small'
 									value={expYear}
-									onChange={(e) => setExpYear(e.target.value)}
+									onChange={handleExpYearChange}
 									className='rounded dark:bg-zinc-100'
 								>
 									<MenuItem value={2024}>2024</MenuItem>
@@ -158,8 +155,8 @@ export default function Checkout({ user }) {
 								<TextField
 									id='cvv'
 									size='small'
-									value={cvv}
-									onChange={handleCVVChange}
+									value={formData.cvv}
+									onChange={handleInputChange}
 									placeholder='末３碼'
 									inputProps={{ maxLength: 3 }}
 									className='rounded dark:bg-zinc-100'
@@ -169,8 +166,8 @@ export default function Checkout({ user }) {
 							</div>
 							<TextField
 								id='nameOnCard'
-								value={nameOnCard}
-								onChange={handleNameChange}
+								value={formData.nameOnCard}
+								onChange={handleInputChange}
 								placeholder='持卡人姓名'
 								className='rounded dark:bg-zinc-100'
 								fullWidth
@@ -178,29 +175,55 @@ export default function Checkout({ user }) {
 							/>
 						</FormControl>
 						<hr />
-						<div className='my-3 text-sm leading-6 opacity-80'>
-							<p className='mb-2'>會員資料</p>
-							<p className='opacity-60'>會員名稱：{user.name}</p>
-							<p className='opacity-60'>Email：{user.email}</p>
-						</div>
-						<hr />
-						<div className='mt-5 mb-16 tracking-widest flex-center-between'>
+						<div className='my-5 tracking-widest flex-center-between'>
 							<p>
 								光明燈香油錢（<span className='font-bold'>{category}</span>股）
 							</p>
 							<p className='font-bold'>NT$100</p>
 						</div>
+						<hr />
 						<Button
 							fullWidth
 							size='large'
-							className='text-zinc-100 bg-secondary_blue hover:bg-sky-500'
+							className='mt-8 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 							onClick={handleSubmit}
 						>
 							付款
 						</Button>
 					</div>
-				</StarryBackground>
+					{/* 光明燈介紹區塊 */}
+					<div className='w-[52vw] dark:text-zinc-800 flex justify-between flex-col p-8 bg-amber-50 rounded-2xl'>
+						<div>
+							<p className='text-sm font-light tracking-wider'>您將要支付</p>
+							<h2 className='mt-3 mb-10 text-4xl font-medium tracking-wider'>NT$100</h2>
+							<p className='mb-4 text-sm font-light tracking-wider'>您可以得到...</p>
+							<ul className='space-y-4'>
+								<li className=''>
+									<p className='flex gap-x-2'>
+										<CheckCircleRoundedIcon className='mt-0.5 text-stock_green' />
+										<span className='font-medium tracking-wide'>該產業別的五盞光明燈</span>
+									</p>
+									<p className='px-1 text-sm font-light leading-6 tracking-wide opacity-60'>
+										每盞燈代表一支有潛力的產業股票，我們通過歷史分析挑選這些具有希望、潛力的股票，並祈求上天保佑投資者未來獲得更好的回報。{' '}
+									</p>
+								</li>
+								<li className=''>
+									<p className='flex mb-2 gap-x-2'>
+										<CheckCircleRoundedIcon className='mt-0.5 text-stock_green' />
+										<span className='font-medium tracking-wide'>精美的祈福小卡</span>
+									</p>
+									<p className='px-1 text-sm font-light leading-6 tracking-wide opacity-60'>
+										小卡帶有正面的祝福語句，鼓勵投資者堅定信心，相信自己的選擇，並期待未來的回報。
+									</p>
+								</li>
+							</ul>
+						</div>
+						<p className='px-4 py-3 text-xs leading-5 dark:text-zinc-100 bg-primary_yellow/80 dark:bg-zinc-900/80 rounded-xl'>
+							點燈結果為本團隊透過歷史股市資料庫所分析出來，一切僅提供祈福的作用。
+						</p>
+					</div>
+				</div>
 			)}
-		</>
+		</StarryBackground>
 	)
 }

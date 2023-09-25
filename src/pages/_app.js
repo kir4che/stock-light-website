@@ -35,7 +35,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 					className={`container bg-white dark:bg-zinc-800 ${isExcludedPage ? '' : 'px-4 sm:px-6 md:px-10 lg:px-16'}`}
 				>
 					<Header />
-					<div className='relative top-[76px]'>
+					<div className={router.pathname === '/' ? 'relative top-[76px]' : 'pt-[76px]'}>
 						<Component {...pageProps} />
 					</div>
 					<div className={`${isExcludedPage ? 'px-4 sm:px-6 md:px-10 lg:px-16' : ''}`}>

@@ -1,5 +1,5 @@
 import StarryBackground from '@/components/common/StarryBackground'
-import StockSelect from '@/components/StockSelector/StockSelector'
+import StockSelect from '@/components/ui/StockSelector'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
