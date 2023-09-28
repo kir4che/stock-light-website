@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import Hero from '@/components/common/Hero'
-import Lantern from '@/components/ui/Lantern'
+import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 
 export default function Home() {
 	const router = useRouter()
@@ -92,11 +92,11 @@ export default function Home() {
 					>
 						我要點燈！
 					</button>
-					<div className='hidden float md:block'>
-						<Lantern labelPosition={'z-0 scale-75 -top-96 -left-12 lg:-left-10 xl:left-0'} />
-						<Lantern labelPosition={'z-0 -top-32 left-20 lg:left-32 xl:left-56'} />
-						<Lantern labelPosition={'z-0 scale-105 -top-[420px] -right-8 lg:right-0 xl:right-28'} />
-					</div>
+					<LanternLayout otherStyle={'hidden md:block'}>
+						<Lantern position={'z-0 scale-75 -top-80 -left-12 lg:-left-10 xl:left-0'} />
+						<Lantern position={'z-0 -top-28 scale-100 left-20 lg:left-32 xl:left-56'} />
+						<Lantern position={'z-0 -top-[420px] scale-105 -right-8 lg:right-0 xl:right-28'} />
+					</LanternLayout>
 				</article>
 			</div>
 			{/*

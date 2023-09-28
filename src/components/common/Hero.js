@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Marquee from '@/components/common/Marquee'
+import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 import style from '@/styles/Temple.module.css'
 
 export default function Hero() {
@@ -41,7 +42,7 @@ export default function Hero() {
 					</h1>
 				</div>
 			</div>
-			<div className="h-[36vw] sm:h-[40vw] md:h-[32vw] border-b-2 dark:border-zinc-900 lg:h-80 bg-[url('https://imgur.com/TUd42OT.jpg')] dark:bg-[url('https://imgur.com/eUbTc8f.jpg')] bg-no-repeat lg:bg-cover bg-center">
+			<div className="relative h-[36vw] sm:h-[40vw] md:h-[32vw] border-b-2 dark:border-zinc-900 lg:h-80 bg-[url('https://imgur.com/TUd42OT.jpg')] dark:bg-[url('https://imgur.com/eUbTc8f.jpg')] bg-no-repeat lg:bg-cover bg-center">
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
 					xmlnsXlink='http://www.w3.org/1999/xlink'
@@ -129,6 +130,17 @@ export default function Hero() {
 						<polygon points='1.5,101.501 21.5,71.501 281.5,71.501 301.5,101.501' />
 					</g>
 				</svg>
+				<LanternLayout otherStyle={'hidden md:block absolute top-0'}>
+					<div className='scale-75 -rotate-6'>
+						<Lantern position={'-right-[20vw] -top-[15vw] xl:-right-[30vw] xl:-top-[10vw]'} />
+					</div>
+					<div className='scale-90 rotate-3'>
+						<Lantern position={'left-[80vw] xl:left-[72vw] -top-[8vw]'} />
+					</div>
+					<div className='scale-50 -rotate-2'>
+						<Lantern position={'-right-[50vw] xl:-right-[58vw] -top-[4vw]'} />
+					</div>
+				</LanternLayout>
 			</div>
 			<div className='mt-6 text-sm font-light leading-loose text-center'>
 				<p>

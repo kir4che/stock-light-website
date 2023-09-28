@@ -174,7 +174,7 @@ export default function Result() {
 								<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}>
 									<h3 className='pl-8 font-bold tracking-widest text-zinc-100'>{stock}</h3>
 								</div>
-								<div className='flame'></div>
+								<div className='lantern-flame'></div>
 							</div>
 						))}
 					</div>

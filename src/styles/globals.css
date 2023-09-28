@@ -49,34 +49,55 @@ body {
 	@apply flex items-center justify-between;
 }
 
-/* 天燈css */
+/* 天燈bcss */
 .lantern {
-	@apply flex h-40 w-48 perspective-5 animate-[rise_3s_ease-in-out] hover:cursor-pointer hover:shadow-[0_0_150px_-20px_#ffc404] hover:rounded-full;
+	@apply flex h-40 w-48 perspective-5 animate-[rising_3s_ease-in-out];
 }
+
+/* 上升動畫 */
+@keyframes rising {
+	0% {
+		-webkit-transform: translateY(350px);
+	}
+
+	100% {
+		-webkit-transform: translateY(0px);
+	}
+}
+
+.lantern_hover {
+	@apply hover:cursor-pointer hover:shadow-[0_0_150px_-50px_#FFC300] hover:rounded-full;
+}
+
 .lanterntag_container {
 	@apply relative;
 }
-.lanterntag_container:hover .laterntag {
+
+.latern_label {
+	@apply bg-zinc-800 text-white absolute opacity-0 mt-2.5 px-2.5 py-1.5 rounded-md;
+}
+
+.lanterntag_container:hover .latern_label {
 	@apply opacity-100;
 }
 
-.laterntag {
-	@apply bg-zinc-800 text-white absolute opacity-0 mt-2.5 px-2.5 py-1.5 rounded-md;
-}
 .laternlight {
-	@apply translate-x-[60%] bg-amber-400 translate-y-2/4 h-20 w-20 absolute shadow-[0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#fbc926,0_0_70px_#fbc926,0_0_80px_#fbc926,0_0_100px_#fbc926,0_0_150px_#fbc926] animate-[blink_5s_ease-in-out_infinite] rounded-[50%];
+	@apply translate-x-[60%] bg-amber-400 translate-y-2/4 h-20 w-20 absolute shadow-[0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#fbc926,0_0_70px_#fbc926,0_0_80px_#fbc926,0_0_100px_#fbc926,0_0_150px_#fbc926] animate-[blinking_5s_ease-in-out_infinite] rounded-[50%];
+}
+
+.right,
+.left {
+	@apply opacity-90 h-40 w-[100px] bg-amber-400;
 }
 .right {
-	@apply opacity-90 h-40 w-[100px] bg-amber-400;
 	transform: rotateY(400deg) translateX(-14px);
 }
 .left {
-	@apply opacity-90 h-40 w-[100px] bg-amber-400;
 	transform: rotateY(137deg) translateX(-20px) scaleY(0.98);
 }
 
 /* 閃光動畫 */
-@keyframes blink {
+@keyframes blinking {
 	0% {
 		opacity: 1;
 	}
@@ -90,57 +111,42 @@ body {
 	}
 }
 
-/* 天燈內部火焰動畫 */
-.flame {
-	@apply opacity-70 absolute w-5 h-5 rotate-[-135deg] animate-[0.1s_flame_infinite] blur-[10px] shadow-[17px_20px_90px_#700] rounded-[150px_150px_0px_150px] border-l-[25px] border-t-[25px] left-[40%] bottom-0 before:rotate-[-15deg] before:translate-x-2.5 before:translate-y-0 before:scale-90 before:top-0;
+/* 內部火光 */
+.lantern-flame {
+	@apply opacity-70 absolute w-5 h-5 rotate-[-135deg] animate-[0.1s_flaming_infinite] blur-[10px] shadow-[17px_20px_90px_#700] rounded-[150px_150px_0px_150px] border-l-[25px] border-t-[25px] left-[40%] bottom-0 before:rotate-[-15deg] before:translate-x-2.5 before:translate-y-0 before:scale-90 before:top-0;
 	background: linear-gradient(-45deg, red, orange);
 }
-.flame:after,
-.flame:before {
-	@apply content-[''] w-5 h-5 block absolute animate-[0.2s_flame_infinite] rotate-[20deg] rounded-[100px_100px_0px_100px] scale-[0.8] top-5;
+.lantern-flame:after,
+.lantern-flame:before {
+	@apply content-[''] w-5 h-5 block absolute animate-[0.2s_flaming_infinite] rotate-[20deg] rounded-[100px_100px_0px_100px] scale-[0.8] top-5;
 	background: linear-gradient(-45deg, red, orange);
 }
-.flame:before {
+.lantern-flame:before {
 	animation-duration: 0.09s;
 }
 
-@keyframes flame {
+/* 火光動畫 */
+@keyframes flaming {
 	0% {
-		height: 20px;
-		width: 20px;
+		@apply w-4 h-4;
 	}
 
 	50% {
-		height: 30px;
-		width: 30px;
+		@apply w-8 h-8;
 	}
 
 	100% {
-		height: 20px;
-		width: 20px;
+		@apply w-3 h-3;
 	}
 }
 
-/* 上升動畫 */
-@keyframes rise {
-	0% {
-		transform: translateY(350px);
-	}
-
-	100% {
-		transform: translateY(0px);
-	}
+/* 漂浮 */
+.lantern-float {
+	@apply animate-[2.8s_floating_infinite_ease-in-out];
 }
 
 /* 漂浮動畫 */
-.float {
-	animation-name: Floating;
-	animation-duration: 2.5s;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
-}
-
-@keyframes Floating {
+@keyframes floating {
 	from {
 		-webkit-transform: translate(0, 0px);
 	}
@@ -150,20 +156,21 @@ body {
 	}
 
 	to {
-		-webkit-transform: translate(0, 0px);
+		-webkit-transform: translate(0, -0.5px);
 	}
 }
 
-/* 點擊天燈後的亮光效果*/
+/* 點燈後呈現出的亮光效果*/
 .glowing-circle-container {
 	@apply grid h-screen place-items-center;
 }
 
 .glowing-circle {
-	@apply w-[100px] h-[100px] bg-white animate-[glowing_5s_ease-in-out] rounded-[50%] scale-50;
+	@apply w-24 h-24 bg-white animate-[glowing_5s_ease-in-out] rounded-[50%] scale-50;
 	animation-fill-mode: forwards;
 }
 
+/* 亮光動畫 */
 @keyframes glowing {
 	0% {
 		transform: scale(0.5);
@@ -191,28 +198,7 @@ body {
 	}
 }
 
-/* 付款動畫 */
-
-.donation-animation {
-	@apply flex flex-col items-center;
-}
-.coin {
-	@apply animate-[bounce_1.2s_ease-in-out];
-}
-.box {
-	@apply animate-[swing_2s_ease-in-out];
-	animation-delay: 2s;
-}
-
-@keyframes bounce {
-	0% {
-		transform: translateY(-50px);
-	}
-	100% {
-		transform: translateY(20px);
-	}
-}
-
+/* 搖擺動畫 */
 @keyframes swing {
 	0%,
 	100% {
