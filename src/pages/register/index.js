@@ -82,7 +82,7 @@ export default function Register() {
 					size='large'
 					fullWidth
 					onClick={handleRegisterSubmit}
-					className='mt-6 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
+					className='mt-6 mb-10 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 				>
 					註冊
 				</Button>

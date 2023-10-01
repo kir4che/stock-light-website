@@ -1,6 +1,6 @@
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
-import { getServerAuthSession } from '@/pagews/api/auth/[...nextauth]'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import { Alert, Button, Snackbar } from '@mui/material'
 import router from 'next/router'
 import { useState } from 'react'

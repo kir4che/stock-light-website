@@ -2,8 +2,6 @@ import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
-import FacebookIcon from '@mui/icons-material/Facebook'
-import GoogleIcon from '@mui/icons-material/Google'
 import { Button } from '@mui/material'
 import { getProviders, signIn } from 'next-auth/react'
 import Link from 'next/link'
@@ -19,10 +17,10 @@ export default function Login({ providers }) {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const providerStyles = {
-		google: 'bg-red-500 hover:bg-red-600',
-		facebook: 'bg-blue-500 hover:bg-blue-600',
-	}
+	// const providerStyles = {
+	// 	google: 'bg-red-500 hover:bg-red-600',
+	// 	facebook: 'bg-blue-500 hover:bg-blue-600',
+	// }
 
 	const handleLogin = async (e) => {
 		e.preventDefault()
@@ -36,7 +34,7 @@ export default function Login({ providers }) {
 	}
 
 	return (
-		<StarryBackground className={'flex-col h-[100vh-72px] flex-center pt-10 pb-12'}>
+		<StarryBackground className={'flex-col h-[100vh-72px] flex-center'}>
 			<div className='w-full px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
 				<h3 className='text-zinc-100'>登入股市光明燈</h3>
 				<p className='mt-4 mb-8 text-sm text-zinc-100 opacity-80'>
@@ -62,11 +60,11 @@ export default function Login({ providers }) {
 					size='large'
 					fullWidth
 					onClick={handleLogin}
-					className='mt-6 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
+					className='mt-6 mb-10 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 				>
 					登入
 				</Button>
-				<div className='flex items-center mb-5 text-sm mt-14'>
+				{/* <div className='flex items-center mb-5 text-sm mt-14'>
 					<hr className='w-full' />
 					<p className='px-4 opacity-40 whitespace-nowrap text-zinc-100'>OR</p>
 					<hr className='w-full' />
@@ -89,7 +87,7 @@ export default function Login({ providers }) {
 								</button>
 							)
 					)}
-				</div>
+				</div> */}
 				<PrivacyAndTerms />
 			</div>
 		</StarryBackground>
