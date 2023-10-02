@@ -5,7 +5,7 @@ import { Box, Drawer, ListItemButton, ListItemText, Toolbar } from '@mui/materia
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function BurgerMenu({ navigationLinks }) {
+export default function BurgerMenu({ navigationLinks, userData }) {
 	const [open, setState] = useState(false)
 
 	const toggleDrawer = (open) => (e) => {
@@ -24,19 +24,23 @@ export default function BurgerMenu({ navigationLinks }) {
 					/>
 					<Box className='mt-8'>
 						{navigationLinks.map((page) => (
-							<ListItemButton key={page.url}>
+							<ListItemButton key={page.url} onClick={toggleDrawer(false)}>
 								<Link href={`/${page.url}`}>
 									<ListItemText primary={page.name} />
 								</Link>
 							</ListItemButton>
 						))}
-						<hr className='mt-10 mb-2' />
-						<ListItemButton>
-							<Link href={'/login'} className='flex items-center'>
-								<span>登入</span>
-								<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
-							</Link>
-						</ListItemButton>
+						{!userData && (
+							<>
+								<hr className='mt-10 mb-2' />
+								<ListItemButton onClick={toggleDrawer(false)}>
+									<Link href={'/login'} className='flex items-center'>
+										<span>登入</span>
+										<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
+									</Link>
+								</ListItemButton>
+							</>
+						)}
 					</Box>
 				</Box>
 			</Drawer>

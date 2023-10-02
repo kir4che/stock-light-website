@@ -1,36 +1,36 @@
+import { Button } from '@mui/material'
+import { signIn } from 'next-auth/react'
+import Link from 'next/link'
+import { useState } from 'react'
+
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
-import { Button } from '@mui/material'
-import { getProviders, signIn } from 'next-auth/react'
-import Link from 'next/link'
-import { useState } from 'react'
 
-export async function getServerSideProps(ctx) {
-	const session = await getServerAuthSession(ctx)
-	if (session) return { redirect: { destination: `/user/${session.user.id}`, permanent: false } }
-	else return { props: { providers: await getProviders() } }
+export async function getServerSideProps(cxt) {
+	const session = await getServerAuthSession(cxt)
+	if (session)
+		return {
+			redirect: {
+				destination: `/user/${session.user.user_id}`,
+				permanent: false,
+			},
+		}
+	else return { props: {} }
 }
 
-export default function Login({ providers }) {
+export default function Login() {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-
-	// const providerStyles = {
-	// 	google: 'bg-red-500 hover:bg-red-600',
-	// 	facebook: 'bg-blue-500 hover:bg-blue-600',
-	// }
 
 	const handleLogin = async (e) => {
 		e.preventDefault()
 
-		const res = await signIn('credentials', {
+		await signIn('credentials', {
 			email,
 			password,
 		})
-
-		if (res.error) alert('帳號或密碼有誤！')
 	}
 
 	return (
@@ -64,30 +64,6 @@ export default function Login({ providers }) {
 				>
 					登入
 				</Button>
-				{/* <div className='flex items-center mb-5 text-sm mt-14'>
-					<hr className='w-full' />
-					<p className='px-4 opacity-40 whitespace-nowrap text-zinc-100'>OR</p>
-					<hr className='w-full' />
-				</div>
-				<div className='flex items-center space-x-3'>
-					{Object.values(providers).map(
-						(provider, index) =>
-							// 跳過自行註冊或登入的按鈕
-							index !== 0 && (
-								<button
-									className={`w-1/2 py-2 rounded-full flex-center ${providerStyles[provider.id] || ''}`}
-									onClick={() => signIn(provider.id)}
-									key={provider.name}
-								>
-									{provider.id === 'facebook' ? (
-										<FacebookIcon className='text-white dark:text-white' />
-									) : (
-										<GoogleIcon className='text-white dark:text-white' />
-									)}
-								</button>
-							)
-					)}
-				</div> */}
 				<PrivacyAndTerms />
 			</div>
 		</StarryBackground>

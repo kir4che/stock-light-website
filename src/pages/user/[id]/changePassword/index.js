@@ -8,7 +8,7 @@ import { useState } from 'react'
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
 	const currentURL = ctx.req.url
-	if (currentURL.includes(session.user.id)) return { props: { user: session.user } }
+	if (currentURL.includes(session.user.user_id)) return { props: { user: session.user } }
 	else
 		return {
 			redirect: {
@@ -22,7 +22,6 @@ export default function ChangePassword() {
 	const [confirmPassword, setConfirmPassword] = useState('')
 	const [open, setOpen] = useState(false)
 
-	// 🚩修改密碼功能：待檢查
 	const handlePasswordChange = async (e) => {
 		e.preventDefault()
 
@@ -34,22 +33,24 @@ export default function ChangePassword() {
 		}
 
 		try {
-			const response = await fetch(`${process.env.DB_URL}/api/user/update/password`, {
+			const res = await fetch(`${process.env.DB_URL}/api/user/update/password`, {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
 				body: JSON.stringify({
 					password: newPassword,
 				}),
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			})
-
-			if (response.ok) setOpen(true)
-			else alert('修改失敗，請稍後再試！', { type: 'error' })
+			if (res.status === 200) setOpen(true)
+			else {
+				alert('修改失敗，請稍後再試！')
+				const data = await res.json()
+				console.error(data.errorMessage)
+			}
 		} catch (error) {
-			console.log('error', error)
+			console.error('error', error)
 		}
-
 		setNewPassword('')
 		setConfirmPassword('')
 	}

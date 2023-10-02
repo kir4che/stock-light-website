@@ -20,7 +20,7 @@ export default function Register() {
 		e.preventDefault()
 
 		if (user.password !== user.confirmPassword) {
-			alert('密碼與確認密碼不相符，請重新輸入！', { type: 'error' })
+			alert('密碼與確認密碼不相符，請重新輸入！')
 			return
 		}
 
@@ -31,15 +31,17 @@ export default function Register() {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					name: user.name,
 					email: user.email,
 					password: user.password,
 				}),
 			})
 
-			if (response.ok) router.push('/login')
+			const data = await response.json()
+
+			if (data.success) router.push('/login')
+			else console.error(data.errorMessage)
 		} catch (error) {
-			console.log('error', error)
+			console.error('error', error)
 		}
 	}
 

@@ -26,7 +26,7 @@ export default function Footer() {
 		<footer>
 			<div className='z-50 flex-col py-4 mx-auto bg-white border-t dark:bg-zinc-800 flex-center dark:border-none sm:py-8 sm:items-start sm:flex-row'>
 				<div className='text-center'>
-					<Image src='/assets/temple.png' width={160} height={100} alt='temple' />
+					<Image src='/assets/temple.png' width={160} height={100} alt='temple' className='w-auto h-auto' />
 					<h4 className='mt-2 mb-1'>股市光明燈</h4>
 					<p className='text-sm font-light'>帶給所有投資人新的希望</p>
 				</div>

@@ -1,10 +1,39 @@
 import NextAuth, { getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import FacebookProvider from 'next-auth/providers/facebook'
-import GoogleProvider from 'next-auth/providers/google'
 
 export const authOptions = {
-	secret: process.env.NEXTAUTH_SECRET,
+	providers: [
+		CredentialsProvider({
+			name: 'credentials',
+			credentials: {
+				email: { label: 'Email', type: 'email' },
+				password: { label: 'Password', type: 'password' },
+			},
+			async authorize(credentials) {
+				const res = await fetch(`${process.env.DB_URL}/api/user/login`, {
+					method: 'POST',
+					body: JSON.stringify(credentials),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				})
+
+				const data = await res.json()
+				const user = {
+					...data.data,
+				}
+
+				if (res.status === 200) {
+					console.log('login success')
+					return user
+				} else {
+					alert('登入失敗：電子郵件或密碼輸入錯誤！')
+					console.error(data.errorMessage)
+					return null
+				}
+			},
+		}),
+	],
 	pages: {
 		signIn: '/login',
 		error: '/login',
@@ -12,66 +41,22 @@ export const authOptions = {
 	session: {
 		jwt: true,
 	},
-	providers: [
-		CredentialsProvider({
-			name: 'Credentials',
-			credentials: {
-				email: { label: 'Email', type: 'email' },
-				password: { label: 'Password', type: 'password' },
-			},
-			async authorize(credentials) {
-				const { email, password } = credentials
-				// 測試用
-				if (email === 'test@gmail.com' && password === '12345') {
-					const user = {
-						name: 'Tester',
-						email: email,
-						image: '',
-						id: '123',
-						access_token: '',
-					}
-					if (user) return user
-				} else return null
-
-				// const response = await fetch(`${process.env.DB_URL}/api/user/login`, {
-				// 	method: 'POST',
-				// 	body: JSON.stringify(credentials),
-				// 	headers: {
-				// 		'Content-Type': 'application/json',
-				// 	},
-				// })
-				// const user = await response.json()
-				// if (res.ok && user) return user
-				// return null
-			},
-		}),
-		GoogleProvider({
-			clientId: process.env.GOOGLE_CLIENT_ID,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-		}),
-		FacebookProvider({
-			clientId: process.env.FACEBOOK_CLIENT_ID,
-			clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-		}),
-	],
 	callbacks: {
-		async jwt({ token, account }) {
+		async jwt({ token, user, account }) {
 			if (account) {
-				token.id = account.providerAccountId
-				token.accessToken = account.access_token || null
+				token.accessToken = account.accessToken
+				token.refreshToken = account.refreshToken
 			}
+			if (user) token.user = user
 			return token
 		},
 		async session({ session, token }) {
-			if (token) {
-				session.user.id = token.id
-				session.user.accessToken = token.accessToken
-			}
-			console.log(session)
-			console.log(token)
+			session.user = token.user
+			console.log('session', session)
 			return session
 		},
 	},
+	secret: process.env.NEXTAUTH_SECRET,
 }
 
 export const getServerAuthSession = (ctx) => {

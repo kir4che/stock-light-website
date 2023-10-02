@@ -18,7 +18,7 @@ export default function HomeSidebar() {
 			const data = await response.json()
 			setNews(data.articles)
 		} catch (error) {
-			console.log('error', error)
+			console.error('error', error)
 		}
 	}
 

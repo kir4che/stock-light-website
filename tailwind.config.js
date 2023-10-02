@@ -41,5 +41,11 @@ module.exports = {
 			},
 		},
 	},
-	plugins: [require('@kamona/tailwindcss-perspective')],
+	plugins: [
+		require('postcss-import'),
+		require('tailwindcss/nesting')(require('postcss-nesting')),
+		require('autoprefixer'),
+		require('tailwindcss'),
+		require('@kamona/tailwindcss-perspective'),
+	],
 }

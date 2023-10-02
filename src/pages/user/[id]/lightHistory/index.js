@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react'
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
 	const currentURL = ctx.req.url
-	if (currentURL.includes(session.user.id)) return { props: { user: session.user } }
+
+	if (currentURL.includes(session.user.user_id)) return { props: { user: session.user } }
 	else
 		return {
 			redirect: {
@@ -19,16 +20,15 @@ export async function getServerSideProps(ctx) {
 export default function LightHistory() {
 	const [lightHistory, setLightHistory] = useState([])
 
-	// 🚩 點燈紀錄功能：待檢查
 	// useEffect(() => {
 	//   fetch(`${process.env.DB_URL}/api/user/lightup/history`)
-	// 		.then((response) => response.json())
+	// 		.then((res) => res.json())
 	// 		.then((data) => {
 	//       console.log('點燈紀錄: ', data)
-	// 			setPortfolioData(data)
+	// 			setGroupData(data)
 	// 		})
 	// 		.catch((error) => {
-	//       console.log('error', error)
+	//       console.error('error', error)
 	// 		})
 	// }, [])
 

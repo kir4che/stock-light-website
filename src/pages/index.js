@@ -1,10 +1,17 @@
 'use client'
 
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 import Hero from '@/components/common/Hero'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
+
+export async function getServerSideProps(ctx) {
+	const session = await getServerAuthSession(ctx)
+	if (session) return { props: { session } }
+	else return { props: {} }
+}
 
 export default function Home() {
 	const router = useRouter()

@@ -36,7 +36,7 @@ export default function News() {
 			// 計算並設定總頁數
 			setTotalPages(Math.ceil(data.totalResults / newsPerPage))
 		} catch (error) {
-			console.log('error', error)
+			console.error('error', error)
 		}
 	}
 
@@ -57,7 +57,7 @@ export default function News() {
 			setHotNews(data.articles)
 			localStorage.setItem('hotNews', JSON.stringify(data.articles))
 		} catch (error) {
-			console.log('error', error)
+			console.error('error', error)
 		}
 	}
 

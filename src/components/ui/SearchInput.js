@@ -29,7 +29,7 @@ export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 			// 計算並設定總頁數
 			setTotalPages(Math.ceil(data.totalResults / newsPerPage))
 		} catch (error) {
-			console.log('error', error)
+			console.error('error', error)
 		}
 	}
 
