@@ -18,6 +18,9 @@ module.exports = {
 			screens: {
 				md: '800px',
 			},
+			width: {
+				25: '6.25rem',
+			},
 			height: {
 				screen: 'calc(100vh - 76px)',
 				88: '22rem',

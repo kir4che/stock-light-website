@@ -1,8 +1,5 @@
 .temple_container {
 	@apply h-full z-10 relative mx-auto w-[46.8vw] sm:w-[52vw] md:w-[41.8vw] lg:w-[420px] stroke-2 fill-none stroke-zinc-800;
-	/* stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-miterlimit: 10; */
 }
 
 .wall {
@@ -181,6 +178,6 @@
 	}
 	100% {
 		top: -470px;
-		opacity: 100%;
+		opacity: 1;
 	}
 }

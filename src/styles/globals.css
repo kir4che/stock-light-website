@@ -87,7 +87,7 @@ body {
 
 .right,
 .left {
-	@apply opacity-90 h-40 w-[100px] bg-amber-400;
+	@apply h-40 w-25 opacity-90 bg-amber-400;
 }
 .right {
 	transform: rotateY(400deg) translateX(-14px);
@@ -113,7 +113,7 @@ body {
 
 /* 內部火光 */
 .lantern-flame {
-	@apply opacity-70 absolute w-5 h-5 rotate-[-135deg] animate-[0.1s_flaming_infinite] blur-[10px] shadow-[17px_20px_90px_#700] rounded-[150px_150px_0px_150px] border-l-[25px] border-t-[25px] left-[40%] bottom-0 before:rotate-[-15deg] before:translate-x-2.5 before:translate-y-0 before:scale-90 before:top-0;
+	@apply opacity-70 absolute w-5 h-5 rotate-[-135deg] animate-[0.1s_flaming_infinite] blur-md shadow-[17px_20px_90px_#700] rounded-[150px_150px_0px_150px] border-l-[25px] border-t-[25px] left-[40%] bottom-0 before:rotate-[-15deg] before:translate-x-2.5 before:translate-y-0 before:scale-90 before:top-0;
 	background: linear-gradient(-45deg, red, orange);
 }
 .lantern-flame:after,
