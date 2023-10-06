@@ -20,7 +20,7 @@
     "echarts": "^5.4.3",
     "echarts-for-react": "^3.0.2",
     "echarts-stat": "^1.2.0",
-    "eslint": "8.47.0",
+    "eslint": "8.49.0",
     "eslint-config-next": "13.4.13",
     "next": "13.4.13",
     "next-auth": "^4.23.1",
