@@ -6,7 +6,7 @@ export default function AnalMenu({ activeIndex, handleActive }) {
 	const isActive = (id) => activeIndex === id
 
 	return (
-		<div className='flex items-center w-full text-sm bg-white md:text-base md:rounded md:border-none md:block md:dark:bg-zinc-900/50 dark:bg-zinc-900/60 md:w-72'>
+		<div className='flex items-center w-full pt-1 text-sm bg-white md:pt-0 md:text-base md:rounded md:border-none md:block md:dark:bg-zinc-900/50 dark:bg-zinc-900/60 md:w-72'>
 			<h4 className='flex items-center mx-4 sm:mx-3 md:mx-0 md:pl-6 md:border-b md:dark:border-zinc-600 md:h-14'>
 				股市預測
 			</h4>

@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import style from '@/styles/Team.module.css'
-
 const members = [
 	{
 		id: 1,
@@ -42,13 +40,13 @@ export default function Team() {
 				<br />
 				希望能夠藉由搜集台灣股市的歷史數據，分析各種可能性！
 			</p>
-			<ul className={`${style.card_group} flex-center `}>
+			<ul className='team-card_group flex-center'>
 				{members.map((member) => (
-					<li className={style.card} key={member.id}>
+					<li className='team-card' key={member.id}>
 						<h4>{member.name}</h4>
-						<p className={style.card_content}>{member.content}</p>
-						<Image src={member.img} width={400} height={400} alt={member.name} className={style.card_img} />
-						<p className={style.card_back}>{member.desc}</p>
+						<p className='team-card_content'>{member.content}</p>
+						<Image src={member.img} width={400} height={400} alt={member.name} className='team-card_img' />
+						<p className='team-card_back'>{member.desc}</p>
 					</li>
 				))}
 			</ul>

@@ -37,6 +37,8 @@ body {
 	}
 }
 
+/* 自定義 CSS */
+
 .container {
 	@apply w-full max-w-full min-h-screen p-0 m-0;
 }
@@ -47,6 +49,33 @@ body {
 
 .flex-center-between {
 	@apply flex items-center justify-between;
+}
+
+/* 團隊成員 */
+.team-card_group {
+	@apply flex-wrap mx-auto sm:gap-8 xl:gap-0 xl:space-x-8;
+}
+
+.team-card {
+	@apply w-full xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+}
+
+.team-card_content {
+	@apply mb-4 text-xs tracking-widest;
+}
+
+.team-card_img {
+	@apply object-cover object-center w-full h-64;
+}
+
+.team-card:hover .team-card_img,
+.team-card_back {
+	@apply hidden;
+}
+
+.team-card:hover .team-card_back {
+	@apply block h-40 leading-relaxed duration-75;
+	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
 /* 天燈bcss */
@@ -65,24 +94,24 @@ body {
 	}
 }
 
-.lantern_hover {
-	@apply hover:cursor-pointer hover:shadow-[0_0_150px_-50px_#FFC300] hover:rounded-full;
-}
-
 .lanterntag_container {
 	@apply relative;
 }
 
 .latern_label {
-	@apply bg-zinc-800 text-white absolute opacity-0 mt-2.5 px-2.5 py-1.5 rounded-md;
+	@apply bg-zinc-800 text-white absolute invisible mt-2.5 px-2.5 py-1.5 rounded-md;
 }
 
 .lanterntag_container:hover .latern_label {
-	@apply opacity-100;
+	@apply visible;
 }
 
 .laternlight {
-	@apply translate-x-[60%] bg-amber-400 translate-y-2/4 h-20 w-20 absolute shadow-[0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#fbc926,0_0_70px_#fbc926,0_0_80px_#fbc926,0_0_100px_#fbc926,0_0_150px_#fbc926] animate-[blinking_5s_ease-in-out_infinite] rounded-[50%];
+	@apply translate-x-16 bg-amber-400 translate-y-2/4 h-20 w-20 absolute animate-[blinking_5s_ease-in-out_infinite] shadow-[0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#FFDE6B,0_0_70px_#FFDE6B,0_0_80px_#FFDE6B,0_0_100px_#FFDE6B] rounded-full;
+}
+
+.lantern:hover .laternlight_hover {
+	@apply translate-x-12 bg-white translate-y-7 h-24 animate-none w-24 absolute shadow-[0_0_10px_#fff,0_0_20px_#fff,0_0_30px_#fff,0_0_40px_#FFCD1E,0_0_70px_#FFCD1E,0_0_80px_#FFCD1E,0_0_100px_#FFC600,0_0_150px_#FFC600,0_0_180px_#FFC600] rounded-full;
 }
 
 .right,

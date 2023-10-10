@@ -4,7 +4,7 @@ import { Tab, Tabs } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useEffect, useState } from 'react'
 
-import Sidebar from '@/components/Analysis/Sidebar/AnalMenu'
+import Sidebar from '@/components/Analysis/AnalMenu'
 import Chart from '@/components/Chart/Chart'
 import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import StarryBackground from '@/components/common/StarryBackground'
@@ -115,7 +115,7 @@ export default function Analysis() {
 	return (
 		<StarryBackground className={'w-full pt-8 pb-12 md:pb-20 md:gap-8 md:flex md:pt-14 lg:gap-12'}>
 			<Sidebar activeIndex={activeSidebarIndex} handleActive={handleSidebarActive} />
-			<div className='w-full pt-6 pb-12 bg-white dark:bg-zinc-900/50 sm:rounded min-w-[72%]'>
+			<div className='w-full pt-5 bg-white dark:bg-zinc-900/50 md:rounded min-w-[72%]'>
 				<div className='px-5 mb-4 flex-center-between'>
 					<h3 className='inline-flex items-end tracking-wider'>
 						{analEvent[activeSidebarIndex - 1].category}
@@ -140,7 +140,7 @@ export default function Analysis() {
 						/>
 					))}
 				</Tabs>
-				<div className='px-5'>
+				<div className='px-5 mb-4'>
 					<Chart
 						option={linearRegOption(selectedStockSymbol, analEvent[activeSidebarIndex - 1].tabs[activeTabIndex])}
 					/>
@@ -159,7 +159,7 @@ export default function Analysis() {
 							},
 						]}
 						columns={columns}
-						className='mt-10 mb-4 bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
+						className='my-8 bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
 						disableColumnFilter
 						disableRowSelectionOnClick
 						disableColumnMenu
