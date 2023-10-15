@@ -90,7 +90,7 @@ export default function Checkout() {
 					<div className='glowing-circle'></div>
 				</div>
 			) : (
-				<div className='relative flex-col-reverse md:flex-row max-w-5xl gap-[5vw] px-[4vw] py-10 mx-auto bg-white flex md:justify-between dark:bg-zinc-800 sm:rounded-xl'>
+				<div className='relative flex-col-reverse md:flex-row max-w-5xl gap-[5vw] px-[4vw] py-10 mx-auto bg-white flex md:justify-between dark:bg-zinc-900/50 sm:rounded-xl'>
 					<CloseIcon
 						className='absolute cursor-pointer top-4 right-4 opacity-80 hover:opacity-60'
 						onClick={() => router.push('/light')}

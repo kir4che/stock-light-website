@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function SidebarBlock2({ icon, title, data }) {
 	return (
 		<div className='space-y-6'>
-			<div className='flex items-center py-1.5 dark:pl-1.5 space-x-2 border-b-[3px] border-b-primary_yellow dark:bg-primary_yellow  dark:text-zinc-800'>
+			<div className='flex items-center py-1.5 dark:pl-1.5 space-x-2 border-b-[3px] border-b-primary_yellow dark:bg-primary_yellow dark:text-zinc-800'>
 				{icon}
 				<h5>{title}</h5>
 			</div>
