@@ -1,8 +1,3 @@
-import Chart from '@/components/Chart/Chart'
-import { multiLineOption } from '@/components/Chart/options/multiLineOption'
-import StarryBackground from '@/components/common/StarryBackground'
-import SaveButton from '@/components/ui/SaveButton'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import CloseIcon from '@mui/icons-material/Close'
@@ -11,17 +6,10 @@ import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import { forwardRef, useState } from 'react'
 
-export async function getServerSideProps(ctx) {
-	const session = await getServerAuthSession(ctx)
-	if (!session)
-		return {
-			redirect: {
-				destination: '/login',
-				permanent: false,
-			},
-		}
-	else return { props: { user: session.user } }
-}
+import Chart from '@/components/Chart/Chart'
+import { multiLineOption } from '@/components/Chart/options/multiLineOption'
+import StarryBackground from '@/components/common/StarryBackground'
+import SaveButton from '@/components/Light/SaveButton'
 
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },
@@ -132,17 +120,6 @@ const columns = [
 			} else return `${value.toFixed(2)}%`
 		},
 	},
-	{
-		field: 'detail',
-		headerName: '',
-		headerAlign: 'right',
-		align: 'right',
-		flex: 1,
-		renderCell: (params) => {
-			const value = params.value || 0
-			return <button className='px-3 py-1.5 text-xs rounded-full bg-secondary_blue'>{value}</button>
-		},
-	},
 ]
 
 // DIALOG TRANSITION
@@ -153,18 +130,16 @@ const Transition = forwardRef(function Transition(props, ref) {
 export default function Result() {
 	const router = useRouter()
 	const { category, date } = router.query
-
-	const [dialogOpen, setDialogOpen] = useState(false)
+	const [dialogOpen, setDialogOpen] = useState(true)
 
 	const handleDialogClose = () => setDialogOpen(false)
-
 	const handleClose = () => router.push('/light')
 
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-14 md:pb-20'}>
 			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
-			<Dialog open={dialogOpen} maxWidth='md' TransitionComponent={Transition} keepMounted fullWidth>
-				<DialogContent className='z-10 flex-col flex-center-between p-6 overflow-x-scroll overflow-y-hidden text-center h-[450px] dark:text-zinc-100 dark:bg-zinc-800'>
+			<Dialog open={dialogOpen} maxWidth='lg' TransitionComponent={Transition} keepMounted fullWidth>
+				<DialogContent className='z-10 flex-col flex-center-between py-6 overflow-x-scroll text-center h-[420px] dark:text-zinc-100 dark:bg-zinc-800'>
 					<h3 className='tracking-wider'>本日光明燈（{category}股）</h3>
 					<div className='flex-center'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
@@ -229,7 +204,6 @@ export default function Result() {
 							volume: 32099068,
 							correlation: -0.019,
 							predict_change_percent: 0.38,
-							detail: '詳細數據',
 						},
 						{
 							id: 2,
@@ -241,7 +215,6 @@ export default function Result() {
 							volume: 32099068,
 							correlation: -0.02,
 							predict_change_percent: 2.543,
-							detail: '詳細數據',
 						},
 						{
 							id: 3,
@@ -253,7 +226,6 @@ export default function Result() {
 							volume: 15244624,
 							correlation: -0.02,
 							predict_change_percent: 1.0021,
-							detail: '詳細數據',
 						},
 						{
 							id: 4,
@@ -265,7 +237,6 @@ export default function Result() {
 							volume: 4968629,
 							correlation: 0.00125,
 							predict_change_percent: -0.1211,
-							detail: '詳細數據',
 						},
 						{
 							id: 5,
@@ -277,7 +248,6 @@ export default function Result() {
 							volume: 15869113,
 							correlation: 0.0167,
 							predict_change_percent: 1.1379,
-							detail: '詳細數據',
 						},
 					]}
 					columns={columns}

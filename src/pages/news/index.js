@@ -1,9 +1,10 @@
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+
 import NewsPost from '@/components/News/NewsPost'
 import NewsSidebar from '@/components/News/NewsSidebar'
 import PaginationLink from '@/components/News/PaginationLink'
 import Loading from '@/components/common/Loading'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 
 export default function News() {
 	const router = useRouter()
@@ -25,7 +26,7 @@ export default function News() {
 
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/top-headlines?category=business&page=${offset}&pageSize=${newsPerPage}&sortBy=publishedAt&apiKey=${process.env.NEWS_API_KEY}`,
+				`https://gnews.io/api/v4/top-headlines?category=business&country=tw&page=${offset}&max=${newsPerPage}&apikey=${process.env.GNEWS_API_KEY}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()
@@ -49,7 +50,7 @@ export default function News() {
 
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/everything?q=stock&pageSize=5&sortBy=popularity&from=${fromDate}&to=${toDate}&apiKey=${process.env.NEWS_API_KEY}`,
+				`https://gnews.io/api/v4/search?q=股&country=tw&max=5&sortBy=relevance&from=${fromDate}&to=${toDate}&apikey=${process.env.GNEWS_API_KEY}`,
 				{ method: 'GET' }
 			)
 			const data = await response.json()

@@ -20,9 +20,10 @@ export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 
 		try {
 			const response = await fetch(
-				`https://newsapi.org/v2/top-headlines?category=business&q=${keyword}&pageSize=${newsPerPage}&apiKey=${process.env.NEWS_API_KEY}`,
+				`https://gnews.io/api/v4/top-headlines?category=business&country=tw&q=${keyword}&max=${newsPerPage}&apikey=${process.env.GNEWS_API_KEY}`,
 				{ method: 'GET' }
 			)
+
 			const data = await response.json()
 			setNewsByKeyword(data.articles)
 

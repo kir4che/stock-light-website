@@ -12,10 +12,7 @@ export default function SaveButton() {
 	const [open, setOpen] = useState(false)
 
 	// 🚩 保存點燈紀錄至資料庫
-	const handleSave = () => {
-		setOpen(true)
-	}
-
+	const handleSave = () => setOpen(true)
 	const handleClose = () => setOpen(false)
 
 	return (

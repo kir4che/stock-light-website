@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-export default function SidebarBlock1({ icon, title, data }) {
+export default function SidebarBlock({ icon, title, data }) {
 	return (
 		<div className='space-y-6'>
 			<div className='flex items-center pb-2.5 space-x-2 border-b-[3px] border-b-primary_yellow'>

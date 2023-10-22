@@ -29,12 +29,8 @@
 	}
 
 	&.lamp_red {
-		@apply cursor-pointer fill-stock_red;
+		@apply fill-stock_red;
 		transition: filter 0.5s;
-	}
-
-	&.lamp_red:hover {
-		filter: drop-shadow(4px 3px 5px rgba(255, 204, 75, 0.6)) drop-shadow(-4px -3px 5px rgba(255, 204, 75, 0.6));
 	}
 }
 
