@@ -10,20 +10,8 @@ export default function PaginationLink({ totalPages }) {
 	const page = parseInt(query.page || '1', 10)
 
 	return (
-		<div className='mt-20 mb-2'>
+		<div className='w-full flex overflow-x-scroll flex-nowrap justify-center py-0.5 mt-20 mb-2 rounded bg-primary_yellow'>
 			<Pagination
-				sx={{
-					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover': {
-						bgcolor: 'rgb(255 222 107/0.3) !important',
-					},
-					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root': {
-						color: '#a1a1aa !important',
-					},
-					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected': {
-						color: '#27272a !important',
-						bgcolor: '#FFDE6B !important',
-					},
-				}}
 				page={page}
 				count={totalPages}
 				renderItem={(item) => (
@@ -35,3 +23,16 @@ export default function PaginationLink({ totalPages }) {
 		</div>
 	)
 }
+
+// sx={{
+//   '& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover': {
+//     bgcolor: 'rgb(255 222 107/0.3) !important',
+//   },
+//   '& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root': {
+//     color: '#a1a1aa !important',
+//   },
+//   '& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected': {
+//     color: '#27272a !important',
+//     bgcolor: '#FFDE6B !important',
+//   },
+// }}
