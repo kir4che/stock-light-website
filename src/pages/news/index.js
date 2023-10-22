@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import NewsSidebar from '@/components/News/NewsSidebar'
 import PaginationLink from '@/components/News/PaginationLink'
 
 export default function News() {
@@ -104,7 +103,7 @@ export default function News() {
 				) : (
 					<Loading />
 				)} */}
-				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
+				{/* {hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />} */}
 			</div>
 			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}
 		</div>
