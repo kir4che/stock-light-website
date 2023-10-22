@@ -4,10 +4,11 @@ import LoginIcon from '@mui/icons-material/Login'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { navigationLinks } from '../../data/navigationLinks'
-import BurgerMenu from '../ui/BurgerMenu'
-import DarkModeToggle from '../ui/DarkModeToggle'
-import UserMenu from '../ui/UserMenu'
+
+import BurgerMenu from '@/components/ui/BurgerMenu'
+import DarkModeToggle from '@/components/ui/DarkModeToggle'
+import UserMenu from '@/components/ui/UserMenu'
+import { navigationLinks } from '@/data/navigationLinks'
 
 export default function Header() {
 	const { data: session } = useSession()

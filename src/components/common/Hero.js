@@ -1,4 +1,5 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -7,6 +8,7 @@ import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 import style from '@/styles/Temple.module.css'
 
 export default function Hero() {
+	const { data: session } = useSession()
 	const router = useRouter()
 
 	return (
@@ -22,7 +24,7 @@ export default function Hero() {
 				<div className='mt-8 max-[590px]:mb-8 space-x-5 md:mb-3 sm:mb-2 sm:mt-10 flex-center'>
 					<button
 						className='px-6 py-2 text-sm tracking-wide rounded-full bg-secondary_blue hover:bg-sky-500 text-zinc-100'
-						onClick={() => router.push('/login')}
+						onClick={() => router.push(session ? '/light' : '/login')}
 					>
 						登入並點燈
 					</button>

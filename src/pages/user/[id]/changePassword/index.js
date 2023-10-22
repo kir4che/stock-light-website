@@ -61,7 +61,7 @@ export default function ChangePassword() {
 				<button type='button' onClick={() => router.back()}>
 					使用者頁面
 				</button>
-				／修改密碼
+				/ 修改密碼
 			</p>
 			<div className='w-full px-10 pt-10 mx-auto mb-8 pb-14 sm:max-w-md lg:max-w-lg sm:px-12 bg-white/20 backdrop-blur-xl sm:rounded-xl dark:bg-zinc-900/50'>
 				<h2 className='mb-3 tracking-wide'>修改密碼</h2>

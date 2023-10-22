@@ -361,7 +361,7 @@ export default function Portfolio() {
 				<button type='button' onClick={() => router.back()}>
 					使用者頁面
 				</button>
-				／會員投資組合
+				/ 會員投資組合
 			</p>
 			<Tabs
 				variant='scrollable'
