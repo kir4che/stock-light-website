@@ -17,7 +17,7 @@ export default function News() {
 	const [newsByKeyword, setNewsByKeyword] = useState(null)
 
 	const currentDate = new Date() // Sun Oct 22 2023 16:32:25 GMT+0800 (中部標準時間)
-	const newsPerPage = 1 // 每頁顯示幾筆資料
+	const newsPerPage = 10 // 每頁顯示幾筆資料
 
 	// 取得所有新聞
 	const fetchAllNews = async () => {
