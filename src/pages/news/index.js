@@ -1,11 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import NewsPost from '@/components/News/NewsPost'
-import NewsSidebar from '@/components/News/NewsSidebar'
-import PaginationLink from '@/components/News/PaginationLink'
-import Loading from '@/components/common/Loading'
-
 export default function News() {
 	const router = useRouter()
 	const { page } = router.query
@@ -89,13 +84,13 @@ export default function News() {
 
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
-			<div className='flex w-full md:gap-12 xl:gap-24'>
+			{/* <div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
 						{newsByKeyword && newsByKeyword.length > 0 ? (
-							(console.log(newsByKeyword), newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />))
+							newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />)
 						) : allNews && allNews.length > 0 ? (
-							(console.log(allNews), allNews.map((news, index) => <NewsPost news={news} key={index} />))
+							allNews.map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
 							<p className='text-stock_red'>No news available.</p>
 						)}
@@ -105,7 +100,7 @@ export default function News() {
 				)}
 				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
 			</div>
-			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}
+			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null} */}
 		</div>
 	)
 }
