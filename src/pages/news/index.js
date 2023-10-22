@@ -85,8 +85,8 @@ export default function News() {
 
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
-			{console.log('allNews: ' + allNews[0])}
-			{console.log('hotNews: ' + hotNews[0])}
+			{allNews && console.log('allNews: ' + allNews[0])}
+			{hotNews && console.log('hotNews: ' + hotNews[0])}
 			{/* <div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
