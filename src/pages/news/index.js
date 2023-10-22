@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
+import NewsPost from '@/components/News/NewsPost'
 import NewsSidebar from '@/components/News/NewsSidebar'
 import PaginationLink from '@/components/News/PaginationLink'
+import Loading from '@/components/common/Loading'
 
 export default function News() {
 	const router = useRouter()
@@ -63,7 +65,6 @@ export default function News() {
 
 		// 從 localStorage 中取出上個月更新的熱門新聞
 		const storedHotNews = localStorage.getItem('hotNews')
-		console.log('storedHotNews', storedHotNews)
 		if (storedHotNews !== null) setHotNews(JSON.parse(storedHotNews))
 		else fetchHotNews(currentDate)
 
@@ -92,7 +93,7 @@ export default function News() {
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
 			<div className='flex w-full md:gap-12 xl:gap-24'>
-				{/* {!isLoading ? (
+				{!isLoading ? (
 					<div className='w-full space-y-10'>
 						{newsByKeyword && newsByKeyword.length > 0 ? (
 							newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />)
@@ -104,7 +105,7 @@ export default function News() {
 					</div>
 				) : (
 					<Loading />
-				)} */}
+				)}
 				{hotNews && hotNews.length > 0 && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
 			</div>
 			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}

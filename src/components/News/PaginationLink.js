@@ -14,14 +14,14 @@ export default function PaginationLink({ totalPages }) {
 			<Pagination
 				sx={{
 					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root:hover': {
-						bgcolor: 'rgb(255 222 107/0.3)',
+						bgcolor: 'rgb(255 222 107/0.3) !important',
 					},
 					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root': {
-						color: '#a1a1aa',
+						color: '#a1a1aa !important',
 					},
 					'& .css-yuzg60-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected': {
-						color: '#27272a',
-						bgcolor: '#FFDE6B',
+						color: '#27272a !important',
+						bgcolor: '#FFDE6B !important',
 					},
 				}}
 				page={page}
