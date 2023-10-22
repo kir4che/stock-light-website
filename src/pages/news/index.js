@@ -65,7 +65,7 @@ export default function News() {
 		const storedHotNews = localStorage.getItem('hotNews')
 		console.log('storedHotNews', storedHotNews)
 		if (storedHotNews !== null) setHotNews(JSON.parse(storedHotNews))
-		else setHotNews(currentDate)
+		else fetchHotNews(currentDate)
 
 		// 每個月 1 號更新熱門新聞
 		const lastFetchedMonth = parseInt(localStorage.getItem('lastFetchedMonth'))
