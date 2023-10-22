@@ -96,7 +96,7 @@ export default function News() {
 			<div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
-						{newsByKeyword || allNews ? (
+						{(newsByKeyword || allNews) && Array.isArray(newsByKeyword || allNews) ? (
 							(newsByKeyword || allNews).map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
 							<p className='text-stock_red'>No news available.</p>

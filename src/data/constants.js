@@ -1,4 +1,4 @@
-export const ANNOUNCEMENT = '網站版本目前已更新到 Version 0.2 🎉'
+export const ANNOUNCEMENT = '網站版本目前已更新到 Version 2.0.0 🎉'
 
 export const INDUSTRY_CATEGORIES = [
 	'綠能環保',

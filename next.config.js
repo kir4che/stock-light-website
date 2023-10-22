@@ -18,7 +18,6 @@ const nextConfig = {
 		EMAIL_API_KEY: process.env.EMAIL_API_KEY,
 		EMAIL_SERVICE_ID: process.env.EMAIL_SERVICE_ID,
 		EMAIL_TEMPLATE_ID: process.env.EMAIL_TEMPLATE_ID,
-		NEWS_API_KEY: process.env.NEWS_API_KEY,
 		GNEWS_API_KEY: process.env.GNEWS_API_KEY,
 	},
 }

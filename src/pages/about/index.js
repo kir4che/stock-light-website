@@ -4,7 +4,7 @@ import Team from '@/components/About/Team'
 
 export default function About() {
 	return (
-		<div className='pt-8 pb-12 space-y-24 sm:pt-16 sm:pb-24'>
+		<div className='pt-8 pb-12 space-y-24 sm:pt-12 sm:pb-20'>
 			<Team />
 			<Skill />
 			<GanttCarousel />
