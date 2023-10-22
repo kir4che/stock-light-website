@@ -1,6 +1,8 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
+import Loading from '@/components/common/Loading'
+
 export default function News() {
 	const router = useRouter()
 	const { page } = router.query
@@ -88,8 +90,16 @@ export default function News() {
 
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
-			{allNews && console.log('allNews: ' + allNews)}
-			{hotNews && console.log('hotNews: ' + hotNews)}
+			<div className='flex w-full md:gap-12 xl:gap-24'>
+				{!isLoading ? (
+					<>
+						{console.log('allNews: ' + allNews)}
+						{console.log('hotNews: ' + hotNews)}
+					</>
+				) : (
+					<Loading />
+				)}
+			</div>
 			{/* <div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
