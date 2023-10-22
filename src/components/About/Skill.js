@@ -25,18 +25,26 @@ export default function Skill() {
 			category: '前端',
 			skills: [
 				{
-					icon: 'https://img.icons8.com/color/28/react-native.png',
-					name: 'React.js',
+					icon: 'https://img.icons8.com/fluency/30/nextjs.png',
+					name: 'Next.js',
 				},
 				{
 					icon: 'https://img.icons8.com/color/28/tailwind_css.png',
 					name: 'Tailwind CSS',
 				},
+				{
+					icon: 'https://img.icons8.com/color/28/material-ui.png',
+					name: 'Material UI',
+				},
+				{
+					icon: 'https://img.icons8.com/nolan/28/pie-chart.png',
+					name: 'Echarts',
+				},
 			],
 		},
 		{
 			id: 3,
-			category: 'UI／UX',
+			category: 'UI / UX',
 			skills: [
 				{
 					icon: 'https://img.icons8.com/color/28/figma--v1.png',
@@ -74,9 +82,9 @@ export default function Skill() {
 							<h5 className='py-2 font-medium tracking-wider text-center bg-secondary_blue/30 dark:bg-secondary_blue/80 rounded-t-xl'>
 								{item.category}
 							</h5>
-							<div className='w-64 h-40 max-w-xs p-4 space-y-4'>
+							<div className='w-64 max-w-xs p-4 space-y-4'>
 								{item.skills.map((skill) => (
-									<div className='flex items-center space-x-1' key={skill.name}>
+									<div className='flex items-center space-x-1.5' key={skill.name}>
 										{skill.icon && <Image src={skill.icon} width={24} height={24} alt={skill.name} />}
 										<p>{skill.name}</p>
 									</div>
