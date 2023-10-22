@@ -17,7 +17,7 @@ export default function News() {
 	const [newsByKeyword, setNewsByKeyword] = useState(null)
 
 	const currentDate = new Date()
-	const newsPerPage = 10 // 每頁顯示幾筆資料
+	const newsPerPage = 1 // 每頁顯示幾筆資料
 
 	// 取得所有新聞
 	const fetchAllNews = async () => {
@@ -92,8 +92,10 @@ export default function News() {
 			<div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
-						{newsByKeyword || allNews ? (
-							(newsByKeyword || allNews).map((news, index) => <NewsPost news={news} key={index} />)
+						{newsByKeyword && newsByKeyword.length > 0 ? (
+							newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />)
+						) : allNews && allNews.length > 0 ? (
+							allNews.map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
 							<p className='text-stock_red'>No news available.</p>
 						)}
