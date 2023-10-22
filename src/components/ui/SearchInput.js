@@ -6,7 +6,7 @@ import InputBase from '@mui/material/InputBase'
 import Paper from '@mui/material/Paper'
 import { useState } from 'react'
 
-export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
+export default function SearchInput({ setNewsByKeyword }) {
 	const [keyword, setKeyword] = useState('')
 
 	// 清除搜索结果
@@ -28,9 +28,6 @@ export default function SearchInput({ setNewsByKeyword, setTotalPages }) {
 
 			const data = await response.json()
 			setNewsByKeyword(data.articles)
-
-			// 計算並設定總頁數
-			setTotalPages(Math.ceil(data.totalResults / newsPerPage))
 		} catch (error) {
 			console.error('error', error)
 		}

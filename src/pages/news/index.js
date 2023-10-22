@@ -14,7 +14,6 @@ export default function News() {
 	const [allNews, setAllNews] = useState(null)
 	// const [newsTags, setNewsTags] = useState(null)
 	const [hotNews, setHotNews] = useState(null)
-	const [totalPages, setTotalPages] = useState(1)
 	const [newsByKeyword, setNewsByKeyword] = useState(null)
 
 	const currentDate = new Date()
@@ -33,9 +32,6 @@ export default function News() {
 
 			setAllNews(data.articles)
 			localStorage.setItem('allNews', JSON.stringify(data.articles))
-
-			// 計算並設定總頁數
-			setTotalPages(Math.ceil(data.totalResults / newsPerPage))
 		} catch (error) {
 			console.error('error', error)
 		}
@@ -96,7 +92,7 @@ export default function News() {
 			<div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
-						{(newsByKeyword || allNews) && Array.isArray(newsByKeyword || allNews) ? (
+						{newsByKeyword || allNews ? (
 							(newsByKeyword || allNews).map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
 							<p className='text-stock_red'>No news available.</p>
@@ -105,9 +101,9 @@ export default function News() {
 				) : (
 					<Loading />
 				)}
-				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} setTotalPages={setTotalPages} />}
+				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
 			</div>
-			<PaginationLink totalPages={totalPages} />
+			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}
 		</div>
 	)
 }
