@@ -93,9 +93,15 @@ export default function News() {
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
 						{newsByKeyword && newsByKeyword.length > 0 ? (
-							newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />)
+							newsByKeyword.map((news, index) => {
+								console.log('newsByKeyword:', news)
+								return <NewsPost news={news} key={index} />
+							})
 						) : allNews && allNews.length > 0 ? (
-							allNews.map((news, index) => <NewsPost news={news} key={index} />)
+							allNews.map((news, index) => {
+								console.log('allNews:', news)
+								return <NewsPost news={news} key={index} />
+							})
 						) : (
 							<p className='text-stock_red'>No news available.</p>
 						)}
