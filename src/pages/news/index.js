@@ -1,9 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import NewsSidebar from '@/components/News/NewsSidebar'
-import PaginationLink from '@/components/News/PaginationLink'
-
 export default function News() {
 	const router = useRouter()
 	const { page } = router.query
@@ -87,8 +84,10 @@ export default function News() {
 
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
-			<div className='flex w-full md:gap-12 xl:gap-24'>
-				{/* {!isLoading ? (
+			{console.log('allNews: ' + allNews)}
+			{console.log('hotNews: ' + hotNews)}
+			{/* <div className='flex w-full md:gap-12 xl:gap-24'>
+				{!isLoading ? (
 					<div className='w-full space-y-10'>
 						{newsByKeyword && newsByKeyword.length > 0 ? (
 							newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />)
@@ -100,10 +99,10 @@ export default function News() {
 					</div>
 				) : (
 					<Loading />
-				)} */}
+				)}
 				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
 			</div>
-			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}
+			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null} */}
 		</div>
 	)
 }
