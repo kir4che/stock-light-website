@@ -58,6 +58,7 @@ export default function News() {
 
 		// 從 localStorage 中取出上個月更新的熱門新聞
 		const storedHotNews = localStorage.getItem('hotNews')
+		console.log('storedHotNews: ' + storedHotNews)
 		if (storedHotNews) setHotNews(JSON.parse(storedHotNews))
 		else setHotNews(currentDate)
 
@@ -84,8 +85,8 @@ export default function News() {
 
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
-			{console.log('allNews: ' + allNews)}
-			{console.log('hotNews: ' + hotNews)}
+			{console.log('allNews: ' + allNews[0])}
+			{console.log('hotNews: ' + hotNews[0])}
 			{/* <div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
