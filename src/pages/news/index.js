@@ -16,7 +16,7 @@ export default function News() {
 	const [hotNews, setHotNews] = useState(null)
 	const [newsByKeyword, setNewsByKeyword] = useState(null)
 
-	const currentDate = new Date()
+	const currentDate = new Date() // Sun Oct 22 2023 16:32:25 GMT+0800 (中部標準時間)
 	const newsPerPage = 1 // 每頁顯示幾筆資料
 
 	// 取得所有新聞
@@ -68,16 +68,6 @@ export default function News() {
 		if (storedHotNews) setHotNews(JSON.parse(storedHotNews))
 		else setHotNews(currentDate)
 
-		setTimeout(() => {
-			setIsLoading(false)
-		}, 1000)
-	}, [])
-
-	useEffect(() => {
-		setIsLoading(true)
-
-		fetchAllNews()
-
 		// 每個月 1 號更新熱門新聞
 		const lastFetchedMonth = parseInt(localStorage.getItem('lastFetchedMonth'))
 		if (lastFetchedMonth !== currentDate.getMonth() && currentDate.getDate() === 1) {
@@ -88,14 +78,26 @@ export default function News() {
 		setTimeout(() => {
 			setIsLoading(false)
 		}, 1000)
-	}, [page, newsByKeyword])
+	}, [])
+
+	useEffect(() => {
+		setIsLoading(true)
+
+		if (newsByKeyword) fetchAllNews()
+
+		setTimeout(() => {
+			setIsLoading(false)
+		}, 1000)
+	}, [newsByKeyword])
 
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
 			<div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
-						{allNews && allNews.length > 0 ? (
+						{newsByKeyword && newsByKeyword.length > 0 ? (
+							newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />)
+						) : allNews && allNews.length > 0 ? (
 							allNews.map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
 							<p className='text-stock_red'>No news available.</p>
@@ -104,7 +106,7 @@ export default function News() {
 				) : (
 					<Loading />
 				)}
-				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
+				{hotNews && hotNews.length > 0 && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
 			</div>
 			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}
 		</div>
