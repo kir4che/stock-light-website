@@ -1,8 +1,10 @@
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
+import NewsPost from '@/components/News/NewsPost'
 import NewsSidebar from '@/components/News/NewsSidebar'
 import PaginationLink from '@/components/News/PaginationLink'
+import Loading from '@/components/common/Loading'
 
 export default function News() {
 	const router = useRouter()
