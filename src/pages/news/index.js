@@ -2,6 +2,9 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import Loading from '@/components/common/Loading'
+import NewsPost from '@/components/News/NewsPost'
+import NewsSidebar from '@/components/News/NewsSidebar'
+import PaginationLink from '@/components/News/PaginationLink'
 
 export default function News() {
 	const router = useRouter()
@@ -100,7 +103,7 @@ export default function News() {
 					<Loading />
 				)}
 			</div>
-			{/* <div className='flex w-full md:gap-12 xl:gap-24'>
+			<div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
 						{newsByKeyword && newsByKeyword.length > 0 ? (
@@ -116,7 +119,7 @@ export default function News() {
 				)}
 				{hotNews && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
 			</div>
-			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null} */}
+			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}
 		</div>
 	)
 }
