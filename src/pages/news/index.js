@@ -56,6 +56,8 @@ export default function News() {
 	useEffect(() => {
 		setIsLoading(true)
 
+		if (!newsByKeyword) fetchAllNews()
+
 		// 從 localStorage 中取出上個月更新的熱門新聞
 		const storedHotNews = localStorage.getItem('hotNews')
 		console.log('storedHotNews: ' + storedHotNews)
@@ -69,14 +71,15 @@ export default function News() {
 
 	useEffect(() => {
 		setIsLoading(true)
+
+		if (newsByKeyword) fetchAllNews()
+
 		// 每個月 1 號更新熱門新聞
 		const lastFetchedMonth = parseInt(localStorage.getItem('lastFetchedMonth'))
 		if (lastFetchedMonth !== currentDate.getMonth() && currentDate.getDate() === 1) {
 			fetchHotNews(currentDate)
 			localStorage.setItem('lastFetchedMonth', currentDate.getMonth().toString())
 		}
-
-		if (!newsByKeyword) fetchAllNews()
 
 		setTimeout(() => {
 			setIsLoading(false)
@@ -85,8 +88,8 @@ export default function News() {
 
 	return (
 		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
-			{allNews && console.log('allNews: ' + allNews[0])}
-			{hotNews && console.log('hotNews: ' + hotNews[0])}
+			{allNews && console.log('allNews: ' + allNews)}
+			{hotNews && console.log('hotNews: ' + hotNews)}
 			{/* <div className='flex w-full md:gap-12 xl:gap-24'>
 				{!isLoading ? (
 					<div className='w-full space-y-10'>
