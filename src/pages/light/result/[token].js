@@ -146,10 +146,12 @@ export default function Result() {
 							<div className=' lantern lanterntag_container animate-none' key={index}>
 								<div className='laternlight'></div>
 								<div className='rounded-t-lg left rounded-b-md'></div>
-								<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}>
-									<h3 className='pl-8 font-bold tracking-widest text-zinc-100'>{stock}</h3>
+								<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}>	
 								</div>
 								<div className='lantern-flame'></div>
+								<div className='absolute inset-x-0 top-10 right-6'>
+									<h3 className='pl-8 font-bold tracking-widest text-zinc-100 '>{stock}</h3>
+								</div>
 							</div>
 						))}
 					</div>

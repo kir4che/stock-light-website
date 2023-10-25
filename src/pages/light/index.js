@@ -198,7 +198,7 @@ export default function Light({ user }) {
 					/>
 				</Link>
 				<Link href={`/light/checkout?id=${user.id}&category=電機`}>
-					<Lantern position={'left-12 top-40'} label={'電機股'} hovered={hoveredCategory === '電機' ? true : false} />
+					<Lantern position={'left-20 top-40'} label={'電機股'} hovered={hoveredCategory === '電機' ? true : false} />
 				</Link>
 				<Link href={`/light/checkout?id=${user.id}&category=半導體`}>
 					<Lantern
