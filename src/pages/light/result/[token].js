@@ -140,13 +140,30 @@ export default function Result() {
 			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
 			<Dialog open={dialogOpen} maxWidth='lg' TransitionComponent={Transition} keepMounted fullWidth>
 				<DialogContent className='z-10 flex-col flex-center-between py-6 overflow-x-scroll text-center h-[420px] dark:text-zinc-100 dark:bg-zinc-800'>
-					<h3 className='tracking-wider'>本日光明燈（{category}股）</h3>
+				  {/* 先做出一個感覺卡片的框架，但我不太清楚要怎製作出先後出現地效果 */}
+					<div className='relative max-w-3xl bg-white shadow-md p-6 mb-5 rounded-3xl h-80 translate-x-5 '>
+							<div className='flex align-middle '>
+								<div className='relative w-80 shrink-0 h-60 shadow-black-500/50 '>
+									<img src="https://img.lovepik.com/photo/40147/0563.jpg_wh300.jpg" alt="" />
+								</div>
+								<div className='pr-10 text-black'>
+									<span className='font-medium'>28 October 2023</span>
+									<div className=' text-lg text-black mb-6 block font-bold'>金融股</div>
+									<div className='mb-3 leading-7 ml-4'>衷心祝賀您在投資領域的卓越成就，您的智慧和勇氣為我們帶來了成功的新里程碑。願您的投資之路充滿更多成功和繁榮！</div>
+									<a href="#" className='inline-flex py-4 px-6 rounded-2xl shadow-md decoration-auto font-medium justify-center text-center tracking-widest bg-gradient-to-r bg-amber-400'>儲存</a>
+								</div>
+							</div>	
+						<div class="praise_card_pagination"></div>
+					</div>
+
+
+					<h3 className='tracking-wider mb-6'>本日光明燈（{category}股）</h3>
 					<div className='flex-center'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
-							<div className=' lantern lanterntag_container animate-none' key={index}>
+							<div className=' lantern lanterntag_container animate-none mb-4' key={index}>
 								<div className='laternlight'></div>
 								<div className='rounded-t-lg left rounded-b-md'></div>
-								<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}>	
+								<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}>
 								</div>
 								<div className='lantern-flame'></div>
 								<div className='absolute inset-x-0 top-10 right-6'>
