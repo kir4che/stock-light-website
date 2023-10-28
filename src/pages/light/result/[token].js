@@ -1,8 +1,10 @@
+import AddIcon from '@mui/icons-material/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import CloseIcon from '@mui/icons-material/Close'
 import { Button, Dialog, DialogContent, DialogTitle, Slide } from '@mui/material'
+import Fab from '@mui/material/Fab'
 import { DataGrid } from '@mui/x-data-grid'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { forwardRef, useState } from 'react'
 
@@ -135,10 +137,16 @@ export default function Result() {
 
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
-	const handleClose = () => router.push('/light')
 
 	return (
-		<StarryBackground className={'pt-8 pb-12 md:pt-14 md:pb-20'}>
+		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
+			<p className='mb-2 text-sm tracking-wider text-zinc-100'>
+				<Link href='/light'>我要點燈</Link> / 分析結果
+			</p>
+			{/* 之後放「重新打開自己的小卡」功能，怕用戶沒存到。 */}
+			<Fab className='fixed bottom-4 right-6 bg-sky-400 hover:bg-secondary_blue'>
+				<AddIcon />
+			</Fab>
 			{/* 先做出一個感覺卡片的框架，但我不太清楚要怎製作出先後出現地效果 */}
 			<Dialog open={cardDialogOpen} maxWidth='md' TransitionComponent={Transition} keepMounted fullWidth>
 				<DialogTitle className='mt-2 text-2xl text-center'>本日祈福小卡</DialogTitle>
@@ -215,7 +223,6 @@ export default function Result() {
 					<h3 className='inline-flex items-end mb-6 tracking-wider'>
 						天氣型態<span className='ml-2 text-sm opacity-60'>{date}</span>
 					</h3>
-					<CloseIcon className='-mr-4 cursor-pointer opacity-80 hover:opacity-60' onClick={handleClose} />
 				</div>
 				<Chart option={multiLineOption()} customHeight={'h-72 sm:h-80 md:h-88 lg:h-96 xl:h-[520px]'} />
 				<DataGrid

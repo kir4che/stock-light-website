@@ -195,7 +195,7 @@ body {
 }
 
 .glowing-circle {
-	@apply w-24 h-24 bg-white animate-[glowing_4s_ease-in-out] rounded-[50%] scale-50;
+	@apply w-24 h-24 bg-white animate-[glowing_3s_ease-in-out] rounded-[50%] scale-50;
 	animation-fill-mode: forwards;
 }
 
@@ -209,19 +209,17 @@ body {
 	}
 	30% {
 		transform: scale(3);
-		opacity: 0.8;
 	}
 	60% {
 		transform: scale(5);
-		opacity: 0.7;
 	}
 	80% {
 		transform: scale(6);
-		opacity: 0.5;
 	}
 	100% {
 		transform: scale(8);
-		opacity: 0;
+		opacity: 0.25;
+		filter: blur(100px);
 		box-shadow: 0 0 20px #fff, 0 0 30px #ffb60c, 0 0 40px #ffde6b, 0 0 50px #ffde6b, 0 0 60px #ffde6b, 0 0 70px #ffde6b,
 			0 0 80px #ffde6b;
 	}
