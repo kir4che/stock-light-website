@@ -245,16 +245,7 @@ body {
 	transform:scale(1.05)
 }
 
-
-.card-section{
-	align-items: flex-start;
-	background-image: linear-gradient(15deg, #0f4667 0%, #2a6973 150%);
-	display: flex;
-	min-height: 100%;
-	justify-content: center;
-	padding: var(--spacing-xxl) var(--spacing-l);
-  }
-  
+/* 卡片歷史呈現 */
   .card-grid{
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
@@ -276,15 +267,10 @@ body {
 	}
   }
   
-  .card{
-	list-style: none;
-	position: relative;
-  }
-  
   .card:before{
 	content: '';
 	display: block;
-	padding-bottom: 150%;
+	padding-bottom: 80%;
 	width: 100%;
   }
   
@@ -299,7 +285,6 @@ body {
 	right: 0;
 	top: 0;
 	transform-origin: center;
-	trsnsform: scale(1) translateZ(0);
 	transition: 
 	  filter 200ms linear,
 	  transform 200ms linear;
@@ -312,21 +297,7 @@ body {
   .card-grid:hover > .card:not(:hover) .card__background{
 	filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
   }
-  
-  .card__content{
-	left: 0;
-	padding: var(--spacing-l);
-	position: absolute;
-	top: 0;
-  }
-  
-  .card__date{
-	color: var(--text-light);
-	font-size: 0.9rem;
-	margin-bottom: var(--spacing-s);
-	text-transform: uppercase;
-  }
-  
+ 
   .card__category{
 	color: var(--text-lighter);
 	font-size: 1.9rem;
