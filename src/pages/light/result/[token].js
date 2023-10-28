@@ -147,6 +147,11 @@ export default function Result({ user }) {
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 
+	const today = new Date();
+	const data_options = { month: 'long', day: 'numeric', year: 'numeric' };
+	const formattedDate = today.toLocaleDateString("zh-TW", data_options);
+
+
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
 			<p className='mb-2 text-sm tracking-wider text-zinc-100'>
@@ -195,7 +200,6 @@ export default function Result({ user }) {
 					</div>
 				</DialogContent>
 			</Dialog>
-			{/* 先做出一個感覺卡片的框架，但我不太清楚要怎製作出先後出現地效果 */}
 			<Dialog
 				open={cardDialogOpen}
 				maxWidth='md'
@@ -210,12 +214,13 @@ export default function Result({ user }) {
 				<DialogContent className='text-center dark:text-zinc-100 dark:bg-zinc-800'>
 					<div className='px-6 py-10 mb-4 bg-white shadow-md rounded-3xl'>
 						<div className='flex flex-col align-middle md:gap-4 md:flex-row'>
-							<div className='w-80 shrink-0 h-60 shadow-black-500/50'>
+							<div className='w-80 shrink-0 h-60 shadow-yellow-500/50 car_animated'>
+								{/* 是打算可在這邊放隨機圖檔 */}
 								<img src='https://img.lovepik.com/photo/40147/0563.jpg_wh300.jpg' alt='' />
 							</div>
 							<div className='text-black'>
-								<span className='font-medium'>28 October 2023</span>
-								<div className='block mb-6 text-lg font-bold text-black '>金融股</div>
+								<span className='font-medium'>{formattedDate}</span>
+								<div className='block mb-6 text-lg font-bold text-black '>{category}類股</div>
 								<div className='mb-3 ml-4 leading-7'>
 									衷心祝賀您在投資領域的卓越成就，您的智慧和勇氣為我們帶來了成功的新里程碑。願您的投資之路充滿更多成功和繁榮！
 								</div>
@@ -225,7 +230,7 @@ export default function Result({ user }) {
 									onClick={() => {
 										// add your code here
 									}}
-									className='px-8 py-2.5 font-medium tracking-widest rounded-full decoration-auto bg-gradient-to-r text-zinc-800 bg-amber-400'
+									className='px-8 py-2.5 font-bold tracking-widest rounded-full decoration-auto bg-gradient-to-r text-zinc-800 bg-amber-400'
 								>
 									儲存小卡
 								</Button>

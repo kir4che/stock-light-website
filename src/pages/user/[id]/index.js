@@ -50,6 +50,16 @@ export default function User({ user }) {
 						修改密碼
 					</button>
 				</div>
+				<hr />
+				<div className='text-center'>
+					<button
+						type='button'
+						onClick={() => router.push(`/user/${user.user_id}/cardHistory`)}
+						className='p-3 w-full focus:outline-none hover:bg-zinc-900/10 hover:dark:bg-zinc-900/60'
+					>
+						卡片記錄
+					</button>
+				</div>
 			</div>
 		</StarryBackground>
 	)
