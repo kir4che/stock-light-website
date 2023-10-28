@@ -1,10 +1,11 @@
-import StarryBackground from '@/components/common/StarryBackground'
-import InputField from '@/components/ui/InputField'
-import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
-import { Button } from '@mui/material'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+
+import StarryBackground from '@/components/common/StarryBackground'
+import InputField from '@/components/ui/InputField'
+import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
+import SubmitBtn from '@/components/ui/SubmitBtn'
 
 export default function Register() {
 	const router = useRouter()
@@ -16,7 +17,7 @@ export default function Register() {
 		confirmPassword: '',
 	})
 
-	const handleRegisterSubmit = async (e) => {
+	const handleRegister = async (e) => {
 		e.preventDefault()
 
 		if (user.password !== user.confirmPassword) {
@@ -79,15 +80,7 @@ export default function Register() {
 					onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
 					placeholder='確認密碼'
 				/>
-				<Button
-					type='submit'
-					size='large'
-					fullWidth
-					onClick={handleRegisterSubmit}
-					className='mt-6 mb-10 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-				>
-					註冊
-				</Button>
+				<SubmitBtn text='註冊' handleSubmit={handleRegister} style='mt-5 mb-10' />
 				<PrivacyAndTerms />
 			</div>
 		</StarryBackground>

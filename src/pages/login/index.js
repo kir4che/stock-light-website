@@ -1,4 +1,3 @@
-import { Button } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -6,6 +5,7 @@ import { useState } from 'react'
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
+import SubmitBtn from '@/components/ui/SubmitBtn'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 
 export async function getServerSideProps(cxt) {
@@ -55,15 +55,7 @@ export default function Login() {
 					onChange={(e) => setPassword(e.target.value)}
 					placeholder='輸入密碼（測試用: 12345）'
 				/>
-				<Button
-					type='submit'
-					size='large'
-					fullWidth
-					onClick={handleLogin}
-					className='mt-6 mb-10 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-				>
-					登入
-				</Button>
+				<SubmitBtn text='登入' handleSubmit={handleLogin} style='mt-5 mb-10' />
 				<PrivacyAndTerms />
 			</div>
 		</StarryBackground>

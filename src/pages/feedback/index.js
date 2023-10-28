@@ -1,10 +1,11 @@
+import emailjs from '@emailjs/browser'
+import { Input, InputLabel } from '@mui/material'
+import { useRef, useState } from 'react'
+
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
+import SubmitBtn from '@/components/ui/SubmitBtn'
 import SuccessDialog from '@/components/ui/SuccessDialog'
-import emailjs from '@emailjs/browser'
-import SendIcon from '@mui/icons-material/Send'
-import { Button, Input, InputLabel } from '@mui/material'
-import { useRef, useState } from 'react'
 
 export default function Feedback() {
 	const form = useRef()
@@ -12,7 +13,7 @@ export default function Feedback() {
 	const [formData, setFormData] = useState({ email: '', title: '', content: '' })
 	const [success, setSuccess] = useState(false)
 
-	const handleSendEmail = (e) => {
+	const handleSend = (e) => {
 		e.preventDefault()
 
 		emailjs
@@ -75,16 +76,7 @@ export default function Feedback() {
 							className='p-2.5 mt-2 rounded bg-zinc-100'
 							required
 						/>
-						<Button
-							type='submit'
-							size='large'
-							fullWidth
-							endIcon={<SendIcon className='text-white -rotate-45 dark:text-white' />}
-							onClick={handleSendEmail}
-							className='mt-12 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-						>
-							送出
-						</Button>
+						<SubmitBtn text='送出' handleSubmit={handleSend} style='mt-9' />
 					</form>
 				</>
 			)}

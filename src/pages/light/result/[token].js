@@ -2,7 +2,10 @@ import AddIcon from '@mui/icons-material/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Button, Dialog, DialogContent, DialogTitle, Slide } from '@mui/material'
+import MuiAlert from '@mui/material/Alert'
 import Fab from '@mui/material/Fab'
+import Snackbar from '@mui/material/Snackbar'
+import Stack from '@mui/material/Stack'
 import { DataGrid } from '@mui/x-data-grid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -10,8 +13,8 @@ import { forwardRef, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
-import SaveButton from '@/components/Light/SaveButton'
 import StarryBackground from '@/components/common/StarryBackground'
+import SubmitBtn from '@/components/ui/SubmitBtn'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 
 const columns = [
@@ -125,15 +128,15 @@ const columns = [
 	},
 ]
 
-// DIALOG TRANSITION
-const Transition = forwardRef(function Transition(props, ref) {
-	return <Slide direction='up' ref={ref} {...props} />
-})
-
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
 	return { props: { user: session.user } }
 }
+
+// DIALOG TRANSITION
+const Transition = forwardRef(function Transition(props, ref) {
+	return <Slide direction='up' ref={ref} {...props} />
+})
 
 export default function Result({ user }) {
 	const router = useRouter()
@@ -147,10 +150,9 @@ export default function Result({ user }) {
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 
-	const today = new Date();
-	const data_options = { month: 'long', day: 'numeric', year: 'numeric' };
-	const formattedDate = today.toLocaleDateString("zh-TW", data_options);
-
+	const today = new Date()
+	const data_options = { month: 'long', day: 'numeric', year: 'numeric' }
+	const formattedDate = today.toLocaleDateString('zh-TW', data_options)
 
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
@@ -238,44 +240,14 @@ export default function Result({ user }) {
 						</div>
 						<div className='praise_card_pagination'></div>
 					</div>
-					<Button
-						type='submit'
-						size='large'
-						onClick={() => {
+					<SubmitBtn
+						text='查看本日光明燈'
+						handleSubmit={() => {
 							handleCardDialog()
 							handleLaternDialog()
 						}}
-						className='px-24 my-4 rounded-full text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-					>
-						查看本日光明燈
-					</Button>
-				</DialogContent>
-			</Dialog>
-			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
-				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
-				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100 dark:bg-zinc-800'>
-					<div className='flex-center'>
-						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
-							<div>
-								<div className='mb-5 lantern lanterntag_container animate-none' key={index}>
-									<div className='laternlight'></div>
-									<div className='rounded-t-lg left rounded-b-md'></div>
-									<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}></div>
-									<div className='lantern-flame'></div>
-									<div className='absolute inset-x-0 top-10 right-6'></div>
-								</div>
-								<h3 className='font-semibold tracking-widest'>{stock}</h3>
-							</div>
-						))}
-					</div>
-					<Button
-						type='submit'
-						size='large'
-						onClick={handleLaternDialog}
-						className='px-24 my-4 rounded-full text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-					>
-						查看分析結果
-					</Button>
+						style='mt-3 py-2.5'
+					/>
 				</DialogContent>
 			</Dialog>
 			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
@@ -296,14 +268,7 @@ export default function Result({ user }) {
 							</div>
 						))}
 					</div>
-					<Button
-						type='submit'
-						size='large'
-						onClick={handleLaternDialog}
-						className='px-24 my-4 rounded-full text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-					>
-						查看分析結果
-					</Button>
+					<SubmitBtn text='查看分析結果' handleSubmit={handleLaternDialog} style='my-4 py-2.5' />
 				</DialogContent>
 			</Dialog>
 			{/* 最後分析的圖表、數據 */}
@@ -401,9 +366,32 @@ export default function Result({ user }) {
 					disableRowSelectionOnClick
 					disableColumnMenu
 				/>
-				<p className='mb-12 text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-				<SaveButton />
+				<p className='text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+				<SaveBtn />
 			</div>
 		</StarryBackground>
+	)
+}
+
+const Alert = forwardRef(function Alert(props, ref) {
+	return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
+})
+
+const SaveBtn = () => {
+	const [open, setOpen] = useState(false)
+
+	// 🚩 保存點燈紀錄至資料庫
+	const handleSave = () => setOpen(true)
+	const handleClose = () => setOpen(false)
+
+	return (
+		<Stack>
+			<SubmitBtn text='保存分析結果' handleSubmit={handleSave} style='mt-16 py-3' />
+			<Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+				<Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+					保存成功！
+				</Alert>
+			</Snackbar>
+		</Stack>
 	)
 }

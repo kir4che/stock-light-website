@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import { Lantern } from '@/components/ui/Lantern'
+import SubmitBtn from '@/components/ui/SubmitBtn'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 
 // 🚩尚未串接金流
@@ -73,7 +74,8 @@ export default function Checkout() {
 
 	const [success, setSuccess] = useState(false)
 
-	const handleSubmit = () => {
+	const handlePay = () => {
+		// 為了測試方便先註解掉
 		// if (formData.cardNumber.length !== 16) {
 		// 	alert('請輸入您的信用卡號碼')
 		// 	return
@@ -196,14 +198,7 @@ export default function Checkout() {
 								<p className='font-bold'>NT$100</p>
 							</div>
 							<hr />
-							<Button
-								fullWidth
-								size='large'
-								className='mt-8 text-zinc-100 bg-secondary_blue hover:bg-sky-500'
-								onClick={handleSubmit}
-							>
-								付款
-							</Button>
+							<SubmitBtn text='付款' handleSubmit={handlePay} style='mt-8' />
 						</div>
 						{/* 光明燈介紹區塊 */}
 						<div className='w-full relative mt-6  md:mt-0 md:w-[52vw] dark:text-zinc-800 flex justify-between flex-col p-6 bg-amber-50 rounded-2xl'>
