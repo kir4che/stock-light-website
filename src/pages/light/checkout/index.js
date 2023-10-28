@@ -74,13 +74,26 @@ export default function Checkout() {
 	const [success, setSuccess] = useState(false)
 
 	const handleSubmit = () => {
-		if (cardNumber && nameOnCard && expMonth && expYear) {
-			setSuccess(true)
-			setTimeout(() => {
-				const token = uuidv4()
-				router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate('-')}`)
-			}, 3000)
-		}
+		// if (formData.cardNumber.length !== 16) {
+		// 	alert('請輸入您的信用卡號碼')
+		// 	return
+		// }
+
+		// if (formData.cvv.length !== 3) {
+		// 	alert('請輸入卡片背面末三碼')
+		// 	return
+		// }
+
+		// if (formData.nameOnCard.length === 0) {
+		// 	alert('請輸入持卡人姓名')
+		// 	return
+		// }
+
+		setSuccess(true)
+		setTimeout(() => {
+			const token = uuidv4()
+			router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate('-')}`)
+		}, 3000)
 	}
 
 	return (

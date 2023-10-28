@@ -1,7 +1,7 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import CloseIcon from '@mui/icons-material/Close'
-import { Button, Dialog, DialogContent, Slide } from '@mui/material'
+import { Button, Dialog, DialogContent, DialogTitle, Slide } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import { forwardRef, useState } from 'react'
@@ -130,58 +130,86 @@ const Transition = forwardRef(function Transition(props, ref) {
 export default function Result() {
 	const router = useRouter()
 	const { category, date } = router.query
-	const [dialogOpen, setDialogOpen] = useState(true)
+	const [cardDialogOpen, setCardDialogOpen] = useState(true)
+	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
 
-	const handleDialogClose = () => setDialogOpen(false)
+	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
+	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 	const handleClose = () => router.push('/light')
 
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-14 md:pb-20'}>
-			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
-			<Dialog open={dialogOpen} maxWidth='lg' TransitionComponent={Transition} keepMounted fullWidth>
-				<DialogContent className='z-10 flex-col flex-center-between py-6 overflow-x-scroll text-center h-[420px] dark:text-zinc-100 dark:bg-zinc-800'>
-				  {/* 先做出一個感覺卡片的框架，但我不太清楚要怎製作出先後出現地效果 */}
-					<div className='relative max-w-3xl bg-white shadow-md p-6 mb-5 rounded-3xl h-80 translate-x-5 '>
-							<div className='flex align-middle '>
-								<div className='relative w-80 shrink-0 h-60 shadow-black-500/50 '>
-									<img src="https://img.lovepik.com/photo/40147/0563.jpg_wh300.jpg" alt="" />
+			{/* 先做出一個感覺卡片的框架，但我不太清楚要怎製作出先後出現地效果 */}
+			<Dialog open={cardDialogOpen} maxWidth='md' TransitionComponent={Transition} keepMounted fullWidth>
+				<DialogTitle className='mt-2 text-2xl text-center'>本日祈福小卡</DialogTitle>
+				<DialogContent className='text-center dark:text-zinc-100 dark:bg-zinc-800'>
+					<div className='px-6 py-10 mb-8 bg-white shadow-md rounded-3xl'>
+						<div className='flex flex-col align-middle md:gap-4 md:flex-row'>
+							<div className='w-80 shrink-0 h-60 shadow-black-500/50'>
+								<img src='https://img.lovepik.com/photo/40147/0563.jpg_wh300.jpg' alt='' />
+							</div>
+							<div className='text-black'>
+								<span className='font-medium'>28 October 2023</span>
+								<div className='block mb-6 text-lg font-bold text-black '>金融股</div>
+								<div className='mb-3 ml-4 leading-7'>
+									衷心祝賀您在投資領域的卓越成就，您的智慧和勇氣為我們帶來了成功的新里程碑。願您的投資之路充滿更多成功和繁榮！
 								</div>
-								<div className='pr-10 text-black'>
-									<span className='font-medium'>28 October 2023</span>
-									<div className=' text-lg text-black mb-6 block font-bold'>金融股</div>
-									<div className='mb-3 leading-7 ml-4'>衷心祝賀您在投資領域的卓越成就，您的智慧和勇氣為我們帶來了成功的新里程碑。願您的投資之路充滿更多成功和繁榮！</div>
-									<a href="#" className='inline-flex py-4 px-6 rounded-2xl shadow-md decoration-auto font-medium justify-center text-center tracking-widest bg-gradient-to-r bg-amber-400'>儲存</a>
-								</div>
-							</div>	
-						<div class="praise_card_pagination"></div>
+								<Button
+									type='text'
+									size='large'
+									onClick={() => {
+										// add your code here
+									}}
+									className='px-8 py-2.5 font-medium tracking-widest rounded-full decoration-auto bg-gradient-to-r text-zinc-800 bg-amber-400'
+								>
+									儲存小卡
+								</Button>
+							</div>
+						</div>
+						<div className='praise_card_pagination'></div>
 					</div>
-
-
-					<h3 className='tracking-wider mb-6'>本日光明燈（{category}股）</h3>
+					<Button
+						type='submit'
+						size='large'
+						onClick={() => {
+							handleCardDialog()
+							handleLaternDialog()
+						}}
+						className='px-24 my-4 rounded-full text-zinc-100 bg-secondary_blue hover:bg-sky-500'
+					>
+						查看本日光明燈
+					</Button>
+				</DialogContent>
+			</Dialog>
+			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
+			<Dialog open={laternDialogOpen} maxWidth='lg' keepMounted fullWidth>
+				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
+				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100 dark:bg-zinc-800'>
 					<div className='flex-center'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
-							<div className=' lantern lanterntag_container animate-none mb-4' key={index}>
-								<div className='laternlight'></div>
-								<div className='rounded-t-lg left rounded-b-md'></div>
-								<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}>
+							<div>
+								<div className='mb-5 lantern lanterntag_container animate-none' key={index}>
+									<div className='laternlight'></div>
+									<div className='rounded-t-lg left rounded-b-md'></div>
+									<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}></div>
+									<div className='lantern-flame'></div>
+									<div className='absolute inset-x-0 top-10 right-6'></div>
 								</div>
-								<div className='lantern-flame'></div>
-								<div className='absolute inset-x-0 top-10 right-6'>
-									<h3 className='pl-8 font-bold tracking-widest text-zinc-100 '>{stock}</h3>
-								</div>
+								<h3 className='font-semibold tracking-widest'>{stock}</h3>
 							</div>
 						))}
 					</div>
 					<Button
 						type='submit'
 						size='large'
-						onClick={handleDialogClose}
+						onClick={handleLaternDialog}
 						className='px-24 my-4 rounded-full text-zinc-100 bg-secondary_blue hover:bg-sky-500'
 					>
-						查看詳情
+						查看分析結果
 					</Button>
 				</DialogContent>
 			</Dialog>
+			{/* 最後分析的圖表、數據 */}
 			<div className='px-4 pt-6 pb-12 bg-white rounded sm:px-8 lg:px-10 dark:bg-zinc-900/50'>
 				<div className='inline-flex items-start justify-between w-full'>
 					<h3 className='inline-flex items-end mb-6 tracking-wider'>
