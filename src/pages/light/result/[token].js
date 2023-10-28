@@ -10,8 +10,9 @@ import { forwardRef, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
-import StarryBackground from '@/components/common/StarryBackground'
 import SaveButton from '@/components/Light/SaveButton'
+import StarryBackground from '@/components/common/StarryBackground'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },
@@ -129,12 +130,20 @@ const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />
 })
 
-export default function Result() {
+export async function getServerSideProps(ctx) {
+	const session = await getServerAuthSession(ctx)
+	return { props: { user: session.user } }
+}
+
+export default function Result({ user }) {
 	const router = useRouter()
 	const { category, date } = router.query
-	const [cardDialogOpen, setCardDialogOpen] = useState(true)
+
+	const [envelopeDialog, setEnvelopeDialogOpen] = useState(true)
+	const [cardDialogOpen, setCardDialogOpen] = useState(false)
 	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
 
+	const handleEnvelopeDialog = () => setEnvelopeDialogOpen(!envelopeDialog)
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 
@@ -145,13 +154,61 @@ export default function Result() {
 			</p>
 			{/* 之後放「重新打開自己的小卡」功能，怕用戶沒存到。 */}
 			<Fab className='fixed bottom-4 right-6 bg-sky-400 hover:bg-secondary_blue'>
-				<AddIcon />
+				<AddIcon onClick={handleEnvelopeDialog} />
 			</Fab>
+			<Dialog
+				open={envelopeDialog}
+				TransitionComponent={Transition}
+				PaperProps={{
+					style: {
+						backgroundColor: 'transparent',
+						boxShadow: 'none',
+					},
+				}}
+			>
+				<DialogContent className='w-[600px] h-[500px]'>
+					<div className='absolute w-full h-full flex-center -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>
+						<div className='absolute w-full h-full -z-10'>
+							<div className='w-0 h-0 border-b-[212px] border-b-white  border-x-[300px] border-x-transparent' />
+						</div>
+						<div
+							className='absolute text-center cursor-pointer flex pt-5 flex-col w-[540px] h-72 rounded bg-primary_yellow duration-500 ease-out z-10 bottom-20 hover:bottom-32'
+							onClick={() => {
+								handleEnvelopeDialog()
+								handleCardDialog()
+							}}
+						>
+							<h2>打開小卡...</h2>
+						</div>
+						<div className='absolute w-full h-full overflow-hidden'>
+							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-500 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
+								<h3 className='text-5xl text-center'>{category}類祈福小卡</h3>
+								<div className='flex items-end justify-between'>
+									<div>
+										<p>{user.user_id}</p>
+										<p>{user.email}</p>
+									</div>
+									<p className='opacity-50'>{date}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</DialogContent>
+			</Dialog>
 			{/* 先做出一個感覺卡片的框架，但我不太清楚要怎製作出先後出現地效果 */}
-			<Dialog open={cardDialogOpen} maxWidth='md' TransitionComponent={Transition} keepMounted fullWidth>
-				<DialogTitle className='mt-2 text-2xl text-center'>本日祈福小卡</DialogTitle>
+			<Dialog
+				open={cardDialogOpen}
+				maxWidth='md'
+				PaperProps={{
+					style: {
+						backgroundColor: 'transparent',
+						boxShadow: 'none',
+					},
+				}}
+				fullWidth
+			>
 				<DialogContent className='text-center dark:text-zinc-100 dark:bg-zinc-800'>
-					<div className='px-6 py-10 mb-8 bg-white shadow-md rounded-3xl'>
+					<div className='px-6 py-10 mb-4 bg-white shadow-md rounded-3xl'>
 						<div className='flex flex-col align-middle md:gap-4 md:flex-row'>
 							<div className='w-80 shrink-0 h-60 shadow-black-500/50'>
 								<img src='https://img.lovepik.com/photo/40147/0563.jpg_wh300.jpg' alt='' />
@@ -189,8 +246,35 @@ export default function Result() {
 					</Button>
 				</DialogContent>
 			</Dialog>
+			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
+				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
+				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100 dark:bg-zinc-800'>
+					<div className='flex-center'>
+						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
+							<div>
+								<div className='mb-5 lantern lanterntag_container animate-none' key={index}>
+									<div className='laternlight'></div>
+									<div className='rounded-t-lg left rounded-b-md'></div>
+									<div className='rounded-t-lg right rounded-b-md' style={{ writingMode: 'vertical-lr' }}></div>
+									<div className='lantern-flame'></div>
+									<div className='absolute inset-x-0 top-10 right-6'></div>
+								</div>
+								<h3 className='font-semibold tracking-widest'>{stock}</h3>
+							</div>
+						))}
+					</div>
+					<Button
+						type='submit'
+						size='large'
+						onClick={handleLaternDialog}
+						className='px-24 my-4 rounded-full text-zinc-100 bg-secondary_blue hover:bg-sky-500'
+					>
+						查看分析結果
+					</Button>
+				</DialogContent>
+			</Dialog>
 			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
-			<Dialog open={laternDialogOpen} maxWidth='lg' keepMounted fullWidth>
+			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
 				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
 				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100 dark:bg-zinc-800'>
 					<div className='flex-center'>
