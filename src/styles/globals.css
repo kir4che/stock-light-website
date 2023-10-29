@@ -195,7 +195,7 @@ body {
 }
 
 .glowing-circle {
-	@apply w-24 h-24 bg-white animate-[glowing_3s_ease-in-out] rounded-[50%] scale-50;
+	@apply w-24 h-24 bg-white animate-[glowing_4.5s_ease-in-out] rounded-[50%] scale-50;
 	animation-fill-mode: forwards;
 }
 
@@ -240,41 +240,41 @@ body {
 }
 
 /* 卡片hover動畫*/
-.car_animated:hover{
+.car_animated:hover {
 	cursor: pointer;
-	transform:scale(1.05)
+	transform: scale(1.05);
 }
 
 /* 卡片歷史呈現 */
-  .card-grid{
+.card-grid {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
 	grid-column-gap: var(--spacing-l);
 	grid-row-gap: var(--spacing-l);
 	max-width: var(--width-container);
 	width: 100%;
-  }
-  
-  @media(min-width: 540px){
-	.card-grid{
-	  grid-template-columns: repeat(2, 1fr); 
+}
+
+@media (min-width: 540px) {
+	.card-grid {
+		grid-template-columns: repeat(2, 1fr);
 	}
-  }
-  
-  @media(min-width: 960px){
-	.card-grid{
-	  grid-template-columns: repeat(4, 1fr); 
+}
+
+@media (min-width: 960px) {
+	.card-grid {
+		grid-template-columns: repeat(4, 1fr);
 	}
-  }
-  
-  .card:before{
+}
+
+.card:before {
 	content: '';
 	display: block;
 	padding-bottom: 80%;
 	width: 100%;
-  }
-  
-  .card__background{
+}
+
+.card__background {
 	background-size: cover;
 	background-position: center;
 	border-radius: var(--spacing-l);
@@ -285,23 +285,21 @@ body {
 	right: 0;
 	top: 0;
 	transform-origin: center;
-	transition: 
-	  filter 200ms linear,
-	  transform 200ms linear;
-  }
-  
-  .card:hover .card__background{
+	transition: filter 200ms linear, transform 200ms linear;
+}
+
+.card:hover .card__background {
 	transform: scale(1.05) translateZ(0);
-  }
-  
-  .card-grid:hover > .card:not(:hover) .card__background{
+}
+
+.card-grid:hover > .card:not(:hover) .card__background {
 	filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
-  }
- 
-  .card__category{
+}
+
+.card__category {
 	color: var(--text-lighter);
 	font-size: 1.9rem;
-	text-shadow: 2px 2px 20px rgba(0,0,0,0.2);
+	text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.2);
 	line-height: 1.4;
 	word-spacing: 100vw;
-  }
+}
