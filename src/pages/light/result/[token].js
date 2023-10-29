@@ -216,9 +216,9 @@ export default function Result({ user }) {
 				<DialogContent className='text-center dark:text-zinc-100 dark:bg-zinc-800'>
 					<div className='px-6 py-10 mb-4 bg-white shadow-md rounded-3xl'>
 						<div className='flex flex-col align-middle md:gap-4 md:flex-row'>
-							<div className='w-80 shrink-0 h-60 shadow-yellow-500/50 car_animated'>
+							<div className='w-80 shrink-60 shadow-yellow-500/50 car_animated'>
 								{/* 是打算可在這邊放隨機圖檔 */}
-								<img src='https://img.lovepik.com/photo/40147/0563.jpg_wh300.jpg' alt='' />
+								<img src='/assets/cardtest.jpg' alt=''/>
 							</div>
 							<div className='text-black'>
 								<span className='font-medium'>{formattedDate}</span>
@@ -254,7 +254,7 @@ export default function Result({ user }) {
 			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
 				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
 				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100'>
-					<div className='flex-center'>
+					<div className='flex-center text-black'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
 							<div>
 								<div className='mb-5 lantern lanterntag_container animate-none' key={index}>

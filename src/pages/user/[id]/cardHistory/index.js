@@ -18,7 +18,7 @@ export default function cardHistory() {
 
                     <a className="list-none relative card" href="#">
                         <div className="card__background" >
-                            <img src='https://fakeimg.pl/300x172' alt='' />
+                            <img src='/assets/cardtest.jpg' alt='' className='scale-90'/>
                         </div>
                         <div className="left-0 top-0 absolute">
                             <p className="text-sm uppercase">2023年10月28日</p>
