@@ -195,7 +195,7 @@ body {
 }
 
 .glowing-circle {
-	@apply w-24 h-24 bg-white animate-[glowing_4.5s_ease-in-out] rounded-[50%] scale-50;
+	@apply w-24 h-24 bg-white animate-[glowing_5s_ease-in-out] rounded-[50%] scale-50;
 	animation-fill-mode: forwards;
 }
 
