@@ -163,6 +163,7 @@ export default function Result({ user }) {
 			<Fab className='fixed bottom-4 right-6 bg-sky-400 hover:bg-secondary_blue'>
 				<AddIcon onClick={handleEnvelopeDialog} />
 			</Fab>
+			{/* 祈福小卡信封 */}
 			<Dialog
 				open={envelopeDialog}
 				TransitionComponent={Transition}
@@ -173,10 +174,11 @@ export default function Result({ user }) {
 					},
 				}}
 			>
-				<DialogContent className='w-[600px] h-[500px]'>
+				<DialogContent className='w-[600px] h-[63vw] md:h-[500px]'>
 					<div className='absolute w-full h-full flex-center -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>
+						{/* 信封 - 三角形 */}
 						<div className='absolute w-full h-full -z-10'>
-							<div className='w-0 h-0 border-b-[212px] border-b-white  border-x-[300px] border-x-transparent' />
+							<div className='border-b-[212px] border-b-white border-x-[40vw] md:border-x-[300px] border-x-transparent' />
 						</div>
 						<div
 							className='absolute text-center cursor-pointer flex pt-5 flex-col w-[540px] h-72 rounded bg-primary_yellow duration-500 ease-out z-10 bottom-20 hover:bottom-32'
@@ -202,6 +204,7 @@ export default function Result({ user }) {
 					</div>
 				</DialogContent>
 			</Dialog>
+			{/* 祈福小卡內容 */}
 			<Dialog
 				open={cardDialogOpen}
 				maxWidth='md'
@@ -218,11 +221,12 @@ export default function Result({ user }) {
 						<div className='flex flex-col align-middle md:gap-4 md:flex-row'>
 							<div className='w-80 shrink-60 shadow-yellow-500/50 car_animated'>
 								{/* 是打算可在這邊放隨機圖檔 */}
-								<img src='/assets/cardtest.jpg' alt=''/>
+								<img src='/assets/cardtest.jpg' alt='' />
 							</div>
 							<div className='text-black'>
 								<span className='font-medium'>{formattedDate}</span>
 								<div className='block mb-6 text-lg font-bold text-black '>{category}類股</div>
+								{/* 之後由 GPT 生成 */}
 								<div className='mb-3 ml-4 leading-7'>
 									衷心祝賀您在投資領域的卓越成就，您的智慧和勇氣為我們帶來了成功的新里程碑。願您的投資之路充滿更多成功和繁榮！
 								</div>
@@ -230,7 +234,7 @@ export default function Result({ user }) {
 									type='text'
 									size='large'
 									onClick={() => {
-										// add your code here
+										// ...
 									}}
 									className='px-8 py-2.5 font-bold tracking-widest rounded-full decoration-auto bg-gradient-to-r text-zinc-800 bg-amber-400'
 								>
@@ -254,7 +258,7 @@ export default function Result({ user }) {
 			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
 				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
 				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100'>
-					<div className='flex-center text-black'>
+					<div className='text-black flex-center'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
 							<div>
 								<div className='mb-5 lantern lanterntag_container animate-none' key={index}>
