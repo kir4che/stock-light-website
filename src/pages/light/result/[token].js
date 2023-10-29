@@ -252,10 +252,8 @@ export default function Result({ user }) {
 			</Dialog>
 			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
 			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
-				<DialogTitle className='mt-4 mb-8 text-2xl text-center dark:bg-zinc-800'>
-					本日光明燈 － {category}股
-				</DialogTitle>
-				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100 dark:bg-zinc-800'>
+				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
+				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100'>
 					<div className='flex-center'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
 							<div>
