@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Button, Dialog, DialogContent, DialogTitle, Slide } from '@mui/material'
+import { Dialog, DialogContent, DialogTitle, Slide } from '@mui/material'
 import MuiAlert from '@mui/material/Alert'
 import Fab from '@mui/material/Fab'
 import Snackbar from '@mui/material/Snackbar'
@@ -10,6 +10,7 @@ import { DataGrid } from '@mui/x-data-grid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { forwardRef, useState } from 'react'
+import Card from '@/components/Light/Card'
 
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
@@ -150,10 +151,6 @@ export default function Result({ user }) {
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 
-	const today = new Date()
-	const data_options = { month: 'long', day: 'numeric', year: 'numeric' }
-	const formattedDate = today.toLocaleDateString('zh-TW', data_options)
-
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
 			<p className='mb-2 text-sm tracking-wider text-zinc-100'>
@@ -217,33 +214,7 @@ export default function Result({ user }) {
 				fullWidth
 			>
 				<DialogContent className='text-center dark:text-zinc-100 dark:bg-zinc-800'>
-					<div className='px-6 py-10 mb-4 bg-white shadow-md rounded-3xl'>
-						<div className='flex flex-col align-middle md:gap-4 md:flex-row'>
-							<div className='w-80 shrink-60 shadow-yellow-500/50 car_animated'>
-								{/* 是打算可在這邊放隨機圖檔 */}
-								<img src='/assets/cardtest.jpg' alt='' />
-							</div>
-							<div className='text-black'>
-								<span className='font-medium'>{formattedDate}</span>
-								<div className='block mb-6 text-lg font-bold text-black '>{category}類股</div>
-								{/* 之後由 GPT 生成 */}
-								<div className='mb-3 ml-4 leading-7'>
-									衷心祝賀您在投資領域的卓越成就，您的智慧和勇氣為我們帶來了成功的新里程碑。願您的投資之路充滿更多成功和繁榮！
-								</div>
-								<Button
-									type='text'
-									size='large'
-									onClick={() => {
-										// ...
-									}}
-									className='px-8 py-2.5 font-bold tracking-widest rounded-full decoration-auto bg-gradient-to-r text-zinc-800 bg-amber-400'
-								>
-									儲存小卡
-								</Button>
-							</div>
-						</div>
-						<div className='praise_card_pagination'></div>
-					</div>
+					<Card/>
 					<SubmitBtn
 						text='查看本日光明燈'
 						handleSubmit={() => {
