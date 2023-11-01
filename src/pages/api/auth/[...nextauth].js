@@ -16,13 +16,13 @@ export const authOptions = {
 				password: { label: 'Password', type: 'password' },
 			},
 			async authorize(credentials) {
-				// // 本地測試用（不需連接資料庫）
-				// if (credentials.email === testUser.email && credentials.password === testUser.password) {
-				// 	return testUser
-				// } else {
-				// 	console.error('登入失敗：電子郵件或密碼輸入錯誤！')
-				// 	return null
-				// }
+				// 本地測試用（不需連接資料庫）
+				if (credentials.email === testUser.email && credentials.password === testUser.password) {
+					return testUser
+				} else {
+					console.error('登入失敗：電子郵件或密碼輸入錯誤！')
+					return null
+				}
 
 				// 串接後端 API（已確認可使用）
 				const res = await fetch(`${process.env.DB_URL}/api/user/login`, {
