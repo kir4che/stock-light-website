@@ -1,5 +1,5 @@
 import StarryBackground from '@/components/common/StarryBackground'
-
+import Image from 'next/image'
 
 export default function cardHistory() {
     return [
@@ -17,8 +17,8 @@ export default function cardHistory() {
                     </a>
 
                     <a className="list-none relative card" href="#">
-                        <div className="card__background" >
-                            <img src='/assets/cardtest.jpg' alt='' className='scale-90'/>
+                        <div className="card__background ">
+                            <Image src={"/assets/card/cardtest.jpg"} width={640} height={320} alt=''/>
                         </div>
                         <div className="left-0 top-0 absolute">
                             <p className="text-sm uppercase">2023年10月28日</p>
