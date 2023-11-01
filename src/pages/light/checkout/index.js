@@ -1,12 +1,12 @@
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import { Button, ButtonGroup, FormControl, MenuItem, Select, TextField } from '@mui/material'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import StarryBackground from '@/components/common/StarryBackground'
+import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import { Lantern } from '@/components/ui/Lantern'
 import SubmitBtn from '@/components/ui/SubmitBtn'
 import { getCurrentDate } from '@/utils/getCurrentDate'
@@ -43,8 +43,8 @@ export default function Checkout() {
 		success: false,
 	})
 
-	const [expMonth, setExpMonth] = useState(1) // Separate state for expMonth
-	const [expYear, setExpYear] = useState(2024) // Separate state for expYear
+	const [expMonth, setExpMonth] = useState(1)
+	const [expYear, setExpYear] = useState(2024)
 
 	const handleInputChange = (e) => {
 		const { id, value } = e.target
@@ -106,9 +106,7 @@ export default function Checkout() {
 				</div>
 			) : (
 				<>
-					<p className='mb-2 text-sm tracking-wider text-zinc-100'>
-						<Link href='/light'>我要點燈</Link> / 線上付款
-					</p>
+					<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='線上付款' />
 					<div className='relative flex-col-reverse md:flex-row max-w-5xl gap-[5vw] px-[4vw] py-10 mx-auto bg-white flex md:justify-between dark:bg-zinc-900/50 sm:rounded-xl'>
 						<h3 className='absolute mb-4 top-4'>線上付款</h3>
 						{/* 支付區塊 */}

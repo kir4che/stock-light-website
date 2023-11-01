@@ -1,20 +1,18 @@
-import AddIcon from '@mui/icons-material/Add'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Dialog, DialogContent, DialogTitle, Slide } from '@mui/material'
-import MuiAlert from '@mui/material/Alert'
-import Fab from '@mui/material/Fab'
+import { Dialog, DialogContent, DialogTitle } from '@mui/material'
+import Alert from '@mui/material/Alert'
+import Slide from '@mui/material/Slide'
 import Snackbar from '@mui/material/Snackbar'
-import Stack from '@mui/material/Stack'
 import { DataGrid } from '@mui/x-data-grid'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { forwardRef, useState } from 'react'
-import Card from '@/components/Light/Card'
+import { forwardRef, useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
+import PrayerCard from '@/components/Light/PrayerCard'
 import StarryBackground from '@/components/common/StarryBackground'
+import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import SubmitBtn from '@/components/ui/SubmitBtn'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 
@@ -143,24 +141,30 @@ export default function Result({ user }) {
 	const router = useRouter()
 	const { category, date } = router.query
 
+	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
 	const [envelopeDialog, setEnvelopeDialogOpen] = useState(true)
 	const [cardDialogOpen, setCardDialogOpen] = useState(false)
-	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
+	const [resultAlertOpen, setResultAlertOpen] = useState(false)
 
 	const handleEnvelopeDialog = () => setEnvelopeDialogOpen(!envelopeDialog)
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 
+	const handleResultAlertSave = () => {
+		setResultAlertOpen(true)
+		// 🚩 後端：需要把點燈紀錄存給使用者
+	}
+
+	const handleResultAlertClose = () => setResultAlertOpen(false)
+
+	// 🚩 後端：載入當日資料庫預測報酬率由高到低的該產業別中五檔股票
+	useEffect(() => {
+		// ...
+	}, [])
+
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
-			<p className='mb-2 text-sm tracking-wider text-zinc-100'>
-				<Link href='/light'>我要點燈</Link> / 分析結果
-			</p>
-			{/* 之後放「重新打開自己的小卡」功能，怕用戶沒存到。 */}
-			<Fab className='fixed bottom-4 right-6 bg-sky-400 hover:bg-secondary_blue'>
-				<AddIcon onClick={handleEnvelopeDialog} />
-			</Fab>
-			{/* 祈福小卡信封 */}
+			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='分析結果' />
 			<Dialog
 				open={envelopeDialog}
 				TransitionComponent={Transition}
@@ -173,7 +177,6 @@ export default function Result({ user }) {
 			>
 				<DialogContent className='w-[600px] h-[63vw] md:h-[500px]'>
 					<div className='absolute w-full h-full flex-center -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>
-						{/* 信封 - 三角形 */}
 						<div className='absolute w-full h-full -z-10'>
 							<div className='border-b-[212px] border-b-white border-x-[40vw] md:border-x-[300px] border-x-transparent' />
 						</div>
@@ -201,7 +204,6 @@ export default function Result({ user }) {
 					</div>
 				</DialogContent>
 			</Dialog>
-			{/* 祈福小卡內容 */}
 			<Dialog
 				open={cardDialogOpen}
 				maxWidth='md'
@@ -214,7 +216,7 @@ export default function Result({ user }) {
 				fullWidth
 			>
 				<DialogContent className='text-center dark:text-zinc-100 dark:bg-zinc-800'>
-					<Card/>
+					<PrayerCard />
 					<SubmitBtn
 						text='查看本日光明燈'
 						handleSubmit={() => {
@@ -225,7 +227,6 @@ export default function Result({ user }) {
 					/>
 				</DialogContent>
 			</Dialog>
-			{/* 先以光明燈呈現預測結果的五檔股票名稱 */}
 			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
 				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
 				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100'>
@@ -243,16 +244,20 @@ export default function Result({ user }) {
 							</div>
 						))}
 					</div>
-					<SubmitBtn text='查看分析結果' handleSubmit={handleLaternDialog} style='my-4 py-2.5' />
+					<SubmitBtn
+						text='查看分析結果'
+						handleSubmit={() => setLaternDialogOpen(!laternDialogOpen)}
+						style='my-4 py-2.5'
+					/>
 				</DialogContent>
 			</Dialog>
-			{/* 最後分析的圖表、數據 */}
 			<div className='px-4 pt-6 pb-12 bg-white rounded sm:px-8 lg:px-10 dark:bg-zinc-900/50'>
 				<div className='inline-flex items-start justify-between w-full'>
 					<h3 className='inline-flex items-end mb-6 tracking-wider'>
 						天氣型態<span className='ml-2 text-sm opacity-60'>{date}</span>
 					</h3>
 				</div>
+				{/* 傳入分析出的五檔股票 */}
 				<Chart option={multiLineOption()} customHeight={'h-72 sm:h-80 md:h-88 lg:h-96 xl:h-[520px]'} />
 				<DataGrid
 					sx={{
@@ -342,31 +347,13 @@ export default function Result({ user }) {
 					disableColumnMenu
 				/>
 				<p className='text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-				<SaveBtn />
+				<SubmitBtn text='保存分析結果' handleSubmit={handleResultAlertSave} style='mt-16 py-3' />
+				<Snackbar open={resultAlertOpen} autoHideDuration={3000} onClose={handleResultAlertClose}>
+					<Alert onClose={handleResultAlertClose} severity='success' sx={{ width: '100%' }}>
+						保存成功！
+					</Alert>
+				</Snackbar>
 			</div>
 		</StarryBackground>
-	)
-}
-
-const Alert = forwardRef(function Alert(props, ref) {
-	return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />
-})
-
-const SaveBtn = () => {
-	const [open, setOpen] = useState(false)
-
-	// 🚩 保存點燈紀錄至資料庫
-	const handleSave = () => setOpen(true)
-	const handleClose = () => setOpen(false)
-
-	return (
-		<Stack>
-			<SubmitBtn text='保存分析結果' handleSubmit={handleSave} style='mt-16 py-3' />
-			<Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
-					保存成功！
-				</Alert>
-			</Snackbar>
-		</Stack>
 	)
 }

@@ -3,8 +3,8 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
-import Marquee from '@/components/common/Marquee'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
+import Marquee from '@/components/ui/Marquee'
 import style from '@/styles/Temple.module.css'
 
 export default function Hero() {

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import NewsPost from '@/components/News/NewsPost'
 import NewsSidebar from '@/components/News/NewsSidebar'
 import PaginationLink from '@/components/News/PaginationLink'
-import Loading from '@/components/common/Loading'
+import Loading from '@/components/ui/Loading'
 
 export default function News() {
 	const router = useRouter()
@@ -75,9 +75,7 @@ export default function News() {
 			localStorage.setItem('lastFetchedMonth', currentDate.getMonth().toString())
 		}
 
-		setTimeout(() => {
-			setIsLoading(false)
-		}, 1000)
+		setTimeout(() => setIsLoading(false), 1000)
 	}, [])
 
 	useEffect(() => {
@@ -85,9 +83,7 @@ export default function News() {
 
 		if (newsByKeyword) fetchAllNews()
 
-		setTimeout(() => {
-			setIsLoading(false)
-		}, 1000)
+		setTimeout(() => setIsLoading(false), 1000)
 	}, [newsByKeyword])
 
 	return (
