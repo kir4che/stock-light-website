@@ -32,6 +32,7 @@ export default function Register() {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
+					name: user.name,
 					email: user.email,
 					password: user.password,
 				}),
@@ -60,25 +61,25 @@ export default function Register() {
 					label='使用者名稱'
 					type='text'
 					onChange={(e) => setUser({ ...user, name: e.target.value })}
-					placeholder='輸入您的使用者名稱'
+					placeholder='請輸入您的使用者名稱'
 				/>
 				<InputField
 					label='Email'
 					type='email'
 					onChange={(e) => setUser({ ...user, email: e.target.value })}
-					placeholder='輸入您的 Email 帳號'
+					placeholder='請輸入您的 Email 帳號'
 				/>
 				<InputField
 					label='密碼'
 					type='password'
 					onChange={(e) => setUser({ ...user, password: e.target.value })}
-					placeholder='輸入密碼'
+					placeholder='請輸入您的密碼'
 				/>
 				<InputField
-					label='密碼'
+					label='確認密碼'
 					type='password'
 					onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
-					placeholder='確認密碼'
+					placeholder='請再一次輸入密碼'
 				/>
 				<SubmitBtn text='註冊' handleSubmit={handleRegister} style='mt-5 mb-10' />
 				<PrivacyAndTerms />

@@ -22,8 +22,13 @@ export default function ChangePassword() {
 	const [confirmPassword, setConfirmPassword] = useState('')
 	const [open, setOpen] = useState(false)
 
-	const handlePasswordChange = async (e) => {
+	const handleChange = async (e) => {
 		e.preventDefault()
+
+		if (newPassword || confirmPassword === '') {
+			alert('請輸入新密碼！', { type: 'error' })
+			return
+		}
 
 		if (newPassword !== confirmPassword) {
 			alert('密碼與確認密碼不相符，請重新輸入！', { type: 'error' })
@@ -81,7 +86,7 @@ export default function ChangePassword() {
 					<Button
 						variant='contained'
 						className='py-2.5 mt-8 text-zinc-800 bg-primary_yellow hover:bg-amber-300'
-						onClick={handlePasswordChange}
+						onClick={handleChange}
 					>
 						修改
 					</Button>
