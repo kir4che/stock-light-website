@@ -2,6 +2,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import Alert from '@mui/material/Alert'
+import Button from '@mui/material/Button'
 import Slide from '@mui/material/Slide'
 import Snackbar from '@mui/material/Snackbar'
 import { DataGrid } from '@mui/x-data-grid'
@@ -143,19 +144,34 @@ export default function Result({ user }) {
 
 	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
 	const [envelopeDialog, setEnvelopeDialogOpen] = useState(true)
+
 	const [cardDialogOpen, setCardDialogOpen] = useState(false)
-	const [resultAlertOpen, setResultAlertOpen] = useState(false)
+	const [cardSavedAlertOpen, setCardSavedAlertOpen] = useState(false)
+	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
+
+	const handleSave = () => {
+		setOpen(true)
+		// 🚩 後端：需要把卡片存給使用者
+	}
+	const handleClose = () => setOpen(false)
 
 	const handleEnvelopeDialog = () => setEnvelopeDialogOpen(!envelopeDialog)
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 
-	const handleResultAlertSave = () => {
-		setResultAlertOpen(true)
+	const handleCardSave = () => {
+		setCardSavedAlertOpen(true)
+		// 🚩 後端：需要把祈福小卡存給使用者
+	}
+
+	const handleCardSavedAlertClose = () => setCardSavedAlertOpen(false)
+
+	const handleResultSave = () => {
+		setResultSavedAlertOpen(true)
 		// 🚩 後端：需要把點燈紀錄存給使用者
 	}
 
-	const handleResultAlertClose = () => setResultAlertOpen(false)
+	const handleResultSavedAlertClose = () => setResultSavedAlertOpen(false)
 
 	// 🚩 後端：載入當日資料庫預測報酬率由高到低的該產業別中五檔股票
 	useEffect(() => {
@@ -204,19 +220,22 @@ export default function Result({ user }) {
 					</div>
 				</DialogContent>
 			</Dialog>
-			<Dialog
-				open={cardDialogOpen}
-				maxWidth='md'
-				PaperProps={{
-					style: {
-						backgroundColor: 'transparent',
-						boxShadow: 'none',
-					},
-				}}
-				fullWidth
-			>
-				<DialogContent className='text-center dark:text-zinc-100 dark:bg-zinc-800'>
+			<Dialog open={cardDialogOpen} maxWidth='md' align='center'>
+				<DialogContent>
 					<PrayerCard />
+					<Button
+						type='text'
+						size='large'
+						onClick={handleCardSave}
+						className='my-1 px-10 py-2.5 font-bold tracking-wider rounded-full text-zinc-800 bg-primary_yellow'
+					>
+						儲存您的祈福小卡
+					</Button>
+					<Snackbar open={cardSavedAlertOpen} autoHideDuration={3000} onClose={handleCardSavedAlertClose}>
+						<Alert onClose={handleCardSavedAlertClose} severity='success' sx={{ width: '100%' }}>
+							保存成功！
+						</Alert>
+					</Snackbar>
 					<SubmitBtn
 						text='查看本日光明燈'
 						handleSubmit={() => {
@@ -347,9 +366,9 @@ export default function Result({ user }) {
 					disableColumnMenu
 				/>
 				<p className='text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-				<SubmitBtn text='保存分析結果' handleSubmit={handleResultAlertSave} style='mt-16 py-3' />
-				<Snackbar open={resultAlertOpen} autoHideDuration={3000} onClose={handleResultAlertClose}>
-					<Alert onClose={handleResultAlertClose} severity='success' sx={{ width: '100%' }}>
+				<SubmitBtn text='保存分析結果' handleSubmit={handleResultSave} style='mt-16 py-3' />
+				<Snackbar open={resultSavedAlertOpen} autoHideDuration={3000} onClose={handleResultSavedAlertClose}>
+					<Alert onClose={handleResultSavedAlertClose} severity='success' sx={{ width: '100%' }}>
 						保存成功！
 					</Alert>
 				</Snackbar>
