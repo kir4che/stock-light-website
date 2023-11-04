@@ -24,11 +24,16 @@ export default function Footer() {
 
 	return (
 		<footer>
-			<div className='z-50 flex-col py-4 mx-auto bg-white border-t dark:bg-zinc-800 flex-center dark:border-none sm:py-8 sm:items-start sm:flex-row'>
-				<div className='text-center'>
-					<Image src='/assets/temple.png' width={160} height={100} alt='temple' className='w-auto h-auto' />
-					<h4 className='mt-3 mb-1'>股市光明燈</h4>
-					<p className='text-sm font-light'>帶給所有投資人新的希望</p>
+			<div className='z-50 flex-col py-4 mx-auto bg-white border-t dark:bg-zinc-800 flex-center dark:border-none sm:py-6 sm:items-start sm:flex-row'>
+				<div>
+					<h4 className='flex items-center justify-center sm:justify-start mb-2 sm:mb-4 space-x-1.5'>
+						<Image src='/assets/logo.png' width={32} height={32} alt='temple' className='w-auto h-auto' />
+						<span>股市光明燈</span>
+					</h4>
+					<p className='text-sm font-light text-center sm:mb-20 sm:text-left'>帶給所有投資人新的希望</p>
+					<p className='hidden text-sm font-thin opacity-50 md:inline'>
+						Copyright © 北科大資財四乙 2023 All Rights Reserved.
+					</p>
 				</div>
 				<div className='flex-col flex-wrap flex-grow mt-4 space-y-4 flex-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
 					<nav className='space-x-4 flex-center sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
@@ -55,7 +60,7 @@ export default function Footer() {
 					</nav>
 				</div>
 			</div>
-			<div className='pb-5 flex-center'>
+			<div className='pb-5 flex-center md:hidden'>
 				<p className='text-sm font-thin opacity-50'>Copyright © 北科大資財四乙 2023 All Rights Reserved.</p>
 			</div>
 		</footer>
