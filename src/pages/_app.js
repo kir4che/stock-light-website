@@ -1,5 +1,6 @@
 import { DarkModeProvider } from '@/providers/DarkModeProvider'
 import { NextAuthProvider } from '@/providers/NextAuthProvider'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -29,20 +30,25 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 	}, [])
 
 	return (
-		<DarkModeProvider>
-			<NextAuthProvider session={session}>
-				<div
-					className={`container bg-white dark:bg-zinc-800 ${isExcludedPage ? '' : 'px-4 sm:px-6 md:px-10 lg:px-16'}`}
-				>
-					<Header />
-					<div className={router.pathname === '/' ? 'relative top-[76px]' : 'pt-[76px]'}>
-						<Component {...pageProps} />
+		<>
+			<Head>
+				<link rel='shortcut icon' href='/assets/logo.png' />
+			</Head>
+			<DarkModeProvider>
+				<NextAuthProvider session={session}>
+					<div
+						className={`container bg-white dark:bg-zinc-800 ${isExcludedPage ? '' : 'px-4 sm:px-6 md:px-10 lg:px-16'}`}
+					>
+						<Header />
+						<div className={router.pathname === '/' ? 'relative top-[76px]' : 'pt-[76px]'}>
+							<Component {...pageProps} />
+						</div>
+						<div className={`${isExcludedPage ? 'px-4 sm:px-6 md:px-10 lg:px-16' : ''}`}>
+							<Footer />
+						</div>
 					</div>
-					<div className={`${isExcludedPage ? 'px-4 sm:px-6 md:px-10 lg:px-16' : ''}`}>
-						<Footer />
-					</div>
-				</div>
-			</NextAuthProvider>
-		</DarkModeProvider>
+				</NextAuthProvider>
+			</DarkModeProvider>
+		</>
 	)
 }
