@@ -222,12 +222,13 @@ export default function Result({ user }) {
 			</Dialog>
 			<Dialog open={cardDialogOpen} maxWidth='md' align='center'>
 				<DialogContent>
+					{/* 祈福小卡 */}
 					<PrayerCard />
 					<Button
 						type='text'
 						size='large'
 						onClick={handleCardSave}
-						className='my-1 px-10 py-2.5 font-bold tracking-wider rounded-full text-zinc-800 bg-primary_yellow'
+						className='mt-4 mb-2 px-10 py-2.5 font-bold tracking-wider rounded-full text-zinc-800 bg-primary_yellow'
 					>
 						儲存您的祈福小卡
 					</Button>

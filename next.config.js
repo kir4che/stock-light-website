@@ -7,6 +7,7 @@ const nextConfig = {
 			'upload.wikimedia.org',
 			'fakeimg.pl',
 			'i.imgur.com',
+			'imgur.com',
 			'www.freepnglogos.com',
 			'lh3.googleusercontent.com',
 		], // 添加你的圖片來源主機名
