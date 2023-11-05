@@ -14,7 +14,7 @@ export default function Hero() {
 	return (
 		<div className='max-h-[calc(100vh - 76px)] h-min'>
 			<Marquee />
-			<div className='relative z-0 pt-10 pb-6 text-center'>
+			<div className='relative z-10 pt-10 pb-6 text-center'>
 				<h1 className='mb-2 sm:mb-4 leading-[1.1] text-[16vw] text-transparent drop-shadow-md sm:text-8xl bg-clip-text bg-gradient-to-tl from-amber-100 dark:from-sky-100 from-20% dark:from-30% to-amber-300 dark:to-primary_yellow to-60% dark:to-80%'>
 					股市
 					<br className='sm:hidden' />
@@ -44,14 +44,13 @@ export default function Hero() {
 					</h1>
 				</div>
 			</div>
-			<div className="relative h-[36vw] sm:h-[40vw] md:h-[32vw] border-b-2 dark:border-zinc-900 lg:h-80 bg-[url('https://imgur.com/TUd42OT.jpg')] dark:bg-[url('https://imgur.com/eUbTc8f.jpg')] bg-no-repeat lg:bg-cover bg-center">
+			<div className="relative z-0 h-[36vw] sm:h-[40vw] md:h-[32vw] border-b-2 dark:border-zinc-900 lg:h-80 bg-[url('https://imgur.com/TUd42OT.jpg')] dark:bg-[url('https://imgur.com/eUbTc8f.jpg')] bg-no-repeat lg:bg-cover bg-center">
 				<Image
-					src='/assets/temple-outside.svg'
+					src='/assets/home/temple-outside.svg'
 					width={1000}
 					height={1000}
 					className='relative bottom-[18vw] sm:bottom-[12.5vw] lg:bottom-40 mx-auto w-[74vw] sm:w-[72vw] md:w-[60vw] lg:w-[660px]'
 				/>
-
 				<LanternLayout otherStyle={'hidden md:block absolute top-0'}>
 					<div className='scale-75 -rotate-6'>
 						<Lantern position={'-right-[20vw] -top-[15vw] xl:-right-[30vw] xl:-top-[10vw]'} />

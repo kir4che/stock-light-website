@@ -24,20 +24,12 @@ export default function Home() {
 							為您找出與股市漲跌有關的數據及優秀條件的個股
 						</>
 					}
-					imgSrc={
-						'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-					}
+					imgSrc={'/assets/home/stock-1.jpg'}
 				/>
 				<FlexCard
 					title={'股市光明燈提供您不同的觀點'}
-					content={
-						<>
-							從證交所、Yahoo Finance 抓取最新的股市資訊
-							<br />
-							並從公開氣象局、政府公開資料平台抓取可用於分析的資料集
-						</>
-					}
-					imgSrc={'https://images.unsplash.com/photo-1591696205602-2f950c417cb9'}
+					content={<>用數據打破你原有的想法，你曾經想過天氣、節日、甚至星象和股市的漲跌有關嗎？</>}
+					imgSrc={'/assets/home/stock-2.jpg'}
 					reverse={true}
 				/>
 				<FlexCard
@@ -49,7 +41,7 @@ export default function Home() {
 							並從公開氣象局、政府公開資料平台抓取可用於分析的資料集
 						</>
 					}
-					imgSrc={'https://i.imgur.com/eUwF1X0.png'}
+					imgSrc={'/assets/home/stock-3.png'}
 				/>
 				<article className='relative mt-20 mb-48 text-center'>
 					<div data-aos='fade-down' data-aos-duration='800' data-aos-once='true' className='z-10'>
