@@ -35,6 +35,14 @@ export default function Footer() {
 						Copyright © 北科大資財四乙 2023 All Rights Reserved.
 					</p>
 				</div>
+				{/* 蠟燭動畫 */}
+				<div className="flex wrapper scale-75 flex-center ml-52 mt-10">
+					<div className="spark"></div>
+					<div className="sparkling"></div>
+					<div className="candle"></div>
+					<div className="wax"></div>
+					<div className="wax-bot"></div>
+				</div>
 				<div className='flex-col flex-wrap flex-grow mt-4 space-y-4 flex-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
 					<nav className='space-x-4 flex-center sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
 						{navigationLinks.map((link, index) => (
@@ -59,9 +67,6 @@ export default function Footer() {
 						))}
 					</nav>
 				</div>
-			</div>
-			<div className='pb-5 flex-center md:hidden'>
-				<p className='text-sm font-thin opacity-50'>Copyright © 北科大資財四乙 2023 All Rights Reserved.</p>
 			</div>
 		</footer>
 	)
