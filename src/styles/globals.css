@@ -305,7 +305,7 @@ body {
 }
 
 /* 蠟燭動畫 */
-.wrapper {
+.candle_wrapper {
 	height: 150px;
 	width: 200px;
 	position: relative;
@@ -334,7 +334,7 @@ body {
 	margin:auto;
   }
   
-  .wax-bot {
+  .candle_wax-bot {
 	background: #eaeaea;
 	height: 30px;
 	width: 80px;
@@ -346,7 +346,7 @@ body {
 	margin:auto;
   }
   
-  .wax {
+  .candle_wax {
 	background: #eaeaea;
 	height: 30px;
 	width: 10px;
@@ -357,7 +357,7 @@ body {
 	margin:auto;
   }
   
-  .spark {
+  .candle_spark {
 	height: 30px;
 	width: 30px;
 	background: rgb(255, 192, 49);
@@ -388,7 +388,7 @@ body {
 	100%{transform:translateY(-150px) scaleY(1.4); opacity:0.4;-webkit-transform:translateY(-150px) scaleY(1.4); opacity:0.4;}
   }
   
-  .spark:before {
+  .candle_spark:before {
 	content:"";
 	height: 15px;
 	width: 15px;
@@ -400,7 +400,7 @@ body {
 	opacity: 0.8;
   }
   
-  .sparkling {
+  .candle_sparkling {
 	height: 16px;
 	width: 16px;
 	background: rgb(255, 150, 49);
@@ -413,7 +413,7 @@ body {
 	animation:sparkling-move 0.4s infinite ease-in-out;
   }
   
-  .sparkling:after {
+  .candle_sparkling:after {
 	content:"";
 	height: 16px;
 	width: 16px;
@@ -426,7 +426,7 @@ body {
 	opacity: 0.8;
   }
   
-  .wrapper:after {
+  .candle_wrapper:after {
 	content:"";
 	position: absolute;
 	top:0;bottom:0;right:0;left:0;

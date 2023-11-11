@@ -1,26 +1,28 @@
 import Image from 'next/image'
 
 import { cardList } from '@/data/cardList'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function PrayerCard() {
-	const randomId = Math.floor(Math.random() * cardList.length);
-	const setselectedCard = cardList[randomId];
-
-	
-
+	const [selectedCard, setSelectedCard] = useState(null);
+  
 	useEffect(() => {
-		//...
-	}, [])
-
+	  const randomId = Math.floor(Math.random() * cardList.length);
+	  const random_card = cardList[randomId];
+	  setSelectedCard(random_card);
+	}, []);
+  
 	return (
-		<>
-			<Image src={setselectedCard.img_url} width={680} height={360} alt={setselectedCard.id} key={setselectedCard.id} />
-
-			{/* {
-				cardList.map((card) => (
-					<Image src={card.img_url} width={680} height={360} alt={card.id} key={card.id} />
-				))} */}
-		</>
+	  <>
+		{selectedCard && (
+		  <Image
+			src={selectedCard.img_url}
+			width={680}
+			height={360}
+			alt={selectedCard.id}
+			key={selectedCard.id}
+		  />
+		)}
+	  </>
 	)
-}
+  }
