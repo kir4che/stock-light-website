@@ -22,7 +22,7 @@ export default function User({ user }) {
 	return (
 		<StarryBackground className={'grid place-content-center'}>
 			<div className='text-zinc-100 w-96 bg-white/20 backdrop-blur-xl dark:bg-zinc-900/50 rounded-xl'>
-				<AccountCircleIcon sx={{ fontSize: 120 }} className='w-full mx-auto rounded-xl' />
+				<AccountCircleIcon sx={{ fontSize: 120 }} className='w-full mx-auto rounded-xl mt-5' />
 				<p className='font-medium tracking-wider text-center'>ID. {user.user_id}</p>
 				<hr className='mt-20' />
 				<div className='flex text-center'>
