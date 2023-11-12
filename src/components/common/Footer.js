@@ -24,8 +24,8 @@ export default function Footer() {
 
 	return (
 		<footer>
-			<div className='z-50 flex-col py-4 mx-auto bg-white border-t dark:bg-zinc-800 flex-center dark:border-none sm:py-6 sm:items-start sm:flex-row'>
-				<div>
+			<div className='z-50 flex-col py-4 mx-auto bg-white border-t sm:pb-2 sm:pt-6 dark:bg-zinc-800 flex-center dark:border-none sm:items-start sm:flex-row'>
+				<div className='lg:w-1/2 xl:w-1/3'>
 					<h4 className='flex items-center justify-center sm:justify-start mb-2 sm:mb-4 space-x-1.5'>
 						<Image src='/assets/logo.png' width={32} height={32} alt='temple' className='w-auto h-auto' />
 						<span>股市光明燈</span>
@@ -36,14 +36,14 @@ export default function Footer() {
 					</p>
 				</div>
 				{/* 蠟燭動畫 */}
-				<div className="flex candle_wrapper scale-75 flex-center ml-52 mt-10">
-					<div className="candle_spark"></div>
-					<div className="candle_sparkling"></div>
-					<div className="candle"></div>
-					<div className="candle_wax"></div>
-					<div className="candle_wax-bot"></div>
+				<div className='mt-8 mb-4 scale-75 sm:my-0 lg:w-1/2 xl:w-1/3 candle_wrapper flex-center'>
+					<div className='candle_spark' />
+					<div className='candle_sparkling' />
+					<div className='candle' />
+					<div className='candle_wax' />
+					<div className='candle_wax-bot' />
 				</div>
-				<div className='flex-col flex-wrap flex-grow mt-4 space-y-4 flex-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
+				<div className='flex-col flex-wrap flex-grow w-full mt-4 space-y-4 xl:w-1/3 flex-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
 					<nav className='space-x-4 flex-center sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
 						{navigationLinks.map((link, index) => (
 							<Link className='text-sm' href={link.url} key={index}>
@@ -51,7 +51,7 @@ export default function Footer() {
 							</Link>
 						))}
 					</nav>
-					<nav className='hidden space-y-5 sm:block'>
+					<div className='hidden space-y-5 sm:block'>
 						<h4 className='mb-2'>聯絡方式</h4>
 						{contactInfo.map((info, index) => (
 							<div className='flex items-center space-x-2 text-sm' key={index}>
@@ -65,7 +65,7 @@ export default function Footer() {
 								)}
 							</div>
 						))}
-					</nav>
+					</div>
 				</div>
 			</div>
 		</footer>

@@ -25,6 +25,9 @@ module.exports = {
 				screen: 'calc(100vh - 76px)',
 				88: '22rem',
 			},
+			inset: {
+				22: '5.5rem',
+			},
 			colors: {
 				amber: {
 					300: '#FFD852',

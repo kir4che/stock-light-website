@@ -306,133 +306,119 @@ body {
 
 /* 蠟燭動畫 */
 .candle_wrapper {
-	height: 150px;
-	width: 200px;
-	position: relative;
-	margin:0 auto;
+	@apply relative w-48 h-40 mx-auto;
+}
 
-  }
-  
-  .candle {
-	height: 200px;
+.candle {
+	@apply absolute bottom-0 left-0 right-0 m-auto top-16 h-44 bg-zinc-200;
 	width: 60px;
-	background: #eaeaea;
-	position: absolute;
-	border-radius:6px;
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
-  }
-  
-  .candle:before {
-	content:"";
+	border-radius: 6px;
+}
+
+.candle:before {
+	@apply absolute left-0 right-0 m-auto bg-zinc-200;
+	content: '';
 	height: 30px;
 	width: 3px;
-	border-radius:50%;
-	background: #eaeaea;
-	position: absolute;
-	left:0;right:0;top:-20px;
-	margin:auto;
-  }
-  
-  .candle_wax-bot {
-	background: #eaeaea;
+	border-radius: 50%;
+	top: -20px;
+}
+
+/* 底盤 */
+.candle_wax-bot {
+	@apply absolute bottom-0 left-0 right-0 m-auto top-10 bg-zinc-200;
 	height: 30px;
 	width: 80px;
-	border-radius:50%;
-	transform:translateY(100px) scaleY(0.5) scaleX(1.4);
-	-webkit-transform:translateY(100px) scaleY(0.5) scaleX(1.4);
-	position: absolute;
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
-  }
-  
-  .candle_wax {
-	background: #eaeaea;
+	border-radius: 50%;
+	transform: translateY(100px) scaleY(0.5) scaleX(1.4);
+	-webkit-transform: translateY(100px) scaleY(0.5) scaleX(1.4);
+}
+
+.candle_wax {
+	@apply absolute top-0 bottom-0 left-0 right-0 m-auto bg-zinc-200;
 	height: 30px;
 	width: 10px;
-	box-shadow: 0 2px 3px rgba(0,0,0,0.4);
-	border-radius:10px;
-	position: absolute;
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
-  }
-  
-  .candle_spark {
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4);
+	border-radius: 10px;
+}
+
+.candle_spark {
+	@apply absolute bottom-0 left-0 right-0 m-auto top-22;
 	height: 30px;
 	width: 30px;
 	background: rgb(255, 192, 49);
-	border-radius:50%;
-	position: absolute;
-	transform:translateY(-130px);
-	-webkit-transform:translateY(-130px);
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
+	border-radius: 50%;
+	transform: translateY(-130px);
+	-webkit-transform: translateY(-130px);
 	opacity: 0.8;
 	filter: blur(3px);
 	-webkit-filter: blur(2px);
 	z-index: 2;
-	animation:spark-move 4s infinite ease-in-out alternate;
-	-webkit-animation:spark-move 4s infinite ease-in-out alternate;
-	  transform-origin:bottom;
-	-webkit-transform-origin:bottom;
-  }
-  
-  
-  @keyframes spark-move {
-	0%{transform:translateY(-130px) skew(6deg) scaleY(1.2);-webkit-transform:translateY(-130px) skew(6deg) scaleY(1.2);}
-	100%{transform:translateY(-130px) skew(-6deg) scaleY(1.4);-webkit-transform:translateY(-130px) skew(-6deg) scaleY(1.4);}
-  }
-  
-  @keyframes sparkling-move {
-	0%{transform:translateY(-140px) scaleY(1); opacity:0.8;-webkit-transform:translateY(-140px) scaleY(1); opacity:0.8;}
-	100%{transform:translateY(-150px) scaleY(1.4); opacity:0.4;-webkit-transform:translateY(-150px) scaleY(1.4); opacity:0.4;}
-  }
-  
-  .candle_spark:before {
-	content:"";
+	animation: spark-move 4s infinite ease-in-out alternate;
+	-webkit-animation: spark-move 4s infinite ease-in-out alternate;
+	transform-origin: bottom;
+	-webkit-transform-origin: bottom;
+}
+
+@keyframes spark-move {
+	0% {
+		transform: translateY(-130px) skew(6deg) scaleY(1.2);
+		-webkit-transform: translateY(-130px) skew(6deg) scaleY(1.2);
+	}
+	100% {
+		transform: translateY(-130px) skew(-6deg) scaleY(1.4);
+		-webkit-transform: translateY(-130px) skew(-6deg) scaleY(1.4);
+	}
+}
+
+@keyframes sparkling-move {
+	0% {
+		transform: translateY(-140px) scaleY(1);
+		-webkit-transform: translateY(-140px) scaleY(1);
+		opacity: 0.8;
+	}
+	100% {
+		transform: translateY(-150px) scaleY(1.4);
+		-webkit-transform: translateY(-150px) scaleY(1.4);
+		opacity: 0.4;
+	}
+}
+
+.candle_spark:before {
+	@apply absolute top-0 bottom-0 left-0 right-0 m-auto bg-white;
+	content: '';
 	height: 15px;
 	width: 15px;
-	background: rgba(255, 255, 255,0.8);
-	border-radius:50%;
-	position: absolute;
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
+	border-radius: 50%;
 	opacity: 0.8;
-  }
-  
-  .candle_sparkling {
-	height: 16px;
-	width: 16px;
-	background: rgb(255, 150, 49);
-	border-radius:50%;
-	position: absolute;
-	transform:translateY(-150px);
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
-	opacity: 0.8;
-	animation:sparkling-move 0.4s infinite ease-in-out;
-  }
-  
-  .candle_sparkling:after {
-	content:"";
-	height: 16px;
-	width: 16px;
-	background: rgb(255, 150, 49);
-	border-radius:50%;
-	position: absolute;
-	transform:translateY(-10px);
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
-	opacity: 0.8;
-  }
-  
-  .candle_wrapper:after {
-	content:"";
-	position: absolute;
-	top:0;bottom:0;right:0;left:0;
-	margin:auto;
-	background: rgba(113, 92, 65, 0.3);
-	border-radius:50%;
-	filter:blur(80px);
-  }
+}
 
+.candle_sparkling {
+	@apply absolute bottom-0 left-0 right-0 m-auto top-22;
+	height: 16px;
+	width: 16px;
+	background: rgb(255, 150, 49);
+	border-radius: 50%;
+	transform: translateY(-150px);
+	opacity: 0.8;
+	animation: sparkling-move 0.4s infinite ease-in-out;
+}
+
+.candle_sparkling:after {
+	@apply absolute top-0 bottom-0 left-0 right-0 m-auto;
+	content: '';
+	height: 16px;
+	width: 16px;
+	background: rgb(255, 150, 49);
+	border-radius: 50%;
+	transform: translateY(-10px);
+	opacity: 0.8;
+}
+
+.candle_wrapper:after {
+	@apply absolute top-0 bottom-0 left-0 right-0 m-auto;
+	content: '';
+	background: rgba(113, 92, 65, 0.3);
+	border-radius: 50%;
+	filter: blur(80px);
+}
