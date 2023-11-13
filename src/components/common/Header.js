@@ -34,10 +34,10 @@ export default function Header() {
 					if (page.childPages.length > 0) {
 						return (
 							<>
-								<button key={page.url} onClick={handleClick}>
+								<p className='cursor-pointer' key={page.url} onClick={handleClick}>
 									<span>{page.name}</span>
 									<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
-								</button>
+								</p>
 								<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
 									{page.childPages.map((childPage) => {
 										return (
