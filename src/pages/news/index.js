@@ -1,58 +1,38 @@
+'use client'
+
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
+import Pagination from '@mui/material/Pagination'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import NewsPost from '@/components/News/NewsPost'
-import NewsSidebar from '@/components/News/NewsSidebar'
-import PaginationLink from '@/components/News/PaginationLink'
+import SearchInput from '@/components/News/SearchInput'
 import Loading from '@/components/ui/Loading'
+import SidebarBlock from '@/components/ui/SidebarBlock'
 
 export default function News() {
 	const router = useRouter()
 	const { page } = router.query
 
 	const [isLoading, setIsLoading] = useState(true)
-	const [allNews, setAllNews] = useState(null)
-	// const [newsTags, setNewsTags] = useState(null)
-	const [hotNews, setHotNews] = useState(null)
-	const [newsByKeyword, setNewsByKeyword] = useState(null)
+	const [allNews, setAllNews] = useState([])
+	const [paginatedNews, setPaginatedNews] = useState([])
 
-	const currentDate = new Date() // Sun Oct 22 2023 16:32:25 GMT+0800 (中部標準時間)
-	const newsPerPage = 10 // 每頁顯示幾筆資料
+	const [keyword, setKeyword] = useState('')
 
-	// 取得所有新聞
+	const newsPerPage = 8,
+		totalPages = 10
+
 	const fetchAllNews = async () => {
-		const offset = (parseInt(String(page)) - 1) * newsPerPage
-
 		try {
-			const response = await fetch(
-				`https://gnews.io/api/v4/top-headlines?category=business&country=tw&page=${offset}&max=${newsPerPage}&apikey=${process.env.GNEWS_API_KEY}`,
-				{ method: 'GET' }
-			)
+			const response = await fetch(`${process.env.DB_URL}/api/news/all`, { method: 'GET' })
 			const data = await response.json()
-
-			setAllNews(data.articles)
-			localStorage.setItem('allNews', JSON.stringify(data.articles))
-		} catch (error) {
-			console.error('error', error)
-		}
-	}
-
-	// 取得熱門新聞
-	const fetchHotNews = async (currentDate) => {
-		const aMonthAgo = new Date(currentDate)
-		aMonthAgo.setMonth(currentDate.getMonth() - 1)
-		const fromDate = aMonthAgo.toISOString().split('T')[0]
-		const toDate = currentDate.toISOString().split('T')[0]
-
-		try {
-			const response = await fetch(
-				`https://gnews.io/api/v4/search?q=股&country=tw&max=5&sortBy=relevance&from=${fromDate}&to=${toDate}&apikey=${process.env.GNEWS_API_KEY}`,
-				{ method: 'GET' }
-			)
-			const data = await response.json()
-
-			setHotNews(data.articles)
-			localStorage.setItem('hotNews', JSON.stringify(data.articles))
+			const sortedNews = data.data.sort((a, b) => {
+				const dateA = parseInt(a.time),
+					dateB = parseInt(b.time)
+				return dateA - dateB
+			})
+			setAllNews(sortedNews)
 		} catch (error) {
 			console.error('error', error)
 		}
@@ -60,51 +40,59 @@ export default function News() {
 
 	useEffect(() => {
 		setIsLoading(true)
-
-		if (!newsByKeyword) fetchAllNews()
-
-		// 從 localStorage 中取出上個月更新的熱門新聞
-		const storedHotNews = localStorage.getItem('hotNews')
-		if (storedHotNews !== null) setHotNews(JSON.parse(storedHotNews))
-		else fetchHotNews(currentDate)
-
-		// 每個月 1 號更新熱門新聞
-		const lastFetchedMonth = parseInt(localStorage.getItem('lastFetchedMonth'))
-		if (lastFetchedMonth !== currentDate.getMonth() && currentDate.getDate() === 1) {
-			fetchHotNews(currentDate)
-			localStorage.setItem('lastFetchedMonth', currentDate.getMonth().toString())
-		}
-
-		setTimeout(() => setIsLoading(false), 1000)
-	}, [])
+		fetchAllNews()
+			.then(() => setIsLoading(false))
+			.catch((error) => {
+				console.error('error', error)
+				setIsLoading(false)
+			})
+	}, [page])
 
 	useEffect(() => {
-		setIsLoading(true)
+		const startIndex = ((parseInt(page) || 1) - 1) * newsPerPage
+		const endIndex = startIndex + newsPerPage
+		const paginatedNews = allNews.slice(startIndex, endIndex)
+		setPaginatedNews(paginatedNews)
+	}, [page, isLoading, allNews])
 
-		if (newsByKeyword) fetchAllNews()
-
-		setTimeout(() => setIsLoading(false), 1000)
-	}, [newsByKeyword])
+	const handlePageChange = (event, value) => {
+		router.push({
+			pathname: '/news',
+			query: { page: value },
+		})
+	}
 
 	return (
-		<div className='flex flex-col items-center px-4 pt-10 pb-8 md:px-0'>
+		<div className='flex flex-col px-4 py-8 md:px-0'>
+			<h2 className='mb-12'>最新財經新聞</h2>
 			<div className='flex w-full md:gap-12 xl:gap-24'>
-				{!isLoading ? (
-					<div className='w-full space-y-10'>
-						{newsByKeyword && newsByKeyword.length > 0 ? (
-							newsByKeyword.map((news, index) => <NewsPost news={news} key={index} />)
-						) : allNews && allNews.length > 0 ? (
-							allNews.map((news, index) => <NewsPost news={news} key={index} />)
+				<section className='w-full space-y-8'>
+					{!isLoading ? (
+						paginatedNews && paginatedNews.length > 0 ? (
+							paginatedNews.map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
-							<p className='text-stock_red'>No news available.</p>
-						)}
-					</div>
-				) : (
-					<Loading />
-				)}
-				{hotNews && hotNews.length > 0 && <NewsSidebar hotNews={hotNews} setNewsByKeyword={setNewsByKeyword} />}
+							<p className='text-stock_red dark:text-zinc-50'>No news available...</p>
+						)
+					) : (
+						<Loading />
+					)}
+				</section>
+				<section className='hidden space-y-8 w-96 md:block'>
+					<SearchInput
+						allNews={allNews}
+						keyword={keyword}
+						setKeyword={setKeyword}
+						newsPerPage={newsPerPage}
+						setPaginatedNews={setPaginatedNews}
+					/>
+					<SidebarBlock icon={<RocketLaunchIcon className='dark:text-white' />} title={'今日熱點'} />
+				</section>
 			</div>
-			{!newsByKeyword ? <PaginationLink totalPages={10} /> : null}
+			{!keyword && (
+				<div className='w-full flex overflow-x-scroll flex-nowrap justify-center py-0.5 mt-20 mb-2 rounded bg-primary_yellow'>
+					<Pagination page={parseInt(page) || 1} count={totalPages} onChange={handlePageChange} />
+				</div>
+			)}
 		</div>
 	)
 }

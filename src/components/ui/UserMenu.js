@@ -31,7 +31,7 @@ export default function UserMenu({ session }) {
 			<PersonIcon className='dark:text-white' onClick={handleClick} />
 			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
 				<MenuItem onClick={handleUserPage} style={{ cursor: 'pointer' }}>
-					使用者頁面
+					會員管理
 				</MenuItem>
 				<MenuItem onClick={handleSignOut}>
 					<p>登出</p>

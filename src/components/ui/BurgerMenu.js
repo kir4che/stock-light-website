@@ -23,13 +23,32 @@ export default function BurgerMenu({ navigationLinks, userData }) {
 						onClick={toggleDrawer(false)}
 					/>
 					<Box className='mt-8'>
-						{navigationLinks.map((page) => (
-							<ListItemButton key={page.url} onClick={toggleDrawer(false)}>
-								<Link href={`/${page.url}`}>
-									<ListItemText primary={page.name} />
-								</Link>
-							</ListItemButton>
-						))}
+						{navigationLinks.map((page) => {
+							if (page.childPages.length > 0) {
+								return (
+									<>
+										<ListItemText primary={page.name} className='py-2 pl-4' key={page.url} />
+										{page.childPages.map((childPage) => {
+											return (
+												<ListItemButton key={childPage.url} onClick={toggleDrawer(false)}>
+													<Link href={`/${page.url}/${childPage.url}`}>
+														<ListItemText primary={childPage.name} className='pl-6' />
+													</Link>
+												</ListItemButton>
+											)
+										})}
+									</>
+								)
+							} else {
+								return (
+									<ListItemButton key={page.url} onClick={toggleDrawer(false)}>
+										<Link href={`/${page.url}`}>
+											<ListItemText primary={page.name} />
+										</Link>
+									</ListItemButton>
+								)
+							}
+						})}
 						{!userData && (
 							<>
 								<hr className='mt-10 mb-2' />

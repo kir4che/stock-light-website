@@ -1,9 +1,12 @@
 'use client'
 
 import LoginIcon from '@mui/icons-material/Login'
+import { Menu, MenuItem } from '@mui/material'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 import BurgerMenu from '@/components/ui/BurgerMenu'
 import DarkModeToggle from '@/components/ui/DarkModeToggle'
@@ -12,6 +15,13 @@ import { navigationLinks } from '@/data/navigationLinks'
 
 export default function Header() {
 	const { data: session } = useSession()
+	const router = useRouter()
+
+	const [anchorEl, setAnchorEl] = useState(null)
+	const open = Boolean(anchorEl)
+
+	const handleClick = (e) => setAnchorEl(e.currentTarget)
+	const handleClose = () => setAnchorEl(null)
 
 	return (
 		<div className='fixed left-0 z-50 w-full px-4 py-1 bg-white sm:px-6 md:px-10 lg:px-16 dark:bg-zinc-800 flex-center-between md:py-4'>
@@ -20,12 +30,34 @@ export default function Header() {
 				<h4>股市光明燈</h4>
 			</Link>
 			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 md:flex lg:space-x-8'>
-				{navigationLinks.map((link) => (
-					<Link href={`/${link.url}`} key={link.url}>
-						<span>{link.name}</span>
-						<span className='hidden text-sm capitalize lg:block'>{link.url}</span>
-					</Link>
-				))}
+				{navigationLinks.map((page) => {
+					if (page.childPages.length > 0) {
+						return (
+							<>
+								<button key={page.url} onClick={handleClick}>
+									<span>{page.name}</span>
+									<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
+								</button>
+								<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+									{page.childPages.map((childPage) => {
+										return (
+											<MenuItem key={childPage.url} onClick={() => router.push(`/${page.url}/${childPage.url}`)}>
+												{childPage.name}
+											</MenuItem>
+										)
+									})}
+								</Menu>
+							</>
+						)
+					} else {
+						return (
+							<Link href={`/${page.url}`} key={page.url}>
+								<span>{page.name}</span>
+								<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
+							</Link>
+						)
+					}
+				})}
 			</nav>
 			<div className='flex-center md:space-x-2 xl:space-x-3'>
 				<Link href={'/light'}>
