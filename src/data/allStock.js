@@ -34,4 +34,5 @@ export const allStock = [
 	{ symbol: '2884', name: '玉山金' },
 	{ symbol: '2885', name: '元大金' },
 	{ symbol: '2886', name: '兆豐金' },
+	{ symbol: '3443', name: '創意' },
 ]

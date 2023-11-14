@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 
 import NewsPost from '@/components/News/NewsPost'
 import SearchInput from '@/components/News/SearchInput'
-import Loading from '@/components/ui/Loading'
+import Loading from '@/components/common/Loading'
 import SidebarBlock from '@/components/ui/SidebarBlock'
 
 export default function News() {
@@ -41,11 +41,7 @@ export default function News() {
 	useEffect(() => {
 		setIsLoading(true)
 		fetchAllNews()
-			.then(() => setIsLoading(false))
-			.catch((error) => {
-				console.error('error', error)
-				setIsLoading(false)
-			})
+		setIsLoading(false)
 	}, [page])
 
 	useEffect(() => {
@@ -71,7 +67,7 @@ export default function News() {
 						paginatedNews && paginatedNews.length > 0 ? (
 							paginatedNews.map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
-							<p className='text-stock_red dark:text-zinc-50'>No news available...</p>
+							<p className='text-stock_red dark:text-zinc-100'>No news available...</p>
 						)
 					) : (
 						<Loading />

@@ -33,8 +33,8 @@ export default function Header() {
 				{navigationLinks.map((page) => {
 					if (page.childPages.length > 0) {
 						return (
-							<>
-								<p className='cursor-pointer' key={page.url} onClick={handleClick}>
+							<div key={page.url}>
+								<p className='cursor-pointer' onClick={handleClick}>
 									<span>{page.name}</span>
 									<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
 								</p>
@@ -47,7 +47,7 @@ export default function Header() {
 										)
 									})}
 								</Menu>
-							</>
+							</div>
 						)
 					} else {
 						return (

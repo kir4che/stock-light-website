@@ -26,8 +26,8 @@ export default function BurgerMenu({ navigationLinks, userData }) {
 						{navigationLinks.map((page) => {
 							if (page.childPages.length > 0) {
 								return (
-									<>
-										<ListItemText primary={page.name} className='py-2 pl-4' key={page.url} />
+									<div key={page.url}>
+										<ListItemText primary={page.name} className='py-2 pl-4' />
 										{page.childPages.map((childPage) => {
 											return (
 												<ListItemButton key={childPage.url} onClick={toggleDrawer(false)}>
@@ -37,7 +37,7 @@ export default function BurgerMenu({ navigationLinks, userData }) {
 												</ListItemButton>
 											)
 										})}
-									</>
+									</div>
 								)
 							} else {
 								return (
