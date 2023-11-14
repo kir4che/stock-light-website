@@ -94,7 +94,7 @@ export default function Checkout() {
 		setSuccess(true)
 		setTimeout(() => {
 			const token = uuidv4()
-			router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate('-')}`)
+			router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate()}`)
 		}, 3000)
 	}
 
