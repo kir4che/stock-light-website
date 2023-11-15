@@ -16,11 +16,35 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 		return result
 	}
 
+	function calculateEMA(dayCount, data) {
+		var result = []
+		var multiplier = 2 / (dayCount + 1)
+		var sum = 0
+
+		for (var i = 0, len = data.length; i < len; i++) {
+			if (i < dayCount - 1) {
+				result.push('-')
+				sum += data[i][1]
+				continue
+			}
+
+			if (i === dayCount - 1) {
+				sum += data[i][1]
+				result.push(sum / dayCount)
+			} else {
+				var ema = (data[i][1] - result[i - 1]) * multiplier + result[i - 1]
+				result.push(ema)
+			}
+		}
+
+		return result
+	}
+
 	return {
 		legend: {
 			bottom: 8,
 			left: 'center',
-			data: ['MA5', 'MA10', 'MA20', 'MA30'],
+			data: ['MA5', 'MA10', 'MA20', 'MA60', 'MA240', 'EMA5'],
 		},
 		xAxis: [
 			{
@@ -146,7 +170,6 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				smooth: true,
 				lineStyle: {
 					width: 1.25,
-					type: 'dashed',
 					opacity: 1,
 				},
 			},
@@ -158,7 +181,6 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				smooth: true,
 				lineStyle: {
 					width: 1.25,
-					type: 'dashed',
 					opacity: 1,
 				},
 			},
@@ -170,19 +192,28 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				smooth: true,
 				lineStyle: {
 					width: 1.25,
-					type: 'dashed',
 					opacity: 1,
 				},
 			},
 			{
-				name: 'MA30',
+				name: 'MA60',
 				type: 'line',
-				data: calculateMA(30, priceData),
+				data: calculateMA(60, priceData),
 				showSymbol: false,
 				smooth: true,
 				lineStyle: {
 					width: 1.25,
-					type: 'dashed',
+					opacity: 1,
+				},
+			},
+			{
+				name: 'MA240',
+				type: 'line',
+				data: calculateMA(240, priceData),
+				showSymbol: false,
+				smooth: true,
+				lineStyle: {
+					width: 1.25,
 					opacity: 1,
 				},
 			},

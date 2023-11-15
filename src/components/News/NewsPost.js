@@ -1,13 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect } from 'react'
 
 export default function NewsPost({ news }) {
 	const coverImg = news.imageSrc.split(',')[0].replace(/1x$/, '').trim()
-
-	useEffect(() => {
-		console.log('coverImg', coverImg)
-	}, [])
 
 	return (
 		<article className='flex gap-6'>

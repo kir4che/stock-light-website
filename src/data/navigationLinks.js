@@ -9,8 +9,8 @@ export const navigationLinks = [
 		url: 'analysis',
 		childPages: [
 			{
-				name: '基本面',
-				url: 'fundament',
+				name: '基本面與技術分析',
+				url: 'fundamentandtechnical',
 			},
 			{
 				name: '天氣相關性',
