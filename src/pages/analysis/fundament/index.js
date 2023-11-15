@@ -1,7 +1,9 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import { ArrowDropUpIcon } from '@mui/icons-material/ArrowDropUp'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useEffect, useState } from 'react'
 
+import Chart from '@/components/Chart/Chart'
+import { candlestickOption } from '@/components/Chart/options/candlestickOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import StockSelect from '@/components/ui/StockSelector'
@@ -17,11 +19,18 @@ export default function FundamentalAnalysis() {
 	const [stockPePb, setStockPePb] = useState(null)
 	const [stockData, setStockData] = useState([null])
 
-	// 個股歷史價格資料
-	const [highestPriceData, setHighestPriceData] = useState([])
-	const [lowestPriceData, setLowestPriceData] = useState([])
-	const [openingPriceData, setOpeningPriceData] = useState([])
-	const [closingPriceData, setClosingPriceData] = useState([])
+	// 折線圖所需資料
+	const [dateData, setDateData] = useState([])
+	const [priceData, setPriceData] = useState([])
+	const [volumeData, setVolumeData] = useState([])
+	const [dataZoomRange, setDataZoomRange] = useState([0, 100])
+
+	const handleZoomButtonClick = (newZoomRange) => setDataZoomRange(newZoomRange)
+
+	function handleDataZoomChange(event) {
+		const newZoomRange = [event.start, event.end]
+		setDataZoomRange(newZoomRange)
+	}
 
 	const fetchStockPePb = async (stockId) => {
 		try {
@@ -39,8 +48,28 @@ export default function FundamentalAnalysis() {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/all/info`, { method: 'GET' })
 			let data = await response.json()
+
 			const filteredData = data.data.filter((stock) => stock.stock_id === stockId)
 			setStockData(filteredData)
+
+			const dates = filteredData.map((stock) => convertDateTime(stock.date).split(' ')[0])
+			setDateData(dates)
+
+			const highestPrices = filteredData.map((stock) => stock.highest_price)
+			const lowestPrices = filteredData.map((stock) => stock.lowest_price)
+			const openingPrices = filteredData.map((stock) => stock.opening_price)
+			const closingPrices = filteredData.map((stock) => stock.closing_price)
+
+			const combinedArray = highestPrices.map((_, index) => [
+				closingPrices[index],
+				openingPrices[index],
+				lowestPrices[index],
+				highestPrices[index],
+			])
+			setPriceData(combinedArray)
+
+			const volumes = filteredData.map((stock) => stock.trade_volume)
+			setVolumeData(volumes)
 		} catch (error) {
 			console.error('error', error)
 		}
@@ -74,7 +103,7 @@ export default function FundamentalAnalysis() {
 					</div>
 					<StockSelect value={selectedStockSymbol} onChange={(e) => setSelectedStockSymbol(e.target.value)} />
 				</div>
-				{/* 今日收盤價資訊 */}
+				{/* 當日收盤價資訊 */}
 				{stockData && stockData[stockData.length - 1] && (
 					<section className='flex items-baseline mb-4 space-x-1 tracking-wide'>
 						<p
@@ -108,8 +137,9 @@ export default function FundamentalAnalysis() {
 					</section>
 				)}
 				<div>
+					{/* 當日其他資訊 */}
 					{stockPePb && stockData && stockData[stockData.length - 1] && (
-						<section className='flex items-center mb-8 space-x-4'>
+						<section className='flex items-center space-x-4'>
 							<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
 								<span className='font-light'>成交量</span>
 								<span className='text-lg font-bold'>{numberComma(stockData[stockData.length - 1].trade_volume)}</span>
@@ -124,22 +154,65 @@ export default function FundamentalAnalysis() {
 							</button>
 						</section>
 					)}
+					{/* 當日各種圖表 */}
 					{!isLoading && stockData && stockData[stockData.length - 1] ? (
 						<div>
-							<p>公司名稱：{stockData[stockData.length - 1].name}</p>
-							<p>交易值：{stockData[stockData.length - 1].trade_value}</p>
-							<p>成交筆數：{stockData[stockData.length - 1].transaction}</p>
-							{/* <p>最高價：{stockData[0].highest_price}</p>
-									<p>最低價：{stockData[0].lowest_price}</p>
-									<p>開盤價：{stockData[0].opening_price}</p>
-									<p>收盤價：{stockData[0].closing_price}</p>
-									<p>價格變動：{stockData[0].change}</p> */}
+							<section className='flex mb-0.5 items-center justify-end space-x-1 text-sm font-light tracking-widest'>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleZoomButtonClick([99.7, 100])}
+								>
+									5D
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleZoomButtonClick([97.5, 100])}
+								>
+									1M
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleZoomButtonClick([94.5, 100])}
+								>
+									3M
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleZoomButtonClick([90, 100])}
+								>
+									6M
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleZoomButtonClick([80, 100])}
+								>
+									1Y
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleZoomButtonClick([40, 100])}
+								>
+									3Y
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleZoomButtonClick([0, 100])}
+								>
+									5Y
+								</button>
+							</section>
+							<Chart option={candlestickOption(dateData, priceData, volumeData, dataZoomRange, handleDataZoomChange)} />
 						</div>
 					) : (
 						<Loading />
 					)}
-					{/* <Chart option={lineOption(data)} /> */}
-					<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+					<p className='mt-8 text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 				</div>
 			</div>
 		</StarryBackground>
