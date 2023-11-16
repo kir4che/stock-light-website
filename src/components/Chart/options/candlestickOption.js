@@ -42,7 +42,7 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 
 	return {
 		legend: {
-			bottom: 8,
+			bottom: '1%',
 			left: 'center',
 			data: ['MA5', 'MA10', 'MA20', 'MA60', 'MA240', 'EMA5'],
 		},
@@ -221,15 +221,15 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 		grid: [
 			{
 				top: '6%',
-				left: '4.5%',
+				left: '4.75%',
 				right: '3%',
-				height: '56%',
+				height: '60%',
 			},
 			{
-				top: '67%',
+				top: '72%',
 				left: '4.5%',
 				right: '3%',
-				height: '16%',
+				height: '18%',
 			},
 		],
 		dataZoom: [
@@ -243,7 +243,7 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 			{
 				show: true,
 				xAxisIndex: [0, 1],
-				type: 'slider',
+				type: 'inside',
 				top: '85%',
 				left: '4%',
 				start: dataZoomRange[0],

@@ -1,7 +1,8 @@
 import ReactEcharts from 'echarts-for-react'
-import { useDarkMode } from '../../providers/DarkModeProvider'
 
-export default function Chart({ option, customHeight = 'h-72 sm:h-88 xl:h-[520px]' }) {
+import { useDarkMode } from '@/providers/DarkModeProvider'
+
+export default function Chart({ option, customHeight = 'h-88 xl:h-[540px] pl-2 md:pl-0' }) {
 	const { isDarkMode } = useDarkMode()
 
 	return (

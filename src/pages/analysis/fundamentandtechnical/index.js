@@ -88,7 +88,7 @@ export default function FundamentalAnalysis() {
 	return (
 		<StarryBackground className='w-full pt-8 pb-12 md:pt-10'>
 			<h2 className='mb-4 text-center text-zinc-100'>個股基本面與技術分析</h2>
-			<div className='w-full px-8 py-5 bg-white dark:bg-zinc-900/50 md:rounded'>
+			<div className='w-full px-4 py-5 bg-white md:px-8 dark:bg-zinc-900/50 md:rounded'>
 				<div className='flex-center-between'>
 					<div className='flex items-baseline mb-2 space-x-4'>
 						<h3 className='inline-flex items-baseline space-x-2'>
@@ -140,17 +140,17 @@ export default function FundamentalAnalysis() {
 				<div>
 					{/* 當日其他資訊 */}
 					{stockPePb && stockData && stockData[stockData.length - 1] && (
-						<section className='flex items-center space-x-4'>
+						<section className='flex items-center mb-2 space-x-4 overflow-x-scroll lg:mb-0'>
 							<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
 								<span className='font-light'>成交量</span>
 								<span className='text-lg font-bold'>{numberComma(stockData[stockData.length - 1].trade_volume)}</span>
 							</button>
 							<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
-								<span className='font-light'>本益比 P/E</span>
+								<span className='font-light'>本益比</span>
 								<span className='text-lg font-bold'>{stockPePb.p_e_ratio}</span>
 							</button>
 							<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
-								<span className='font-light'>本淨比 P/B</span>
+								<span className='font-light'>本淨比</span>
 								<span className='text-lg font-bold'>{stockPePb.p_b_ratio}</span>
 							</button>
 						</section>

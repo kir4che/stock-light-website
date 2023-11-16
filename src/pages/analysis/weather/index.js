@@ -50,7 +50,7 @@ export default function WeatherAnalysis() {
 	const [selectedTab, setSelectedTab] = useState(0)
 
 	const [selectedStockSymbol, setSelectedStockSymbol] = useState(1101)
-	const [selectedWeather, setSelectedWeather] = useState('sunny')
+	const [selectedWeatherType, setSelectedWeatherType] = useState('sunny')
 	const [weatherData, setWeatherData] = useState([])
 
 	const fetchWeatherPredict = async (type, stockId) => {
@@ -68,8 +68,8 @@ export default function WeatherAnalysis() {
 	}
 
 	useEffect(() => {
-		fetchWeatherPredict(selectedWeather, selectedStockSymbol)
-	}, [selectedStockSymbol, selectedWeather])
+		fetchWeatherPredict(selectedWeatherType, selectedStockSymbol)
+	}, [selectedStockSymbol, selectedWeatherType])
 
 	return (
 		<StarryBackground className={'w-full pt-8 pb-12 md:pt-10'}>
@@ -83,7 +83,7 @@ export default function WeatherAnalysis() {
 							}`}
 							key={index}
 							onClick={() => {
-								setSelectedWeather(weather.en_name.toLowerCase())
+								setSelectedWeatherType(weather.en_name.toLowerCase())
 								setSelectedTab(index)
 							}}
 						>
