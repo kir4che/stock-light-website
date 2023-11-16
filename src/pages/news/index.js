@@ -33,15 +33,15 @@ export default function News() {
 				return dateA - dateB
 			})
 			setAllNews(sortedNews)
+			setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
+			setIsLoading(false)
 		}
 	}
 
 	useEffect(() => {
-		setIsLoading(true)
 		fetchAllNews()
-		setIsLoading(false)
 	}, [page])
 
 	useEffect(() => {

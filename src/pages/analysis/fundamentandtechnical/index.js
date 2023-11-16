@@ -70,8 +70,11 @@ export default function FundamentalAnalysis() {
 
 			const volumes = filteredData.map((stock) => stock.trade_volume)
 			setVolumeData(volumes)
+
+			setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
+			setIsLoading(false)
 		}
 	}
 
@@ -80,12 +83,10 @@ export default function FundamentalAnalysis() {
 
 		fetchStockPePb(selectedStockSymbol)
 		fetchStockData(selectedStockSymbol)
-
-		setIsLoading(false)
 	}, [selectedStockSymbol])
 
 	return (
-		<StarryBackground className='w-full pt-8 pb-12 md:pt-10 '>
+		<StarryBackground className='w-full pt-8 pb-12 md:pt-10'>
 			<h2 className='mb-4 text-center text-zinc-100'>個股基本面與技術分析</h2>
 			<div className='w-full px-8 py-5 bg-white dark:bg-zinc-900/50 md:rounded'>
 				<div className='flex-center-between'>
