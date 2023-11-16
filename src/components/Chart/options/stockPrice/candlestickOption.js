@@ -40,7 +40,7 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 		return result
 	}
 
-	return {
+	const option = {
 		legend: {
 			bottom: '1%',
 			left: 'center',
@@ -252,4 +252,6 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 			},
 		],
 	}
+
+	return option
 }

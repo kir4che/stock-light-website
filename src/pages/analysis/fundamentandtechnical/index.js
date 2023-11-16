@@ -3,7 +3,8 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
-import { candlestickOption } from '@/components/Chart/options/candlestickOption'
+import { areaLineOption } from '@/components/Chart/options/stockPrice/areaLineOption'
+import { candlestickOption } from '@/components/Chart/options/stockPrice/candlestickOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import StockSelect from '@/components/ui/StockSelector'
@@ -19,9 +20,12 @@ export default function FundamentalAnalysis() {
 	const [stockPePb, setStockPePb] = useState(null)
 	const [stockData, setStockData] = useState([null])
 
+	const [stockPriceChart, setStockPriceChart] = useState(0)
+
 	// 折線圖所需資料
 	const [dateData, setDateData] = useState([])
 	const [priceData, setPriceData] = useState([])
+	const [closePriceData, setClosePriceData] = useState([])
 	const [volumeData, setVolumeData] = useState([])
 	const [dataZoomRange, setDataZoomRange] = useState([0, 100])
 
@@ -59,6 +63,7 @@ export default function FundamentalAnalysis() {
 			const lowestPrices = filteredData.map((stock) => stock.lowest_price)
 			const openingPrices = filteredData.map((stock) => stock.opening_price)
 			const closingPrices = filteredData.map((stock) => stock.closing_price)
+			setClosePriceData(closingPrices)
 
 			const combinedArray = highestPrices.map((_, index) => [
 				closingPrices[index],
@@ -157,59 +162,89 @@ export default function FundamentalAnalysis() {
 					)}
 					{/* 當日各種圖表 */}
 					{!isLoading && stockData && stockData[stockData.length - 1] ? (
-						<div>
-							<section className='flex mb-0.5 items-center justify-end space-x-1 text-sm font-light tracking-widest'>
-								<button
-									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-									onClick={() => handleZoomButtonClick([99.7, 100])}
-								>
-									5D
-								</button>
-								<span>｜</span>
-								<button
-									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-									onClick={() => handleZoomButtonClick([97.5, 100])}
-								>
-									1M
-								</button>
-								<span>｜</span>
-								<button
-									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-									onClick={() => handleZoomButtonClick([94.5, 100])}
-								>
-									3M
-								</button>
-								<span>｜</span>
-								<button
-									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-									onClick={() => handleZoomButtonClick([90, 100])}
-								>
-									6M
-								</button>
-								<span>｜</span>
-								<button
-									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-									onClick={() => handleZoomButtonClick([80, 100])}
-								>
-									1Y
-								</button>
-								<span>｜</span>
-								<button
-									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-									onClick={() => handleZoomButtonClick([40, 100])}
-								>
-									3Y
-								</button>
-								<span>｜</span>
-								<button
-									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-									onClick={() => handleZoomButtonClick([0, 100])}
-								>
-									5Y
-								</button>
-							</section>
-							<Chart option={candlestickOption(dateData, priceData, volumeData, dataZoomRange, handleDataZoomChange)} />
-						</div>
+						<>
+							<div className='flex items-baseline mt-2.5 mb-0.5 justify-between'>
+								<section className='space-x-2'>
+									<button
+										className='px-2 border shadow active:shadow-none active:bg-zinc-50'
+										onClick={() => setStockPriceChart(0)}
+									>
+										即時行情
+									</button>
+									<button
+										className='px-2 border shadow active:shadow-none active:bg-zinc-50'
+										onClick={() => setStockPriceChart(1)}
+									>
+										技術分析
+									</button>
+								</section>
+								<section className='flex items-center justify-end space-x-1 text-sm font-light tracking-widest'>
+									<button
+										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+										onClick={() => handleZoomButtonClick([99.7, 100])}
+									>
+										5D
+									</button>
+									<span>｜</span>
+									<button
+										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+										onClick={() => handleZoomButtonClick([97.5, 100])}
+									>
+										1M
+									</button>
+									<span>｜</span>
+									<button
+										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+										onClick={() => handleZoomButtonClick([94.5, 100])}
+									>
+										3M
+									</button>
+									<span>｜</span>
+									<button
+										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+										onClick={() => handleZoomButtonClick([90, 100])}
+									>
+										6M
+									</button>
+									<span>｜</span>
+									<button
+										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+										onClick={() => handleZoomButtonClick([80, 100])}
+									>
+										1Y
+									</button>
+									<span>｜</span>
+									<button
+										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+										onClick={() => handleZoomButtonClick([40, 100])}
+									>
+										3Y
+									</button>
+									<span>｜</span>
+									<button
+										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+										onClick={() => handleZoomButtonClick([0, 100])}
+									>
+										5Y
+									</button>
+								</section>
+							</div>
+							<Chart
+								option={
+									stockPriceChart === 0
+										? areaLineOption(
+												dateData,
+												priceData,
+												closePriceData,
+												volumeData,
+												dataZoomRange,
+												handleDataZoomChange
+										  )
+										: candlestickOption(dateData, priceData, volumeData, dataZoomRange, handleDataZoomChange)
+								}
+							/>
+							)
+						</>
 					) : (
 						<Loading />
 					)}
