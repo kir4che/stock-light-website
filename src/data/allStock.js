@@ -25,6 +25,7 @@ export const allStock = [
 	{ symbol: 2408, name: '南亞科' },
 	{ symbol: 2409, name: '友達' },
 	{ symbol: 2412, name: '中華電' },
+	{ symbol: 2454, name: '聯發科' },
 	{ symbol: 2474, name: '可成' },
 	{ symbol: 2801, name: '彰銀' },
 	{ symbol: 2880, name: '華南金' },
@@ -34,5 +35,6 @@ export const allStock = [
 	{ symbol: 2884, name: '玉山金' },
 	{ symbol: 2885, name: '元大金' },
 	{ symbol: 2886, name: '兆豐金' },
+	{ symbol: 3231, name: '緯創' },
 	{ symbol: 3443, name: '創意' },
 ]

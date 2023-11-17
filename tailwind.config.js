@@ -20,6 +20,7 @@ module.exports = {
 			},
 			width: {
 				25: '6.25rem',
+				'1/7': '14.286%',
 			},
 			height: {
 				screen: 'calc(100vh - 76px)',

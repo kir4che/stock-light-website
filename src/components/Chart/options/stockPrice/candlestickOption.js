@@ -1,5 +1,5 @@
 // K線圖
-export function candlestickOption(dateData, priceData, volumeData, dataZoomRange, handleDataZoomChange) {
+export function candlestickOption(dateData, priceData, volumeData, dataZoomRange, handleZoomChange) {
 	function calculateMA(dayCount, data) {
 		var result = []
 		for (var i = 0, len = data.length; i < len; i++) {
@@ -53,8 +53,6 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				boundaryGap: true,
 				axisLine: { onZero: false },
 				splitLine: { show: false },
-				min: 'dataMin',
-				max: 'dataMax',
 				axisPointer: {
 					z: 100,
 				},
@@ -238,7 +236,7 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				xAxisIndex: [0, 1],
 				start: dataZoomRange[0],
 				end: dataZoomRange[1],
-				onZoom: handleDataZoomChange,
+				onZoom: handleZoomChange,
 			},
 			{
 				show: true,
@@ -248,7 +246,7 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				left: '4%',
 				start: dataZoomRange[0],
 				end: dataZoomRange[1],
-				onZoom: handleDataZoomChange,
+				onZoom: handleZoomChange,
 			},
 		],
 	}
