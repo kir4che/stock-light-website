@@ -15,7 +15,7 @@ import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 import { numberComma } from '@/utils/numberComma'
-import { calculateADL } from '@/utils/technicalAnalysis/calculateADL'
+import { calculateADL } from '@/utils/technicalAnalysis'
 
 export default function FundamentalAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
@@ -111,7 +111,10 @@ export default function FundamentalAnalysis() {
 	}, [selectedStockSymbol])
 
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-	const handleTabSelect = (e, index) => setSelectedTabIndex(index)
+	const handleTabSelect = (e, index) => {
+		setSelectedTabIndex(index)
+		setTechAnalDataZoomRange([0, 100])
+	}
 
 	return (
 		<StarryBackground className='w-full pt-8 pb-12 md:pt-10'>

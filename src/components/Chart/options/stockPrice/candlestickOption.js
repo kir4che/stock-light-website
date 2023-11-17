@@ -1,45 +1,7 @@
+import { calculateMA } from '@/utils/technicalAnalysis'
+
 // K線圖
 export function candlestickOption(dateData, priceData, volumeData, dataZoomRange, handleZoomChange) {
-	function calculateMA(dayCount, data) {
-		var result = []
-		for (var i = 0, len = data.length; i < len; i++) {
-			if (i < dayCount) {
-				result.push('-')
-				continue
-			}
-			var sum = 0
-			for (var j = 0; j < dayCount; j++) {
-				sum += data[i - j][1]
-			}
-			result.push(Math.round((sum / dayCount) * 100) / 100)
-		}
-		return result
-	}
-
-	function calculateEMA(dayCount, data) {
-		var result = []
-		var multiplier = 2 / (dayCount + 1)
-		var sum = 0
-
-		for (var i = 0, len = data.length; i < len; i++) {
-			if (i < dayCount - 1) {
-				result.push('-')
-				sum += data[i][1]
-				continue
-			}
-
-			if (i === dayCount - 1) {
-				sum += data[i][1]
-				result.push(sum / dayCount)
-			} else {
-				var ema = (data[i][1] - result[i - 1]) * multiplier + result[i - 1]
-				result.push(ema)
-			}
-		}
-
-		return result
-	}
-
 	const option = {
 		legend: {
 			bottom: '1%',
