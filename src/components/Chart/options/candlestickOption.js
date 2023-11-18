@@ -87,26 +87,17 @@ export function candlestickOption(dateData, closePriceData, priceData, volumeDat
 				backgroundColor: '#777',
 			},
 		},
-		visualMap: {
-			show: false,
-			seriesIndex: 5,
-			dimension: 2,
-			pieces: [
-				{
-					value: 1,
-					color: '#EC0000',
-				},
-				{
-					value: -1,
-					color: '#00DA3C',
-				},
-			],
-		},
 		series: [
 			{
 				name: '日K',
 				type: 'candlestick',
 				data: priceData,
+				itemStyle: {
+					color: '#46B262',
+					color0: '#EB5554',
+					borderColor: '#46B262',
+					borderColor0: '#EB5554',
+				},
 			},
 			{
 				name: '成交量',
@@ -116,7 +107,7 @@ export function candlestickOption(dateData, closePriceData, priceData, volumeDat
 				data: volumeData,
 				itemStyle: {
 					color: function (params) {
-						var colorList = priceData.map((item) => (item[0] >= item[1] ? '#46B262' : '#EB5554'))
+						var colorList = priceData.map((item) => (item[0] >= item[1] ? '#EB5554' : '#46B262'))
 						return colorList[params.dataIndex]
 					},
 				},

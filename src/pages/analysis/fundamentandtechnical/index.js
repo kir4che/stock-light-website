@@ -22,7 +22,6 @@ export default function FundamentalAnalysis() {
 	const [selectedStockSymbol, setSelectedStockSymbol] = useState(1101)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 	const [selectedMenu, setSelectedMenu] = useState('')
-	const [selectedMenu2, setSelectedMenu2] = useState('')
 	const [stockPePb, setStockPePb] = useState(null)
 	const [stockData, setStockData] = useState([null])
 
@@ -169,7 +168,7 @@ export default function FundamentalAnalysis() {
 						value={selectedTabIndex}
 						onChange={handleTabSelect}
 						className='mt-4 bg-white rounded dark:bg-zinc-800'
-						scrollButtons
+						scrollButtons={false}
 					>
 						{['股價走勢', '技術指標'].map((item, index) => (
 							<Tab
@@ -381,20 +380,13 @@ export default function FundamentalAnalysis() {
 						</>
 					)}
 					{/* 技術指標 */}
-					{/* 日期區間 */}
 					{selectedTabIndex === 1 && (
 						<>
-							<div className='mt-4 -mb-8 space-x-3'>
+							<div className='mt-4 -mb-8'>
 								<SelectMenu
 									data={['', 'MACD', '騰落指標 ADL', '乖離率']}
 									value={selectedMenu}
 									onChange={(e) => setSelectedMenu(e.target.value)}
-									minWidth={120}
-								/>
-								<SelectMenu
-									data={['', 'MACD', '騰落指標 ADL', '乖離率']}
-									value={selectedMenu2}
-									onChange={(e) => setSelectedMenu2(e.target.value)}
 									minWidth={120}
 								/>
 							</div>

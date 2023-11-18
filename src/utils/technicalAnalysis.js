@@ -1,3 +1,4 @@
+// 移動平均線
 export function calculateMA(dayCount, data) {
 	let result = []
 
@@ -18,6 +19,7 @@ export function calculateMA(dayCount, data) {
 	return result
 }
 
+// 布林通道：正確性不確定，好像有算錯，暫不放。
 // export function calculateBoll(MA) {
 // 	let roundedUpper = [],
 // 		roundedLower = []
@@ -56,6 +58,7 @@ export function calculateEMA(dayCount, data) {
 	return result
 }
 
+// 騰落指標
 export function calculateADL(closes, highs, lows, volumes) {
 	let adl = []
 
@@ -74,9 +77,9 @@ export function calculateADL(closes, highs, lows, volumes) {
 	return adl
 }
 
-function standardDeviation(arr) {
-	const mean = arr.reduce((acc, val) => acc + val, 0) / arr.length
-	return Math.sqrt(
-		arr.reduce((acc, val) => acc.concat((val - mean) ** 2), []).reduce((acc, val) => acc + val, 0) / (arr.length - 1)
-	)
-}
+// function standardDeviation(arr) {
+// 	const mean = arr.reduce((acc, val) => acc + val, 0) / arr.length
+// 	return Math.sqrt(
+// 		arr.reduce((acc, val) => acc.concat((val - mean) ** 2), []).reduce((acc, val) => acc + val, 0) / (arr.length - 1)
+// 	)
+// }
