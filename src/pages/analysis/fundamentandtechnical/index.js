@@ -4,8 +4,19 @@ import { Tab, Tabs } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
-import { areaLineOption } from '@/components/Chart/options/areaLineOption'
-import { candlestickOptionByBoll, candlestickOptionByMA } from '@/components/Chart/options/candlestickOption'
+import {
+	candlestickOptionByBoll,
+	candlestickOptionByEMA,
+	candlestickOptionByMA,
+} from '@/components/Chart/options/candlestickOption'
+import { stockPriceLineOption } from '@/components/Chart/options/stockPriceLineOption'
+import {
+	adlOption,
+	kdOption,
+	macdOption,
+	rsiOption,
+	williamOption,
+} from '@/components/Chart/options/technicalAnalOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import SelectMenu from '@/components/ui/SelectMenu'
@@ -22,7 +33,7 @@ export default function FundamentalAnalysis() {
 	const [selectedStockSymbol, setSelectedStockSymbol] = useState(1101)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 	const [selectedMenu, setSelectedMenu] = useState('')
-	const [selectedMenu2, setSelectedMenu2] = useState('')
+	const [subchart, setSubchart] = useState('')
 	const [stockPePb, setStockPePb] = useState(null)
 	const [stockData, setStockData] = useState([null])
 
@@ -187,7 +198,7 @@ export default function FundamentalAnalysis() {
 								<>
 									<section className='flex items-start gap-6'>
 										<Chart
-											option={areaLineOption(
+											option={stockPriceLineOption(
 												dateData,
 												priceData,
 												closePriceData,
@@ -382,21 +393,21 @@ export default function FundamentalAnalysis() {
 					{/* 技術指標 */}
 					{selectedTabIndex === 1 && (
 						<>
-							<div className='mt-4 -mb-8 space-x-3'>
-								<SelectMenu
-									data={['MA', '布林']}
-									value={selectedMenu}
-									onChange={(e) => setSelectedMenu(e.target.value)}
-									minWidth={120}
-								/>
-								<SelectMenu
-									data={['', 'MACD', '騰落指標 ADL', '乖離率']}
-									value={selectedMenu2}
-									onChange={(e) => setSelectedMenu2(e.target.value)}
-									minWidth={120}
-								/>
-							</div>
-							<div className='flex items-baseline mt-2.5 mb-0.5 ml-auto w-fit'>
+							<div className='flex items-end justify-between mt-2.5 mb-2'>
+								<section className='space-x-3'>
+									<SelectMenu
+										data={['MA', 'EMA', '布林']}
+										value={selectedMenu}
+										onChange={(e) => setSelectedMenu(e.target.value)}
+										minWidth={120}
+									/>
+									<SelectMenu
+										data={['', 'MACD', 'KD', '騰落指標 ADL', '乖離率']}
+										value={subchart}
+										onChange={(e) => setSubchart(e.target.value)}
+										minWidth={120}
+									/>
+								</section>
 								<section className='flex items-center justify-end space-x-1 text-sm font-light tracking-widest'>
 									<button
 										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
@@ -448,31 +459,74 @@ export default function FundamentalAnalysis() {
 									</button>
 								</section>
 							</div>
-							{selectedMenu !== '布林' ? (
+							<div className='space-y-4'>
 								<Chart
-									option={candlestickOptionByMA(
+									option={
+										selectedMenu !== '布林'
+											? selectedMenu !== 'EMA'
+												? candlestickOptionByMA(
+														dateData,
+														closePriceData,
+														priceData,
+														volumeData,
+														techAnalDataZoomRange,
+														handleTechAnalDataZoomChange
+												  )
+												: candlestickOptionByEMA(
+														dateData,
+														closePriceData,
+														priceData,
+														volumeData,
+														techAnalDataZoomRange,
+														handleTechAnalDataZoomChange
+												  )
+											: candlestickOptionByBoll(
+													dateData,
+													closePriceData,
+													priceData,
+													volumeData,
+													techAnalDataZoomRange,
+													handleTechAnalDataZoomChange
+											  )
+									}
+									customHeight='h-72 md:h-80 xl:h-[450px]'
+								/>
+								<Chart
+									option={macdOption(dateData, closePriceData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
+									customHeight='h-56 md:h-64 xl:h-[320px]'
+								/>
+								<Chart
+									option={kdOption(
 										dateData,
 										closePriceData,
-										priceData,
+										lowPriceData,
+										highPriceData,
+										techAnalDataZoomRange,
+										handleTechAnalDataZoomChange
+									)}
+									customHeight='h-56 md:h-64 xl:h-[320px]'
+								/>
+								<Chart
+									option={rsiOption(dateData, closePriceData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
+									customHeight='h-56 md:h-64 xl:h-[320px]'
+								/>
+								<Chart
+									option={williamOption(dateData, closePriceData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
+									customHeight='h-56 md:h-64 xl:h-[320px]'
+								/>
+								<Chart
+									option={adlOption(
+										dateData,
+										closePriceData,
+										lowPriceData,
+										highPriceData,
 										volumeData,
 										techAnalDataZoomRange,
 										handleTechAnalDataZoomChange
 									)}
-									customHeight='h-72 md:h-80 xl:h-[450px]'
+									customHeight='h-56 md:h-64 xl:h-[320px]'
 								/>
-							) : (
-								<Chart
-									option={candlestickOptionByBoll(
-										dateData,
-										closePriceData,
-										priceData,
-										volumeData,
-										techAnalDataZoomRange,
-										handleTechAnalDataZoomChange
-									)}
-									customHeight='h-72 md:h-80 xl:h-[450px]'
-								/>
-							)}
+							</div>
 						</>
 					)}
 					<p className='mt-8 text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>

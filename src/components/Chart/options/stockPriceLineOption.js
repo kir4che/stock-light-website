@@ -1,5 +1,11 @@
-// 面積折線圖
-export function areaLineOption(dateData, priceData, closePriceData, volumeData, dataZoomRange, handleDataZoomChange) {
+export function stockPriceLineOption(
+	dateData,
+	priceData,
+	closePriceData,
+	volumeData,
+	dataZoomRange,
+	handleDataZoomChange
+) {
 	const option = {
 		legend: {
 			data: [],
