@@ -55,17 +55,6 @@ export function areaLineOption(dateData, priceData, closePriceData, volumeData, 
 				color: '#000',
 			},
 		},
-		axisPointer: {
-			link: [
-				{
-					xAxisIndex: 'all',
-				},
-			],
-			label: {
-				backgroundColor: '#777',
-			},
-		},
-
 		series: [
 			{
 				name: '收盤價',
@@ -107,6 +96,16 @@ export function areaLineOption(dateData, priceData, closePriceData, volumeData, 
 				},
 			},
 		],
+		axisPointer: {
+			link: [
+				{
+					xAxisIndex: 'all',
+				},
+			],
+			label: {
+				backgroundColor: '#777',
+			},
+		},
 		grid: [
 			{
 				top: '6%',

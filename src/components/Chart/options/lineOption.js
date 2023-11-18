@@ -29,16 +29,6 @@ export function lineOption(data, dateData, dataZoomRange, handleZoomChange) {
 				color: '#000',
 			},
 		},
-		axisPointer: {
-			link: [
-				{
-					xAxisIndex: 'all',
-				},
-			],
-			label: {
-				backgroundColor: '#777',
-			},
-		},
 		dataZoom: [
 			{
 				type: 'inside',

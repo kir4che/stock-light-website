@@ -1,12 +1,11 @@
 import { calculateMA } from '@/utils/technicalAnalysis'
 
-// K線圖
-export function candlestickOption(dateData, priceData, volumeData, dataZoomRange, handleZoomChange) {
+export function candlestickOption(dateData, closePriceData, priceData, volumeData, dataZoomRange, handleZoomChange) {
 	const option = {
 		legend: {
 			bottom: '1%',
 			left: 'center',
-			data: ['MA5', 'MA10', 'MA20', 'MA60', 'MA240', 'EMA5'],
+			data: ['5MA', '10MA', '20MA', '60MA', '120MA', '240MA'],
 		},
 		xAxis: [
 			{
@@ -61,16 +60,6 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				color: '#000',
 			},
 		},
-		axisPointer: {
-			link: [
-				{
-					xAxisIndex: 'all',
-				},
-			],
-			label: {
-				backgroundColor: '#777',
-			},
-		},
 		toolbox: {
 			feature: {
 				dataZoom: {
@@ -86,6 +75,16 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 			brushLink: 'all',
 			outOfBrush: {
 				colorAlpha: 0.1,
+			},
+		},
+		axisPointer: {
+			link: [
+				{
+					xAxisIndex: 'all',
+				},
+			],
+			label: {
+				backgroundColor: '#777',
 			},
 		},
 		visualMap: {
@@ -123,9 +122,9 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				},
 			},
 			{
-				name: 'MA5',
+				name: '5MA',
 				type: 'line',
-				data: calculateMA(5, priceData),
+				data: calculateMA(5, closePriceData),
 				showSymbol: false,
 				smooth: true,
 				lineStyle: {
@@ -134,9 +133,9 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				},
 			},
 			{
-				name: 'MA10',
+				name: '10MA',
 				type: 'line',
-				data: calculateMA(10, priceData),
+				data: calculateMA(10, closePriceData),
 				showSymbol: false,
 				smooth: true,
 				lineStyle: {
@@ -145,9 +144,9 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				},
 			},
 			{
-				name: 'MA20',
+				name: '20MA',
 				type: 'line',
-				data: calculateMA(20, priceData),
+				data: calculateMA(20, closePriceData),
 				showSymbol: false,
 				smooth: true,
 				lineStyle: {
@@ -156,9 +155,9 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				},
 			},
 			{
-				name: 'MA60',
+				name: '60MA',
 				type: 'line',
-				data: calculateMA(60, priceData),
+				data: calculateMA(60, closePriceData),
 				showSymbol: false,
 				smooth: true,
 				lineStyle: {
@@ -167,9 +166,20 @@ export function candlestickOption(dateData, priceData, volumeData, dataZoomRange
 				},
 			},
 			{
-				name: 'MA240',
+				name: '120MA',
 				type: 'line',
-				data: calculateMA(240, priceData),
+				data: calculateMA(120, closePriceData),
+				showSymbol: false,
+				smooth: true,
+				lineStyle: {
+					width: 1.25,
+					opacity: 1,
+				},
+			},
+			{
+				name: '240MA',
+				type: 'line',
+				data: calculateMA(240, closePriceData),
 				showSymbol: false,
 				smooth: true,
 				lineStyle: {
