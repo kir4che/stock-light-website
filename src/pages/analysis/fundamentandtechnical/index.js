@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import { areaLineOption } from '@/components/Chart/options/areaLineOption'
-import { candlestickOption } from '@/components/Chart/options/candlestickOption'
+import { candlestickOptionByBoll, candlestickOptionByMA } from '@/components/Chart/options/candlestickOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import SelectMenu from '@/components/ui/SelectMenu'
@@ -22,6 +22,7 @@ export default function FundamentalAnalysis() {
 	const [selectedStockSymbol, setSelectedStockSymbol] = useState(1101)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 	const [selectedMenu, setSelectedMenu] = useState('')
+	const [selectedMenu2, setSelectedMenu2] = useState('')
 	const [stockPePb, setStockPePb] = useState(null)
 	const [stockData, setStockData] = useState([null])
 
@@ -81,7 +82,6 @@ export default function FundamentalAnalysis() {
 
 			const closingPrices = filteredData.map((stock) => stock.closing_price)
 			setClosePriceData(closingPrices)
-			console.log('closingPrices', closingPrices)
 			const openingPrices = filteredData.map((stock) => stock.opening_price)
 			setOpenPriceData(openingPrices)
 			const highestPrices = filteredData.map((stock) => stock.highest_price)
@@ -382,11 +382,17 @@ export default function FundamentalAnalysis() {
 					{/* 技術指標 */}
 					{selectedTabIndex === 1 && (
 						<>
-							<div className='mt-4 -mb-8'>
+							<div className='mt-4 -mb-8 space-x-3'>
 								<SelectMenu
-									data={['', 'MACD', '騰落指標 ADL', '乖離率']}
+									data={['MA', '布林']}
 									value={selectedMenu}
 									onChange={(e) => setSelectedMenu(e.target.value)}
+									minWidth={120}
+								/>
+								<SelectMenu
+									data={['', 'MACD', '騰落指標 ADL', '乖離率']}
+									value={selectedMenu2}
+									onChange={(e) => setSelectedMenu2(e.target.value)}
 									minWidth={120}
 								/>
 							</div>
@@ -442,17 +448,31 @@ export default function FundamentalAnalysis() {
 									</button>
 								</section>
 							</div>
-							<Chart
-								option={candlestickOption(
-									dateData,
-									closePriceData,
-									priceData,
-									volumeData,
-									techAnalDataZoomRange,
-									handleTechAnalDataZoomChange
-								)}
-								customHeight='h-72 md:h-80 xl:h-[450px]'
-							/>
+							{selectedMenu !== '布林' ? (
+								<Chart
+									option={candlestickOptionByMA(
+										dateData,
+										closePriceData,
+										priceData,
+										volumeData,
+										techAnalDataZoomRange,
+										handleTechAnalDataZoomChange
+									)}
+									customHeight='h-72 md:h-80 xl:h-[450px]'
+								/>
+							) : (
+								<Chart
+									option={candlestickOptionByBoll(
+										dateData,
+										closePriceData,
+										priceData,
+										volumeData,
+										techAnalDataZoomRange,
+										handleTechAnalDataZoomChange
+									)}
+									customHeight='h-72 md:h-80 xl:h-[450px]'
+								/>
+							)}
 						</>
 					)}
 					<p className='mt-8 text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
