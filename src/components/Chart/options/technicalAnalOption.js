@@ -1,18 +1,18 @@
-import { calculateADL, calculateRSI, calculateWilliam } from '@/utils/technicalAnal'
-import { macd } from 'finmath'
+import { calculateADL, calculateBias, calculateRSI, calculateWilliam } from '@/utils/technicalAnal'
+import { ma, macd } from 'finmath'
 import kdj from 'kdj'
 
 export function macdOption(dateData, closePriceData, dataZoomRange, handleDataZoomChange) {
 	const option = {
 		title: {
-			text: 'MACD',
+			text: '指數平滑異同移動平均線 MACD',
 			left: 'center',
 			top: '2.5%',
 		},
 		legend: {
 			bottom: '2%',
 			left: 'center',
-			data: ['MACD', 'DIF', 'D - M'],
+			data: ['MACD', 'DIF', 'D-M'],
 		},
 		xAxis: [
 			{
@@ -49,12 +49,9 @@ export function macdOption(dateData, closePriceData, dataZoomRange, handleDataZo
 				itemStyle: {
 					normal: {
 						color: function (params) {
-							var colorList
-							if (params.data >= 0) {
-								colorList = '#EB5554'
-							} else {
-								colorList = '#46B262'
-							}
+							let colorList
+							if (params.data >= 0) colorList = '#EB5554'
+							else colorList = '#46B262'
 							return colorList
 						},
 					},
@@ -98,7 +95,7 @@ export function macdOption(dateData, closePriceData, dataZoomRange, handleDataZo
 export function kdOption(dateData, closePriceData, lowPriceData, highPriceData, dataZoomRange, handleDataZoomChange) {
 	const option = {
 		title: {
-			text: 'KD',
+			text: '隨機指標 KD',
 			left: 'center',
 			top: '2.5%',
 		},
@@ -170,7 +167,7 @@ export function kdOption(dateData, closePriceData, lowPriceData, highPriceData, 
 export function rsiOption(dateData, closePriceData, dataZoomRange, handleDataZoomChange) {
 	const option = {
 		title: {
-			text: 'RSI',
+			text: '相對強弱指數 RSI',
 			left: 'center',
 			top: '2.5%',
 		},
@@ -263,6 +260,95 @@ export function williamOption(dateData, closePriceData, dataZoomRange, handleDat
 				symbol: 'none',
 				data: calculateWilliam(closePriceData),
 				color: '#40B4FF',
+			},
+		],
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: {
+				type: 'cross',
+			},
+			borderWidth: 1,
+			borderColor: '#ccc',
+			padding: 10,
+			textStyle: {
+				color: '#000',
+			},
+		},
+		grid: [
+			{
+				top: '12%',
+				left: '4.75%',
+				right: '3%',
+				height: '68%',
+			},
+		],
+		dataZoom: [
+			{
+				type: 'inside',
+				xAxisIndex: [0, 1],
+				start: dataZoomRange[0],
+				end: dataZoomRange[1],
+				onZoom: handleDataZoomChange,
+			},
+		],
+	}
+
+	return option
+}
+
+export function biasOption(dateData, closePriceData, dataZoomRange, handleDataZoomChange) {
+	const option = {
+		title: {
+			text: '乖離率 BIAS',
+			left: 'center',
+			top: '2.5%',
+		},
+		legend: {
+			bottom: '2%',
+			left: 'center',
+			data: ['BIAS10', 'BIAS20', 'B10-B20'],
+		},
+		xAxis: [
+			{
+				type: 'category',
+				data: dateData,
+			},
+		],
+		yAxis: {
+			type: 'value',
+			scale: true,
+		},
+		series: [
+			{
+				name: 'BIAS10',
+				type: 'line',
+				symbol: 'none',
+				data: calculateBias(closePriceData, ma(closePriceData, 10), 10),
+				color: '#40B4FF',
+			},
+			{
+				name: 'BIAS20',
+				type: 'line',
+				symbol: 'none',
+				data: calculateBias(closePriceData, ma(closePriceData, 20), 20),
+				color: '#FFDE6B',
+			},
+			{
+				name: 'B10-B20',
+				type: 'bar',
+				data: calculateBias(closePriceData, ma(closePriceData, 10), 10)
+					.map((value, index) => value - calculateBias(closePriceData, ma(closePriceData, 20), 20)[index])
+					.map((value) => Math.round(value * 100) / 100),
+				itemStyle: {
+					normal: {
+						color: function (params) {
+							let colorList
+							if (params.data >= 0) colorList = '#EB5554'
+							else colorList = '#71717a'
+							return colorList
+						},
+					},
+				},
 			},
 		],
 		tooltip: {

@@ -1,30 +1,24 @@
+// 相對強弱指數（待修正）
 export function calculateRSI(closes, period) {
-	const rsiValues = []
+	let rsis = [],
+		avgU = 0,
+		avgD = 0
 
-	for (let i = period; i <= closes.length; i++) {
-		const gains = [],
-			losses = []
+	for (let i = 0; i < period; i++) rsis.push('-')
 
-		for (let j = i - period; j < i; j++) {
-			const priceDiff = closes[j] - closes[j - 1]
-
-			if (priceDiff > 0) gains.push(priceDiff)
-			else if (priceDiff < 0) losses.push(Math.abs(priceDiff))
-		}
-
-		const averageGain = gains.reduce((sum, gain) => sum + gain, 0) / period
-		const averageLoss = losses.reduce((sum, loss) => sum + loss, 0) / period
-
-		const relativeStrength = averageGain / averageLoss
-		const rsi = Math.round((100 - 100 / (1 + relativeStrength)) * 100) / 100
-
-		rsiValues.push(rsi)
+	for (let i = period; i < closes.length; i++) {
+		if (closes[i] > closes[i - 1]) avgU += closes[i] - closes[i - 1]
+		else avgD += closes[i - 1] - closes[i]
 	}
 
-	return rsiValues
+	let rs = avgU / avgD
+	rsis.push(100 - 100 / (1 + rs))
+
+	return rsis
 }
 
-export function calculateWilliam(closes, highs, lows) {
+// 威廉指標
+export function calculateWilliam(closes) {
 	let william = []
 
 	const highestHigh = Math.max(...closes)
@@ -36,6 +30,16 @@ export function calculateWilliam(closes, highs, lows) {
 	}
 
 	return william
+}
+
+// 乖離率
+export function calculateBias(closes, ma, period) {
+	return closes.map((close, i) => {
+		if (i < period - 1) return '-'
+
+		const biasValue = ((close - ma[i]) / ma[i]) * 100
+		return isNaN(biasValue) ? '-' : Math.round(biasValue * 100) / 100
+	})
 }
 
 // 騰落指標

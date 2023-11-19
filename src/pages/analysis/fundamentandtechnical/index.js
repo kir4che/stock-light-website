@@ -12,6 +12,7 @@ import {
 import { stockPriceLineOption } from '@/components/Chart/options/stockPriceLineOption'
 import {
 	adlOption,
+	biasOption,
 	kdOption,
 	macdOption,
 	rsiOption,
@@ -402,7 +403,7 @@ export default function FundamentalAnalysis() {
 										minWidth={120}
 									/>
 									<SelectMenu
-										data={['', 'MACD', 'KD', '騰落指標 ADL', '乖離率']}
+										data={['', 'MACD', 'KD', 'RSI', '騰落指標 ADL', '乖離率']}
 										value={subchart}
 										onChange={(e) => setSubchart(e.target.value)}
 										minWidth={120}
@@ -512,6 +513,10 @@ export default function FundamentalAnalysis() {
 								/>
 								<Chart
 									option={williamOption(dateData, closePriceData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
+									customHeight='h-56 md:h-64 xl:h-[320px]'
+								/>
+								<Chart
+									option={biasOption(dateData, closePriceData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
 									customHeight='h-56 md:h-64 xl:h-[320px]'
 								/>
 								<Chart
