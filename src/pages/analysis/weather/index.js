@@ -5,7 +5,9 @@ import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import StockSelect from '@/components/ui/StockSelector'
 import { allStock } from '@/data/allStock'
-import Chart from '@/components/Chart/Chart'
+import { getCurrentDate } from '@/utils/getCurrentDate'
+import { convertDateTime } from '@/utils/convertDateTime'
+import { DataGrid } from '@mui/x-data-grid'
 
 const WeatherSidebar = [
 	{
@@ -49,6 +51,42 @@ const WeatherSidebar = [
 	},
 ]
 
+const columns = [
+	{ field: 'stock_id', headerName: '代號', flex: 1 },
+	{ field: 'stock_name', headerName: '股票', flex: 1 },
+	{
+		field: 'price',
+		headerName: '股價',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		valueFormatter: (params) => `${params.value.toFixed(2)}`,
+		cellClassName: (params) => {
+			const changeValue = params.row.quote_change || 0
+			return changeValue > 0 ? 'text-stock_red' : changeValue < 0 ? 'text-stock_green' : ''
+		},
+	},
+	{
+		field: 'volume',
+		headerName: '交易量',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		valueFormatter: (params) => {
+			const volume = params.value || 0
+			return volume.toLocaleString()
+		},
+	},
+	{
+		field: 'correlation',
+		headerName: '相關係數',
+		headerAlign: 'right',
+		align: 'right',
+		flex: 1,
+		valueFormatter: (params) => `${params.value.toFixed(2)}`,
+	}
+]
+
 export default function WeatherAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
 
@@ -57,6 +95,7 @@ export default function WeatherAnalysis() {
 	const [selectedStockSymbol, setSelectedStockSymbol] = useState(1101)
 	const [selectedWeatherType, setSelectedWeatherType] = useState('sunny')
 	const [weatherData, setWeatherData] = useState([])
+	const [stockData, setStockData] = useState([null])
 
 	const fetchWeatherPredict = async (type, stockId) => {
 		try {
@@ -65,6 +104,11 @@ export default function WeatherAnalysis() {
 			})
 			const data = await response.json()
 			console.log('data', data)
+			const filteredData = data.data.filter((stock) => stock.stock_id === stockId)
+			setStockData(filteredData)
+			const dates = filteredData.map((stock) => convertDateTime(stock.date).split(' ')[0])
+			setDateData(dates)
+
 			setWeatherData(data)
 			setIsLoading(false)
 		} catch (error) {
@@ -115,10 +159,27 @@ export default function WeatherAnalysis() {
 									{WeatherSidebar[selectedTab].ch_name}
 								</p>
 							</Popover>
+							<p className='text-xs font-medium tracking-wide opacity-70'>
+								{stockData && stockData[stockData.length - 1]
+									? convertDateTime(stockData[stockData.length - 1].date)
+									: getCurrentDate()}{' '}
+								更新
+							</p>
 						</div>
 						<StockSelect value={selectedStockSymbol} onChange={(e) => setSelectedStockSymbol(e.target.value)} />
 					</div>
-					{!isLoading ? <section></section> : <Loading />}
+					{!isLoading ?
+						<section className='flex items-start gap-3 '>
+							{/* 先放著，還在想要怎麼呈現，突然想到這邊是個股怪怪的 */}
+								<DataGrid
+									sx={{ height: 120, pl: 3, pr: 3, pt: 0.5, pb: 1}}
+									rows={[]}
+									columns={columns}
+									className='my-8 bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
+									hideFooter
+								/>
+						</section> : <Loading />}
+					<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 				</section>
 			</div>
 		</StarryBackground>
