@@ -1,18 +1,21 @@
-// 相對強弱指數（待修正）
-export function calculateRSI(closes, period) {
-	let rsis = [],
-		avgU = 0,
-		avgD = 0
+// 相對強弱指數
+export function calculateRSI(change, period) {
+	let rsis = []
+	let upSum = 0,
+		downSum = 0
 
-	for (let i = 0; i < period; i++) rsis.push('-')
+	for (let i = change.length - 1; i >= 0; i--) {
+		for (let j = 0; j < period; j++) {
+			if (change[i - j] > 0) upSum += change[i - j]
+			else downSum += Math.abs(change[i - j])
+		}
 
-	for (let i = period; i < closes.length; i++) {
-		if (closes[i] > closes[i - 1]) avgU += closes[i] - closes[i - 1]
-		else avgD += closes[i - 1] - closes[i]
+		let rs = upSum / period / (downSum / period)
+		rsis.push(100 * (rs / (1 + rs)))
 	}
 
-	let rs = avgU / avgD
-	rsis.push(100 - 100 / (1 + rs))
+	for (let i = 0; i < period; i++) rsis.push('-')
+	rsis = rsis.reverse()
 
 	return rsis
 }

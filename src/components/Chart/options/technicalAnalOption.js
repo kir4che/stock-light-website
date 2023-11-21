@@ -164,7 +164,7 @@ export function kdOption(dateData, closePriceData, lowPriceData, highPriceData, 
 	return option
 }
 
-export function rsiOption(dateData, closePriceData, dataZoomRange, handleDataZoomChange) {
+export function rsiOption(dateData, changeData, dataZoomRange, handleDataZoomChange) {
 	const option = {
 		title: {
 			text: '相對強弱指數 RSI',
@@ -191,14 +191,14 @@ export function rsiOption(dateData, closePriceData, dataZoomRange, handleDataZoo
 				name: 'RSI5',
 				type: 'line',
 				symbol: 'none',
-				data: calculateRSI(closePriceData, 5),
+				data: calculateRSI(changeData, 5),
 				color: '#40B4FF',
 			},
 			{
 				name: 'RSI10',
 				type: 'line',
 				symbol: 'none',
-				data: calculateRSI(closePriceData, 10),
+				data: calculateRSI(changeData, 10),
 				color: '#FFDE6B',
 			},
 		],
