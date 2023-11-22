@@ -1,67 +1,19 @@
 'use client'
 
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
 
-import Chart from '@/components/Chart/Chart'
-import { candlestickOption } from '@/components/Chart/options/candlestickOption'
+import TaiexChart from '@/components/Analysis/TaiexChart'
 import Hero from '@/components/common/Hero'
-import Loading from '@/components/common/Loading'
 import { FlexCard } from '@/components/ui/FlexCard'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
-import Taiexchart from '@/components/Analysis/Taiexchart'
-import GoogleSearch from '@/components/News/googlesearch'
-
 
 export default function Home() {
 	const router = useRouter()
 
-	const [isLoading, setIsLoading] = useState(true)
-
-	const [dateData, setDateData] = useState([])
-	const [priceData, setPriceData] = useState([])
-
-	const fetchTaiexData = async () => {
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/taiex/all`, { method: 'GET' })
-			let data = await response.json()
-
-			const dates = data.map((item) => item.date.split('T')[0]).reverse()
-			setDateData(dates)
-
-			const closingIndexs = data.map((item) => item.closing_index).reverse()
-			const openingIndexs = data.map((item) => item.opening_index).reverse()
-			const lowestIndexs = data.map((item) => item.lowest_index).reverse()
-			const highestIndexs = data.map((item) => item.highest_index).reverse()
-
-			const combinedArray = highestIndexs.map((_, index) => [
-				closingIndexs[index],
-				openingIndexs[index],
-				lowestIndexs[index],
-				highestIndexs[index],
-			])
-			setPriceData(combinedArray)
-
-			setIsLoading(false)
-		} catch (error) {
-			console.error('error', error)
-		}
-	}
-
-	useEffect(() => {
-		setIsLoading(true)
-		fetchTaiexData()
-	}, [])
-
 	return (
 		<>
 			<Hero />
-			<h4 className='mt-6 mb-3'>台股大盤加權指數走勢</h4>
-			{!isLoading ? (
-				<Chart option={candlestickOption(dateData, priceData)} customHeight='h-72 md:h-80 xl:h-[480px]' />
-			) : (
-				<Loading />
-			)}
+			<TaiexChart />
 			<div className='flex flex-col gap-8 mt-[6vw] md:mt-[3vw] md:gap-24 h-min'>
 				<FlexCard
 					title={'你曾在股市中感到迷惘嗎？'}
@@ -116,16 +68,8 @@ export default function Home() {
 						<Lantern position={'z-0 -top-28 scale-100 left-20 lg:left-32 xl:left-56'} />
 						<Lantern position={'z-0 -top-[420px] scale-105 -right-8 lg:right-0 xl:right-28'} />
 					</LanternLayout>
-					<div className='w-full mt-36'>
-						<div className='h-96'>
-							<h2 className='mb-4 font-medium text-transparent drop-shadow-md bg-clip-text bg-gradient-to-tl from-amber-100 dark:from-sky-100 from-20% dark:from-30% to-amber-300 dark:to-primary_yellow to-60% dark:to-80%'>台股大盤指數</h2>
-							<Taiexchart/>
-							{/* <GoogleSearch/> */}
-						</div>
-					</div>
 				</article>
 			</div>
 		</>
 	)
 }
-

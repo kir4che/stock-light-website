@@ -1,54 +1,55 @@
+import { useEffect, useState } from 'react'
 
-import { useEffect, useState } from 'react';
-import Chart from '@/components/Chart/Chart';
+import Chart from '@/components/Chart/Chart'
+import { candlestickOption } from '@/components/Chart/options/candlestickOption'
 import Loading from '@/components/common/Loading'
 
-export default function Taiexchart() {
-    const [taiexData, setTaiexData] = useState([]);
+export default function TaiexChart() {
+	const [isLoading, setIsLoading] = useState(true)
 
-    const fetchTaiex = async () => {
-        try {
-            const response = await fetch(`${process.env.DB_URL}/api/taiex/all`, {
-                method: 'GET',
-            });
-            const data = await response.json();
-            setTaiexData(data.data);
-        } catch (error) {
-            console.error('error', error);
-        }
-    };
+	const [dateData, setDateData] = useState([])
+	const [priceData, setPriceData] = useState([])
 
-    useEffect(() => {
-        fetchTaiex();
-    }, []);
+	const fetchTaiex = async () => {
+		try {
+			const response = await fetch(`${process.env.DB_URL}/api/taiex/all`, { method: 'GET' })
+			let data = await response.json()
 
+			const dates = data.map((item) => item.date.split('T')[0]).reverse()
+			setDateData(dates)
 
-    const dateData = taiexData.map((item) => item.date);
-    const closePriceData = taiexData.map((item) => item.closing_index);
-    const openingIndexData = taiexData.map((item) => item.opening_index);
-    const highestIndexData = taiexData.map((item) => item.highest_index);
-    const lowestIndexData = taiexData.map((item) => item.lowest_index);
-    const createDateData = taiexData.map((item) => item.create_date);
-    const updateDateData = taiexData.map((item) => item.update_date);
+			const closingIndexs = data.map((item) => item.closing_index).reverse()
+			const openingIndexs = data.map((item) => item.opening_index).reverse()
+			const lowestIndexs = data.map((item) => item.lowest_index).reverse()
+			const highestIndexs = data.map((item) => item.highest_index).reverse()
 
-    return (
-        <div>
-            {taiexData.length > 0 ? (
-                <Chart
-                    option={{
-                        dateData,
-                        createDateData,
-                        updateDateData,
-                        closePriceData,
-                        openingIndexData,
-                        highestIndexData,
-                        lowestIndexData,
-                    }}
-                    customHeight="h-72 md:h-80 xl:h-[450px]"
-                />
-            ) : (
-                <Loading />
-            )}
-        </div>
-    );
+			const combinedArray = highestIndexs.map((_, index) => [
+				closingIndexs[index],
+				openingIndexs[index],
+				lowestIndexs[index],
+				highestIndexs[index],
+			])
+			setPriceData(combinedArray)
+
+			setIsLoading(false)
+		} catch (error) {
+			console.error('error', error)
+		}
+	}
+
+	useEffect(() => {
+		setIsLoading(true)
+		fetchTaiex()
+	}, [])
+
+	return (
+		<>
+			<h4 className='mt-6 mb-3'>台股大盤加權指數走勢</h4>
+			{!isLoading && dateData && priceData ? (
+				<Chart option={candlestickOption(dateData, priceData)} customHeight='h-72 md:h-80 xl:h-[480px]' />
+			) : (
+				<Loading />
+			)}
+		</>
+	)
 }
