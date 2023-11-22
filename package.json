@@ -32,6 +32,7 @@
     "postcss-nesting": "^12.0.1",
     "react": "^18.2.0",
     "react-material-ui-carousel": "^3.4.2",
+    "serpapi": "^2.0.0",
     "tailwindcss": "^3.3.3",
     "uuid": "^9.0.0"
   },

@@ -9,6 +9,9 @@ import Hero from '@/components/common/Hero'
 import Loading from '@/components/common/Loading'
 import { FlexCard } from '@/components/ui/FlexCard'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
+import Taiexchart from '@/components/Analysis/Taiexchart'
+import GoogleSearch from '@/components/News/googlesearch'
+
 
 export default function Home() {
 	const router = useRouter()
@@ -113,8 +116,16 @@ export default function Home() {
 						<Lantern position={'z-0 -top-28 scale-100 left-20 lg:left-32 xl:left-56'} />
 						<Lantern position={'z-0 -top-[420px] scale-105 -right-8 lg:right-0 xl:right-28'} />
 					</LanternLayout>
+					<div className='w-full mt-36'>
+						<div className='h-96'>
+							<h2 className='mb-4 font-medium text-transparent drop-shadow-md bg-clip-text bg-gradient-to-tl from-amber-100 dark:from-sky-100 from-20% dark:from-30% to-amber-300 dark:to-primary_yellow to-60% dark:to-80%'>台股大盤指數</h2>
+							<Taiexchart/>
+							{/* <GoogleSearch/> */}
+						</div>
+					</div>
 				</article>
 			</div>
 		</>
 	)
 }
+
