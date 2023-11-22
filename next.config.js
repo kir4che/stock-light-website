@@ -11,6 +11,9 @@ const nextConfig = {
 			'www.freepnglogos.com',
 			'lh3.googleusercontent.com',
 			'encrypted-tbn3.gstatic.com',
+			'encrypted-tbn2.gstatic.com',
+			'encrypted-tbn1.gstatic.com',
+			'encrypted-tbn0.gstatic.com',
 		], // 添加你的圖片來源主機名
 	},
 	env: {

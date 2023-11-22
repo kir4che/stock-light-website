@@ -6,8 +6,8 @@ export default function NewsPost({ news }) {
 
 	return (
 		<article className='flex gap-6'>
-			<div className='max-w-[225px] w-full'>
-				<Image src={coverImg} alt={news.news_id} width={225} height={200} />
+			<div className='max-w-[225px] h-full w-full'>
+				<Image src={coverImg} alt={news.news_id} width={225} height={200} className='max-h-[145px] object-cover' />
 			</div>
 			<div className='space-y-1.5'>
 				<Link href={news.link} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>

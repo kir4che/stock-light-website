@@ -5,9 +5,9 @@ import Pagination from '@mui/material/Pagination'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
-import NewsPost from '@/components/News/NewsPost'
 import SearchInput from '@/components/News/SearchInput'
 import Loading from '@/components/common/Loading'
+import NewsPost from '@/components/ui/NewsPost'
 import SidebarBlock from '@/components/ui/SidebarBlock'
 
 export default function News() {
@@ -20,7 +20,7 @@ export default function News() {
 
 	const [keyword, setKeyword] = useState('')
 
-	const newsPerPage = 8,
+	const newsPerPage = 12,
 		totalPages = 10
 
 	const fetchAllNews = async () => {
@@ -62,7 +62,7 @@ export default function News() {
 		<div className='flex flex-col px-4 py-8 md:px-0'>
 			<h2 className='mb-12'>最新財經新聞</h2>
 			<div className='flex w-full md:gap-12 xl:gap-24'>
-				<section className='w-full space-y-8'>
+				<section className='w-full space-y-5'>
 					{!isLoading ? (
 						paginatedNews && paginatedNews.length > 0 ? (
 							paginatedNews.map((news, index) => <NewsPost news={news} key={index} />)

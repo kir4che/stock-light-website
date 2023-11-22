@@ -155,14 +155,22 @@ export default function FundamentalAnalysis() {
 					<section className='flex items-baseline mb-4 space-x-1 tracking-wide'>
 						<p
 							className={`text-4xl font-bold ${
-								stockData[stockData.length - 1].change > 0 ? 'text-stock_red' : 'text-stock_green'
+								stockData[stockData.length - 1].change > 0
+									? 'text-stock_red'
+									: stockData[stockData.length - 1].change < 0
+									? 'text-stock_green'
+									: ''
 							} `}
 						>
 							{stockData[stockData.length - 1].closing_price.toFixed(2)}
 						</p>
 						<div
 							className={`flex items-baseline text-xl font-medium space-x-1 ${
-								stockData[stockData.length - 1].change >= 0 ? 'text-stock_red' : 'text-stock_green'
+								stockData[stockData.length - 1].change > 0
+									? 'text-stock_red'
+									: stockData[stockData.length - 1].change < 0
+									? 'text-stock_green'
+									: ''
 							}`}
 						>
 							<p>
@@ -180,313 +188,299 @@ export default function FundamentalAnalysis() {
 						</div>
 					</section>
 				)}
-				<div>
-					<Tabs
-						variant='scrollable'
-						value={selectedTabIndex}
-						onChange={handleTabSelect}
-						className='mt-4 bg-white rounded dark:bg-zinc-800'
-						scrollButtons={false}
-					>
-						{['股價走勢', '技術指標', '財務報表', '基本資料', '新聞'].map((item, index) => (
-							<Tab
-								label={item}
-								className={`${
-									selectedTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
-								} hover:bg-sky-300/10 `}
-								key={index}
-							/>
-						))}
-					</Tabs>
-					{/* 股價走勢 */}
-					{selectedTabIndex === 0 && (
-						<>
-							{!isLoading && stockData && stockData[stockData.length - 1] ? (
-								<>
-									<section className='flex items-start gap-6'>
-										<Chart
-											option={stockPriceLineOption(
-												dateData,
-												priceData,
-												closePriceData,
-												volumeData,
-												dataZoomRange,
-												handleDataZoomChange
-											)}
-											customHeight='h-72 md:h-80 xl:h-[450px]'
-										/>
+				<Tabs
+					variant='scrollable'
+					value={selectedTabIndex}
+					onChange={handleTabSelect}
+					className='mt-4 bg-white rounded dark:bg-zinc-800'
+					scrollButtons={false}
+				>
+					{['股價走勢', '技術指標', '財務報表', '基本資料', '新聞'].map((tab, index) => (
+						<Tab
+							label={tab}
+							className={`${
+								selectedTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
+							} hover:bg-sky-300/10 `}
+							key={index}
+						/>
+					))}
+				</Tabs>
+				{/* 股價走勢 */}
+				{selectedTabIndex === 0 && (
+					<>
+						{!isLoading && stockData && stockData[stockData.length - 1] ? (
+							<>
+								<section className='flex items-start gap-6'>
+									<Chart
+										option={stockPriceLineOption(
+											dateData,
+											priceData,
+											closePriceData,
+											volumeData,
+											dataZoomRange,
+											handleDataZoomChange
+										)}
+										customHeight='h-72 md:h-80 xl:h-[450px]'
+									/>
+
+									<section className='flex flex-col w-48 mb-2 space-y-2'>
+										<button className='px-3 py-1 space-x-2 rounded-md text-zinc-100 bg-sky-500'>
+											<span className='font-light'>成交量</span>
+											<span className='text-lg font-semibold'>
+												{numberComma(stockData[stockData.length - 1].trade_volume)}
+											</span>
+										</button>
 										{stockPePb && (
-											<section className='flex flex-col w-48 mb-2 space-y-2'>
-												<button className='px-3 py-1 space-x-2 rounded-md text-zinc-100 bg-sky-500'>
-													<span className='font-light'>成交量</span>
+											<>
+												<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
+													<span className='font-light'>本益比</span>
 													<span className='text-lg font-semibold'>
-														{numberComma(stockData[stockData.length - 1].trade_volume)}
+														{stockPePb.p_e_ratio ? stockPePb.p_e_ratio.toFixed(2) : ''}
 													</span>
 												</button>
 												<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
-													<span className='font-light'>本益比</span>
-													<span className='text-lg font-semibold'>{stockPePb.p_e_ratio.toFixed(2)}</span>
-												</button>
-												<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
 													<span className='font-light'>本淨比</span>
-													<span className='text-lg font-semibold'>{stockPePb.p_b_ratio.toFixed(2)}</span>
+													<span className='text-lg font-semibold'>
+														{stockPePb.p_b_ratio ? stockPePb.p_b_ratio.toFixed(2) : ''}
+													</span>
 												</button>
-											</section>
+											</>
 										)}
 									</section>
-									{/* 日期區間 */}
-									<section className='mt-4 flex-center-between'>
-										<button
-											className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
-											onClick={() => handleZoomBtnClick([99.7, 100])}
-										>
-											<p className='text-sm'>5D</p>
-											<p
-												className={`font-medium tracking-widest ${
-													calculatePriceChange(
-														stockData[stockData.length - 5].closing_price,
-														stockData[stockData.length - 1].closing_price
-													) >= 0
-														? 'text-stock_red'
-														: 'text-stock_green'
-												}`}
-											>
-												{calculatePriceChange(
+								</section>
+								{/* 日期區間 */}
+								<section className='mt-4 flex-center-between'>
+									<button
+										className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+										onClick={() => handleZoomBtnClick([99.7, 100])}
+									>
+										<p className='text-sm'>5D</p>
+										<p
+											className={`font-medium tracking-widest ${
+												calculatePriceChange(
 													stockData[stockData.length - 5].closing_price,
 													stockData[stockData.length - 1].closing_price
-												)}
-												%
-											</p>
-										</button>
-										<button
-											className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
-											onClick={() => handleZoomBtnClick([97.5, 100])}
+												) >= 0
+													? 'text-stock_red'
+													: 'text-stock_green'
+											}`}
 										>
-											<p className='text-sm'>1M</p>
-											<p
-												className={`font-medium tracking-widest ${
-													calculatePriceChange(
-														stockData[stockData.length - 30].closing_price,
-														stockData[stockData.length - 1].closing_price
-													) >= 0
-														? 'text-stock_red'
-														: 'text-stock_green'
-												}`}
-											>
-												{calculatePriceChange(
+											{calculatePriceChange(
+												stockData[stockData.length - 5].closing_price,
+												stockData[stockData.length - 1].closing_price
+											)}
+											%
+										</p>
+									</button>
+									<button
+										className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+										onClick={() => handleZoomBtnClick([97.5, 100])}
+									>
+										<p className='text-sm'>1M</p>
+										<p
+											className={`font-medium tracking-widest ${
+												calculatePriceChange(
 													stockData[stockData.length - 30].closing_price,
 													stockData[stockData.length - 1].closing_price
-												)}
-												%
-											</p>
-										</button>
-										<button
-											className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
-											onClick={() => handleZoomBtnClick([94.5, 100])}
+												) >= 0
+													? 'text-stock_red'
+													: 'text-stock_green'
+											}`}
 										>
-											<p className='text-sm'>3M</p>
-											<p
-												className={`font-medium tracking-widest ${
-													calculatePriceChange(
-														stockData[stockData.length - 90].closing_price,
-														stockData[stockData.length - 1].closing_price
-													) >= 0
-														? 'text-stock_red'
-														: 'text-stock_green'
-												}`}
-											>
-												{calculatePriceChange(
+											{calculatePriceChange(
+												stockData[stockData.length - 30].closing_price,
+												stockData[stockData.length - 1].closing_price
+											)}
+											%
+										</p>
+									</button>
+									<button
+										className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+										onClick={() => handleZoomBtnClick([94.5, 100])}
+									>
+										<p className='text-sm'>3M</p>
+										<p
+											className={`font-medium tracking-widest ${
+												calculatePriceChange(
 													stockData[stockData.length - 90].closing_price,
 													stockData[stockData.length - 1].closing_price
-												)}
-												%
-											</p>
-										</button>
-										<button
-											className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
-											onClick={() => handleZoomBtnClick([90, 100])}
+												) >= 0
+													? 'text-stock_red'
+													: 'text-stock_green'
+											}`}
 										>
-											<p className='text-sm'>6M</p>
-											<p
-												className={`font-medium tracking-widest ${
-													calculatePriceChange(
-														stockData[stockData.length - 180].closing_price,
-														stockData[stockData.length - 1].closing_price
-													) >= 0
-														? 'text-stock_red'
-														: 'text-stock_green'
-												}`}
-											>
-												{calculatePriceChange(
+											{calculatePriceChange(
+												stockData[stockData.length - 90].closing_price,
+												stockData[stockData.length - 1].closing_price
+											)}
+											%
+										</p>
+									</button>
+									<button
+										className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+										onClick={() => handleZoomBtnClick([90, 100])}
+									>
+										<p className='text-sm'>6M</p>
+										<p
+											className={`font-medium tracking-widest ${
+												calculatePriceChange(
 													stockData[stockData.length - 180].closing_price,
 													stockData[stockData.length - 1].closing_price
-												)}
-												%
-											</p>
-										</button>
-										<button
-											className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
-											onClick={() => handleZoomBtnClick([80, 100])}
+												) >= 0
+													? 'text-stock_red'
+													: 'text-stock_green'
+											}`}
 										>
-											<p className='text-sm'>1Y</p>
-											<p
-												className={`font-medium tracking-widest ${
-													calculatePriceChange(
-														stockData[stockData.length - 365].closing_price,
-														stockData[stockData.length - 1].closing_price
-													) >= 0
-														? 'text-stock_red'
-														: 'text-stock_green'
-												}`}
-											>
-												{calculatePriceChange(
+											{calculatePriceChange(
+												stockData[stockData.length - 180].closing_price,
+												stockData[stockData.length - 1].closing_price
+											)}
+											%
+										</p>
+									</button>
+									<button
+										className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+										onClick={() => handleZoomBtnClick([80, 100])}
+									>
+										<p className='text-sm'>1Y</p>
+										<p
+											className={`font-medium tracking-widest ${
+												calculatePriceChange(
 													stockData[stockData.length - 365].closing_price,
 													stockData[stockData.length - 1].closing_price
-												)}
-												%
-											</p>
-										</button>
-										<button
-											className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
-											onClick={() => handleZoomBtnClick([40, 100])}
+												) >= 0
+													? 'text-stock_red'
+													: 'text-stock_green'
+											}`}
 										>
-											<p className='text-sm'>3Y</p>
-											<p
-												className={`font-medium tracking-widest ${
-													calculatePriceChange(
-														stockData[stockData.length - 1095].closing_price,
-														stockData[stockData.length - 1].closing_price
-													) >= 0
-														? 'text-stock_red'
-														: 'text-stock_green'
-												}`}
-											>
-												{calculatePriceChange(
+											{calculatePriceChange(
+												stockData[stockData.length - 365].closing_price,
+												stockData[stockData.length - 1].closing_price
+											)}
+											%
+										</p>
+									</button>
+									<button
+										className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+										onClick={() => handleZoomBtnClick([40, 100])}
+									>
+										<p className='text-sm'>3Y</p>
+										<p
+											className={`font-medium tracking-widest ${
+												calculatePriceChange(
 													stockData[stockData.length - 1095].closing_price,
 													stockData[stockData.length - 1].closing_price
-												)}
-												%
-											</p>
-										</button>
-										<button
-											className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
-											onClick={() => handleZoomBtnClick([0, 100])}
+												) >= 0
+													? 'text-stock_red'
+													: 'text-stock_green'
+											}`}
 										>
-											<p className='text-sm'>5Y</p>
-											<p
-												className={`font-medium tracking-widest ${
-													calculatePriceChange(
-														stockData[0].closing_price,
-														stockData[stockData.length - 1].closing_price
-													) >= 0
-														? 'text-stock_red'
-														: 'text-stock_green'
-												}`}
-											>
-												{calculatePriceChange(
+											{calculatePriceChange(
+												stockData[stockData.length - 1095].closing_price,
+												stockData[stockData.length - 1].closing_price
+											)}
+											%
+										</p>
+									</button>
+									<button
+										className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+										onClick={() => handleZoomBtnClick([0, 100])}
+									>
+										<p className='text-sm'>5Y</p>
+										<p
+											className={`font-medium tracking-widest ${
+												calculatePriceChange(
 													stockData[0].closing_price,
 													stockData[stockData.length - 1].closing_price
-												)}
-												%
-											</p>
-										</button>
-									</section>
-								</>
-							) : (
-								<Loading />
-							)}
-						</>
-					)}
-					{/* 技術指標 */}
-					{selectedTabIndex === 1 && (
-						<>
-							<div className='flex items-end justify-between mt-2.5 mb-2'>
-								<section className='space-x-3'>
-									<SelectMenu
-										data={['MA', 'EMA', '布林']}
-										value={selectedMenu}
-										onChange={(e) => setSelectedMenu(e.target.value)}
-										minWidth={120}
-									/>
-									<SelectMenu
-										data={['', 'MACD', 'KD', 'RSI', 'William', '乖離率', 'ADL']}
-										value={subchart}
-										onChange={(e) => setSubchart(e.target.value)}
-										minWidth={120}
-									/>
-								</section>
-								<section className='flex items-center justify-end space-x-1 text-sm font-light tracking-widest'>
-									<button
-										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-										onClick={() => handleTechAnalZoomBtnClick([99.7, 100])}
-									>
-										5D
-									</button>
-									<span>｜</span>
-									<button
-										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-										onClick={() => handleTechAnalZoomBtnClick([97.5, 100])}
-									>
-										1M
-									</button>
-									<span>｜</span>
-									<button
-										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-										onClick={() => handleTechAnalZoomBtnClick([94.5, 100])}
-									>
-										3M
-									</button>
-									<span>｜</span>
-									<button
-										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-										onClick={() => handleTechAnalZoomBtnClick([90, 100])}
-									>
-										6M
-									</button>
-									<span>｜</span>
-									<button
-										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-										onClick={() => handleTechAnalZoomBtnClick([80, 100])}
-									>
-										1Y
-									</button>
-									<span>｜</span>
-									<button
-										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-										onClick={() => handleTechAnalZoomBtnClick([40, 100])}
-									>
-										3Y
-									</button>
-									<span>｜</span>
-									<button
-										className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
-										onClick={() => handleTechAnalZoomBtnClick([0, 100])}
-									>
-										5Y
+												) >= 0
+													? 'text-stock_red'
+													: 'text-stock_green'
+											}`}
+										>
+											{calculatePriceChange(stockData[0].closing_price, stockData[stockData.length - 1].closing_price)}%
+										</p>
 									</button>
 								</section>
-							</div>
-							<Chart
-								option={
-									selectedMenu !== '布林'
-										? selectedMenu !== 'EMA'
-											? candlestickOptionByMA(
-													dateData,
-													closePriceData,
-													priceData,
-													volumeData,
-													techAnalDataZoomRange,
-													handleTechAnalDataZoomChange
-											  )
-											: candlestickOptionByEMA(
-													dateData,
-													closePriceData,
-													priceData,
-													volumeData,
-													techAnalDataZoomRange,
-													handleTechAnalDataZoomChange
-											  )
-										: candlestickOptionByBoll(
+							</>
+						) : (
+							<Loading />
+						)}
+					</>
+				)}
+				{/* 技術指標 */}
+				{selectedTabIndex === 1 && (
+					<>
+						<div className='flex items-end justify-between mt-2.5 mb-2'>
+							<section className='space-x-3'>
+								<SelectMenu
+									data={['MA', 'EMA', '布林']}
+									value={selectedMenu}
+									onChange={(e) => setSelectedMenu(e.target.value)}
+									minWidth={120}
+								/>
+								<SelectMenu
+									data={['', 'MACD', 'KD', 'RSI', 'William', '乖離率', 'ADL']}
+									value={subchart}
+									onChange={(e) => setSubchart(e.target.value)}
+									minWidth={120}
+								/>
+							</section>
+							<section className='flex items-center justify-end space-x-1 text-sm font-light tracking-widest'>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleTechAnalZoomBtnClick([99.7, 100])}
+								>
+									5D
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleTechAnalZoomBtnClick([97.5, 100])}
+								>
+									1M
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleTechAnalZoomBtnClick([94.5, 100])}
+								>
+									3M
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleTechAnalZoomBtnClick([90, 100])}
+								>
+									6M
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleTechAnalZoomBtnClick([80, 100])}
+								>
+									1Y
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleTechAnalZoomBtnClick([40, 100])}
+								>
+									3Y
+								</button>
+								<span>｜</span>
+								<button
+									className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
+									onClick={() => handleTechAnalZoomBtnClick([0, 100])}
+								>
+									5Y
+								</button>
+							</section>
+						</div>
+						<Chart
+							option={
+								selectedMenu !== '布林'
+									? selectedMenu !== 'EMA'
+										? candlestickOptionByMA(
 												dateData,
 												closePriceData,
 												priceData,
@@ -494,97 +488,102 @@ export default function FundamentalAnalysis() {
 												techAnalDataZoomRange,
 												handleTechAnalDataZoomChange
 										  )
-								}
-								customHeight='h-72 md:h-80 xl:h-[450px]'
-							/>
-							{(() => {
-								switch (subchart) {
-									case 'MACD':
-										return (
-											<Chart
-												option={macdOption(
-													dateData,
-													closePriceData,
-													techAnalDataZoomRange,
-													handleTechAnalDataZoomChange
-												)}
-												customHeight='h-56 md:h-64 xl:h-[320px]'
-											/>
-										)
-									case 'KD':
-										return (
-											<Chart
-												option={kdOption(
-													dateData,
-													closePriceData,
-													lowPriceData,
-													highPriceData,
-													techAnalDataZoomRange,
-													handleTechAnalDataZoomChange
-												)}
-												customHeight='h-56 md:h-64 xl:h-[320px]'
-											/>
-										)
-									case 'RSI':
-										return (
-											<Chart
-												option={rsiOption(dateData, changeData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
-												customHeight='h-56 md:h-64 xl:h-[320px]'
-											/>
-										)
-									case 'William':
-										return (
-											<Chart
-												option={williamOption(
-													dateData,
-													closePriceData,
-													techAnalDataZoomRange,
-													handleTechAnalDataZoomChange
-												)}
-												customHeight='h-56 md:h-64 xl:h-[320px]'
-											/>
-										)
-									case '乖離率':
-										return (
-											<Chart
-												option={biasOption(
-													dateData,
-													closePriceData,
-													techAnalDataZoomRange,
-													handleTechAnalDataZoomChange
-												)}
-												customHeight='h-56 md:h-64 xl:h-[320px]'
-											/>
-										)
-									case 'ADL':
-										return (
-											<Chart
-												option={adlOption(
-													dateData,
-													closePriceData,
-													lowPriceData,
-													highPriceData,
-													volumeData,
-													techAnalDataZoomRange,
-													handleTechAnalDataZoomChange
-												)}
-												customHeight='h-56 md:h-64 xl:h-[320px]'
-											/>
-										)
-									default:
-										return null
-								}
-							})()}
-						</>
-					)}
-					{/* 財務報表 */}
-					{selectedTabIndex === 2 && <StockFS stockId={selectedStockSymbol} />}
-					{/* 基本資料 */}
-					{selectedTabIndex === 3 && <StockProfile stockId={selectedStockSymbol} />}
-					{/* 新聞*/}
-					{selectedTabIndex === 4 && <StockNews stockId={selectedStockSymbol} />}
-					<p className='mt-8 text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-				</div>
+										: candlestickOptionByEMA(
+												dateData,
+												closePriceData,
+												priceData,
+												volumeData,
+												techAnalDataZoomRange,
+												handleTechAnalDataZoomChange
+										  )
+									: candlestickOptionByBoll(
+											dateData,
+											closePriceData,
+											priceData,
+											volumeData,
+											techAnalDataZoomRange,
+											handleTechAnalDataZoomChange
+									  )
+							}
+							customHeight='h-72 md:h-80 xl:h-[450px]'
+						/>
+						{(() => {
+							switch (subchart) {
+								case 'MACD':
+									return (
+										<Chart
+											option={macdOption(dateData, closePriceData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
+											customHeight='h-56 md:h-64 xl:h-[320px]'
+										/>
+									)
+								case 'KD':
+									return (
+										<Chart
+											option={kdOption(
+												dateData,
+												closePriceData,
+												lowPriceData,
+												highPriceData,
+												techAnalDataZoomRange,
+												handleTechAnalDataZoomChange
+											)}
+											customHeight='h-56 md:h-64 xl:h-[320px]'
+										/>
+									)
+								case 'RSI':
+									return (
+										<Chart
+											option={rsiOption(dateData, changeData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
+											customHeight='h-56 md:h-64 xl:h-[320px]'
+										/>
+									)
+								case 'William':
+									return (
+										<Chart
+											option={williamOption(
+												dateData,
+												closePriceData,
+												techAnalDataZoomRange,
+												handleTechAnalDataZoomChange
+											)}
+											customHeight='h-56 md:h-64 xl:h-[320px]'
+										/>
+									)
+								case '乖離率':
+									return (
+										<Chart
+											option={biasOption(dateData, closePriceData, techAnalDataZoomRange, handleTechAnalDataZoomChange)}
+											customHeight='h-56 md:h-64 xl:h-[320px]'
+										/>
+									)
+								case 'ADL':
+									return (
+										<Chart
+											option={adlOption(
+												dateData,
+												closePriceData,
+												lowPriceData,
+												highPriceData,
+												volumeData,
+												techAnalDataZoomRange,
+												handleTechAnalDataZoomChange
+											)}
+											customHeight='h-56 md:h-64 xl:h-[320px]'
+										/>
+									)
+								default:
+									return null
+							}
+						})()}
+					</>
+				)}
+				{/* 財務報表 */}
+				{selectedTabIndex === 2 && <StockFS stockId={selectedStockSymbol} />}
+				{/* 基本資料 */}
+				{selectedTabIndex === 3 && <StockProfile stockId={selectedStockSymbol} />}
+				{/* 新聞*/}
+				{selectedTabIndex === 4 && <StockNews stockId={selectedStockSymbol} />}
+				<p className='mt-8 text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 			</div>
 		</StarryBackground>
 	)

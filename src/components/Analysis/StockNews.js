@@ -1,5 +1,5 @@
-import NewsPost from '@/components/News/NewsPost'
 import Loading from '@/components/common/Loading'
+import NewsPost from '@/components/ui/NewsPost'
 import { useEffect, useState } from 'react'
 
 export default function StockNews(stockId) {
@@ -28,7 +28,7 @@ export default function StockNews(stockId) {
 	}, [stockId])
 
 	return (
-		<section className='w-full mt-4'>
+		<section className='w-full gap-4 py-4 space-y-4'>
 			{!isLoading ? (
 				news && news.length > 0 ? (
 					news.map((news, index) => <NewsPost news={news} key={index} />)
