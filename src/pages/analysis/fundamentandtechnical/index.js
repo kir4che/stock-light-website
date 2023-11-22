@@ -119,7 +119,6 @@ export default function FundamentalAnalysis() {
 			setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
-			setIsLoading(false)
 		}
 	}
 

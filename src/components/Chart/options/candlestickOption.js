@@ -1,5 +1,96 @@
 import { boll, ema, ma } from 'finmath'
 
+export function candlestickOption(dateData, priceData) {
+	const option = {
+		xAxis: [
+			{
+				type: 'category',
+				data: dateData,
+				boundaryGap: true,
+				axisLine: { onZero: false },
+				splitLine: { show: false },
+				axisPointer: {
+					z: 100,
+				},
+			},
+		],
+		yAxis: [
+			{
+				scale: true,
+				splitArea: {
+					show: true,
+				},
+			},
+		],
+		tooltip: {
+			trigger: 'axis',
+			axisPointer: {
+				type: 'cross',
+			},
+			borderWidth: 1,
+			borderColor: '#ccc',
+			padding: 10,
+			textStyle: {
+				color: '#000',
+			},
+		},
+		toolbox: {
+			feature: {
+				dataZoom: {
+					yAxisIndex: false,
+				},
+				brush: {
+					type: ['lineX', 'clear'],
+				},
+			},
+		},
+		brush: {
+			xAxisIndex: 'all',
+			brushLink: 'all',
+			outOfBrush: {
+				colorAlpha: 0.1,
+			},
+		},
+		axisPointer: {
+			link: [
+				{
+					xAxisIndex: 'all',
+				},
+			],
+			label: {
+				backgroundColor: '#777',
+			},
+		},
+		series: [
+			{
+				name: '日K',
+				type: 'candlestick',
+				data: priceData,
+				itemStyle: {
+					color: '#46B262',
+					color0: '#EB5554',
+					borderColor: '#46B262',
+					borderColor0: '#EB5554',
+				},
+			},
+		],
+		grid: {
+			top: '6%',
+			left: '6%',
+			right: '3%',
+			height: '82%',
+		},
+		dataZoom: {
+			type: 'inside',
+			xAxisIndex: [0],
+			start: 0,
+			end: 100,
+		},
+	}
+
+	return option
+}
+
 export function candlestickOptionByMA(
 	dateData,
 	closePriceData,
