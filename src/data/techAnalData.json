@@ -1,0 +1,57 @@
+{
+  "curve": [
+    {
+      "name": "MA",
+      "fullname": "移動平均線 (Moving Average)",
+      "description": "代表過去一段時間裡的平均成交價格，用來判斷趨勢通常是預期市場現在跟未來可能的走勢。如果均線的價格越來越高，代表投資人看好這檔股票，願意花比較高的金額買入，也就代表現階段市場趨勢是往上。"
+    },
+    {
+      "name": "EMA",
+      "fullname": "指數平滑移動平均線 (Exponential Moving Average)",
+      "description": "在均線的數值上，增加了對於越近日期的權重比，也就是說越靠近當天的收盤價對EMA產生的影響力越大，而越遠離當天的收盤價則呈現指數式遞減。對於價格波動的反應更為敏感，可作為短期交易策略的參考。"
+    },
+    {
+      "name": "布林",
+      "fullname": "布林通道 (Bollinger Band)",
+      "description": "透過一條均線並且上下加減一定的標準差所組成的指標，用於判斷股價趨勢為多頭或空頭。"
+    }
+  ],
+  "chart": [
+    {
+      "name": "",
+      "fullname": "",
+      "description": ""
+    },
+    {
+      "name": "MACD",
+      "fullname": "平滑異同移動平均線指標 (Moving Average Convergence Divergence)",
+      "description": "透過計算「收盤時股價或指數變化的指數移動平均值 (EMA)」之間的離差程度 (DIF) 而來，用來確定波段漲幅並找到買賣點，判斷買賣股票的時機與訊號。"
+    },
+    {
+      "name": "KD",
+      "fullname": "隨機指標 (Stochastic Oscillator)",
+      "description": "以一定期間的最高價與最低價為基準，判斷收盤價的水準。"
+    },
+    {
+      "name": "RSI",
+      "fullname": "相對強弱指數 (Relative Strength Index)",
+      "description": "一種技術分析的動量指標，衡量近期價格變化之幅度，評估股市中買盤與賣盤雙方力道的強弱。"
+    },
+    {
+      "name": "William",
+      "fullname": "威廉指標 (Williams %R)",
+      "description": "以一定期間的最高價與最低價的範圍為基準，掌握最近的收盤價相對處於何種水平，可用於識別超買和超賣情況。"
+    },
+    {
+      "name": "BIAS",
+      "fullname": "乖離率 (Bias Ratio)",
+      "description": "股價和移動平均線的距離，用來衡量目前股價水平偏離移動平均線的程度，也可以利用乖離率來判斷股票是處於超買或超賣。當乖離率為正時，表示股價偏離移動平均線的上方，可能是超買的情況，投資者需警惕可能的價格回調。相反，當乖離率為負時，表示股價偏離移動平均線的下方，可能是超賣的情況，投資者可考慮進場。"
+    },
+    {
+      "name": "ADL",
+      "fullname": "騰落指標 (Advance-Decline Line)",
+      "description": "以股票每天上漲或下跌之家數作為計算與觀察的對象，以瞭解股票市人氣的盛衰，探測大勢內在的動量是強勢還是弱勢，用以研判股市未來動向的技術性指標。"
+    }
+    
+  ]
+}

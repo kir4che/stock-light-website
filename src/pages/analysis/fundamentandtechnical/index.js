@@ -26,6 +26,7 @@ import StarryBackground from '@/components/common/StarryBackground'
 import SelectMenu from '@/components/ui/SelectMenu'
 import StockSelect from '@/components/ui/StockSelector'
 import { allStock } from '@/data/allStock'
+import techAnalData from '@/data/techAnalData.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
 import { getCurrentDate } from '@/utils/getCurrentDate'
@@ -130,6 +131,11 @@ export default function FundamentalAnalysis() {
 
 		setSelectedTabIndex(0)
 	}, [selectedStockSymbol])
+
+	useEffect(() => {
+		setSelectedMenu('')
+		setSubchart('')
+	}, [selectedTabIndex])
 
 	return (
 		<StarryBackground className='w-full pt-8 pb-12 md:pt-10'>
@@ -412,13 +418,13 @@ export default function FundamentalAnalysis() {
 						<div className='flex items-end justify-between mt-2.5 mb-2'>
 							<section className='space-x-3'>
 								<SelectMenu
-									data={['MA', 'EMA', '布林']}
+									data={techAnalData.curve.map((curve) => curve.name)}
 									value={selectedMenu}
 									onChange={(e) => setSelectedMenu(e.target.value)}
 									minWidth={120}
 								/>
 								<SelectMenu
-									data={['', 'MACD', 'KD', 'RSI', 'William', '乖離率', 'ADL']}
+									data={techAnalData.chart.map((chart) => chart.name)}
 									value={subchart}
 									onChange={(e) => setSubchart(e.target.value)}
 									minWidth={120}
@@ -574,6 +580,19 @@ export default function FundamentalAnalysis() {
 									return null
 							}
 						})()}
+						{/* {selectedMenu !== '' ||
+							(subchart !== '' && (
+								<div className='mt-6 mb-12 space-y-2'>
+									<p>
+										<strong>{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.fullname}：</strong>
+										{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.description}
+									</p>
+									<p>
+										<strong>{techAnalData.chart.find((chart) => chart.name === subchart)?.fullname}：</strong>
+										{techAnalData.chart.find((chart) => chart.name === subchart)?.description}
+									</p>
+								</div>
+							))} */}
 					</>
 				)}
 				{/* 財務報表 */}
