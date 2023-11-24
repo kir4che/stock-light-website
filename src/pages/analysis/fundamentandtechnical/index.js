@@ -193,6 +193,7 @@ export default function FundamentalAnalysis() {
 						</div>
 					</section>
 				)}
+				{/* 個股選單 */}
 				<Tabs
 					variant='scrollable'
 					value={selectedTabIndex}
@@ -580,19 +581,33 @@ export default function FundamentalAnalysis() {
 									return null
 							}
 						})()}
-						{/* {selectedMenu !== '' ||
-							(subchart !== '' && (
-								<div className='mt-6 mb-12 space-y-2'>
-									<p>
-										<strong>{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.fullname}：</strong>
-										{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.description}
-									</p>
+						{selectedMenu === '' ? (
+							<div className='mt-6 mb-12 space-y-2'>
+								<p>
+									<strong>{techAnalData.curve.find((curve) => curve.name === 'MA')?.fullname}：</strong>
+									{techAnalData.curve.find((curve) => curve.name === 'MA')?.description}
+								</p>
+								{subchart !== '' && (
 									<p>
 										<strong>{techAnalData.chart.find((chart) => chart.name === subchart)?.fullname}：</strong>
 										{techAnalData.chart.find((chart) => chart.name === subchart)?.description}
 									</p>
-								</div>
-							))} */}
+								)}
+							</div>
+						) : (
+							<div className='mt-6 mb-12 space-y-2'>
+								<p>
+									<strong>{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.fullname}：</strong>
+									{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.description}
+								</p>
+								{subchart !== '' && (
+									<p>
+										<strong>{techAnalData.chart.find((chart) => chart.name === subchart)?.fullname}：</strong>
+										{techAnalData.chart.find((chart) => chart.name === subchart)?.description}
+									</p>
+								)}
+							</div>
+						)}
 					</>
 				)}
 				{/* 財務報表 */}
