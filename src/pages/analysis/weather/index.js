@@ -1,13 +1,17 @@
-import { Popover } from '@arco-design/web-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import { Popover } from '@arco-design/web-react';
 
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import StockSelect from '@/components/ui/StockSelector'
 import { allStock } from '@/data/allStock'
-import { convertDateTime } from '@/utils/convertDateTime'
 import { getCurrentDate } from '@/utils/getCurrentDate'
-import { DataGrid } from '@mui/x-data-grid'
+import { convertDateTime } from '@/utils/convertDateTime'
+
+import Chart from '@/components/Chart/Chart';
+import { linearRegOption } from '@/components/Chart/options/linearRegOption';
+import { DataGrid } from '@mui/x-data-grid';
+
 
 const WeatherSidebar = [
 	{
@@ -15,21 +19,21 @@ const WeatherSidebar = [
 		en_name: 'Sunny',
 		ch_name: '晴天',
 		icon: 'https://img.icons8.com/emoji/32/sun-emoji.png',
-		desc: '雲量佔全天空0~4/10',
+		desc: "雲量佔全天空0~4/10",
 	},
 	{
 		id: 2,
 		en_name: 'Cloudy',
 		ch_name: '多雲',
 		icon: 'https://img.icons8.com/office/32/partly-cloudy-day--v1.png',
-		desc: '雲量佔全天空5/10~8/10',
+		desc: "雲量佔全天空5/10~8/10",
 	},
 	{
 		id: 3,
 		en_name: 'Rainny',
 		ch_name: '雨天',
 		icon: 'https://img.icons8.com/external-filled-outline-lima-studio/32/external-rainny-spring-filled-outline-lima-studio.png',
-		desc: '從層狀雲降落，降雨強度均勻緩和之連續或間歇性降雨',
+		desc: "從層狀雲降落，降雨強度均勻緩和之連續或間歇性降雨",
 	},
 	{
 		id: 4,
@@ -54,6 +58,7 @@ const WeatherSidebar = [
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },
 	{ field: 'stock_name', headerName: '股票', flex: 1 },
+	{ field: 'weather', headerName: '天氣', flex: 1 },
 	{
 		field: 'price',
 		headerName: '股價',
@@ -84,7 +89,7 @@ const columns = [
 		align: 'right',
 		flex: 1,
 		valueFormatter: (params) => `${params.value.toFixed(2)}`,
-	},
+	}
 ]
 
 export default function WeatherAnalysis() {
@@ -106,6 +111,7 @@ export default function WeatherAnalysis() {
 			console.log('data', data)
 			const filteredData = data.data.filter((stock) => stock.stock_id === stockId)
 			setStockData(filteredData)
+
 			const dates = filteredData.map((stock) => convertDateTime(stock.date).split(' ')[0])
 			setDateData(dates)
 
@@ -128,9 +134,8 @@ export default function WeatherAnalysis() {
 				<section className='w-full py-4 space-y-1 bg-white rounded md:w-1/5 dark:bg-zinc-900/50'>
 					{WeatherSidebar.map((weather, index) => (
 						<button
-							className={`flex items-center space-x-1.5 w-full px-3 py-2 hover:bg-primary_yellow/20 ${
-								selectedTab === index ? 'bg-primary_yellow/50 dark:bg-primary_yellow/30' : ''
-							}`}
+							className={`flex items-center space-x-1.5 w-full px-3 py-2 hover:bg-primary_yellow/20 ${selectedTab === index ? 'bg-primary_yellow/50 dark:bg-primary_yellow/30' : ''
+								}`}
 							key={index}
 							onClick={() => {
 								setSelectedWeatherType(weather.en_name.toLowerCase())
@@ -150,16 +155,10 @@ export default function WeatherAnalysis() {
 								<span className='text-xl font-light tracking-widest'>{selectedStockSymbol}</span>
 							</h3>
 							<Popover
-								triggerEvent='hover'
+								triggerEvent="hover"
 								title={WeatherSidebar[selectedTab].ch_name}
-								className={'text-black bg-white rounded-lg font-bold opacity-60 px-2 '}
-								content={
-									<div>
-										<hr></hr>
-										{WeatherSidebar[selectedTab].desc}
-									</div>
-								}
-							>
+								className={"text-black bg-white rounded-lg font-bold opacity-60 px-2 "}
+								content={<div><hr></hr>{WeatherSidebar[selectedTab].desc}</div>}>
 								<p className='px-2.5 py-1 text-xs text-white rounded-full bg-secondary_blue'>
 									{WeatherSidebar[selectedTab].ch_name}
 								</p>
@@ -173,20 +172,30 @@ export default function WeatherAnalysis() {
 						</div>
 						<StockSelect value={selectedStockSymbol} onChange={(e) => setSelectedStockSymbol(e.target.value)} />
 					</div>
-					{!isLoading ? (
-						<section className='flex items-start gap-3 '>
-							{/* 先放著，還在想要怎麼呈現，突然想到這邊是個股怪怪的 */}
+					{!isLoading ?
+						<section className='flex flex-wrap items-start gap-3 mt-8'>
+							<Chart
+								option={linearRegOption(stockData)}
+								customHeight='h-56 md:h-64 xl:h-[320px]'
+							/>
 							<DataGrid
 								sx={{ height: 120, pl: 3, pr: 3, pt: 0.5, pb: 1 }}
-								rows={[]}
+								rows={[
+									{
+										id: 1,
+										stock_id: selectedStockSymbol,
+										weather:selectedWeatherType,
+										stock_name: allStock.find((stock) => stock.symbol === selectedStockSymbol).name || null,
+										price: 0,
+										volume: 0,
+										correlation: 0,
+									}
+								]}
 								columns={columns}
 								className='my-8 bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
 								hideFooter
 							/>
-						</section>
-					) : (
-						<Loading />
-					)}
+						</section> : <Loading />}
 					<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 				</section>
 			</div>

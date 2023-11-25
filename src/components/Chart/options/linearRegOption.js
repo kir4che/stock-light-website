@@ -5,11 +5,12 @@ import ecStat from 'echarts-stat'
 export function linearRegOption(stockSymbol, tab) {
 	echarts.registerTransform(ecStat.transform.regression)
 
-	// 假數據
-	const data = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => Math.random() * 10)
-	const stockPriceList = tab.data.length > 0 ? tab.data : Array.from({ length: 243 }, () => 50 + Math.random() * 30)
+	const data = []
+	const stockPriceList = []
 
-	let resultData = []
+	let resultData = [
+		[8.80, 2.00, 6.30, 9.00, 10.00, 10.00, 10.00, 10.00, 10.00, 3.50],
+		[17.30, 20.40, 21.70, 20.90, 17.30, 17.10,18.00, 17.70, 11.60,]]
 	const maxLength = Math.max(data.length, stockPriceList.length)
 
 	// 合併成二維陣列
@@ -23,7 +24,7 @@ export function linearRegOption(stockSymbol, tab) {
 	return {
 		// 大標題
 		title: {
-			text: `${stockSymbol} 股價與${tab.label}的相關性分析`,
+			text: `${stockSymbol} 股價的相關性分析`,
 			top: 20,
 			left: 'center',
 		},
@@ -43,12 +44,13 @@ export function linearRegOption(stockSymbol, tab) {
 		// x軸
 		xAxis: {
 			type: 'value',
+			name: '係數',
 			scale: true,
 		},
 		// y軸
 		yAxis: {
 			type: 'value',
-			name: '收盤價',
+			name: '狀態',
 			scale: true,
 		},
 		// 圖表配置
