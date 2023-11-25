@@ -9,7 +9,6 @@ import Loading from '@/components/common/Loading'
 
 export default function StockProfile(stockId) {
 	const [isLoading, setIsLoading] = useState(true)
-
 	const [profile, setProfile] = useState(null)
 
 	const fetchStockProfile = async (stockId) => {
@@ -19,7 +18,6 @@ export default function StockProfile(stockId) {
 			})
 			const data = await response.json()
 			setProfile(data.data[0])
-
 			setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
@@ -28,68 +26,43 @@ export default function StockProfile(stockId) {
 
 	useEffect(() => {
 		setIsLoading(true)
-
 		fetchStockProfile(stockId.stockId)
 	}, [stockId])
+
+	const renderTableRow = (label, value) => {
+		return (
+			<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+				<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
+					{label}
+				</TableCell>
+				<TableCell align='right'>{value}</TableCell>
+			</TableRow>
+		)
+	}
 
 	return (
 		<>
 			{!isLoading && profile ? (
-				<div>
+				<>
 					<p className='mt-2 mb-4'>{profile.description || ''}</p>
-					<TableContainer className='md:items-start md:gap-8 md:flex'>
+					<TableContainer className='md:items-start md:gap-12 md:flex'>
 						<Table className='md:max-w-sm'>
 							<TableBody>
-								<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-										成立時間
-									</TableCell>
-									<TableCell align='right'>{profile.established_time || ''}</TableCell>
-								</TableRow>
-								<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-										執行長
-									</TableCell>
-									<TableCell align='right'>{profile.ceo || ''}</TableCell>
-								</TableRow>
-								<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-										市值
-									</TableCell>
-									<TableCell align='right'>{profile.market_value || ''}</TableCell>
-								</TableRow>
-								<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-										股利收益率
-									</TableCell>
-									<TableCell align='right'>{profile.dividend_rate || ''}</TableCell>
-								</TableRow>
+								{renderTableRow('成立時間', profile.established_time || '')}
+								{renderTableRow('執行長', profile.ceo || '')}
+								{renderTableRow('市值', profile.market_value || '')}
+								{renderTableRow('股利收益率', profile.dividend_rate || '')}
 							</TableBody>
 						</Table>
 						<Table className='md:max-w-sm'>
 							<TableBody>
-								<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-										公司地址
-									</TableCell>
-									<TableCell align='right'>{profile.headquater || ''}</TableCell>
-								</TableRow>
-								<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-										公司網站
-									</TableCell>
-									<TableCell align='right'>{profile.website || ''}</TableCell>
-								</TableRow>
-								<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-									<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-										員工人數
-									</TableCell>
-									<TableCell align='right'>{profile.staff_number || ''}</TableCell>
-								</TableRow>
+								{renderTableRow('公司地址', profile.headquater || '')}
+								{renderTableRow('公司網站', profile.website || '')}
+								{renderTableRow('員工人數', profile.staff_number || '')}
 							</TableBody>
 						</Table>
 					</TableContainer>
-				</div>
+				</>
 			) : (
 				<Loading />
 			)}

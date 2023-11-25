@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 
 export default function StockNews(stockId) {
 	const [isLoading, setIsLoading] = useState(true)
-
 	const [news, setNews] = useState(null)
 
 	const fetchStockNews = async (stockId) => {
@@ -23,7 +22,6 @@ export default function StockNews(stockId) {
 
 	useEffect(() => {
 		setIsLoading(true)
-
 		fetchStockNews(stockId.stockId)
 	}, [stockId])
 
@@ -31,7 +29,7 @@ export default function StockNews(stockId) {
 		<section className='w-full gap-4 py-4 space-y-4'>
 			{!isLoading ? (
 				news && news.length > 0 ? (
-					news.map((news, index) => <NewsPost news={news} key={index} />)
+					news.map((newsItem, index) => <NewsPost news={newsItem} key={index} />)
 				) : (
 					<p className='text-stock_red dark:text-zinc-100'>No news available...</p>
 				)

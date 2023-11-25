@@ -13,38 +13,54 @@ export default function StockFS(stockId) {
 	const [isLoading, setIsLoading] = useState(true)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
-	const [bs, setBS] = useState(null) // 資產負債表
-	const [is, setIS] = useState(null) // 損益表
-	const [cf, setCF] = useState(null) // 現金流量表
+	const [fs, setFS] = useState({ bs: null, is: null, cf: null })
+	const { bs, is, cf } = fs
 
 	const handleTabSelect = (e, index) => setSelectedTabIndex(index)
 
-	const fetchData = async (stockId, statementType, setData) => {
+	const fetchData = async (stockId, statementType) => {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/${statementType}/${stockId}`, {
 				method: 'GET',
 			})
 			const data = await response.json()
-			setData(data.data[0])
-			setIsLoading(false)
+			return data.data[0]
 		} catch (error) {
 			console.error('error', error)
 		}
 	}
 
 	const fetchStockData = async (stockId) => {
-		setIsLoading(true)
-
-		await Promise.all([
-			fetchData(stockId, 'balance_sheet', setBS),
-			fetchData(stockId, 'income_statement', setIS),
-			fetchData(stockId, 'cash_flow_statement', setCF),
+		const [bs, is, cf] = await Promise.all([
+			fetchData(stockId, 'balance_sheet'),
+			fetchData(stockId, 'income_statement'),
+			fetchData(stockId, 'cash_flow_statement'),
 		])
+		setFS({ bs, is, cf })
+
+		setIsLoading(false)
 	}
 
 	useEffect(() => {
+		setIsLoading(true)
 		fetchStockData(stockId.stockId)
 	}, [stockId])
+
+	const renderTableRow = (label, value, ycp) => {
+		return (
+			<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+				<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
+					{label}
+				</TableCell>
+				<TableCell align='right'>
+					{value}
+					<span className={`${parseFloat(ycp) > 0 ? 'text-stock_red' : parseFloat(ycp) < 0 ? 'text-stock_green' : ''}`}>
+						（{ycp}）
+					</span>
+				</TableCell>
+			</TableRow>
+		)
+	}
 
 	return (
 		<div className='flex gap-8 pt-6'>
@@ -73,139 +89,13 @@ export default function StockFS(stockId) {
 								<TableContainer className='md:items-start md:gap-8 md:flex'>
 									<Table>
 										<TableBody>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													收益
-												</TableCell>
-												<TableCell align='right'>
-													{is.income}
-													<span
-														className={`${
-															parseFloat(is.income_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(is.income_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{is.income_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													營業費用
-												</TableCell>
-												<TableCell align='right'>
-													{is.operating_expenses}
-													<span
-														className={`${
-															parseFloat(is.operating_expenses_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(is.operating_expenses_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{is.operating_expenses_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													淨利
-												</TableCell>
-												<TableCell align='right'>
-													{is.net_income}
-													<span
-														className={`${
-															parseFloat(is.net_income_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(is.net_income_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{is.net_income_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													淨利潤率
-												</TableCell>
-												<TableCell align='right'>
-													{is.net_income_rate}
-													<span
-														className={`${
-															parseFloat(is.net_income_rate_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(is.net_income_rate_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{is.net_income_rate_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													每股盈餘
-												</TableCell>
-												<TableCell align='right'>
-													{is.eps}
-													<span
-														className={`${
-															parseFloat(is.eps_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(is.eps_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{is.eps_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													營業資金流動
-												</TableCell>
-												<TableCell align='right'>
-													{is.operating_capital_flow}
-													<span
-														className={`${
-															parseFloat(is.operating_capital_flow_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(is.operating_capital_flow_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{is.operating_capital_flow_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													有效稅率
-												</TableCell>
-												<TableCell align='right'>
-													{is.valid_tax_rate}
-													<span
-														className={`${
-															parseFloat(is.valid_tax_rate_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(is.valid_tax_rate_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{is.valid_tax_rate_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
+											{renderTableRow('營業收入', is.income, is.income_ycp)}
+											{renderTableRow('營業費用', is.operating_expenses, is.operating_expenses_ycp)}
+											{renderTableRow('營業利益', is.net_income, is.net_income_ycp)}
+											{renderTableRow('淨利率', is.net_income_rate, is.net_income_rate_ycp)}
+											{renderTableRow('每股盈餘', is.eps, is.eps_ycp)}
+											{renderTableRow('營業資金流動', is.operating_capital_flow, is.operating_capital_flow_ycp)}
+											{renderTableRow('有效稅率', is.valid_tax_rate, is.valid_tax_rate_ycp)}
 										</TableBody>
 									</Table>
 								</TableContainer>
@@ -222,158 +112,18 @@ export default function StockFS(stockId) {
 								<TableContainer className='md:items-start md:gap-8 md:flex'>
 									<Table>
 										<TableBody>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													現金及短期投資
-												</TableCell>
-												<TableCell align='right'>
-													{bs.cash_and_short_term_investment}
-													<span
-														className={`${
-															parseFloat(bs.cash_and_short_term_investment_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.cash_and_short_term_investment_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.cash_and_short_term_investment_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													總資產
-												</TableCell>
-												<TableCell align='right'>
-													{bs.total_assets}
-													<span
-														className={`${
-															parseFloat(bs.total_assets_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.total_assets_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.total_assets_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													總負債
-												</TableCell>
-												<TableCell align='right'>
-													{bs.total_debts}
-													<span
-														className={`${
-															parseFloat(bs.total_debts_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.total_debts_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.total_debts_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													總權益
-												</TableCell>
-												<TableCell align='right'>
-													{bs.total_equitys}
-													<span
-														className={`${
-															parseFloat(bs.total_equitys_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.total_equitys_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.total_equitys_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													流通股份
-												</TableCell>
-												<TableCell align='right'>
-													{bs.tradable_shares}
-													<span
-														className={`${
-															parseFloat(bs.tradable_shares_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.tradable_shares_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.tradable_shares_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													股價淨值比
-												</TableCell>
-												<TableCell align='right'>
-													{bs.pb_ratio}
-													<span
-														className={`${
-															parseFloat(bs.pb_ratio_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.pb_ratio_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.pb_ratio_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													資產報酬率
-												</TableCell>
-												<TableCell align='right'>
-													{bs.roa}
-													<span
-														className={`${
-															parseFloat(bs.roa_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.roa_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.roa_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													資本報酬率
-												</TableCell>
-												<TableCell align='right'>
-													{bs.roc}
-													<span
-														className={`${
-															parseFloat(bs.roc_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(bs.roc_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{bs.roc_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
+											{renderTableRow(
+												'現金及短期投資',
+												bs.cash_and_short_term_investment,
+												bs.cash_and_short_term_investment_ycp
+											)}
+											{renderTableRow('總資產', bs.total_assets, bs.total_assets_ycp)}
+											{renderTableRow('總負債', bs.total_debts, bs.total_debts_ycp)}
+											{renderTableRow('總權益', bs.total_equitys, bs.total_equitys_ycp)}
+											{renderTableRow('流通股份', bs.tradable_shares, bs.tradable_shares_ycp)}
+											{renderTableRow('股價淨值比', bs.pb_ratio, bs.pb_ratio_ycp)}
+											{renderTableRow('資產報酬率', bs.roa, bs.roa_ycp)}
+											{renderTableRow('資本報酬率', bs.roc, bs.roc_ycp)}
 										</TableBody>
 									</Table>
 								</TableContainer>
@@ -390,120 +140,12 @@ export default function StockFS(stockId) {
 								<TableContainer className='md:items-start md:gap-8 md:flex'>
 									<Table>
 										<TableBody>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													淨利
-												</TableCell>
-												<TableCell align='right'>
-													{cf.net_income}
-													<span
-														className={`${
-															parseFloat(cf.net_income_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(cf.net_income_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{cf.net_income_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													營運現金
-												</TableCell>
-												<TableCell align='right'>
-													{cf.operating_cash}
-													<span
-														className={`${
-															parseFloat(cf.operating_cash_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(cf.operating_cash_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{cf.operating_cash_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													投資現金
-												</TableCell>
-												<TableCell align='right'>
-													{cf.investment_cash}
-													<span
-														className={`${
-															parseFloat(cf.investment_cash_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(cf.investment_cash_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{cf.investment_cash_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													融資現金
-												</TableCell>
-												<TableCell align='right'>
-													{cf.financing_cash}
-													<span
-														className={`${
-															parseFloat(cf.financing_cash_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(cf.financing_cash_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{cf.financing_cash_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													現金變動淨額
-												</TableCell>
-												<TableCell align='right'>
-													{cf.net_change_in_cash}
-													<span
-														className={`${
-															parseFloat(cf.net_change_in_cash_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(cf.net_change_in_cash_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{cf.net_change_in_cash_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
-											<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-												<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
-													自由現金流
-												</TableCell>
-												<TableCell align='right'>
-													{cf.free_cash_flow}
-													<span
-														className={`${
-															parseFloat(cf.free_cash_flow_ycp) > 0
-																? 'text-stock_red'
-																: parseFloat(cf.free_cash_flow_ycp) < 0
-																? 'text-stock_green'
-																: ''
-														}`}
-													>
-														（{cf.free_cash_flow_ycp}）
-													</span>
-												</TableCell>
-											</TableRow>
+											{renderTableRow('淨利', cf.net_income, cf.net_income_ycp)}
+											{renderTableRow('營運現金', cf.operating_cash, cf.operating_cash_ycp)}
+											{renderTableRow('投資現金', cf.investment_cash, cf.investment_cash_ycp)}
+											{renderTableRow('融資現金', cf.financing_cash, cf.financing_cash_ycp)}
+											{renderTableRow('現金變動淨額', cf.net_change_in_cash, cf.net_change_in_cash_ycp)}
+											{renderTableRow('自由現金流', cf.free_cash_flow, cf.free_cash_flow_ycp)}
 										</TableBody>
 									</Table>
 								</TableContainer>

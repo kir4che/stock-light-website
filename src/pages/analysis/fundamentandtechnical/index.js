@@ -18,8 +18,7 @@ export default function FundamentalAnalysis() {
 	const [selectedStockSymbol, setSelectedStockSymbol] = useState(2303)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
-	const handleTabSelect = useCallback((e, index) => setSelectedTabIndex(index), [])
-
+	const [stockPePb, setStockPePb] = useState(null)
 	const [stockChartData, setStockChartData] = useState({
 		date: [],
 		price: [],
@@ -29,9 +28,7 @@ export default function FundamentalAnalysis() {
 		change: [],
 		volume: [],
 	})
-	const { date, price, closePrice, highPrice, lowPrice, change, volume } = stockChartData
-
-	const [stockPePb, setStockPePb] = useState(null)
+	const { date, closePrice, change } = stockChartData
 
 	const fetchStockPePb = useCallback(async (stockId) => {
 		try {
@@ -95,19 +92,20 @@ export default function FundamentalAnalysis() {
 		<StarryBackground className='w-full pt-8 pb-12 md:pt-10'>
 			<div className='w-full px-4 py-5 bg-white md:px-8 dark:bg-zinc-900/50 md:rounded'>
 				<div className='flex-center-between'>
+					{/* 個股名稱、代號 */}
 					<div className='flex items-baseline mb-2 space-x-4'>
 						<h3 className='inline-flex items-baseline space-x-2'>
 							<span>{allStock.find((stock) => stock.symbol === selectedStockSymbol).name || null}</span>
 							<span className='text-xl font-light tracking-widest'>{selectedStockSymbol}</span>
 						</h3>
 						<p className='text-xs font-medium tracking-wide opacity-70'>
-							{stockChartData ? convertDateTime(date[date.length - 1]) : getCurrentDate()} 更新
+							{date.length ? convertDateTime(date[date.length - 1]) : getCurrentDate()} 更新
 						</p>
 					</div>
 					<StockSelect value={selectedStockSymbol} onChange={(e) => setSelectedStockSymbol(e.target.value)} />
 				</div>
 				{/* 當日收盤價資訊 */}
-				{stockChartData && (
+				{change.length && closePrice.length ? (
 					<section className='flex items-baseline mb-4 space-x-1 tracking-wide'>
 						<p
 							className={`text-4xl font-bold ${
@@ -139,12 +137,12 @@ export default function FundamentalAnalysis() {
 							</p>
 						</div>
 					</section>
-				)}
+				) : null}
 				{/* 個股選單 */}
 				<Tabs
 					variant='scrollable'
 					value={selectedTabIndex}
-					onChange={handleTabSelect}
+					onChange={useCallback((e, index) => setSelectedTabIndex(index), [])}
 					className='mt-4 bg-white rounded dark:bg-zinc-800'
 					scrollButtons={false}
 				>
@@ -158,6 +156,7 @@ export default function FundamentalAnalysis() {
 						/>
 					))}
 				</Tabs>
+				{/* 個股選單內容 */}
 				{!isLoading && stockChartData ? (
 					<TabContent
 						stockId={selectedStockSymbol}
