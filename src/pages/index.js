@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/router'
 
-import TaiexChart from '@/components/Analysis/Taiexchart'
+import TaiexChart from '@/components/Analysis/TaiexChart'
 import Hero from '@/components/common/Hero'
 import { FlexCard } from '@/components/ui/FlexCard'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
