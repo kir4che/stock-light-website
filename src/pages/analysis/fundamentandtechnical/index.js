@@ -91,7 +91,7 @@ export default function FundamentalAnalysis() {
 	return (
 		<StarryBackground className='w-full pt-8 pb-12 md:pt-10'>
 			<div className='w-full px-4 py-5 bg-white md:px-8 dark:bg-zinc-900/50 md:rounded'>
-				<div className='flex flex-col-reverse xs:flex-row xs:flex-center-between'>
+				<div className='flex flex-col-reverse xs:flex-row xs:justify-between'>
 					{/* 個股名稱、代號 */}
 					<div className='flex items-baseline mt-4 mb-2 space-x-4 xs:mt-0'>
 						<h3 className='inline-flex items-baseline space-x-2'>

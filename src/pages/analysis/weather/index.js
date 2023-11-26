@@ -106,6 +106,9 @@ export default function WeatherAnalysis() {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/weather/predict/${type}/${stockId}`, {
 				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
 			})
 			const data = await response.json()
 			console.log('data', data)
