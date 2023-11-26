@@ -1,4 +1,4 @@
-export const navigationLinks = [
+export const pageList = [
 	{
 		name: '最新消息',
 		url: 'news',
@@ -17,6 +17,11 @@ export const navigationLinks = [
 				url: 'weather',
 			},
 		],
+	},
+	{
+		name: '股市 AI',
+		url: 'ask',
+		childPages: [],
 	},
 	{
 		name: '關於我們',

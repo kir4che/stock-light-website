@@ -13,7 +13,7 @@ import '@/styles/globals.css'
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
 	const router = useRouter()
-	const excludedPaths = /(\/analysis|\/light|\/user|\/feedback|\/register|\/login)/
+	const excludedPaths = /(\/analysis|\/light|\/user|\/ask|\/feedback|\/register|\/login)/
 	const isExcludedPage = excludedPaths.test(router.pathname)
 
 	useEffect(() => {
