@@ -1,6 +1,6 @@
 import { FormControl, MenuItem, Select } from '@mui/material'
 
-import { allStock } from '@/data/allStock'
+import { allStock } from '@/data/constants'
 
 export default function StockSelector({ value, onChange }) {
 	return (

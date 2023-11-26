@@ -63,14 +63,14 @@ export default function StockFS(stockId) {
 	}
 
 	return (
-		<div className='flex gap-8 pt-6'>
+		<div className='flex gap-4 pt-6 xs:gap-8'>
 			<Tabs value={selectedTabIndex} onChange={handleTabSelect} orientation='vertical'>
 				{['損益表', '資產負債表', '現金流量表'].map((tab, index) => (
 					<Tab
 						label={tab}
 						className={`${
 							selectedTabIndex === index ? 'bg-secondary_blue/10 dark:text-secondary_blue' : 'dark:text-zinc-100'
-						} hover:bg-sky-300/10 mb-2 `}
+						} hover:bg-sky-300/10 mb-2 [writing-mode:vertical-rl] xs:[writing-mode:unset]`}
 						key={index}
 					/>
 				))}

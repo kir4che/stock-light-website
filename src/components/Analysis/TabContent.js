@@ -54,7 +54,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 
 	const renderZoomButton = (text, days, zoomPercent) => (
 		<button
-			className='py-1 rounded-md w-1/7 hover:bg-secondary_blue/10'
+			className='py-1 rounded-md min-w-[110px] w-1/7 hover:bg-secondary_blue/10'
 			onClick={() => handleZoomBtnClick([zoomPercent, 100])}
 		>
 			<p className='text-sm'>{text}</p>
@@ -170,31 +170,30 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 		case 0:
 			return (
 				<>
-					{/* 折線圖 */}
-					<section className='flex items-start gap-6'>
+					{/* 股價走勢圖與成交量等資訊 */}
+					<section className='flex flex-col-reverse items-start gap-2 xs:gap-6 md:flex-row'>
 						<Chart
 							option={stockPriceLineOption(date, price, closePrice, volume, dataZoomRange, handleDataZoomChange)}
 							customHeight='h-72 md:h-80 xl:h-[450px]'
 						/>
-
-						<section className='flex flex-col w-48 mb-2 space-y-2'>
-							<button className='px-3 py-1 space-x-2 rounded-md text-zinc-100 bg-sky-500'>
-								<span className='font-light'>成交量</span>
-								<span className='text-lg font-semibold'>
+						<section className='flex flex-col w-full mt-3 space-y-2 xs:items-center xs:space-y-0 xs:space-x-2 xs:flex-row md:items-stretch md:mt-0 md:space-x-0 md:space-y-2 md:mb-2 md:w-48 md:flex-col'>
+							<button className='px-3 py-1 space-x-2 leading-6 rounded-md text-zinc-100 bg-sky-500'>
+								<span className='text-sm font-light xs:text-base'>成交量</span>
+								<span className='text-base font-semibold xs:text-lg'>
 									{volume[volume.length - 1] && numberComma(volume[volume.length - 1])}
 								</span>
 							</button>
 							{stockPePb && (
 								<>
-									<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
-										<span className='font-light'>本益比</span>
-										<span className='text-lg font-semibold'>
+									<button className='px-3 py-1 space-x-2 leading-6 rounded-md text-zinc-100 bg-sky-500'>
+										<span className='text-sm font-light xs:text-base'>本益比</span>
+										<span className='text-base font-semibold xs:text-lg'>
 											{stockPePb.p_e_ratio ? stockPePb.p_e_ratio.toFixed(2) : ''}
 										</span>
 									</button>
-									<button className='px-3 py-1 space-x-2 rounded-md shadow text-zinc-100 bg-sky-500'>
-										<span className='font-light'>本淨比</span>
-										<span className='text-lg font-semibold'>
+									<button className='px-3 py-1 space-x-2 leading-6 rounded-md text-zinc-100 bg-sky-500'>
+										<span className='text-sm font-light xs:text-base'>本淨比</span>
+										<span className='text-base font-semibold xs:text-lg'>
 											{stockPePb.p_b_ratio ? stockPePb.p_b_ratio.toFixed(2) : ''}
 										</span>
 									</button>
@@ -203,7 +202,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						</section>
 					</section>
 					{/* 日期區間 */}
-					<section className='mt-4 flex-center-between'>
+					<section className='mt-4 overflow-x-auto flex-center-between'>
 						{renderZoomButton('5D', 5, 99.7)}
 						{renderZoomButton('1M', 30, 98)}
 						{renderZoomButton('3M', 90, 94.5)}
@@ -218,7 +217,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 		case 1:
 			return (
 				<>
-					<div className='flex items-end justify-between mt-2.5 mb-2'>
+					<div className='md:flex items-end justify-between mt-2.5 mb-2'>
 						{/* 均線、副圖表選擇 */}
 						<section className='space-x-3'>
 							<SelectMenu
@@ -235,7 +234,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 							/>
 						</section>
 						{/* 日期區間 */}
-						<section className='flex items-center justify-end space-x-1 text-sm font-light tracking-widest'>
+						<section className='flex items-center justify-end text-xs font-light tracking-widest xs:text-sm xs:space-x-1'>
 							{renderTechAnalZoomButton('5D', 99.7)}
 							<span>｜</span>
 							{renderTechAnalZoomButton('1M', 98)}

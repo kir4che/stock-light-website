@@ -59,24 +59,29 @@ export default function Header() {
 					}
 				})}
 			</nav>
-			<div className='flex-center md:space-x-2 xl:space-x-3'>
-				<Link href={'/light'}>
-					<button
-						type='button'
-						className={`block px-5 py-2 text-sm font-medium tracking-wide transition-all duration-300 ease-out rounded-full dark:text-zinc-800 bg-primary_yellow hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow dark:hover:ring-offset-zinc-900 ${
-							session ? 'mr-3 md:mr-0' : ''
-						}`}
-					>
-						我要點燈
-					</button>
-				</Link>
+			<div className=' flex-center md:space-x-2 xl:space-x-3'>
+				<button
+					type='button'
+					className={`hidden md:block px-5 py-2 text-sm font-medium tracking-wide transition-all duration-300 ease-out rounded-full dark:text-zinc-800 bg-primary_yellow hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow dark:hover:ring-offset-zinc-900 ${
+						session ? 'mr-3 md:mr-0' : ''
+					}`}
+					onClick={() => router.push('/light')}
+				>
+					我要點燈
+				</button>
+				<button
+					className='w-8 p-1 mr-0.5 rounded-full md:hidden hover:bg-primary_yellow/20'
+					onClick={() => router.push('/light')}
+				>
+					<Image src='/assets/lantern.png' width={28} height={28} alt='line' />
+				</button>
 				{session ? (
 					<UserMenu session={session} />
 				) : (
-					<Link href={'/login'} className='items-center hidden md:flex'>
+					<button className='items-center hidden md:flex' onClick={() => router.push('/login')}>
 						<span>登入</span>
 						<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
-					</Link>
+					</button>
 				)}
 				<BurgerMenu navigationLinks={navigationLinks} session={session} />
 				<DarkModeToggle />
