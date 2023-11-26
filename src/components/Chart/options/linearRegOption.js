@@ -9,8 +9,9 @@ export function linearRegOption(stockSymbol, tab) {
 	const stockPriceList = []
 
 	let resultData = [
-		[8.80, 2.00, 6.30, 9.00, 10.00, 10.00, 10.00, 10.00, 10.00, 3.50],
-		[17.30, 20.40, 21.70, 20.90, 17.30, 17.10,18.00, 17.70, 11.60,]]
+		[8.80, 17.30],[2.00, 20.40],[6.30,21.70],[9.00,20.90],[10.00,17.30],
+		[10.00,17.10],[10.00,18.00],[10.00,17.70],[3.50,11.60],
+	]
 	const maxLength = Math.max(data.length, stockPriceList.length)
 
 	// 合併成二維陣列
@@ -24,7 +25,7 @@ export function linearRegOption(stockSymbol, tab) {
 	return {
 		// 大標題
 		title: {
-			text: `${stockSymbol} 股價的相關性分析`,
+			text: `${stockSymbol}股價的與${tab}相關性分析`,
 			top: 20,
 			left: 'center',
 		},

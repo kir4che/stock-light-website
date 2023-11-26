@@ -12,7 +12,6 @@ import Chart from '@/components/Chart/Chart';
 import { linearRegOption } from '@/components/Chart/options/linearRegOption';
 import { DataGrid } from '@mui/x-data-grid';
 
-
 const WeatherSidebar = [
 	{
 		id: 1,
@@ -65,7 +64,7 @@ const columns = [
 		headerAlign: 'right',
 		align: 'right',
 		flex: 1,
-		valueFormatter: (params) => `${params.value.toFixed(2)}`,
+		valueFormatter: (params) => `${params.value}`,
 		cellClassName: (params) => {
 			const changeValue = params.row.quote_change || 0
 			return changeValue > 0 ? 'text-stock_red' : changeValue < 0 ? 'text-stock_green' : ''
@@ -94,13 +93,14 @@ const columns = [
 
 export default function WeatherAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
-
 	const [selectedTab, setSelectedTab] = useState(0)
 
 	const [selectedStockSymbol, setSelectedStockSymbol] = useState(1101)
 	const [selectedWeatherType, setSelectedWeatherType] = useState('sunny')
 	const [weatherData, setWeatherData] = useState([])
 	const [stockData, setStockData] = useState([null])
+	const [stockPrices, setStockPrices] = useState([])
+	const [volumeData, setVolumeData] = useState([])
 
 	const fetchWeatherPredict = async (type, stockId) => {
 		try {
@@ -109,11 +109,15 @@ export default function WeatherAnalysis() {
 			})
 			const data = await response.json()
 			console.log('data', data)
+
 			const filteredData = data.data.filter((stock) => stock.stock_id === stockId)
 			setStockData(filteredData)
-
 			const dates = filteredData.map((stock) => convertDateTime(stock.date).split(' ')[0])
 			setDateData(dates)
+			const prices = filteredData.map((stock) => stock.stock_price)
+			setStockPrices(prices);
+			const volumes = filteredData.map((stock) => stock.trade_volume)
+			setVolumeData(volumes)
 
 			setWeatherData(data)
 			setIsLoading(false)
@@ -125,13 +129,14 @@ export default function WeatherAnalysis() {
 
 	useEffect(() => {
 		fetchWeatherPredict(selectedWeatherType, selectedStockSymbol)
-	}, [selectedStockSymbol, selectedWeatherType])
+	}, [selectedStockSymbol, selectedWeatherType]);
 
 	return (
 		<StarryBackground className={'w-full pt-8 pb-12 md:pt-10'}>
 			<h2 className='mb-4 text-center text-zinc-100'>天氣相關性分析</h2>
 			<div className='md:gap-8 md:flex'>
 				<section className='w-full py-4 space-y-1 bg-white rounded md:w-1/5 dark:bg-zinc-900/50'>
+					<h3 className='text-center mb-4'>天氣型態</h3><hr />
 					{WeatherSidebar.map((weather, index) => (
 						<button
 							className={`flex items-center space-x-1.5 w-full px-3 py-2 hover:bg-primary_yellow/20 ${selectedTab === index ? 'bg-primary_yellow/50 dark:bg-primary_yellow/30' : ''
@@ -175,7 +180,9 @@ export default function WeatherAnalysis() {
 					{!isLoading ?
 						<section className='flex flex-wrap items-start gap-3 mt-8'>
 							<Chart
-								option={linearRegOption(stockData)}
+								option={
+									linearRegOption(selectedStockSymbol, selectedWeatherType)
+								}
 								customHeight='h-56 md:h-64 xl:h-[320px]'
 							/>
 							<DataGrid
@@ -184,10 +191,10 @@ export default function WeatherAnalysis() {
 									{
 										id: 1,
 										stock_id: selectedStockSymbol,
-										weather:selectedWeatherType,
+										weather: selectedWeatherType,
 										stock_name: allStock.find((stock) => stock.symbol === selectedStockSymbol).name || null,
-										price: 0,
-										volume: 0,
+										price: stockPrices,
+										volume: volumeData,
 										correlation: 0,
 									}
 								]}
