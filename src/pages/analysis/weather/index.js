@@ -9,6 +9,7 @@ import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import StockSelect from '@/components/ui/StockSelector'
 import { allStock, weatherList } from '@/data/constants'
+import { calculateCorrelationCoefficient } from '@/utils/calculateCorrelationCoefficient'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 
@@ -120,9 +121,10 @@ export default function WeatherAnalysis() {
 				method: 'GET',
 			})
 			const data = await response.json()
+			console.log(data.data)
 
-			setStockPrices(data.data.dependent_datas)
 			setWeatherData(data.data.independent_datas)
+			setStockPrices(data.data.dependent_datas)
 			setStockInfo(data.data.stockinfo)
 
 			setIsLoading(false)
@@ -178,7 +180,7 @@ export default function WeatherAnalysis() {
 						<StockSelect value={selectedStockSymbol} onChange={(e) => setSelectedStockSymbol(e.target.value)} />
 					</div>
 					{!isLoading ? (
-						<section className='flex flex-wrap items-start mb-10 space-y-4'>
+						<section className='flex flex-wrap items-start space-y-4'>
 							<Chart
 								option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
 								customHeight='h-72 md:h-96 xl:h-[450px]'
@@ -195,6 +197,7 @@ export default function WeatherAnalysis() {
 										quote_change: stockInfo.change || null,
 										week_quote_change: stockInfo.change_week || null,
 										volume: stockInfo.trade_volume || null,
+										correlation: calculateCorrelationCoefficient(weatherData, stockPrices),
 									},
 								]}
 								columns={columns}
@@ -205,6 +208,27 @@ export default function WeatherAnalysis() {
 					) : (
 						<Loading />
 					)}
+					{/* 通用說明 */}
+					<section className='mt-2 mb-10'>
+						<p className='mb-2 font-bold'>簡單線性迴歸模式 (Simple linear regression model)</p>
+						<ul>
+							<li>
+								<strong>散佈圖 (scatter plot)</strong>：可得知兩個變數之間的關係是正向還是負向
+							</li>
+							<li>
+								<strong>相關係數 (correlation coefficient)</strong>：代表兩個變數之間線性關係的強度，數值範圍為 -1 到
+								1。
+								<ul>
+									<li>負相關：代表</li>
+									<li>無相關：代表</li>
+									<li>正相關：代表</li>
+								</ul>
+							</li>
+							<li>
+								<strong>迴歸直線 (regression)</strong>：
+							</li>
+						</ul>
+					</section>
 					<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 				</section>
 			</div>

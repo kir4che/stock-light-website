@@ -15,18 +15,18 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 
 	return {
 		title: {
-			text: `${stock}股價與${weather}的相關性分析`,
+			text: `${stock}股價 (y) 與${weather} (x) 的相關性分析`,
 			top: 18,
 			left: 'center',
 		},
 		xAxis: {
 			type: 'value',
-			name: '係數',
+			name: weather,
 			scale: true,
 		},
 		yAxis: {
 			type: 'value',
-			name: weather,
+			name: '股價',
 			scale: true,
 		},
 		dataset: [
