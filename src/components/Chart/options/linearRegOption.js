@@ -2,39 +2,37 @@ import * as echarts from 'echarts'
 import ecStat from 'echarts-stat'
 
 // 線性迴歸
-export function linearRegOption(stockSymbol, tab) {
+export function linearRegOption(stock, weather, weatherData, priceList) {
 	echarts.registerTransform(ecStat.transform.regression)
 
-	const data = []
-	const stockPriceList = []
-
-	let resultData = [
-		[8.80, 17.30],[2.00, 20.40],[6.30,21.70],[9.00,20.90],[10.00,17.30],
-		[10.00,17.10],[10.00,18.00],[10.00,17.70],[3.50,11.60],
-	]
-	const maxLength = Math.max(data.length, stockPriceList.length)
-
+	const resultData = []
 	// 合併成二維陣列
-	for (let i = 0; i < maxLength; i++) {
-		const newData = i < data.length ? data[i] : null
-		const newStockPrice = i < stockPriceList.length ? stockPriceList[i] : null
-
-		resultData.push([newData, newStockPrice])
+	for (let i = 0; i < Math.max(weatherData.length, priceList.length); i++) {
+		const newWeatherData = i < weatherData.length ? weatherData[i] : null
+		const newPriceList = i < priceList.length ? priceList[i] : null
+		resultData.push([newWeatherData, newPriceList])
 	}
 
 	return {
-		// 大標題
 		title: {
-			text: `${stockSymbol}股價的與${tab}相關性分析`,
-			top: 20,
+			text: `${stock}股價與${weather}的相關性分析`,
+			top: 18,
 			left: 'center',
 		},
+		xAxis: {
+			type: 'value',
+			name: '係數',
+			scale: true,
+		},
+		yAxis: {
+			type: 'value',
+			name: weather,
+			scale: true,
+		},
 		dataset: [
-			// 資料源
 			{
 				source: resultData,
 			},
-			// 資料類型轉換
 			{
 				transform: {
 					type: 'ecStat:regression',
@@ -42,19 +40,6 @@ export function linearRegOption(stockSymbol, tab) {
 				},
 			},
 		],
-		// x軸
-		xAxis: {
-			type: 'value',
-			name: '係數',
-			scale: true,
-		},
-		// y軸
-		yAxis: {
-			type: 'value',
-			name: '狀態',
-			scale: true,
-		},
-		// 圖表配置
 		series: [
 			{
 				type: 'scatter',
@@ -69,23 +54,11 @@ export function linearRegOption(stockSymbol, tab) {
 				encode: { label: 2, tooltip: 1 },
 			},
 		],
-		tooltip: {
-			order: 'valueDesc',
-			trigger: 'axis',
-			axisPointer: {
-				type: 'cross',
-				label: {
-					backgroundColor: '#40B4FF',
-				},
-			},
-			valueFormatter: (value) => value.toFixed(4),
-		},
-		// 圖表位置
 		grid: {
-			x: 68, // 左側間距
-			y: 80, // 上側間距
-			x2: 48, // 右側間距
-			y2: 50, // 下側間距
+			top: '15%',
+			left: '5%',
+			right: '6%',
+			height: '75%',
 		},
 	}
 }

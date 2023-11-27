@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@arco-design/web-react": "^2.56.0",
     "@emailjs/browser": "^3.11.0",
     "@mui/material": "^5.14.5",
     "@mui/x-data-grid": "^6.12.1",

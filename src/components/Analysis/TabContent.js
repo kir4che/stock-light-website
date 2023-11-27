@@ -21,7 +21,6 @@ import {
 import SelectMenu from '@/components/ui/SelectMenu'
 import techAnalData from '@/data/techAnalData.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
-import { numberComma } from '@/utils/numberComma'
 
 export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) {
 	const { date, price, closePrice, highPrice, lowPrice, change, volume } = stockData
@@ -180,7 +179,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 							<button className='px-3 py-1 space-x-2 leading-6 rounded-md text-zinc-100 bg-sky-500'>
 								<span className='text-sm font-light xs:text-base'>成交量</span>
 								<span className='text-base font-semibold xs:text-lg'>
-									{volume[volume.length - 1] && numberComma(volume[volume.length - 1])}
+									{volume[volume.length - 1] && volume[volume.length - 1].toLocaleString()}
 								</span>
 							</button>
 							{stockPePb && (
@@ -259,12 +258,12 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						<div className='mt-6 mb-12 space-y-2'>
 							<p>
 								<strong>{techAnalData.curve.find((curve) => curve.name === 'MA')?.fullname}：</strong>
-								{techAnalData.curve.find((curve) => curve.name === 'MA')?.description}
+								{techAnalData.curve.find((curve) => curve.name === 'MA')?.desc}
 							</p>
 							{subchart !== '' && (
 								<p>
 									<strong>{techAnalData.chart.find((chart) => chart.name === subchart)?.fullname}：</strong>
-									{techAnalData.chart.find((chart) => chart.name === subchart)?.description}
+									{techAnalData.chart.find((chart) => chart.name === subchart)?.desc}
 								</p>
 							)}
 						</div>
@@ -272,12 +271,12 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						<div className='mt-6 mb-12 space-y-2'>
 							<p>
 								<strong>{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.fullname}：</strong>
-								{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.description}
+								{techAnalData.curve.find((curve) => curve.name === selectedMenu)?.desc}
 							</p>
 							{subchart !== '' && (
 								<p>
 									<strong>{techAnalData.chart.find((chart) => chart.name === subchart)?.fullname}：</strong>
-									{techAnalData.chart.find((chart) => chart.name === subchart)?.description}
+									{techAnalData.chart.find((chart) => chart.name === subchart)?.desc}
 								</p>
 							)}
 						</div>
