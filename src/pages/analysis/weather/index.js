@@ -1,5 +1,7 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 import { DataGrid } from '@mui/x-data-grid'
 import React, { useEffect, useState } from 'react'
 
@@ -7,8 +9,7 @@ import Chart from '@/components/Chart/Chart'
 import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
-import StockSelect from '@/components/ui/StockSelector'
-import { allStock, weatherList } from '@/data/constants'
+import { stock150, weatherList } from '@/data/constants'
 import { calculateCorrelationCoefficient } from '@/utils/calculateCorrelationCoefficient'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
@@ -106,7 +107,7 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
 export default function WeatherAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [selectedTab, setSelectedTab] = useState(0)
-	const [selectedStockSymbol, setSelectedStockSymbol] = useState(1101)
+	const [selectedStockId, setSelectedStockId] = useState(1101)
 	const [selectedWeatherType, setSelectedWeatherType] = useState('sunny')
 
 	const [weatherData, setWeatherData] = useState([])
@@ -134,12 +135,16 @@ export default function WeatherAnalysis() {
 	}
 
 	useEffect(() => {
-		fetchWeatherPredict(selectedWeatherType, selectedStockSymbol)
+		console.log('selectedStockId', selectedStockId)
+	}, [selectedStockId])
+
+	useEffect(() => {
+		fetchWeatherPredict(selectedWeatherType, selectedStockId)
 		setChartData({
-			stock: allStock.find((stock) => stock.symbol === selectedStockSymbol).name,
+			stock: stock150.find((stock) => stock.id === selectedStockId).name,
 			weather: weatherList[selectedTab].ch_name,
 		})
-	}, [selectedStockSymbol, selectedWeatherType])
+	}, [selectedStockId, selectedWeatherType])
 
 	return (
 		<StarryBackground className={'w-full pt-8 pb-12'}>
@@ -170,14 +175,23 @@ export default function WeatherAnalysis() {
 							<div className='space-x-2 flex-center'>
 								<h3 className='inline-flex items-baseline space-x-2'>
 									<span>{chartData.stock}</span>
-									<span className='text-xl font-light tracking-widest'>{selectedStockSymbol}</span>
+									<span className='text-xl font-light tracking-widest'>{selectedStockId}</span>
 								</h3>
 								<HtmlTooltip title={<React.Fragment>{weatherList[selectedTab].desc} </React.Fragment>}>
 									<p className='px-2.5 py-1 text-xs text-white rounded-full bg-secondary_blue'>{chartData.weather}</p>
 								</HtmlTooltip>
 							</div>
 						)}
-						<StockSelect value={selectedStockSymbol} onChange={(e) => setSelectedStockSymbol(e.target.value)} />
+						<Autocomplete
+							options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
+							defaultValue={`${stock150[0].id} ${stock150[0].name}`}
+							sx={{ width: 192 }}
+							size='small'
+							renderInput={(params) => <TextField {...params} label='搜尋台股代號／名稱' />}
+							onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
+							disableClearable
+							disablePortal
+						/>
 					</div>
 					{!isLoading ? (
 						<section className='flex flex-wrap items-start space-y-4'>
@@ -190,7 +204,7 @@ export default function WeatherAnalysis() {
 								rows={[
 									{
 										id: 1,
-										stock_id: selectedStockSymbol,
+										stock_id: selectedStockId,
 										stock_name: chartData.stock || null,
 										weather: chartData.weather,
 										price: stockInfo.closing_price || null,

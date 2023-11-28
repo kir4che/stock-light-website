@@ -1,13 +1,14 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Tab, Tabs } from '@mui/material'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 import { useCallback, useEffect, useState } from 'react'
 
 import TabContent from '@/components/Analysis/TabContent'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
-import StockSelect from '@/components/ui/StockSelector'
-import { allStock } from '@/data/constants'
+import { stock150 } from '@/data/constants'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
 import { getCurrentDate } from '@/utils/getCurrentDate'
@@ -15,7 +16,7 @@ import { getCurrentDate } from '@/utils/getCurrentDate'
 export default function FundamentalAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
 
-	const [selectedStockSymbol, setSelectedStockSymbol] = useState(2303)
+	const [selectedStockId, setSelectedStockId] = useState(1101)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
 	const [stockPePb, setStockPePb] = useState(null)
@@ -82,11 +83,11 @@ export default function FundamentalAnalysis() {
 	useEffect(() => {
 		setIsLoading(true)
 
-		fetchStockPePb(selectedStockSymbol)
-		fetchStockData(selectedStockSymbol)
+		fetchStockPePb(selectedStockId)
+		fetchStockData(selectedStockId)
 
 		setSelectedTabIndex(0)
-	}, [selectedStockSymbol])
+	}, [selectedStockId])
 
 	return (
 		<StarryBackground className='w-full pt-8 pb-12 md:pt-10'>
@@ -95,14 +96,23 @@ export default function FundamentalAnalysis() {
 					{/* 個股名稱、代號 */}
 					<div className='flex items-baseline mt-4 mb-2 space-x-4 xs:mt-0'>
 						<h3 className='inline-flex items-baseline space-x-2'>
-							<span>{allStock.find((stock) => stock.symbol === selectedStockSymbol).name || null}</span>
-							<span className='text-xl font-light tracking-widest'>{selectedStockSymbol}</span>
+							<span>{stock150.find((stock) => stock.id === selectedStockId).name || null}</span>
+							<span className='text-xl font-light tracking-widest'>{selectedStockId}</span>
 						</h3>
 						<p className='text-xs font-medium tracking-wide opacity-70'>
 							{date.length ? convertDateTime(date[date.length - 1]) : getCurrentDate()} 更新
 						</p>
 					</div>
-					<StockSelect value={selectedStockSymbol} onChange={(e) => setSelectedStockSymbol(e.target.value)} />
+					<Autocomplete
+						options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
+						defaultValue={`${stock150[0].id} ${stock150[0].name}`}
+						sx={{ width: 192 }}
+						size='small'
+						renderInput={(params) => <TextField {...params} label='搜尋台股代號／名稱' />}
+						onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
+						disableClearable
+						disablePortal
+					/>{' '}
 				</div>
 				{/* 當日收盤價資訊 */}
 				{change.length && closePrice.length ? (
@@ -159,7 +169,7 @@ export default function FundamentalAnalysis() {
 				{/* 個股選單內容 */}
 				{!isLoading && stockChartData ? (
 					<TabContent
-						stockId={selectedStockSymbol}
+						stockId={selectedStockId}
 						tabIndex={selectedTabIndex}
 						stockData={stockChartData}
 						stockPePb={stockPePb}

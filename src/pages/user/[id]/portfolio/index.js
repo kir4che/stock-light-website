@@ -1,10 +1,11 @@
 import StarryBackground from '@/components/common/StarryBackground'
-import StockSelect from '@/components/ui/StockSelector'
 import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Input, Tab, Tabs } from '@mui/material'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
 import { DataGrid } from '@mui/x-data-grid'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
@@ -21,7 +22,6 @@ export async function getServerSideProps(ctx) {
 		}
 }
 
-// 表格欄位配置
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },
 	{ field: 'stock_name', headerName: '股票', flex: 1 },
@@ -452,7 +452,16 @@ export default function Portfolio() {
 			{groupData[currentGroupIndex] && (
 				<>
 					<div className='flex items-center mb-3 dark:text-zinc-800'>
-						<StockSelect value={newStockId} onChange={(e) => setNewStockId(e.target.value)} />
+						<Autocomplete
+							options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
+							defaultValue={`${stock150[0].id} ${stock150[0].name}`}
+							sx={{ width: 192 }}
+							size='small'
+							renderInput={(params) => <TextField {...params} label='搜尋台股代號／名稱' />}
+							onChange={(e, newValue) => setNewStockId(parseInt(newValue))}
+							disableClearable
+							disablePortal
+						/>
 						<Button
 							size='large'
 							startIcon={
