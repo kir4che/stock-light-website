@@ -223,43 +223,45 @@ export default function WeatherAnalysis() {
 						<Loading />
 					)}
 					{/* 通用說明 */}
-					<section className='mt-4 mb-12'>
-						<p className='mb-2 font-bold'>簡單線性迴歸模式 (Simple linear regression model)</p>
-						<ul className='pl-4 list-disc'>
-							<li>
-								<strong>散佈圖 (scatter plot)</strong>：蒐集天氣數據 (x) 與股價 (y) 兩個變量的 n 筆數據，並將其畫在 xy
-								平面上，可得知兩個變數之間的相關性。
-								<ul className='pl-4 list-disc'>
-									<li>完全正相關：當天氣數據 (x) 與股價 (y) 全部都在一條左下往右上的直線上。</li>
-									<li>正相關：當天氣數據 (x) 增加時，股價 (y) 也有增加的趨勢，圖形呈現左下往右上。</li>
-									<li>零相關：完全對稱的圖形、平行 x 軸或平行 y 軸的趨勢。</li>
-									<li>負相關：當天氣數據 (x) 增加時，股價 (y) 有減少的趨勢，圖形呈現左上往右下。</li>
-									<li>完全負相關：當天氣數據 (x) 與股價 (y) 全部都在一條左上往右下的直線上。</li>
-								</ul>
-							</li>
-							<li>
-								<strong>相關係數 (correlation coefficient)</strong>：代表兩變數之間線性關係的強度及方向，數值範圍為 -1 ≤
-								r ≤ 1。
-								<ul class='pl-4 list-disc'>
-									<li>完全正相關：r = 1</li>
-									<li>
-										正相關：0 &lt; r &lt; 1，細分有：高度正相關 (0.7 ≤ r &lt; 1)、中度正相關 (0.3 ≤ r &lt;
-										0.7)、低度正相關 (0 &lt; r &lt; 0.3)
-									</li>
-									<li>零相關：r = 0</li>
-									<li>
-										負相關：-1 &lt; r &lt; 0，細分有：高度負相關 (-1 &lt; r ≤ -0.7)、中度負相關 (-0.7 &lt; r ≤
-										-0.3)、低度負相關 (-0.3 &lt; r &lt; 0)
-									</li>
-									<li>完全負相關：r = -1</li>
-								</ul>
-							</li>
-							<li>
-								<strong>迴歸直線 (regression)</strong>：利用最小平方法 (least square method)
-								所估計出的一條用來描述兩個變數之間關係的直線，並稱其為 y 對 x 的迴歸直線。
-							</li>
-						</ul>
-					</section>
+					{!isLoading && (
+						<section className='mt-4 mb-12'>
+							<p className='mb-2 font-bold'>簡單線性迴歸模式 (Simple linear regression model)</p>
+							<ul className='pl-4 list-disc'>
+								<li>
+									<strong>散佈圖 (scatter plot)</strong>：蒐集天氣數據 (x) 與股價 (y) 兩個變量的 n 筆數據，並將其畫在 xy
+									平面上，可得知兩個變數之間的相關性。
+									<ul className='pl-4 list-disc'>
+										<li>完全正相關：當天氣數據 (x) 與股價 (y) 全部都在一條左下往右上的直線上。</li>
+										<li>正相關：當天氣數據 (x) 增加時，股價 (y) 也有增加的趨勢，圖形呈現左下往右上。</li>
+										<li>零相關：完全對稱的圖形、平行 x 軸或平行 y 軸的趨勢。</li>
+										<li>負相關：當天氣數據 (x) 增加時，股價 (y) 有減少的趨勢，圖形呈現左上往右下。</li>
+										<li>完全負相關：當天氣數據 (x) 與股價 (y) 全部都在一條左上往右下的直線上。</li>
+									</ul>
+								</li>
+								<li>
+									<strong>相關係數 (correlation coefficient)</strong>：代表兩變數之間線性關係的強度及方向，數值範圍為 -1
+									≤ r ≤ 1。
+									<ul class='pl-4 list-disc'>
+										<li>完全正相關：r = 1</li>
+										<li>
+											正相關：0 &lt; r &lt; 1，細分有：高度正相關 (0.7 ≤ r &lt; 1)、中度正相關 (0.3 ≤ r &lt;
+											0.7)、低度正相關 (0 &lt; r &lt; 0.3)
+										</li>
+										<li>零相關：r = 0</li>
+										<li>
+											負相關：-1 &lt; r &lt; 0，細分有：高度負相關 (-1 &lt; r ≤ -0.7)、中度負相關 (-0.7 &lt; r ≤
+											-0.3)、低度負相關 (-0.3 &lt; r &lt; 0)
+										</li>
+										<li>完全負相關：r = -1</li>
+									</ul>
+								</li>
+								<li>
+									<strong>迴歸直線 (regression)</strong>：利用最小平方法 (least square method)
+									所估計出的一條用來描述兩個變數之間關係的直線，並稱其為 y 對 x 的迴歸直線。
+								</li>
+							</ul>
+						</section>
+					)}
 					<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 				</section>
 			</div>
