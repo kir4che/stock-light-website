@@ -1,4 +1,4 @@
-export function calculateCorrelationCoefficient(x, y) {
+export function calculateR(x, y) {
 	const xMean = x.reduce((a, b) => a + b) / x.length
 	const yMean = y.reduce((a, b) => a + b) / y.length
 	const xVariance = x.reduce((a, b) => a + Math.pow(b - xMean, 2), 0)

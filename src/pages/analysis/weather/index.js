@@ -10,7 +10,7 @@ import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import { stock150, weatherList } from '@/data/constants'
-import { calculateCorrelationCoefficient } from '@/utils/calculateCorrelationCoefficient'
+import { calculateR } from '@/utils/calculateR'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 
@@ -151,7 +151,7 @@ export default function WeatherAnalysis() {
 			<h2 className='mb-6 text-center text-zinc-100'>天氣相關性分析</h2>
 			<div className='lg:gap-6 xl:gap-8 lg:flex'>
 				{/* 天氣型態 */}
-				<section className='w-full pb-3 overflow-y-auto bg-white rounded h-28 lg:h-full lg:w-80 xl:w-64 dark:bg-zinc-900/80'>
+				<section className='w-full pb-3 overflow-y-auto rounded-t lg:rounded md:bg-white h-28 lg:h-full lg:w-80 xl:w-64 dark:bg-zinc-900/80'>
 					<h4 className='py-4 tracking-wide text-center dark:bg-zinc-800'>選擇天氣型態</h4>
 					{weatherList.map((weather, index) => (
 						<button
@@ -169,7 +169,7 @@ export default function WeatherAnalysis() {
 						</button>
 					))}
 				</section>
-				<section className='w-full px-8 py-5 bg-white dark:bg-zinc-900/50 md:rounded'>
+				<section className='w-full px-8 py-6 bg-white rounded-b dark:bg-zinc-900/50 lg:rounded'>
 					<div className='mb-4 flex-center-between'>
 						{chartData && (
 							<div className='space-x-2 flex-center'>
@@ -211,7 +211,7 @@ export default function WeatherAnalysis() {
 										quote_change: stockInfo.change || null,
 										week_quote_change: stockInfo.change_week || null,
 										volume: stockInfo.trade_volume || null,
-										correlation: calculateCorrelationCoefficient(weatherData, stockPrices),
+										correlation: calculateR(weatherData, stockPrices),
 									},
 								]}
 								columns={columns}
@@ -223,23 +223,40 @@ export default function WeatherAnalysis() {
 						<Loading />
 					)}
 					{/* 通用說明 */}
-					<section className='mt-2 mb-10'>
+					<section className='mt-4 mb-12'>
 						<p className='mb-2 font-bold'>簡單線性迴歸模式 (Simple linear regression model)</p>
-						<ul>
+						<ul className='pl-4 list-disc'>
 							<li>
-								<strong>散佈圖 (scatter plot)</strong>：可得知兩個變數之間的關係是正向還是負向
-							</li>
-							<li>
-								<strong>相關係數 (correlation coefficient)</strong>：代表兩個變數之間線性關係的強度，數值範圍為 -1 到
-								1。
-								<ul>
-									<li>負相關：代表</li>
-									<li>無相關：代表</li>
-									<li>正相關：代表</li>
+								<strong>散佈圖 (scatter plot)</strong>：蒐集天氣數據 (x) 與股價 (y) 兩個變量的 n 筆數據，並將其畫在 xy
+								平面上，可得知兩個變數之間的相關性。
+								<ul className='pl-4 list-disc'>
+									<li>完全正相關：當天氣數據 (x) 與股價 (y) 全部都在一條左下往右上的直線上。</li>
+									<li>正相關：當天氣數據 (x) 增加時，股價 (y) 也有增加的趨勢，圖形呈現左下往右上。</li>
+									<li>零相關：完全對稱的圖形、平行 x 軸或平行 y 軸的趨勢。</li>
+									<li>負相關：當天氣數據 (x) 增加時，股價 (y) 有減少的趨勢，圖形呈現左上往右下。</li>
+									<li>完全負相關：當天氣數據 (x) 與股價 (y) 全部都在一條左上往右下的直線上。</li>
 								</ul>
 							</li>
 							<li>
-								<strong>迴歸直線 (regression)</strong>：
+								<strong>相關係數 (correlation coefficient)</strong>：代表兩變數之間線性關係的強度及方向，數值範圍為 -1 ≤
+								r ≤ 1。
+								<ul class='pl-4 list-disc'>
+									<li>完全正相關：r = 1</li>
+									<li>
+										正相關：0 &lt; r &lt; 1，細分有：高度正相關 (0.7 ≤ r &lt; 1)、中度正相關 (0.3 ≤ r &lt;
+										0.7)、低度正相關 (0 &lt; r &lt; 0.3)
+									</li>
+									<li>零相關：r = 0</li>
+									<li>
+										負相關：-1 &lt; r &lt; 0，細分有：高度負相關 (-1 &lt; r ≤ -0.7)、中度負相關 (-0.7 &lt; r ≤
+										-0.3)、低度負相關 (-0.3 &lt; r &lt; 0)
+									</li>
+									<li>完全負相關：r = -1</li>
+								</ul>
+							</li>
+							<li>
+								<strong>迴歸直線 (regression)</strong>：利用最小平方法 (least square method)
+								所估計出的一條用來描述兩個變數之間關係的直線，並稱其為 y 對 x 的迴歸直線。
 							</li>
 						</ul>
 					</section>
