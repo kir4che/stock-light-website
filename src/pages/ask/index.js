@@ -1,6 +1,6 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Image from 'next/image'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import SubmitBtn from '@/components/ui/SubmitBtn'
@@ -33,17 +33,29 @@ export default function ChatBot() {
 	const [currentGodIndex, setCurrentGodIndex] = useState(0)
 
 	const selectGod = () => {
-		const intervalId = setInterval(() => {
-			setCurrentGodIndex((prevIndex) => (prevIndex + 1) % godList.length)
-		}, 100)
+		const lastSelectedTime = localStorage.getItem('lastSelectedTime')
+		const currentTime = new Date().getTime()
 
-		setTimeout(() => {
-			clearInterval(intervalId)
-			setSelectedGod(godList[Math.floor(Math.random() * 100 + 0) % godList.length].id)
-		}, Math.random() * (12000 - 5000 + 1)) + 5000
+		if (!lastSelectedTime || currentTime - lastSelectedTime >= 24 * 60 * 60 * 1000) {
+			const intervalId = setInterval(() => {
+				setCurrentGodIndex((prevIndex) => (prevIndex + 1) % godList.length)
+			}, 100)
 
-		setTimeout(() => {}, 1000)
+			setTimeout(() => {
+				clearInterval(intervalId)
+				const randomGod = godList[Math.floor(Math.random() * godList.length)]
+				setSelectedGod(randomGod.id)
+
+				localStorage.setItem('selectedGod', randomGod.id)
+				localStorage.setItem('lastSelectedTime', currentTime)
+			}, Math.random() * (12000 - 5000 + 1) + 5000)
+		}
 	}
+
+	useEffect(() => {
+		const storedSelectedGod = localStorage.getItem('selectedGod')
+		if (storedSelectedGod) setSelectedGod(parseInt(storedSelectedGod, 10))
+	}, [])
 
 	const [messages, setMessages] = useState([
 		{
