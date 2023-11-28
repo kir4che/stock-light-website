@@ -422,3 +422,32 @@ body {
 	border-radius: 50%;
 	filter: blur(80px);
 }
+
+/* AI 輸入時 Loading 效果 */
+
+.dot-flashing {
+	@apply relative w-2.5 h-2.5 animate-[dot-flashing_1s_infinite_linear_alternate] rounded-[5px] before:left-[-15px] before:w-2.5 before:h-2.5 before:animate-[dot-flashing_1s_infinite_alternate] before:rounded-[5px] after:w-2.5 after:h-2.5 after:animate-[dot-flashing_1s_infinite_alternate] after:rounded-[5px] after:left-[15px];
+	@apply bg-secondary_blue text-secondary_blue;
+	animation-delay: 0.5s;
+}
+.dot-flashing::before,
+.dot-flashing::after {
+	@apply content-[''] inline-block absolute top-0;
+}
+.dot-flashing::before {
+	@apply bg-secondary_blue text-secondary_blue;
+	animation-delay: 0s;
+}
+.dot-flashing::after {
+	@apply bg-secondary_blue text-secondary_blue;
+	animation-delay: 1s;
+}
+@keyframes dot-flashing {
+	0% {
+		@apply bg-secondary_blue;
+	}
+	50%,
+	100% {
+		@apply bg-secondary_blue/20;
+	}
+}

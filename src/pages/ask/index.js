@@ -45,23 +45,67 @@ export default function ChatBot() {
 		setTimeout(() => {}, 1000)
 	}
 
-	const [messages, setMessages] = useState([{ from: 'bot', text: 'Hello!' }])
+	const [messages, setMessages] = useState([
+		{
+			message: '您好！我是股市 AI，請問有什麼可以幫助您的嗎？',
+			sentTime: 'just now',
+			sender: 'bot',
+		},
+	])
 	const [isBotTyping, setIsBotTyping] = useState(false)
 	const inputRef = useRef(null)
 
-	const updateChat = (input) => {
-		if (input.trim() === '') return
+	const handleSendRequest = async (message) => {
+		const newMessage = {
+			message,
+			direction: 'outgoing',
+			sender: 'user',
+		}
 
-		setMessages((prevMessages) => [...prevMessages, { from: 'user', text: input }])
+		setMessages((prevMessages) => [...prevMessages, newMessage])
 		setIsBotTyping(true)
 
 		inputRef.current.value = ''
 		inputRef.current.focus()
 
-		setTimeout(() => {
-			setMessages((prevMessages) => [...prevMessages, { from: 'bot', text: 'Hello!' }])
+		try {
+			const response = await processMessageToChatGPT([...messages, newMessage])
+			const content = response.choices[0]?.message?.content
+			if (content) {
+				const chatGPTResponse = {
+					message: content,
+					sender: 'bot',
+				}
+				setMessages((prevMessages) => [...prevMessages, chatGPTResponse])
+			}
+		} catch (error) {
+			console.error('Error processing message:', error)
+		} finally {
 			setIsBotTyping(false)
-		}, 3000)
+		}
+	}
+
+	async function processMessageToChatGPT(chatMessages) {
+		const apiMessages = chatMessages.map((messageObject) => {
+			const role = messageObject.sender === 'bot' ? 'assistant' : 'user'
+			return { role, content: messageObject.message }
+		})
+
+		const apiRequestBody = {
+			model: 'gpt-3.5-turbo',
+			messages: [{ role: 'system', content: "I'm a Student using ChatGPT for learning" }, ...apiMessages],
+		}
+
+		const response = await fetch('https://api.openai.com/v1/chat/completions', {
+			method: 'POST',
+			headers: {
+				Authorization: 'Bearer ' + process.env.OPENAI_API_KEY,
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(apiRequestBody),
+		})
+
+		return response.json()
 	}
 
 	return (
@@ -84,22 +128,24 @@ export default function ChatBot() {
 				</div>
 			) : (
 				<div className='flex flex-col justify-between h-full'>
-					<h2 className='text-center text-white'>股市 AI{}</h2>
+					<h2 className='text-center text-white'>股市 AI</h2>
 					<div className='flex flex-col justify-between h-full max-h-[calc(100vh-180px)]'>
 						{/* 對話框 */}
-						<div className='px-48 py-4 overflow-y-auto'>
+						<div className='px-10 py-4 overflow-y-auto md:px-16 lg:px-24 xl:px-48'>
 							{messages.map((message, index) => (
 								<div key={index} className='w-full'>
 									<div
 										className={`p-4 pb-3 space-y-2 mb-4 shadow-md rounded-lg ${
-											message.from === 'bot' ? 'bg-white dark:bg-zinc-900/50' : 'bg-sky-500'
+											message.sender === 'bot' ? 'bg-white dark:bg-zinc-900/50' : 'bg-sky-500'
 										}`}
 									>
-										{message.from === 'bot' && (
+										{message.sender === 'bot' && (
 											<>
 												<p className='space-x-2 text-xs'>
 													<span className='font-medium'>股市 AI</span>
-													{/* <span className='px-2 py-0.5 border-secondary_blue text-secondary_blue bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'></span> */}
+													<span className='px-2 py-0.5 border-secondary_blue text-secondary_blue bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'>
+														ChatGPT
+													</span>
 												</p>
 												<div className='flex items-center justify-start gap-2'>
 													<div className='w-8 h-8'>
@@ -111,14 +157,14 @@ export default function ChatBot() {
 															className='rounded-full'
 														/>
 													</div>
-													<p className='text-zinc-800 dark:text-white'>{message.text}</p>
+													<p className='text-zinc-800 dark:text-white'>{message.message}</p>
 												</div>
 											</>
 										)}
-										{message.from === 'user' && (
+										{message.sender === 'user' && (
 											<div className='flex items-center justify-start gap-2'>
 												<AccountCircleIcon className='text-white' />
-												<p className='text-white'>{message.text}</p>
+												<p className='text-white'>{message.message}</p>
 											</div>
 										)}
 									</div>
@@ -126,21 +172,23 @@ export default function ChatBot() {
 							))}
 							{isBotTyping && (
 								<div className='flex justify-start'>
-									<div className='flex items-center px-4 py-2 mb-2 bg-white rounded-lg dark:bg-zinc-900/50'>
-										<p className='text-sm text-zinc-800 dark:text-white'>・・・</p>
+									<div className='flex items-center px-10 py-3.5 mb-2 bg-white rounded-lg dark:bg-zinc-900/50'>
+										<div className='dot-flashing' />
 									</div>
 								</div>
 							)}
 						</div>
 						{/* 詢問輸入框 */}
-						<div className='px-48 py-4 bg-white border-t-2 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-600'>
+						<div className='px-10 py-4 bg-white border-t-2 md:px-16 lg:px-24 xl:px-48 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-600'>
 							<div className='relative flex'>
 								<input
 									type='text'
 									placeholder='詢問任何問題...'
 									autoComplete='off'
 									autoFocus={true}
-									onKeyDown={(event) => event.key === 'Enter' && !isBotTyping && updateChat(inputRef.current.value)}
+									onKeyDown={(event) =>
+										event.key === 'Enter' && !isBotTyping && handleSendRequest(inputRef.current.value)
+									}
 									className='w-full py-2 pl-5 pr-16 border-2 rounded-full bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-100 placeholder-zinc-600 dark:placeholder-zinc-400 text-md focus:outline-none focus:placeholder-zinc-400 dark:focus:placeholder-zinc-600 focus:border-sky-500 dark:focus:border-sky-500'
 									ref={inputRef}
 								/>
@@ -153,7 +201,7 @@ export default function ChatBot() {
 												? 'bg-gray-500 cursor-not-allowed'
 												: 'bg-secondary_blue/80 dark:bg-secondary_blue hover:bg-sky-500'
 										}`}
-										onClick={() => !isBotTyping && updateChat(inputRef.current.value)}
+										onClick={() => !isBotTyping && handleSendRequest(inputRef.current.value)}
 									/>
 								</div>
 							</div>
