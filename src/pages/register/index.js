@@ -1,6 +1,8 @@
+import { Dialog, DialogContent, DialogTitle } from '@mui/material'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
@@ -16,6 +18,7 @@ export default function Register() {
 		password: '',
 		confirmPassword: '',
 	})
+	const [isSucceed, setIsSucceed] = useState(false)
 
 	const handleRegister = async (e) => {
 		e.preventDefault()
@@ -26,7 +29,7 @@ export default function Register() {
 		}
 
 		try {
-			const response = await fetch(`${process.env.DB_URL}/api/user/register`, {
+			await fetch(`${process.env.DB_URL}/api/user/register`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -37,19 +40,22 @@ export default function Register() {
 					password: user.password,
 				}),
 			})
-
-			const data = await response.json()
-
-			if (data.success) router.push('/login')
-			else console.error(data.errorMessage)
 		} catch (error) {
 			console.error('error', error)
+		} finally {
+			setIsSucceed(true)
 		}
 	}
 
+	useEffect(() => {
+		setTimeout(() => {
+			if (isSucceed) router.push('/login')
+		}, 3000)
+	}, [isSucceed])
+
 	return (
-		<StarryBackground className={'flex-col flex-center pt-10 pb-12'}>
-			<div className='w-full px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
+		<StarryBackground className='flex-col pt-10 pb-12 flex-center'>
+			<div className='px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
 				<h3 className='text-zinc-100'>註冊股市光明燈</h3>
 				<p className='mt-4 mb-8 text-sm text-zinc-100 opacity-80'>
 					已經有帳號了！{' '}
@@ -84,6 +90,11 @@ export default function Register() {
 				<SubmitBtn text='註冊' handleSubmit={handleRegister} style='mt-5 mb-10' />
 				<PrivacyAndTerms />
 			</div>
+			<Dialog open={isSucceed} align='center' onClose={() => setIsSucceed(false)}>
+				<DialogTitle>註冊成功</DialogTitle>
+				<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />
+				<DialogContent>將在 3 秒後跳轉至登入頁面...</DialogContent>
+			</Dialog>
 		</StarryBackground>
 	)
 }

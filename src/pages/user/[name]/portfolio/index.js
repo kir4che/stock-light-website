@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react'
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
 	const currentURL = ctx.req.url
-	if (currentURL.includes(session.user.user_id)) return { props: { user: session.user } }
+	if (currentURL.includes(session.user.name)) return { props: { user: session.user } }
 	else
 		return {
 			redirect: {

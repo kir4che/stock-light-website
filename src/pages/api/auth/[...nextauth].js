@@ -1,47 +1,35 @@
 import NextAuth, { getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
-const testUser = {
-	user_id: 0,
-	email: 'test@gmail.com',
-	password: '12345',
-}
-
 export const authOptions = {
 	providers: [
 		CredentialsProvider({
-			name: 'credentials',
-			credentials: {
-				email: { label: 'Email', type: 'email' },
-				password: { label: 'Password', type: 'password' },
-			},
+			type: 'credentials',
+			credentials: {},
 			async authorize(credentials) {
-				// 本地測試用（不需連接資料庫）
-				if (credentials.email === testUser.email && credentials.password === testUser.password) {
-					return testUser
-				} else {
-					console.error('登入失敗：電子郵件或密碼輸入錯誤！')
-					return null
-				}
+				try {
+					const response = await fetch(`${process.env.DB_URL}/api/user/login`, {
+						method: 'POST',
+						body: JSON.stringify({
+							email: credentials.email,
+							password: credentials.password,
+						}),
+						headers: {
+							'Content-Type': 'application/json',
+						},
+					})
 
-				// 串接後端 API（已確認可使用）
-				const res = await fetch(`${process.env.DB_URL}/api/user/login`, {
-					method: 'POST',
-					body: JSON.stringify(credentials),
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				})
+					const data = await response.json()
 
-				const data = await res.json()
-				const user = {
-					...data.data,
-				}
-
-				if (res.status === 200) return user
-				else {
-					alert('登入失敗：電子郵件或密碼輸入錯誤！')
-					console.error(data.errorMessage)
+					if (response.ok && data) {
+						const user = {
+							name: data.data.name,
+							email: data.data.email,
+							image: '',
+						}
+						return user
+					} else return null
+				} catch (error) {
 					return null
 				}
 			},
@@ -51,22 +39,11 @@ export const authOptions = {
 		signIn: '/login',
 		error: '/login',
 	},
-	session: {
-		jwt: true,
-	},
 	callbacks: {
-		async jwt({ token, user, account }) {
-			if (account) {
-				token.accessToken = account.accessToken
-				token.refreshToken = account.refreshToken
-			}
-			if (user) token.user = user
-			return token
-		},
-		async session({ session, token }) {
-			session.user = token.user
-			console.log('session', session)
-			return session
+		async session(session, user) {
+			session.user = user
+			console.log('session', session.session)
+			return session.session
 		},
 	},
 	secret: process.env.NEXTAUTH_SECRET,

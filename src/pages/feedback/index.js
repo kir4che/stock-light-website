@@ -13,7 +13,7 @@ export default function Feedback() {
 	const [formData, setFormData] = useState({ email: '', title: '', content: '' })
 	const { email, title, content } = formData
 
-	const [succeedOpen, setSucceedOpen] = useState(false)
+	const [isSucceed, setIsSucceed] = useState(false)
 
 	const updateFormData = (key, value) => {
 		setFormData({ ...formData, [key]: value })
@@ -38,7 +38,7 @@ export default function Feedback() {
 				title,
 				content,
 			})
-			.then(setSucceedOpen(true), (error) => console.log('FAILED...', error))
+			.then(setIsSucceed(true), (error) => console.log('FAILED...', error))
 	}
 
 	return (
@@ -78,7 +78,7 @@ export default function Feedback() {
 				/>
 				<SubmitBtn text='送出' handleSubmit={handleSend} style='mt-9' />
 			</form>
-			<Dialog open={succeedOpen} align='center' onClose={() => setSucceedOpen(false)}>
+			<Dialog open={isSucceed} align='center' onClose={() => setIsSucceed(false)}>
 				<DialogTitle>成功送出</DialogTitle>
 				<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />
 				<DialogContent> 您的回饋已送出，我們會盡快回覆您！</DialogContent>
