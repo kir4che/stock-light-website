@@ -1,6 +1,6 @@
 import { boll, ema, ma } from 'finmath'
 
-export function candlestickOption(dateData, priceData) {
+export function candlestickOption(dateData, indexData) {
 	const option = {
 		xAxis: [
 			{
@@ -63,14 +63,14 @@ export function candlestickOption(dateData, priceData) {
 		},
 		series: [
 			{
-				name: '日K',
+				name: '指數',
 				type: 'candlestick',
-				data: priceData,
+				data: indexData,
 				itemStyle: {
-					color: '#46B262',
-					color0: '#EB5554',
-					borderColor: '#46B262',
-					borderColor0: '#EB5554',
+					color: '#EB5554',
+					color0: '#46B262',
+					borderColor: '#EB5554',
+					borderColor0: '#46B262',
 				},
 			},
 		],
