@@ -18,7 +18,7 @@ body {
 		@apply font-extrabold text-9xl;
 	}
 	h2 {
-		@apply text-3xl font-semibold;
+		@apply text-3xl font-semibold tracking-wide;
 	}
 	h3 {
 		@apply text-2xl font-medium;

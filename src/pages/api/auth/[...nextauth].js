@@ -4,9 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 export const authOptions = {
 	providers: [
 		CredentialsProvider({
-			type: 'credentials',
 			credentials: {},
-			async authorize(credentials) {
+			async authorize(credentials, req) {
 				try {
 					const response = await fetch(`${process.env.DB_URL}/api/user/login`, {
 						method: 'POST',
@@ -21,32 +20,46 @@ export const authOptions = {
 
 					const data = await response.json()
 
-					if (response.ok && data) {
-						const user = {
-							name: data.data.name,
-							email: data.data.email,
-							image: '',
-						}
-						return user
-					} else return null
+					const user = {
+						name: data.data.name,
+						email: data.data.email,
+						image: '',
+					}
+					return { user, token: data.data.token }
 				} catch (error) {
 					return null
 				}
 			},
 		}),
 	],
+	secret: process.env.NEXTAUTH_SECRET,
+	session: {
+		strategy: 'jwt',
+		maxAge: 2 * 60 * 60,
+	},
+	jwt: {
+		maxAge: 2 * 60 * 60,
+	},
 	pages: {
 		signIn: '/login',
 		error: '/login',
 	},
 	callbacks: {
-		async session(session, user) {
-			session.user = user
-			console.log('session', session.session)
-			return session.session
+		async jwt({ token, user, account }) {
+			if (account && account.type === 'credentials' && user) {
+				token.user = user
+				token.accessToken = user.token
+			}
+			return token
+		},
+		async session({ session, token }) {
+			session.user = token.user
+			session.accessToken = token.accessToken
+
+			console.log('session', session.user)
+			return session.user
 		},
 	},
-	secret: process.env.NEXTAUTH_SECRET,
 }
 
 export const getServerAuthSession = (ctx) => {

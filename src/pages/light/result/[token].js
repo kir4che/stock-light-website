@@ -148,7 +148,7 @@ export default function Result({ user }) {
 	const [cardDialogOpen, setCardDialogOpen] = useState(false)
 	const [cardSavedAlertOpen, setCardSavedAlertOpen] = useState(false)
 	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
-	const [rowIds, setRowIds] = useState([]);
+	const [rowIds, setRowIds] = useState([])
 
 	const handleSave = () => {
 		setOpen(true)

@@ -1,87 +1,83 @@
-import StarryBackground from '@/components/common/StarryBackground'
-import InputField from '@/components/ui/InputField'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import { Alert, Button, Snackbar } from '@mui/material'
-import router from 'next/router'
-import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useEffect, useState } from 'react'
 
-export async function getServerSideProps(ctx) {
-	const session = await getServerAuthSession(ctx)
-	const currentURL = ctx.req.url
-	if (currentURL.includes(session.user.name)) return { props: { user: session.user } }
-	else
-		return {
-			redirect: {
-				destination: '/error',
-			},
-		}
-}
+import StarryBackground from '@/components/common/StarryBackground'
+import Breadcrumbs from '@/components/ui/Breadcrumbs'
+import InputField from '@/components/ui/InputField'
 
 export default function ChangePassword() {
-	const [newPassword, setNewPassword] = useState('')
-	const [confirmPassword, setConfirmPassword] = useState('')
-	const [open, setOpen] = useState(false)
+	const { data: session } = useSession()
+
+	const [isSucceeded, setIsSucceeded] = useState(false)
+	const [newData, setNewData] = useState({
+		newPassword: '',
+		confirmPassword: '',
+	})
+	const { newPassword, confirmPassword } = newData
 
 	const handleChange = async (e) => {
 		e.preventDefault()
 
-		if (newPassword || confirmPassword === '') {
+		if (newPassword === '' || confirmPassword === '') {
 			alert('請輸入新密碼！', { type: 'error' })
 			return
-		}
-
-		if (newPassword !== confirmPassword) {
+		} else if (newPassword !== confirmPassword) {
 			alert('密碼與確認密碼不相符，請重新輸入！', { type: 'error' })
-			setNewPassword('')
-			setConfirmPassword('')
+			setNewData({
+				newPassword: '',
+				confirmPassword: '',
+			})
 			return
 		}
 
 		try {
-			const res = await fetch(`${process.env.DB_URL}/api/user/update/password`, {
-				method: 'POST',
+			const response = await fetch(`${process.env.DB_URL}/api/user/update/password`, {
+				method: 'PATCH',
 				body: JSON.stringify({
-					password: newPassword,
+					password: newData.newPassword,
 				}),
 				headers: {
 					'Content-Type': 'application/json',
+					Accept: 'application/json',
+					Authorization: session.token,
 				},
 			})
-			if (res.status === 200) setOpen(true)
-			else {
-				alert('修改失敗，請稍後再試！')
-				const data = await res.json()
-				console.error(data.errorMessage)
-			}
+			if (response.ok) setIsSucceeded(true)
+			else alert('修改失敗，請稍後再試！')
 		} catch (error) {
 			console.error('error', error)
+		} finally {
+			setNewData({
+				newPassword: '',
+				confirmPassword: '',
+			})
 		}
-		setNewPassword('')
-		setConfirmPassword('')
 	}
+
+	useEffect(() => {
+		setTimeout(() => {
+			setIsSucceeded(false)
+		}, 3000)
+	}, [isSucceeded])
 
 	return (
 		<StarryBackground className={'pt-12 pb-9 sm:pt-20 sm:pb-16 text-zinc-100'}>
-			<p className='w-full mx-auto mb-3 text-xs sm:max-w-md lg:max-w-lg text-zinc-100'>
-				<button type='button' onClick={() => router.back()}>
-					使用者頁面
-				</button>
-				/ 修改密碼
-			</p>
-			<div className='w-full px-10 pt-10 mx-auto mb-8 pb-14 sm:max-w-md lg:max-w-lg sm:px-12 bg-white/20 backdrop-blur-xl sm:rounded-xl dark:bg-zinc-900/50'>
-				<h2 className='mb-3 tracking-wide'>修改密碼</h2>
+			<Breadcrumbs prevPage='使用者頁面' curPage='修改密碼' />
+			<div className='w-full p-10 pb-12 mx-auto mb-8 sm:max-w-md lg:max-w-lg sm:px-12 bg-white/20 backdrop-blur-xl sm:rounded-xl dark:bg-zinc-900/50'>
+				<h2>修改密碼</h2>
 				<form className='flex flex-col mt-8'>
 					<InputField
 						label={'新密碼'}
 						type={'password'}
 						value={newPassword}
-						onChange={(e) => setNewPassword(e.target.value)}
+						onChange={(e) => setNewData({ ...newData, newPassword: e.target.value })}
 					/>
 					<InputField
 						label={'請再輸入一次新密碼'}
 						type={'password'}
 						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
+						onChange={(e) => setNewData({ ...newData, confirmPassword: e.target.value })}
 					/>
 					<Button
 						variant='contained'
@@ -90,13 +86,8 @@ export default function ChangePassword() {
 					>
 						修改
 					</Button>
-					<Snackbar
-						open={open}
-						anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-						autoHideDuration={6000}
-						onClose={() => setOpen(false)}
-					>
-						<Alert severity='success' onClose={() => setOpen(false)}>
+					<Snackbar open={isSucceeded} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+						<Alert severity='success' onClose={() => setIsSucceeded(false)}>
 							修改成功！
 						</Alert>
 					</Snackbar>
