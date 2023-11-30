@@ -112,7 +112,7 @@ export default function FundamentalAnalysis() {
 						onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
 						disableClearable
 						disablePortal
-					/>{' '}
+					/>
 				</div>
 				{/* 當日收盤價資訊 */}
 				{change.length && closePrice.length ? (
