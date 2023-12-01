@@ -15,7 +15,7 @@ import PrayerCard from '@/components/Light/PrayerCard'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]/route'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },

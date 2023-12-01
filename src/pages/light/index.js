@@ -4,7 +4,7 @@ import { useState } from 'react'
 import DropMenu from '@/components/Light/DropMenu'
 import StarryBackground from '@/components/common/StarryBackground'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]/route'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)

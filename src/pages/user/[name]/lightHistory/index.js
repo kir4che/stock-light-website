@@ -1,5 +1,5 @@
 import StarryBackground from '@/components/common/StarryBackground'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]/route'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 import { Button } from '@mui/material'
 import router from 'next/router'
 import { useEffect, useState } from 'react'

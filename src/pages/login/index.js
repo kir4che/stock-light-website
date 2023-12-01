@@ -6,7 +6,7 @@ import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]/route'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
 
 export async function getServerSideProps(cxt) {
 	const session = await getServerAuthSession(cxt)
