@@ -18,6 +18,7 @@ const nextConfig = {
 	},
 	env: {
 		DB_URL: process.env.DB_URL,
+		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 		NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 		EMAIL_API_KEY: process.env.EMAIL_API_KEY,
 		EMAIL_SERVICE_ID: process.env.EMAIL_SERVICE_ID,
