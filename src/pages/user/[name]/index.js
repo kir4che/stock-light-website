@@ -2,7 +2,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useRouter } from 'next/router'
 
 import StarryBackground from '@/components/common/StarryBackground'
-import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]'
+import { getServerAuthSession } from '@/pages/api/auth/[...nextauth]/route'
 
 export async function getServerSideProps(ctx) {
 	const session = await getServerAuthSession(ctx)
