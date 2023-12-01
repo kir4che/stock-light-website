@@ -1,3 +1,5 @@
+'use client'
+
 import { Alert, Button, Snackbar } from '@mui/material'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'

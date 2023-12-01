@@ -1,3 +1,5 @@
+'use client'
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
