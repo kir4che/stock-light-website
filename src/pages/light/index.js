@@ -2,6 +2,7 @@
 
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import DropMenu from '@/components/Light/DropMenu'
@@ -10,12 +11,13 @@ import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 
 export default function Light() {
 	const { data: session } = useSession()
+	const router = useRouter()
 
 	const [hoveredCategory, setHoveredCategory] = useState(null)
 	const handleCategoryHover = (category) => setHoveredCategory(category)
 
 	useEffect(() => {
-		if (!session) window.location.href = `/login`
+		if (!session) router.push('/login')
 	}, [session])
 
 	return (

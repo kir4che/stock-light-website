@@ -12,7 +12,7 @@ export default function LightHistory() {
 	const [lightHistory, setLightHistory] = useState([])
 
 	useEffect(() => {
-		if (!session) window.location.href = '/login'
+		if (!session) router.push('/login')
 	}, [session])
 
 	// useEffect(() => {

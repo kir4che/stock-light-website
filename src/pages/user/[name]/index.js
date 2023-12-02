@@ -10,7 +10,7 @@ export default function User() {
 	const router = useRouter()
 
 	useEffect(() => {
-		if (!session) window.location.href = '/login'
+		if (!session) router.push('/login')
 	}, [session])
 
 	return (

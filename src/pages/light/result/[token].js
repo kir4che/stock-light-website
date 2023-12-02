@@ -1,3 +1,5 @@
+'use client'
+
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
@@ -174,6 +176,10 @@ export default function Result() {
 	useEffect(() => {
 		// ...
 	}, [])
+
+	useEffect(() => {
+		if (!session) router.push('/login')
+	}, [session])
 
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
