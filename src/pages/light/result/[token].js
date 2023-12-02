@@ -212,10 +212,12 @@ export default function Result() {
 							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-500 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
 								<h3 className='text-5xl text-center'>{category}類祈福小卡</h3>
 								<div className='flex items-end justify-between'>
-									<div>
-										<p>{session.user.id}</p>
-										<p>{session.user.email}</p>
-									</div>
+									{session && (
+										<div>
+											<p>{session.user.id}</p>
+											<p>{session.user.email}</p>
+										</div>
+									)}
 									<p className='opacity-50'>{date}</p>
 								</div>
 							</div>
