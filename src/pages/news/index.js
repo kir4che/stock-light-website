@@ -1,5 +1,3 @@
-'use client'
-
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
 import Pagination from '@mui/material/Pagination'
 import { useRouter } from 'next/router'

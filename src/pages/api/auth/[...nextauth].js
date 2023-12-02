@@ -1,4 +1,4 @@
-import NextAuth, { getServerSession } from 'next-auth'
+import NextAuth from 'next-auth/next'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export const authOptions = {
@@ -25,6 +25,7 @@ export const authOptions = {
 						email: data.data.email,
 						image: '',
 					}
+
 					return { user, token: data.data.token }
 				} catch (error) {
 					return null
@@ -55,7 +56,7 @@ export const authOptions = {
 			session.user = token.user
 			session.accessToken = token.accessToken
 
-			console.log('session', session.user)
+			// console.log('session', session.user)
 			return session.user
 		},
 		debug: true,
@@ -63,8 +64,6 @@ export const authOptions = {
 	},
 }
 
-export const getServerAuthSession = (ctx) => {
-	return getServerSession(ctx.req, ctx.res, authOptions)
-}
+const handler = (req, res) => NextAuth(req, res, authOptions)
 
-export default NextAuth(authOptions)
+export default handler

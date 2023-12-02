@@ -1,4 +1,5 @@
 const nextConfig = {
+	basePath: '',
 	images: {
 		domains: [
 			'img.icons8.com',

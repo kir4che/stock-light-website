@@ -35,7 +35,7 @@ export default function App({ Component, pageProps: { session, ...pageProps } })
 				<link rel='shortcut icon' href='/assets/logo.png' />
 			</Head>
 			<DarkModeProvider>
-				<NextAuthProvider session={session}>
+				<NextAuthProvider session={session} basePath='/api/auth'>
 					<div
 						className={`container bg-white dark:bg-zinc-800 ${isExcludedPage ? '' : 'px-4 sm:px-6 md:px-10 lg:px-16'}`}
 					>

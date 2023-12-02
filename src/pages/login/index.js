@@ -1,27 +1,20 @@
-import { signIn } from 'next-auth/react'
+'use client'
+
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import { getServerAuthSession } from '@/utils/api/auth/[...nextauth]'
-
-export async function getServerSideProps(cxt) {
-	const session = await getServerAuthSession(cxt)
-
-	if (session)
-		return {
-			redirect: {
-				destination: `/user/${session.user.name}`,
-				permanent: false,
-			},
-		}
-	else return { props: {} }
-}
 
 export default function Login() {
+	const { data: session } = useSession()
+
+	const router = useRouter()
+
 	const [userData, setUserData] = useState({
 		email: '',
 		password: '',
@@ -41,6 +34,10 @@ export default function Login() {
 			console.error('error', error)
 		}
 	}
+
+	useEffect(() => {
+		if (session) router.push(`/user/${session.user.name}`)
+	}, [session])
 
 	return (
 		<StarryBackground className='flex-col pt-10 pb-12 flex-center'>

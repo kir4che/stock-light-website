@@ -54,6 +54,7 @@ export default function Hero() {
 					width={1000}
 					height={1000}
 					className='relative bottom-[18vw] sm:bottom-[12.5vw] lg:bottom-40 mx-auto w-[74vw] sm:w-[72vw] md:w-[60vw] lg:w-[660px]'
+					alt='temple-outside'
 				/>
 				<LanternLayout otherStyle={'hidden md:block absolute top-0'}>
 					<div className='scale-75 -rotate-6'>

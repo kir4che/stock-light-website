@@ -1,24 +1,19 @@
-import StarryBackground from '@/components/common/StarryBackground'
-import { getServerAuthSession } from '@/utils/api/auth/[...nextauth]'
+'use client'
+
 import { Button } from '@mui/material'
+import { useSession } from 'next-auth/react'
 import router from 'next/router'
 import { useEffect, useState } from 'react'
 
-export async function getServerSideProps(ctx) {
-	const session = await getServerAuthSession(ctx)
-	const currentURL = ctx.req.url
-
-	if (currentURL.includes(session.user.name)) return { props: { user: session.user } }
-	else
-		return {
-			redirect: {
-				destination: '/error',
-			},
-		}
-}
+import StarryBackground from '@/components/common/StarryBackground'
 
 export default function LightHistory() {
+	const { data: session } = useSession()
 	const [lightHistory, setLightHistory] = useState([])
+
+	useEffect(() => {
+		if (!session) window.location.href = '/login'
+	}, [session])
 
 	// useEffect(() => {
 	//   fetch(`${process.env.DB_URL}/api/user/lightup/history`)

@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import Slide from '@mui/material/Slide'
 import Snackbar from '@mui/material/Snackbar'
 import { DataGrid } from '@mui/x-data-grid'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { forwardRef, useEffect, useState } from 'react'
 
@@ -15,7 +16,6 @@ import PrayerCard from '@/components/Light/PrayerCard'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import { getServerAuthSession } from '@/utils/api/auth/[...nextauth]'
 
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },
@@ -128,17 +128,13 @@ const columns = [
 	},
 ]
 
-export async function getServerSideProps(ctx) {
-	const session = await getServerAuthSession(ctx)
-	return { props: { user: session.user } }
-}
-
 // DIALOG TRANSITION
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />
 })
 
-export default function Result({ user }) {
+export default function Result() {
+	const { data: session } = useSession()
 	const router = useRouter()
 	const { category, date } = router.query
 
@@ -211,8 +207,8 @@ export default function Result({ user }) {
 								<h3 className='text-5xl text-center'>{category}類祈福小卡</h3>
 								<div className='flex items-end justify-between'>
 									<div>
-										<p>{user.user_id}</p>
-										<p>{user.email}</p>
+										<p>{session.user.id}</p>
+										<p>{session.user.email}</p>
 									</div>
 									<p className='opacity-50'>{date}</p>
 								</div>

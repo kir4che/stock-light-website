@@ -1,5 +1,3 @@
-'use client'
-
 import { useRouter } from 'next/router'
 
 import TaiexChart from '@/components/Chart/TaiexChart'
