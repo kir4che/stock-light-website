@@ -60,6 +60,7 @@ export default function Header() {
 				})}
 			</nav>
 			<div className=' flex-center md:space-x-2 xl:space-x-3'>
+				<Image src='/assets/lantern-animate.gif' width={44} height={44} />
 				<button
 					type='button'
 					className={`hidden md:block px-5 py-2 text-sm font-medium tracking-wide transition-all duration-300 ease-out rounded-full dark:text-zinc-800 bg-primary_yellow hover:ring-2 hover:ring-offset-2 hover:ring-primary_yellow dark:hover:ring-offset-zinc-900 ${
