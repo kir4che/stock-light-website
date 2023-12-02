@@ -2,7 +2,6 @@ import NextAuth, { getServerSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 
 export const authOptions = {
-	debug: true,
 	providers: [
 		CredentialsProvider({
 			credentials: {},
@@ -33,7 +32,6 @@ export const authOptions = {
 			},
 		}),
 	],
-	secret: process.env.NEXTAUTH_SECRET,
 	session: {
 		strategy: 'jwt',
 		maxAge: 2 * 60 * 60,
@@ -60,6 +58,8 @@ export const authOptions = {
 			console.log('session', session.user)
 			return session.user
 		},
+		debug: true,
+		secret: process.env.NEXTAUTH_SECRET,
 	},
 }
 
