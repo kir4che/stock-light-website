@@ -194,9 +194,9 @@ export default function WeatherAnalysis() {
 						<Autocomplete
 							options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
 							defaultValue={`${stock150[0].id} ${stock150[0].name}`}
-							sx={{ width: 192 }}
+							sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
 							size='small'
-							renderInput={(params) => <TextField {...params} label='搜尋台股代號／名稱' />}
+							renderInput={(params) => <TextField {...params} />}
 							onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
 							disableClearable
 							disablePortal

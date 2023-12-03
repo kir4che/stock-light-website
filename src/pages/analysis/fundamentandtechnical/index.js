@@ -52,7 +52,9 @@ export default function FundamentalAnalysis() {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/all/info`, { method: 'GET' })
 			let data = await response.json()
 
-			const filteredData = data.data.filter((stock) => stock.stock_id === stockId)
+			const filteredData = data.data
+				.filter((stock) => stock.stock_id === stockId)
+				.sort((a, b) => new Date(a.date) - new Date(b.date))
 
 			const dates = filteredData.map((stock) => convertDateTime(stock.date).split(' ')[0])
 			const closingPrices = filteredData.map((stock) => stock.closing_price)
@@ -108,9 +110,9 @@ export default function FundamentalAnalysis() {
 					<Autocomplete
 						options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
 						defaultValue={`${stock150[0].id} ${stock150[0].name}`}
-						sx={{ width: 192 }}
+						sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
 						size='small'
-						renderInput={(params) => <TextField {...params} label='搜尋台股代號／名稱' />}
+						renderInput={(params) => <TextField {...params} />}
 						onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
 						disableClearable
 						disablePortal
