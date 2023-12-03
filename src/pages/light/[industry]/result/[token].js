@@ -1,5 +1,6 @@
 'use client'
 
+import { getCurrentDate } from '@/utils/getCurrentDate'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
@@ -130,15 +131,18 @@ const columns = [
 	},
 ]
 
-// DIALOG TRANSITION
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />
 })
 
 export default function Result() {
 	const { data: session } = useSession()
+	const token = session?.token
+
 	const router = useRouter()
-	const { category, date } = router.query
+	const { industry } = router.query
+
+	const [isLoading, setIsLoading] = useState(true)
 
 	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
 	const [envelopeDialog, setEnvelopeDialogOpen] = useState(true)
@@ -147,6 +151,27 @@ export default function Result() {
 	const [cardSavedAlertOpen, setCardSavedAlertOpen] = useState(false)
 	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
 	const [rowIds, setRowIds] = useState([])
+
+	const getStocksByIndustry = async () => {
+		setIsLoading(true)
+
+		try {
+			const response = await fetch(`${process.env.DB_URL}/api/user/all/industry/stock`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: token,
+				},
+			})
+			const data = await response.json()
+			const stocks = data.data.filter((stock) => stock.industry === industry)
+			console.log(stocks)
+
+			if (data.success) setIsLoading(false)
+		} catch (error) {
+			console.error('error', error)
+		}
+	}
 
 	const handleSave = () => {
 		setOpen(true)
@@ -174,7 +199,7 @@ export default function Result() {
 
 	// 🚩 後端：載入當日資料庫預測報酬率由高到低的該產業別中五檔股票
 	useEffect(() => {
-		// ...
+		getStocksByIndustry()
 	}, [])
 
 	useEffect(() => {
@@ -211,15 +236,14 @@ export default function Result() {
 						</div>
 						<div className='absolute w-full h-full overflow-hidden'>
 							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-600 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
-								<h3 className='text-5xl text-center'>{category}類祈福小卡</h3>
+								<h3 className='text-5xl text-center'>{industry}類祈福小卡</h3>
 								<div className='flex items-end justify-between text-zinc-400'>
-									{session && (
-										<p>
-											<span>{session.user.name}</span>
-											<span>{session.user.email}</span>
-										</p>
-									)}
-									<p>{date}</p>
+									<p>
+										<span>{session.user.name}</span>
+										<br />
+										<span>{session.user.email}</span>
+									</p>
+									<p>{getCurrentDate()}</p>
 								</div>
 							</div>
 						</div>
@@ -253,7 +277,7 @@ export default function Result() {
 				</DialogContent>
 			</Dialog>
 			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
-				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {category}股</DialogTitle>
+				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {industry}股</DialogTitle>
 				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100'>
 					<div className='text-black flex-center'>
 						{['台泥', '聯發科', '台積電', '長榮', '華南金'].map((stock, index) => (
@@ -279,7 +303,7 @@ export default function Result() {
 			<div className='px-4 pt-6 pb-12 bg-white rounded sm:px-8 lg:px-10 dark:bg-zinc-900/50'>
 				<div className='inline-flex items-start justify-between w-full'>
 					<h3 className='inline-flex items-end mb-6 tracking-wider'>
-						天氣型態<span className='ml-2 text-sm opacity-60'>{date}</span>
+						天氣型態<span className='ml-2 text-sm opacity-60'>{getCurrentDate()}</span>
 					</h3>
 				</div>
 				{/* 傳入分析出的五檔股票 */}

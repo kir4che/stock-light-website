@@ -9,12 +9,11 @@ import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import { Lantern } from '@/components/ui/Lantern'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import { getCurrentDate } from '@/utils/getCurrentDate'
 
 // 🚩尚未串接金流
 export default function Checkout() {
 	const router = useRouter()
-	const { category } = router.query
+	const { industry } = router.query
 
 	const paymentBtn = (index, imageSrc) => (
 		<Button
@@ -31,7 +30,6 @@ export default function Checkout() {
 	)
 
 	const [activeButtonIndex, setActiveButtonIndex] = useState(1)
-
 	const handleButtonActive = (index) => setActiveButtonIndex(index)
 
 	const [formData, setFormData] = useState({
@@ -42,13 +40,11 @@ export default function Checkout() {
 		cvv: '',
 		success: false,
 	})
-
 	const [expMonth, setExpMonth] = useState(1)
 	const [expYear, setExpYear] = useState(2024)
 
 	const handleInputChange = (e) => {
 		const { id, value } = e.target
-
 		if (id === 'cardNumber' || id === 'cvv') {
 			const numericValue = value.replace(/\D/g, '')
 			setFormData({ ...formData, [id]: numericValue })
@@ -75,7 +71,7 @@ export default function Checkout() {
 	const [success, setSuccess] = useState(false)
 
 	const handlePay = () => {
-		// 為了測試方便先註解掉
+		// 🚩為了測試方便先註解掉
 		// if (formData.cardNumber.length !== 16) {
 		// 	alert('請輸入您的信用卡號碼')
 		// 	return
@@ -93,8 +89,8 @@ export default function Checkout() {
 
 		setSuccess(true)
 		setTimeout(() => {
-			const token = uuidv4()
-			router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate()}`)
+			const uuid = uuidv4()
+			router.push(`/light/${industry}/result/${uuid}`)
 		}, 3000)
 	}
 
@@ -191,7 +187,7 @@ export default function Checkout() {
 							<hr />
 							<div className='py-3 tracking-widest flex-center-between'>
 								<p>
-									光明燈香油錢（<span className='font-bold'>{category}</span>股）
+									光明燈香油錢（<span className='font-bold'>{industry}</span>股）
 								</p>
 								<p className='font-bold'>NT$100</p>
 							</div>
