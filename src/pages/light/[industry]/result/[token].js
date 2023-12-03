@@ -152,6 +152,7 @@ export default function Result() {
 	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
 	const [rowIds, setRowIds] = useState([])
 
+	// 需要針對該產業別的所有個股進行分析，並挑選出來五檔。
 	const getStocksByIndustry = async () => {
 		setIsLoading(true)
 
@@ -164,8 +165,8 @@ export default function Result() {
 				},
 			})
 			const data = await response.json()
-			const stocks = data.data.filter((stock) => stock.industry === industry)
-			console.log(stocks)
+			const stocks = data.data.filter((stock) => stock.industry === industry)[0].data // 該產業底下所有個股
+			console.log(industry, stocks)
 
 			if (data.success) setIsLoading(false)
 		} catch (error) {
@@ -183,21 +184,21 @@ export default function Result() {
 	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
 	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
 
+	// 🚩 後端：需要把祈福小卡存給使用者
 	const handleCardSave = () => {
 		setCardSavedAlertOpen(true)
-		// 🚩 後端：需要把祈福小卡存給使用者
 	}
 
-	const handleCardSavedAlertClose = () => setCardSavedAlertOpen(false)
-
+	// 🚩 後端：需要把點燈紀錄存給使用者
 	const handleResultSave = () => {
 		setResultSavedAlertOpen(true)
-		// 🚩 後端：需要把點燈紀錄存給使用者
 	}
 
-	const handleResultSavedAlertClose = () => setResultSavedAlertOpen(false)
+	const handleSavedAlertClose = () => {
+		setResultSavedAlertOpen(false)
+		setCardSavedAlertOpen(false)
+	}
 
-	// 🚩 後端：載入當日資料庫預測報酬率由高到低的該產業別中五檔股票
 	useEffect(() => {
 		getStocksByIndustry()
 	}, [])
@@ -236,7 +237,7 @@ export default function Result() {
 						</div>
 						<div className='absolute w-full h-full overflow-hidden'>
 							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-600 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
-								<h3 className='text-5xl text-center'>{industry}類祈福小卡</h3>
+								<h3 className='text-5xl text-center'>{industry}祈福小卡</h3>
 								<div className='flex items-end justify-between text-zinc-400'>
 									<p>
 										<span>{session.user.name}</span>
@@ -261,8 +262,8 @@ export default function Result() {
 					>
 						保存您的祈福小卡
 					</Button>
-					<Snackbar open={cardSavedAlertOpen} autoHideDuration={3000} onClose={handleCardSavedAlertClose}>
-						<Alert onClose={handleCardSavedAlertClose} severity='success' sx={{ width: '100%' }}>
+					<Snackbar open={cardSavedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
+						<Alert onClose={handleSavedAlertClose} severity='success' sx={{ width: '100%' }}>
 							保存成功！
 						</Alert>
 					</Snackbar>
@@ -397,8 +398,8 @@ export default function Result() {
 				/>
 				<p className='text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 				<SubmitBtn text='保存分析結果' handleSubmit={handleResultSave} style='mt-16 py-3' />
-				<Snackbar open={resultSavedAlertOpen} autoHideDuration={3000} onClose={handleResultSavedAlertClose}>
-					<Alert onClose={handleResultSavedAlertClose} severity='success' sx={{ width: '100%' }}>
+				<Snackbar open={resultSavedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
+					<Alert onClose={handleSavedAlertClose} severity='success' sx={{ width: '100%' }}>
 						保存成功！
 					</Alert>
 				</Snackbar>
