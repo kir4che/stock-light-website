@@ -137,6 +137,7 @@ export default function Result() {
 	const { industry } = router.query
 
 	const [isLoading, setIsLoading] = useState(true)
+	const [resultStock, setResultStock] = useState([])
 	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
 	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
 	const [rowIds, setRowIds] = useState([])
@@ -160,6 +161,19 @@ export default function Result() {
 			const data = await response.json()
 			const stocks = data.data.filter((stock) => stock.industry === industry)[0].data // 該產業底下所有個股
 			console.log(industry, stocks)
+
+			// 從 stocks 中隨機挑選 5 隻股票（🚩測試用）
+			const randomStocks = []
+			const copyStockArray = [...stocks]
+
+			for (let i = 0; i < 5; i++) {
+				const randomIndex = Math.floor(Math.random() * copyStockArray.length)
+				const selectedStockId = copyStockArray[randomIndex].stock_id
+				randomStocks.push(selectedStockId)
+			}
+
+			setResultStock(randomStocks)
+			console.log('randomStocks', randomStocks)
 
 			if (data.success) setIsLoading(false)
 		} catch (error) {
@@ -204,12 +218,11 @@ export default function Result() {
 				</DialogContent>
 			</Dialog>
 			<div className='px-4 pt-6 pb-12 bg-white rounded sm:px-8 lg:px-10 dark:bg-zinc-900/50'>
-				<div className='inline-flex items-start justify-between w-full'>
-					<h3 className='inline-flex items-end mb-6 tracking-wider'>
-						天氣型態<span className='ml-2 text-sm opacity-60'>{getCurrentDate()}</span>
-					</h3>
+				<div className='inline-flex items-baseline mb-6 space-x-2'>
+					<h3 className='tracking-wider'>天氣型態</h3>
+					<p className='text-xs font-medium tracking-wide opacity-70'>{getCurrentDate()}</p>
 				</div>
-				{/* 傳入分析出的五檔股票 */}
+				{/* 分析後的圖表、數據 */}
 				<Chart option={multiLineOption()} customHeight={'h-72 sm:h-80 md:h-88 lg:h-96 xl:h-[520px]'} />
 				<DataGrid
 					sx={{
