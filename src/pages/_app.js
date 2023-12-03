@@ -1,14 +1,13 @@
-import { DarkModeProvider } from '@/providers/DarkModeProvider'
-import { NextAuthProvider } from '@/providers/NextAuthProvider'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-
 import Footer from '@/components/common/Footer'
 import Header from '@/components/common/Header'
+import { DarkModeProvider } from '@/providers/DarkModeProvider'
+import { NextAuthProvider } from '@/providers/NextAuthProvider'
 import '@/styles/globals.css'
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {

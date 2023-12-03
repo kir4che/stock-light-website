@@ -77,6 +77,4 @@ export const authOptions = {
 	},
 }
 
-const handler = (req, res) => NextAuth(req, res, authOptions)
-
-export default handler
+export default NextAuth(authOptions)
