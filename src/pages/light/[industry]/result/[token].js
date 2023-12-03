@@ -5,13 +5,11 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import Alert from '@mui/material/Alert'
-import Button from '@mui/material/Button'
-import Slide from '@mui/material/Slide'
 import Snackbar from '@mui/material/Snackbar'
 import { DataGrid } from '@mui/x-data-grid'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { forwardRef, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
@@ -131,10 +129,6 @@ const columns = [
 	},
 ]
 
-const Transition = forwardRef(function Transition(props, ref) {
-	return <Slide direction='up' ref={ref} {...props} />
-})
-
 export default function Result() {
 	const { data: session } = useSession()
 	const token = session?.token
@@ -143,14 +137,13 @@ export default function Result() {
 	const { industry } = router.query
 
 	const [isLoading, setIsLoading] = useState(true)
-
 	const [laternDialogOpen, setLaternDialogOpen] = useState(false)
-	const [envelopeDialog, setEnvelopeDialogOpen] = useState(true)
-
-	const [cardDialogOpen, setCardDialogOpen] = useState(false)
-	const [cardSavedAlertOpen, setCardSavedAlertOpen] = useState(false)
 	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
 	const [rowIds, setRowIds] = useState([])
+
+	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
+	const handleResultSave = () => setResultSavedAlertOpen(true) // 🚩 後端：需要把點燈紀錄存給使用者
+	const handleSavedAlertClose = () => setResultSavedAlertOpen(false)
 
 	// 需要針對該產業別的所有個股進行分析，並挑選出來五檔。
 	const getStocksByIndustry = async () => {
@@ -174,34 +167,9 @@ export default function Result() {
 		}
 	}
 
-	const handleSave = () => {
-		setOpen(true)
-		// 🚩 後端：需要把卡片存給使用者
-	}
-	const handleClose = () => setOpen(false)
-
-	const handleEnvelopeDialog = () => setEnvelopeDialogOpen(!envelopeDialog)
-	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
-	const handleLaternDialog = () => setLaternDialogOpen(!laternDialogOpen)
-
-	// 🚩 後端：需要把祈福小卡存給使用者
-	const handleCardSave = () => {
-		setCardSavedAlertOpen(true)
-	}
-
-	// 🚩 後端：需要把點燈紀錄存給使用者
-	const handleResultSave = () => {
-		setResultSavedAlertOpen(true)
-	}
-
-	const handleSavedAlertClose = () => {
-		setResultSavedAlertOpen(false)
-		setCardSavedAlertOpen(false)
-	}
-
 	useEffect(() => {
 		getStocksByIndustry()
-	}, [])
+	}, [industry])
 
 	useEffect(() => {
 		if (!session) router.push('/login')
@@ -210,73 +178,7 @@ export default function Result() {
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
 			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='分析結果' />
-			{/* 信封 */}
-			<Dialog
-				open={envelopeDialog}
-				TransitionComponent={Transition}
-				PaperProps={{
-					style: {
-						backgroundColor: 'transparent',
-						boxShadow: 'none',
-					},
-				}}
-			>
-				<DialogContent className='w-[600px] h-[63vw] md:h-[500px]'>
-					<div className='absolute w-full h-full flex-center -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>
-						<div className='absolute w-full h-full -z-10'>
-							<div className='border-b-[212px] border-b-white border-x-[40vw] md:border-x-[300px] border-x-transparent' />
-						</div>
-						<div
-							className='absolute text-center cursor-pointer flex pt-5 flex-col w-[540px] h-72 rounded bg-primary_yellow duration-500 ease-out z-10 bottom-20 hover:bottom-32'
-							onClick={() => {
-								handleEnvelopeDialog()
-								handleCardDialog()
-							}}
-						>
-							<h2>打開小卡...</h2>
-						</div>
-						<div className='absolute w-full h-full overflow-hidden'>
-							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-600 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
-								<h3 className='text-5xl text-center'>{industry}祈福小卡</h3>
-								<div className='flex items-end justify-between text-zinc-400'>
-									<p>
-										<span>{session.user.name}</span>
-										<br />
-										<span>{session.user.email}</span>
-									</p>
-									<p>{getCurrentDate()}</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</DialogContent>
-			</Dialog>
-			{/* 祈福小卡 */}
-			<Dialog open={cardDialogOpen} maxWidth='md' align='center'>
-				<DialogContent>
-					<PrayerCard />
-					<Button
-						size='large'
-						onClick={handleCardSave}
-						className='mt-4 mb-2 px-10 py-2.5 font-bold tracking-wider rounded-full text-zinc-800 bg-primary_yellow'
-					>
-						保存您的祈福小卡
-					</Button>
-					<Snackbar open={cardSavedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
-						<Alert onClose={handleSavedAlertClose} severity='success' sx={{ width: '100%' }}>
-							保存成功！
-						</Alert>
-					</Snackbar>
-					<SubmitBtn
-						text='查看本日光明燈'
-						handleSubmit={() => {
-							handleCardDialog()
-							handleLaternDialog()
-						}}
-						style='mt-3 py-2.5'
-					/>
-				</DialogContent>
-			</Dialog>
+			<PrayerCard handleNextDialog={handleLaternDialog} />
 			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
 				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {industry}股</DialogTitle>
 				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100'>
