@@ -35,10 +35,16 @@ export default function StockProfile(stockId) {
 	const renderTableRow = (label, value) => {
 		return (
 			<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-				<TableCell component='th' scope='row' className='bg-primary_yellow/30'>
+				<TableCell
+					component='th'
+					scope='row'
+					className='bg-primary_yellow/50 dark:border-zinc-600 dark:bg-primary_yellow'
+				>
 					{label}
 				</TableCell>
-				<TableCell align='right'>{value}</TableCell>
+				<TableCell align='right' className='dark:border-zinc-600 dark:text-zinc-100'>
+					{value}
+				</TableCell>
 			</TableRow>
 		)
 	}
@@ -48,7 +54,7 @@ export default function StockProfile(stockId) {
 			{!isLoading && profile ? (
 				<>
 					<p className='mt-2 mb-4'>{profile.description || ''}</p>
-					<TableContainer className='md:items-start md:gap-12 md:flex'>
+					<TableContainer className='dark:bg-zinc-800 md:items-start md:gap-12 md:flex'>
 						<Table className='md:max-w-sm'>
 							<TableBody>
 								{renderTableRow('成立時間', profile.established_time || '')}
