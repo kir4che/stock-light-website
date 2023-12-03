@@ -158,11 +158,10 @@ export default function FundamentalAnalysis() {
 					value={selectedTabIndex}
 					onChange={useCallback((e, index) => setSelectedTabIndex(index), [])}
 					className='mt-4 bg-white rounded dark:bg-zinc-800'
-					scrollButtons={false}
 				>
-					{['股價走勢', '技術指標', '財務報表', '基本資料', '新聞'].map((tab, index) => (
+					{['股價走勢', '技術指標', '財務報表', '基本資料', '新聞'].map((label, index) => (
 						<Tab
-							label={tab}
+							label={label}
 							className={`${
 								selectedTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
 							} hover:bg-sky-300/10 `}
