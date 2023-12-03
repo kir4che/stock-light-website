@@ -184,6 +184,7 @@ export default function Result() {
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
 			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='分析結果' />
+			{/* 信封 */}
 			<Dialog
 				open={envelopeDialog}
 				TransitionComponent={Transition}
@@ -209,33 +210,32 @@ export default function Result() {
 							<h2>打開小卡...</h2>
 						</div>
 						<div className='absolute w-full h-full overflow-hidden'>
-							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-500 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
+							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-600 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
 								<h3 className='text-5xl text-center'>{category}類祈福小卡</h3>
-								<div className='flex items-end justify-between'>
+								<div className='flex items-end justify-between text-zinc-400'>
 									{session && (
-										<div>
-											<p>{session.user.id}</p>
-											<p>{session.user.email}</p>
-										</div>
+										<p>
+											<span>{session.user.name}</span>
+											<span>{session.user.email}</span>
+										</p>
 									)}
-									<p className='opacity-50'>{date}</p>
+									<p>{date}</p>
 								</div>
 							</div>
 						</div>
 					</div>
 				</DialogContent>
 			</Dialog>
+			{/* 祈福小卡 */}
 			<Dialog open={cardDialogOpen} maxWidth='md' align='center'>
 				<DialogContent>
-					{/* 祈福小卡 */}
 					<PrayerCard />
 					<Button
-						type='text'
 						size='large'
 						onClick={handleCardSave}
 						className='mt-4 mb-2 px-10 py-2.5 font-bold tracking-wider rounded-full text-zinc-800 bg-primary_yellow'
 					>
-						儲存您的祈福小卡
+						保存您的祈福小卡
 					</Button>
 					<Snackbar open={cardSavedAlertOpen} autoHideDuration={3000} onClose={handleCardSavedAlertClose}>
 						<Alert onClose={handleCardSavedAlertClose} severity='success' sx={{ width: '100%' }}>

@@ -3,34 +3,30 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 export default function PrayerCard() {
+	// 目前有 10 張祈福小卡
 	const cardList = [
-		{
-			id: 1,
-			img_url: 'https://imgur.com/h4ICpmE.png',
-		},
-		{
-			id: 2,
-			img_url: 'https://i.imgur.com/bZOT3Sq.png',
-		},
-		{
-			id: 3,
-			img_url: 'https://i.imgur.com/odLPGpp.png',
-		},
+		'https://imgur.com/mWzw1OE.png',
+		'https://imgur.com/j8QsmaI.png',
+		'https://imgur.com/TU4CF9P.png',
+		'https://imgur.com/s3RZXMo.png',
+		'https://imgur.com/6Ddx5du.png',
+		'https://imgur.com/vLxoJjU.png',
+		'https://imgur.com/PO8YSRV.png',
+		'https://imgur.com/Yrvic6s.png',
+		'https://imgur.com/Hl6fskm.png',
+		'https://imgur.com/qieOxKe.png',
 	]
 
-	const [selectedCard, setSelectedCard] = useState(null)
+	const getRandomCard = () => {
+		const randomIndex = Math.floor(Math.random() * cardList.length)
+		return cardList[randomIndex]
+	}
+
+	const [selectedCard, setSelectedCard] = useState(getRandomCard())
 
 	useEffect(() => {
-		const randomId = Math.floor(Math.random() * cardList.length)
-		const random_card = cardList[randomId]
-		setSelectedCard(random_card)
+		setSelectedCard(getRandomCard())
 	}, [])
 
-	return (
-		<>
-			{selectedCard && (
-				<Image src={selectedCard.img_url} width={680} height={360} alt={selectedCard.id} key={selectedCard.id} />
-			)}
-		</>
-	)
+	return selectedCard && <Image src={selectedCard} width={680} height={360} alt='pray-card' />
 }
