@@ -20,7 +20,7 @@ export default function Light() {
 	const handleCategoryHover = (category) => setHoveredCategory(category)
 
 	useEffect(() => {
-		if (!session) router.push('/login')
+		if (!session) router.push('/auth/login')
 	}, [session])
 	return (
 		<StarryBackground className='min-h-screen pt-16'>

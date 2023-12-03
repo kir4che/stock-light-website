@@ -53,7 +53,7 @@ export default function BurgerMenu({ pageList, userData }) {
 							<>
 								<hr className='mt-10 mb-2' />
 								<ListItemButton onClick={toggleDrawer(false)}>
-									<Link href={'/login'} className='flex items-center'>
+									<Link href={'/auth/login'} className='flex items-center'>
 										<span>登入</span>
 										<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
 									</Link>

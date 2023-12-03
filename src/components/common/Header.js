@@ -73,7 +73,7 @@ export default function Header() {
 				{session ? (
 					<UserMenu session={session} />
 				) : (
-					<button className='items-center hidden md:flex' onClick={() => router.push('/login')}>
+					<button className='items-center hidden md:flex' onClick={() => router.push('/auth/login')}>
 						<span>登入</span>
 						<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
 					</button>

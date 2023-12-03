@@ -49,7 +49,7 @@ export default function Register() {
 
 	useEffect(() => {
 		setTimeout(() => {
-			if (isSucceed) router.push('/login')
+			if (isSucceed) router.push('/auth/login')
 		}, 3000)
 	}, [isSucceed])
 
@@ -59,7 +59,7 @@ export default function Register() {
 				<h3 className='text-zinc-100'>註冊股市光明燈</h3>
 				<p className='mt-4 mb-8 text-sm text-zinc-100 opacity-80'>
 					已經有帳號了！{' '}
-					<Link href={'/login'} className='underline opacity-80'>
+					<Link href={'/auth/login'} className='underline opacity-80'>
 						登入
 					</Link>
 				</p>

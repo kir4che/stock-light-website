@@ -33,7 +33,7 @@ export default function LightHistory() {
 	}
 
 	useEffect(() => {
-		if (!session) router.push('/login')
+		if (!session) router.push('/auth/login')
 	}, [session])
 
 	useEffect(() => {
