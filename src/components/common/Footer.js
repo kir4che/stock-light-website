@@ -43,13 +43,16 @@ export default function Footer() {
 					<div className='candle_wax' />
 					<div className='candle_wax-bot' />
 				</div>
-				<div className='flex-col flex-wrap flex-grow w-full mt-4 space-y-4 xl:w-1/3 flex-center sm:flex-row sm:justify-end sm:space-x-20 sm:space-y-0 sm:my-0 sm:text-left'>
+				<div className='flex-col flex-wrap flex-grow xl:w-1/4 mt-4 space-y-4 flex-center sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0 sm:my-0 sm:text-left'>
 					<nav className='space-x-4 flex-center sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
-						{pageList.map((link, index) => (
-							<Link className='text-sm' href={link.url} key={index}>
-								{link.name}
-							</Link>
-						))}
+						<h4 className='mb-6'>頁尾導航</h4>
+						<div className='sm:grid sm:grid-cols-2 sm:gap-4'>
+							{pageList.map((link, index) => (
+								<Link className='text-sm' href={link.url} key={index}>
+									•{link.name}
+								</Link>
+							))}
+						</div>
 					</nav>
 					<div className='hidden space-y-5 sm:block'>
 						<h4 className='mb-2'>聯絡方式</h4>
