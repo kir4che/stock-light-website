@@ -191,9 +191,7 @@ export default function Portfolio() {
 					Authorization: token,
 				},
 			})
-
 			const data = await response.json()
-			console.log('data', data)
 
 			if (data.success) fetchPortfolio()
 			else alert('新增投資組合失敗，請稍後再試！')
@@ -367,7 +365,7 @@ export default function Portfolio() {
 			</div>
 			{portfolioData[currentPortfolioIndex] && (
 				<>
-					<div className='flex items-center mb-3 space-x-2 dark:text-zinc-800'>
+					<div className='flex items-center justify-end mb-3 space-x-2 dark:text-zinc-800'>
 						<Autocomplete
 							options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
 							defaultValue={`${stock150[0].id} ${stock150[0].name}`}
