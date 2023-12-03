@@ -12,20 +12,23 @@ export default function StockProfile(stockId) {
 	const [profile, setProfile] = useState(null)
 
 	const fetchStockProfile = async (stockId) => {
+		setIsLoading(true)
+
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/description/${stockId}`, {
 				method: 'GET',
 			})
 			const data = await response.json()
+
 			setProfile(data.data[0])
-			setIsLoading(false)
+
+			if (data.success) setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
 		}
 	}
 
 	useEffect(() => {
-		setIsLoading(true)
 		fetchStockProfile(stockId.stockId)
 	}, [stockId])
 

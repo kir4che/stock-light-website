@@ -22,6 +22,8 @@ export default function News() {
 		totalPages = 10
 
 	const fetchAllNews = async () => {
+		setIsLoading(true)
+
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/news/all`, { method: 'GET' })
 			const data = await response.json()
@@ -31,10 +33,9 @@ export default function News() {
 				return dateA - dateB
 			})
 			setAllNews(sortedNews)
-			setIsLoading(false)
+			if (data.success) setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
-			setIsLoading(false)
 		}
 	}
 

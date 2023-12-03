@@ -21,6 +21,7 @@ export const authOptions = {
 					const data = await response.json()
 
 					const user = {
+						id: data.data.user_id,
 						name: data.data.name,
 						email: data.data.email,
 						image: '',

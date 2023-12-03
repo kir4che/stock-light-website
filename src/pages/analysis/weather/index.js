@@ -3,6 +3,7 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import { DataGrid } from '@mui/x-data-grid'
+import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
@@ -105,6 +106,9 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
 )
 
 export default function WeatherAnalysis() {
+	const { data: session } = useSession()
+	const token = session?.token
+
 	const [isLoading, setIsLoading] = useState(true)
 	const [selectedTab, setSelectedTab] = useState(0)
 	const [selectedStockId, setSelectedStockId] = useState(1101)
@@ -116,30 +120,35 @@ export default function WeatherAnalysis() {
 
 	const [chartData, setChartData] = useState({ stock: '', weather: '' })
 
-	const fetchWeatherPredict = async (type, stockId) => {
+	// 🚩待確認是否要會員才能查看
+	const fetchWeatherPredict = async () => {
+		setIsLoading(true)
+
 		try {
-			const response = await fetch(`${process.env.DB_URL}/api/weather/predict/${type}/${stockId}`, {
-				method: 'GET',
-			})
+			const response = await fetch(
+				`${process.env.DB_URL}/api/weather/predict/${selectedWeatherType}/${selectedStockId}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: token,
+					},
+				}
+			)
 			const data = await response.json()
-			console.log(data.data)
 
 			setWeatherData(data.data.independent_datas)
 			setStockPrices(data.data.dependent_datas)
 			setStockInfo(data.data.stockinfo)
 
-			setIsLoading(false)
+			if (data.success) setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
 		}
 	}
 
 	useEffect(() => {
-		console.log('selectedStockId', selectedStockId)
-	}, [selectedStockId])
-
-	useEffect(() => {
-		fetchWeatherPredict(selectedWeatherType, selectedStockId)
+		fetchWeatherPredict()
 		setChartData({
 			stock: stock150.find((stock) => stock.id === selectedStockId).name,
 			weather: weatherList[selectedTab].ch_name,

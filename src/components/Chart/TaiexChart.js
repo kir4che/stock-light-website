@@ -16,6 +16,8 @@ export default function TaiexChart() {
 	const { dates, indexs } = data
 
 	const fetchTaiex = async () => {
+		setIsLoading(true)
+
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/taiex/all`, { method: 'GET' })
 			let data = await response.json()
@@ -35,14 +37,13 @@ export default function TaiexChart() {
 
 			setData({ dates, indexs, closingIndexs })
 
-			setIsLoading(false)
+			if (response.ok) setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
 		}
 	}
 
 	useEffect(() => {
-		setIsLoading(true)
 		fetchTaiex()
 	}, [])
 

@@ -1,6 +1,5 @@
 'use client'
 
-import AddCircleIcon from '@mui/icons-material/AddCircle'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Input, Tab, Tabs } from '@mui/material'
@@ -368,7 +367,7 @@ export default function Portfolio() {
 			</div>
 			{portfolioData[currentPortfolioIndex] && (
 				<>
-					<div className='flex items-center mb-3 dark:text-zinc-800'>
+					<div className='flex items-center mb-3 space-x-2 dark:text-zinc-800'>
 						<Autocomplete
 							options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
 							defaultValue={`${stock150[0].id} ${stock150[0].name}`}
@@ -379,23 +378,22 @@ export default function Portfolio() {
 							disableClearable
 							disablePortal
 						/>
-						<Button
-							size='large'
-							startIcon={
-								<AddCircleIcon className='text-2xl dark:text-zinc-100 text-sky-400 hover:text-sky-300 dark:hover:opacity-90' />
-							}
+						<button
+							className='font-bold text-white rounded-full w-7 h-7 flex-center bg-sky-400 hover:bg-sky-500'
 							onClick={() => {
 								setIsAddStock(true)
 								updatePortfolio()
 							}}
-						/>
+						>
+							＋
+						</button>
 					</div>
 					<DataGrid
 						sx={{
 							pl: 2,
 							pr: 3,
-							pt: 0.5,
-							pb: 1,
+							pt: 0,
+							pb: 2,
 							'& .css-1iyq7zh-MuiDataGrid-columnHeaders, & .MuiDataGrid-withBorderColor': {
 								borderBottomWidth: '0.75px',
 								borderColor: '#71717a',

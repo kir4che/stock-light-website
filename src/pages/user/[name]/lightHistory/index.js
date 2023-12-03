@@ -7,40 +7,38 @@ import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 
+const fakeData = [
+	{
+		create_date: '2023-09-01',
+		stockArray: ['台積電', '兆豐金'],
+	},
+	{
+		create_date: '2023-08-30',
+		stockArray: ['聯電'],
+	},
+]
+
 export default function LightHistory() {
 	const { data: session } = useSession()
 	const [lightHistory, setLightHistory] = useState([])
+
+	const fetchLightHistory = async () => {
+		try {
+			const response = await fetch(`${process.env.DB_URL}/lightup/history/${session.user.id}`)
+			const data = await response.json()
+			setLightHistory(data)
+		} catch (error) {
+			console.error(error)
+		}
+	}
 
 	useEffect(() => {
 		if (!session) router.push('/login')
 	}, [session])
 
-	// useEffect(() => {
-	//   fetch(`${process.env.DB_URL}/api/user/lightup/history`)
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	//       console.log('點燈紀錄: ', data)
-	// 			setGroupData(data)
-	// 		})
-	// 		.catch((error) => {
-	//       console.error('error', error)
-	// 		})
-	// }, [])
-
-	const fakeData = [
-		{
-			create_date: '2023-09-01',
-			data: [{ stock_name: '台積電' }, { stock_name: '兆豐金' }],
-		},
-		{
-			create_date: '2023-08-30',
-			data: [{ stock_name: '聯電' }],
-		},
-	]
-
-	// 假資料抓取
 	useEffect(() => {
-		setLightHistory(fakeData)
+		fetchLightHistory()
+		setLightHistory(fakeData) // 假資料抓取
 	}, [])
 
 	return (
@@ -54,12 +52,12 @@ export default function LightHistory() {
 								<span className='font-light'>{item.create_date}</span> 點燈紀錄：
 							</p>
 							<div className='flex'>
-								{item.data.map((stock, stockIndex, array) => (
-									<p key={stockIndex}>
+								{item.stockArray.map((stock, index, array) => (
+									<p key={index}>
 										<span className='px-2.5 py-1 text-sm rounded-full tracking-wide border-secondary_blue border-2 bg-white text-zinc-800'>
-											{stock.stock_name}
+											{stock}
 										</span>
-										{stockIndex < array.length - 1 && <span>、</span>}
+										{index < array.length - 1 && <span>、</span>}
 									</p>
 								))}
 							</div>

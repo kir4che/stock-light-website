@@ -36,7 +36,7 @@ export default function ChatBot() {
 		const lastSelectedTime = localStorage.getItem('lastSelectedTime')
 		const currentTime = new Date().getTime()
 
-		if (!lastSelectedTime || currentTime - lastSelectedTime >= 24 * 60 * 60 * 1000) {
+		if (!lastSelectedTime || currentTime - lastSelectedTime >= 2 * 60 * 60) {
 			const intervalId = setInterval(() => {
 				setCurrentGodIndex((prevIndex) => (prevIndex + 1) % godList.length)
 			}, 100)

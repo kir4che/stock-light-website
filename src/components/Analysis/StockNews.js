@@ -14,7 +14,7 @@ export default function StockNews(stockId) {
 			const data = await response.json()
 			setNews(data.data)
 
-			setIsLoading(false)
+			if (data.success) setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
 		}

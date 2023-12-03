@@ -32,18 +32,22 @@ export default function FundamentalAnalysis() {
 	const { date, closePrice, change } = stockChartData
 
 	const fetchStockPePb = useCallback(async (stockId) => {
+		setIsLoading(true)
+
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/${stockId}`, {
 				method: 'GET',
 			})
 			const data = await response.json()
-			setStockPePb(data.data)
+			if (data.success) setStockPePb(data.data)
 		} catch (error) {
 			console.error('error', error)
 		}
 	}, [])
 
 	const fetchStockData = useCallback(async (stockId) => {
+		setIsLoading(true)
+
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/all/info`, { method: 'GET' })
 			let data = await response.json()
@@ -74,15 +78,13 @@ export default function FundamentalAnalysis() {
 				volume: volumes,
 			}))
 
-			setIsLoading(false)
+			if (data.success) setIsLoading(false)
 		} catch (error) {
 			console.error('error', error)
 		}
 	}, [])
 
 	useEffect(() => {
-		setIsLoading(true)
-
 		fetchStockPePb(selectedStockId)
 		fetchStockData(selectedStockId)
 

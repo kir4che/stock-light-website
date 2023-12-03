@@ -19,11 +19,16 @@ export default function StockFS(stockId) {
 	const handleTabSelect = (e, index) => setSelectedTabIndex(index)
 
 	const fetchData = async (stockId, statementType) => {
+		setIsLoading(true)
+
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/${statementType}/${stockId}`, {
 				method: 'GET',
 			})
 			const data = await response.json()
+
+			if (data.success) setIsLoading(false)
+
 			return data.data[0]
 		} catch (error) {
 			console.error('error', error)
@@ -37,12 +42,9 @@ export default function StockFS(stockId) {
 			fetchData(stockId, 'cash_flow_statement'),
 		])
 		setFS({ bs, is, cf })
-
-		setIsLoading(false)
 	}
 
 	useEffect(() => {
-		setIsLoading(true)
 		fetchStockData(stockId.stockId)
 	}, [stockId])
 
