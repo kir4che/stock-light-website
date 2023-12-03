@@ -61,11 +61,14 @@ export default function Header() {
 			</nav>
 			<div className=' flex-center md:space-x-2 xl:space-x-3'>
 				<button
-					className='p-[1px] md:py-0 -mr-1 md:-mr-1 md:px-1 flex-center rounded-full md:border-2 border-primary_yellow border-0 hover:bg-primary_yellow/20'
+					className='p-[1px] md:py-0 -mr-1 md:px-1 flex-center rounded-full md:border-2 border-primary_yellow border-0 hover:bg-primary_yellow/20'
 					onClick={() => router.push('/light')}
 				>
 					<Image src='/assets/lantern-animate.gif' width={40} height={40} />
-					<span className='hidden pr-2 text-sm font-medium md:inline'>我要點燈</span>
+					<span className='hidden pr-2 text-sm font-medium md:inline'>
+						<span className='hidden lg:inline'>我要</span>
+						<span>點燈</span>
+					</span>
 				</button>
 				{session ? (
 					<UserMenu session={session} />

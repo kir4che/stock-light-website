@@ -28,7 +28,7 @@ export default function UserMenu({ session }) {
 
 	return (
 		<>
-			<PersonIcon className='dark:text-white' onClick={handleClick} />
+			<PersonIcon className='ml-2 dark:text-white' onClick={handleClick} />
 			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
 				<MenuItem onClick={handleUserPage} style={{ cursor: 'pointer' }}>
 					會員管理
