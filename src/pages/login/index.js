@@ -29,6 +29,7 @@ export default function Login() {
 			const response = await signIn('credentials', {
 				email: userData.email,
 				password: userData.password,
+				redirect: false,
 			})
 			console.log('response', response)
 		} catch (error) {

@@ -4,6 +4,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 export const authOptions = {
 	providers: [
 		CredentialsProvider({
+			type: 'credentials',
+			name: 'credentials',
 			credentials: {},
 			async authorize(credentials, req) {
 				try {
