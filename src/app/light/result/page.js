@@ -8,7 +8,7 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import { DataGrid } from '@mui/x-data-grid'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
@@ -130,11 +130,11 @@ const columns = [
 ]
 
 export default function Result() {
-	const { data: session } = useSession()
+	const { data: session, status } = useSession()
 	const token = session?.token
 
 	const router = useRouter()
-	const { industry } = router.query
+	const industry = useSearchParams().get('industry')
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [resultStock, setResultStock] = useState([])
@@ -186,13 +186,14 @@ export default function Result() {
 	}, [industry])
 
 	useEffect(() => {
-		if (!status === 'authenticated') router.push('/login')
+		console.log('status', status)
+		if (status === 'unauthenticated') router.push('/login')
 	}, [session])
 
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
 			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='分析結果' />
-			<PrayerCard handleNextDialog={handleLaternDialog} />
+			<PrayerCard industry={industry} handleNextDialog={handleLaternDialog} />
 			<Dialog open={laternDialogOpen} maxWidth='lg' fullWidth>
 				<DialogTitle className='mt-4 mb-8 text-2xl text-center'>本日光明燈 － {industry}股</DialogTitle>
 				<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-88 dark:text-zinc-100'>

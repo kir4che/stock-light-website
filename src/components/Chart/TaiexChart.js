@@ -49,7 +49,7 @@ export default function TaiexChart() {
 
 	return (
 		<>
-			<div className='flex items-baseline mt-4 mb-2 space-x-4 xs:mt-0'>
+			<div className='items-baseline mt-4 xs:space-x-3 xs:flex xs:mt-0'>
 				<h4 className='mt-6 mb-3'>台股大盤加權指數走勢</h4>
 				<p className='text-xs font-medium tracking-wide opacity-70'>
 					{dates.length ? convertDateTime(dates[dates.length - 1]) : getCurrentDate()} 更新
@@ -80,7 +80,6 @@ export default function TaiexChart() {
 					>
 						<p>
 							<span>
-								{' '}
 								{closeIndex[closeIndex.length - 1] - closeIndex[closeIndex.length - 2] > 0 ? (
 									<ArrowDropUpIcon />
 								) : (
@@ -97,7 +96,7 @@ export default function TaiexChart() {
 				</section>
 			) : null}
 			{!isLoading && data ? (
-				<Chart option={candlestickOption(dates, indexs)} customHeight='h-72 md:h-96 xl:h-[480px]' />
+				<Chart option={candlestickOption(dates, indexs)} customHeight='h-72 md:h-[400px] xl:h-[520px]' />
 			) : (
 				<Loading />
 			)}

@@ -6,15 +6,12 @@ import Slide from '@mui/material/Slide'
 import Snackbar from '@mui/material/Snackbar'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { forwardRef, useEffect, useState } from 'react'
 
 import SubmitBtn from '@/components/ui/SubmitBtn'
 
-export default function PrayerCard({ handleNextDialog }) {
+export default function PrayerCard({ industry, handleNextDialog }) {
 	const { data: session } = useSession()
-	const router = useRouter()
-	const { industry } = router.query
 
 	// 目前有 10 張祈福小卡
 	const cardList = [

@@ -110,7 +110,7 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
 )
 
 export default function WeatherAnalysis() {
-	const { data: session } = useSession()
+	const { data: session, status } = useSession()
 	const token = session?.token
 	const router = useRouter()
 
@@ -184,7 +184,7 @@ export default function WeatherAnalysis() {
 						))}
 					</section>
 					<section className='w-full px-8 py-6 bg-white rounded-b dark:bg-zinc-900/50 lg:rounded'>
-						{session ? (
+						{status === 'authenticated' ? (
 							<>
 								<div className='mb-4 flex-center-between'>
 									{chartData && (
@@ -215,7 +215,7 @@ export default function WeatherAnalysis() {
 									<section className='flex flex-wrap items-start space-y-4'>
 										<Chart
 											option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
-											customHeight='h-72 md:h-96 xl:h-[450px]'
+											customHeight='h-72 md:h-[450px] xl:h-[560px]'
 										/>
 										<DataGrid
 											sx={{ height: 120, pl: 0, pr: 0.1, pt: 0, pb: 1 }}

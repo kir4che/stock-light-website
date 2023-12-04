@@ -2,20 +2,22 @@
 
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import { Button, ButtonGroup, FormControl, MenuItem, Select, TextField } from '@mui/material'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import { Lantern } from '@/components/ui/Lantern'
 import SubmitBtn from '@/components/ui/SubmitBtn'
+import { getCurrentDate } from '@/utils/getCurrentDate'
 
 // 🚩尚未串接金流
 export default function Checkout() {
+	const { data: session } = useSession()
 	const router = useRouter()
-	const { industry } = router.query
+	const industry = useSearchParams().get('industry')
 
 	const paymentBtn = (index, imageSrc) => (
 		<Button
@@ -30,6 +32,8 @@ export default function Checkout() {
 			<Image width={125} height={40} src={imageSrc} alt={`button-${index}`} />
 		</Button>
 	)
+
+	useEffect(() => {}, [industry])
 
 	const [activeButtonIndex, setActiveButtonIndex] = useState(1)
 	const handleButtonActive = (index) => setActiveButtonIndex(index)
@@ -91,8 +95,7 @@ export default function Checkout() {
 
 		setSuccess(true)
 		setTimeout(() => {
-			const uuid = uuidv4()
-			router.push(`/light/${industry}/result/${uuid}`)
+			router.push(`/light/result?industry=${industry}&userId=${session.user.id}&date=${getCurrentDate()}`)
 		}, 3000)
 	}
 
