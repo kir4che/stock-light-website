@@ -259,7 +259,7 @@ export default function WeatherAnalysis() {
 											<li>
 												<strong>相關係數 (correlation coefficient)</strong>
 												：代表兩變數之間線性關係的強度及方向，數值範圍為 -1 ≤ r ≤ 1。
-												<ul class='pl-4 list-disc'>
+												<ul className='pl-4 list-disc'>
 													<li>完全正相關：r = 1</li>
 													<li>
 														正相關：0 &lt; r &lt; 1，細分有：高度正相關 (0.7 ≤ r &lt; 1)、中度正相關 (0.3 ≤ r &lt;

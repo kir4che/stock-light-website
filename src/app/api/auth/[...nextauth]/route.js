@@ -6,12 +6,12 @@ import GoogleProvider from 'next-auth/providers/google'
 const handler = NextAuth({
 	providers: [
 		GoogleProvider({
-			clientId: process.env.GOOGLE_CLIENT_ID,
-			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+			clientId: process.env.GOOGLE_ID,
+			clientSecret: process.env.GOOGLE_SECRET,
 		}),
 		FacebookProvider({
-			clientId: process.env.FACEBOOK_CLIENT_ID,
-			clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+			clientId: process.env.FACEBOOK_ID,
+			clientSecret: process.env.FACEBOOK_SECRET,
 		}),
 		CredentialsProvider({
 			credentials: {
@@ -66,16 +66,19 @@ const handler = NextAuth({
 	callbacks: {
 		async jwt({ token, user, account }) {
 			if (account && user) {
-				token.user = user
+				if (account.provider === 'google' || account.provider === 'facebook') token.user = { user: user }
+				else token.user = user
+				token.provider = account.provider
 				token.accessToken = user.token
 			}
 			return token
 		},
 		async session({ session, token }) {
 			session.user = token.user
+			session.provider = token.provider
 			session.accessToken = token.accessToken
 
-			// console.log('session', session.user)
+			console.log('session', session)
 			return session.user
 		},
 		debug: true,

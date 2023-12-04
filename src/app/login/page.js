@@ -13,7 +13,6 @@ import SubmitBtn from '@/components/ui/SubmitBtn'
 
 export default function Login() {
 	const { data: session } = useSession()
-
 	const router = useRouter()
 
 	const [userData, setUserData] = useState({
@@ -38,7 +37,7 @@ export default function Login() {
 	}
 
 	useEffect(() => {
-		if (session) router.push(`/user/${session.user.name}`)
+		if (session) router.push(`/user/${session.user.id}`)
 	}, [session])
 
 	return (
