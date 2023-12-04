@@ -33,29 +33,27 @@ export default function ChatBot() {
 	const [currentGodIndex, setCurrentGodIndex] = useState(0)
 
 	const selectGod = () => {
-		const lastSelectedTime = localStorage.getItem('lastSelectedTime')
+		const lastGodSelectTime = localStorage.getItem('lastGodSelectTime')
 		const currentTime = new Date().getTime()
 
-		if (!lastSelectedTime || currentTime - lastSelectedTime >= 2 * 60 * 60) {
-			const intervalId = setInterval(() => {
-				setCurrentGodIndex((prevIndex) => (prevIndex + 1) % godList.length)
-			}, 100)
-
-			setTimeout(() => {
-				clearInterval(intervalId)
-				const randomGod = godList[Math.floor(Math.random() * godList.length)]
-				setSelectedGod(randomGod.id)
-
-				localStorage.setItem('selectedGod', randomGod.id)
-				localStorage.setItem('lastSelectedTime', currentTime)
-			}, Math.random() * (12000 - 5000 + 1) + 5000)
+		if (lastGodSelectTime && currentTime - lastGodSelectTime < 24 * 60 * 60 * 1000) {
+			alert('You can only select a god once every 24 hours.')
+			return
 		}
-	}
 
-	useEffect(() => {
-		const storedSelectedGod = localStorage.getItem('selectedGod')
-		if (storedSelectedGod) setSelectedGod(parseInt(storedSelectedGod, 10))
-	}, [])
+		const intervalId = setInterval(() => {
+			setCurrentGodIndex((prevIndex) => (prevIndex + 1) % godList.length)
+		}, 100)
+
+		setTimeout(() => {
+			clearInterval(intervalId)
+			const randomGod = godList[Math.floor(Math.random() * godList.length)]
+			setSelectedGod(randomGod.id)
+
+			localStorage.setItem('selectedGod', randomGod.id)
+			localStorage.setItem('lastGodSelectTime', new Date().getTime())
+		}, Math.random() * (12000 - 5000 + 1) + 5000)
+	}
 
 	const [messages, setMessages] = useState([
 		{
@@ -120,11 +118,16 @@ export default function ChatBot() {
 		return response.json()
 	}
 
+	useEffect(() => {
+		const selectedGod = localStorage.getItem('selectedGod')
+		if (selectedGod) setSelectedGod(Number(selectedGod))
+	}, [])
+
 	return (
 		<StarryBackground className='h-screen pt-8 mx-auto lg:px-0'>
 			{!selectedGod ? (
 				<div className='flex-col h-full flex-center'>
-					<div className='h-full space-x-10 flex-center'>
+					<div className='flex-wrap h-full mb-8 sm:mb-0 gap-x-8 flex-center'>
 						{godList.map((god, index) => (
 							<Image
 								src={god.imageUrl}
