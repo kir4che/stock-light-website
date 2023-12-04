@@ -9,7 +9,7 @@ import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import InputField from '@/components/ui/InputField'
 
 export default function ChangePassword() {
-	const [session, loading] = useSession()
+	const { data: session } = useSession()
 
 	const [isSucceeded, setIsSucceeded] = useState(false)
 	const [newData, setNewData] = useState({

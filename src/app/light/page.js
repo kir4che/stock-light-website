@@ -11,7 +11,7 @@ import StarryBackground from '@/components/common/StarryBackground'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 
 export default function Light() {
-	const [session, loading] = useSession()
+	const { data: session } = useSession()
 	const router = useRouter()
 
 	const uuid = uuidv4()

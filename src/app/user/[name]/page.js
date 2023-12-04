@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import StarryBackground from '@/components/common/StarryBackground'
 
 export default function User() {
-	const [session, loading] = useSession()
+	const { data: session } = useSession()
 	const router = useRouter()
 
 	useEffect(() => {
