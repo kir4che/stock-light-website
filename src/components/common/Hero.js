@@ -4,7 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 import Marquee from '@/components/ui/Marquee'
@@ -20,7 +20,7 @@ export default function Hero() {
 				<div className='mt-8 space-x-5 z-50 max-[590px]:mb-8 sm:mb-2 sm:mt-10 md:mb-4 flex-center'>
 					<button
 						className='px-6 py-2 text-sm tracking-wide rounded-full bg-secondary_blue hover:bg-sky-500 text-zinc-100'
-						onClick={() => router.push(session ? '/light' : '/auth/login')}
+						onClick={() => router.push(session ? '/light' : '/login')}
 					>
 						登入並點燈
 					</button>

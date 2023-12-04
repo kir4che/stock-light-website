@@ -1,6 +1,6 @@
 import MaterialBreadcrumbs from '@mui/material/Breadcrumbs'
 import Button from '@mui/material/Button'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 export default function Breadcrumbs({ prevPage, prevPageLink, curPage }) {
 	const router = useRouter()

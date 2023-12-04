@@ -5,7 +5,7 @@ import { Menu, MenuItem } from '@mui/material'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import BurgerMenu from '@/components/ui/BurgerMenu'
@@ -73,7 +73,7 @@ export default function Header() {
 				{session ? (
 					<UserMenu session={session} />
 				) : (
-					<button className='items-center hidden md:flex' onClick={() => router.push('/auth/login')}>
+					<button className='items-center hidden md:flex' onClick={() => router.push('/login')}>
 						<span>登入</span>
 						<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
 					</button>
