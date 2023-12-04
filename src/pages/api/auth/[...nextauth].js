@@ -31,6 +31,7 @@ export const authOptions = {
 
 					return { user, token: data.data.token }
 				} catch (error) {
+					console.error('error', error)
 					if (credentials.email === 'test@gmail.com' && credentials.password === '12345') {
 						const user = {
 							id: 1,
@@ -47,11 +48,11 @@ export const authOptions = {
 	session: {
 		jwt: true,
 		strategy: 'jwt',
-		maxAge: 1 * 24 * 60 * 60,
+		maxAge: 2 * 24 * 60 * 60,
 	},
 	jwt: {
 		secret: process.env.JWT_SECRET,
-		maxAge: 1 * 24 * 60 * 60,
+		maxAge: 2 * 24 * 60 * 60,
 	},
 	pages: {
 		signIn: '/auth/login',
@@ -59,7 +60,7 @@ export const authOptions = {
 	},
 	callbacks: {
 		async jwt({ token, user, account }) {
-			if (account && account.type === 'credentials' && user) {
+			if (account && user) {
 				token.user = user
 				token.accessToken = user.token
 			}

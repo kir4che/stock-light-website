@@ -26,12 +26,12 @@ export default function Login() {
 		if (!userData.email || !userData.password) return alert('請輸入帳號密碼！')
 
 		try {
-			const response = await signIn('credentials', {
+			const { error } = await signIn('credentials', {
 				email: userData.email,
 				password: userData.password,
 				redirect: false,
 			})
-			console.log('response', response)
+			if (error) throw new Error(error)
 		} catch (error) {
 			console.error('error', error)
 		}
