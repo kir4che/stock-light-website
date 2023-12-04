@@ -11,7 +11,7 @@ import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
 import SubmitBtn from '@/components/ui/SubmitBtn'
 
 export default function Login() {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 
 	const router = useRouter()
 

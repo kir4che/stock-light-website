@@ -110,7 +110,7 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
 )
 
 export default function WeatherAnalysis() {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 	const token = session?.token
 	const router = useRouter()
 

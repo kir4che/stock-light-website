@@ -10,7 +10,7 @@ import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 import Marquee from '@/components/ui/Marquee'
 
 export default function Hero() {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 	const router = useRouter()
 
 	return (

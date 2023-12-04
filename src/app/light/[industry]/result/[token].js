@@ -130,7 +130,7 @@ const columns = [
 ]
 
 export default function Result() {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 	const token = session?.token
 
 	const router = useRouter()

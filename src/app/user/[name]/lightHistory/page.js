@@ -19,7 +19,7 @@ const fakeData = [
 ]
 
 export default function LightHistory() {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 	const router = useRouter()
 	const [lightHistory, setLightHistory] = useState([])
 

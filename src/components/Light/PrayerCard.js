@@ -12,7 +12,7 @@ import { forwardRef, useEffect, useState } from 'react'
 import SubmitBtn from '@/components/ui/SubmitBtn'
 
 export default function PrayerCard({ handleNextDialog }) {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 	const router = useRouter()
 	const { industry } = router.query
 

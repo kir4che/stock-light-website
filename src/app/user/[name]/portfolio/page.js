@@ -109,7 +109,7 @@ const columns = [
 ]
 
 export default function Portfolio() {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 	const token = session?.token
 
 	const [tabIndex, setTabIndex] = useState(0)

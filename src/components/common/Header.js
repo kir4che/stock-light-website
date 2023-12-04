@@ -14,7 +14,7 @@ import UserMenu from '@/components/ui/UserMenu'
 import { pageList } from '@/data/pageList'
 
 export default function Header() {
-	const { data: session } = useSession()
+	const [session, loading] = useSession()
 	const router = useRouter()
 
 	const [anchorEl, setAnchorEl] = useState(null)
