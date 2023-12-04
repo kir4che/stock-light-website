@@ -186,7 +186,6 @@ export default function Result() {
 	}, [industry])
 
 	useEffect(() => {
-		console.log('status', status)
 		if (status === 'unauthenticated') router.push('/login')
 	}, [session])
 

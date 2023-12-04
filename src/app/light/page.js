@@ -17,7 +17,6 @@ export default function Light() {
 	const handleIndustryHover = (industry) => setHoveredIndustry(industry)
 
 	useEffect(() => {
-		console.log('status', status)
 		if (status === 'unauthenticated') router.push('/login')
 	}, [session])
 	return (

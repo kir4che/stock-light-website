@@ -22,8 +22,10 @@ export default function UserMenu({ session }) {
 	}
 
 	const handleSignOut = async () => {
-		await signOut()
-		router.push('/')
+		await signOut({
+			redirect: true,
+			callbackUrl: '/',
+		})
 	}
 
 	return (
