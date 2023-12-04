@@ -20,6 +20,7 @@ export default function Light() {
 	const handleCategoryHover = (category) => setHoveredCategory(category)
 
 	useEffect(() => {
+		console.log('session', session)
 		if (!session) router.push('/login')
 	}, [session])
 	return (

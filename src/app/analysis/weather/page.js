@@ -125,7 +125,6 @@ export default function WeatherAnalysis() {
 
 	const [chartData, setChartData] = useState({ stock: '', weather: '' })
 
-	// 🚩待確認是否要會員才能查看
 	const fetchWeatherPredict = async () => {
 		setIsLoading(true)
 
@@ -166,7 +165,7 @@ export default function WeatherAnalysis() {
 				<h2 className='mb-6 text-center text-zinc-100'>天氣相關性分析</h2>
 				<div className='lg:gap-6 xl:gap-8 lg:flex'>
 					{/* 天氣型態 */}
-					<section className='w-full pb-3 overflow-y-auto rounded-t lg:rounded md:bg-white h-28 lg:h-full lg:w-80 xl:w-64 dark:bg-zinc-900/80'>
+					<section className='w-full pb-3 overflow-y-auto bg-white border-b rounded-t mb:border-none lg:rounded h-28 lg:h-full lg:w-80 xl:w-64 dark:bg-zinc-900/80'>
 						<h4 className='py-4 tracking-wide text-center dark:bg-zinc-800'>選擇天氣型態</h4>
 						{weatherList.map((weather, index) => (
 							<button
