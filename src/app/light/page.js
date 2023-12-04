@@ -11,7 +11,7 @@ import StarryBackground from '@/components/common/StarryBackground'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 
 export default function Light() {
-	const { data: session } = useSession()
+	const { data: session, status } = useSession()
 	const router = useRouter()
 
 	const uuid = uuidv4()
@@ -21,7 +21,7 @@ export default function Light() {
 
 	useEffect(() => {
 		console.log('session', session)
-		if (!session) router.push('/login')
+		if (!status === 'authenticated') router.push('/login')
 	}, [session])
 	return (
 		<StarryBackground className='min-h-screen pt-16'>

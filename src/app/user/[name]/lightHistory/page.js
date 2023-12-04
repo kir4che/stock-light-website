@@ -34,7 +34,7 @@ export default function LightHistory() {
 	}
 
 	useEffect(() => {
-		if (!session) router.push('/login')
+		if (!status === 'authenticated') router.push('/login')
 	}, [session])
 
 	useEffect(() => {
