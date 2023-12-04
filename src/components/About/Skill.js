@@ -73,7 +73,7 @@ export default function Skill() {
 	]
 
 	return (
-		<div>
+		<section>
 			<h3 className='mb-10 text-center'>主要技術</h3>
 			<div className='flex-center'>
 				<div className='flex pb-8 overflow-x-scroll flex-nowrap'>
@@ -94,6 +94,6 @@ export default function Skill() {
 					))}
 				</div>
 			</div>
-		</div>
+		</section>
 	)
 }

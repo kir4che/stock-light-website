@@ -53,7 +53,7 @@ body {
 
 /* 團隊成員 */
 .team-card_group {
-	@apply flex-wrap mx-auto sm:gap-8 xl:gap-0 xl:space-x-8;
+	@apply flex-wrap gap-8 mx-auto xl:gap-0 xl:space-x-8;
 }
 
 .team-card {

@@ -14,7 +14,7 @@ export default function Home() {
 			<TaiexChart />
 			<div className='flex flex-col gap-8 mt-[6vw] md:mt-[3vw] md:gap-24 h-min'>
 				<FlexCard
-					title={'你曾在股市中感到迷惘嗎？'}
+					title='你曾在股市中感到迷惘嗎？'
 					content={
 						<>
 							超過九成以上的投資人績效比不過大盤指數
@@ -24,16 +24,16 @@ export default function Home() {
 							為您找出與股市漲跌有關的數據及優秀條件的個股
 						</>
 					}
-					imgSrc={'/assets/home/stock-1.jpg'}
+					imgSrc='/assets/home/stock-1.jpg'
 				/>
 				<FlexCard
-					title={'股市光明燈提供您不同的觀點'}
+					title='股市光明燈提供您不同的觀點'
 					content={<>用數據打破你原有的想法，你曾經想過天氣、節日、甚至星象和股市的漲跌有關嗎？</>}
-					imgSrc={'/assets/home/stock-2.jpg'}
+					imgSrc='/assets/home/stock-2.jpg'
 					reverse={true}
 				/>
 				<FlexCard
-					title={'每日更新最即時的股市資訊'}
+					title='每日更新最即時的股市資訊'
 					content={
 						<>
 							從證交所、Yahoo Finance 抓取最新的股市資訊
@@ -41,7 +41,7 @@ export default function Home() {
 							並從公開氣象局、政府公開資料平台抓取可用於分析的資料集
 						</>
 					}
-					imgSrc={'/assets/home/stock-3.png'}
+					imgSrc='/assets/home/stock-3.png'
 				/>
 				<article className='relative mt-20 mb-48 text-center'>
 					<div data-aos='fade-down' data-aos-duration='800' data-aos-once='true' className='z-10'>
@@ -61,10 +61,10 @@ export default function Home() {
 					>
 						我要點燈！
 					</button>
-					<LanternLayout otherStyle={'hidden md:block'}>
-						<Lantern position={'z-0 scale-75 -top-80 -left-12 lg:-left-10 xl:left-0'} />
-						<Lantern position={'z-0 -top-28 scale-100 left-20 lg:left-32 xl:left-56'} />
-						<Lantern position={'z-0 -top-[420px] scale-105 -right-8 lg:right-0 xl:right-28'} />
+					<LanternLayout otherStyle='hidden md:block'>
+						<Lantern position='z-0 scale-75 -top-80 -left-12 lg:-left-10 xl:left-0' />
+						<Lantern position='z-0 -top-28 scale-100 left-20 lg:left-32 xl:left-56' />
+						<Lantern position='z-0 -top-[420px] scale-105 -right-8 lg:right-0 xl:right-28' />
 					</LanternLayout>
 				</article>
 			</div>

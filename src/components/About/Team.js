@@ -33,7 +33,7 @@ const members = [
 
 export default function Team() {
 	return (
-		<div>
+		<section>
 			<h2 className='mb-5 text-center'>開發團隊</h2>
 			<p className='mb-10 text-sm leading-6 text-center'>
 				一群由臺北科技大學資訊與財金管理系的學生所組成的團隊
@@ -45,11 +45,11 @@ export default function Team() {
 					<li className='team-card' key={member.id}>
 						<h4>{member.name}</h4>
 						<p className='team-card_content'>{member.content}</p>
-						<Image src={member.img} width={400} height={400} alt={member.name} className='team-card_img' />
+						<Image src={member.img} width={800} height={800} alt={member.name} className='team-card_img' />
 						<p className='team-card_back'>{member.desc}</p>
 					</li>
 				))}
 			</ul>
-		</div>
+		</section>
 	)
 }
