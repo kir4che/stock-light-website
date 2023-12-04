@@ -8,7 +8,7 @@ export default function Loading() {
 						fill='currentColor'
 					/>
 				</svg>
-				<p className='text-xl'>Loading ...</p>
+				<p className='text-xl'>正在連線資料庫...</p>
 			</div>
 		</div>
 	)

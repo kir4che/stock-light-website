@@ -56,7 +56,7 @@ export const authOptions = {
 	},
 	pages: {
 		signIn: '/auth/login',
-		error: '/auth/login',
+		error: '/auth/error',
 	},
 	callbacks: {
 		async jwt({ token, user, account }) {
