@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import PrivacyAndTerms from '@/components/ui/PrivacyAndTerms'
+import SocialLoginBtn from '@/components/ui/SocialLoginBtn'
 import SubmitBtn from '@/components/ui/SubmitBtn'
 
 export default function Login() {
@@ -63,6 +64,7 @@ export default function Login() {
 					placeholder='輸入密碼（測試用: 12345）'
 				/>
 				<SubmitBtn text='登入' handleSubmit={handleLogin} style='mt-5 mb-10' />
+				<SocialLoginBtn />
 				<PrivacyAndTerms />
 			</div>
 		</StarryBackground>
