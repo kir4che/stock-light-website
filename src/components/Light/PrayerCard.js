@@ -27,14 +27,14 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 		'https://imgur.com/qieOxKe.png',
 	]
 
-	const [envelopeDialog, setEnvelopeDialogOpen] = useState(true)
-	const [cardDialogOpen, setCardDialogOpen] = useState(false)
-	const [cardSavedAlertOpen, setCardSavedAlertOpen] = useState(false)
+	const [envelopeOpen, setEnvelopeOpen] = useState(true)
+	const [cardOpen, setCardOpen] = useState(false)
+	const [savedAlertOpen, setSavedAlertOpen] = useState(false)
 
-	const handleEnvelopeDialog = () => setEnvelopeDialogOpen(!envelopeDialog)
-	const handleCardDialog = () => setCardDialogOpen(!cardDialogOpen)
-	const handleCardSave = () => setCardSavedAlertOpen(true) // 🚩 後端：需要把祈福小卡存給使用者
-	const handleSavedAlertClose = () => setCardSavedAlertOpen(false)
+	const handleEnvelopeDialog = () => setEnvelopeOpen(!envelopeOpen)
+	const handleCardDialog = () => setCardOpen(!cardOpen)
+	const handleCardSave = () => setSavedAlertOpen(true) // 🚩 後端：需要把祈福小卡存給使用者
+	const handleSavedAlertClose = () => setSavedAlertOpen(false)
 
 	const getRandomCard = () => {
 		const randomIndex = Math.floor(Math.random() * cardList.length)
@@ -51,7 +51,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 		<>
 			{/* 信封 */}
 			<Dialog
-				open={envelopeDialog}
+				open={envelopeOpen}
 				TransitionComponent={Transition}
 				PaperProps={{
 					style: {
@@ -93,7 +93,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 				</DialogContent>
 			</Dialog>
 			{/* 祈福小卡 */}
-			<Dialog open={cardDialogOpen} maxWidth='md' align='center'>
+			<Dialog open={cardOpen} maxWidth='md' align='center'>
 				<DialogContent>
 					{selectedCard && <Image src={selectedCard} width={680} height={360} alt='pray-card' />}
 					<Button
@@ -103,7 +103,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 					>
 						保存您的祈福小卡
 					</Button>
-					<Snackbar open={cardSavedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
+					<Snackbar cardOpen={savedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
 						<Alert onClose={handleSavedAlertClose} severity='success' sx={{ width: '100%' }}>
 							保存成功！
 						</Alert>
