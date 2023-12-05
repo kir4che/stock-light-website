@@ -48,7 +48,7 @@ export default function ChangePassword() {
 			if (response.ok) setIsSucceeded(true)
 			else alert('修改失敗，請稍後再試！')
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		} finally {
 			setNewData({
 				newPassword: '',

@@ -5,7 +5,7 @@ export default function SocialLoginBtn() {
 		try {
 			await signIn(provider, { redirect: false })
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 

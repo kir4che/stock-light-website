@@ -32,7 +32,7 @@ export default function Login() {
 				redirect: false,
 			})
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 

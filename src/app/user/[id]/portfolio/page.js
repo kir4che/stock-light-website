@@ -168,7 +168,7 @@ export default function Portfolio() {
 				setPortfolioData(generateUniqueIds(data.data))
 			}
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 
@@ -196,7 +196,7 @@ export default function Portfolio() {
 			if (data.success) fetchPortfolio()
 			else alert('新增投資組合失敗，請稍後再試！')
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		} finally {
 			setNewPortfolioName('')
 			setIsCreatePortfolioOpen(false)
@@ -223,7 +223,7 @@ export default function Portfolio() {
 				setIsDeletePortfolioOpen(false)
 			} else alert('移除失敗，請稍後再試！')
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 
@@ -267,7 +267,7 @@ export default function Portfolio() {
 				fetchPortfolio()
 			} else alert('編輯失敗，請稍後再試！')
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 

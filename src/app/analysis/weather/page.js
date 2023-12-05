@@ -147,7 +147,7 @@ export default function WeatherAnalysis() {
 
 			if (data.success) setIsLoading(false)
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 
@@ -161,140 +161,138 @@ export default function WeatherAnalysis() {
 
 	return (
 		<StarryBackground className={'w-full pt-8 pb-12'}>
-			<>
-				<h2 className='mb-6 text-center text-zinc-100'>天氣相關性分析</h2>
-				<div className='lg:gap-6 xl:gap-8 lg:flex'>
-					{/* 天氣型態 */}
-					<section className='w-full pb-3 overflow-y-auto bg-white border-b rounded-t mb:border-none lg:rounded h-28 lg:h-full lg:w-80 xl:w-64 dark:bg-zinc-900/80'>
-						<h4 className='py-4 tracking-wide text-center dark:bg-zinc-800'>選擇天氣型態</h4>
-						{weatherList.map((weather, index) => (
-							<button
-								className={`flex items-center mb-2 space-x-1.5 w-full px-3 py-2 hover:bg-primary_yellow/20 ${
-									selectedTab === index ? 'bg-primary_yellow/50 dark:bg-primary_yellow/30' : ''
-								}`}
-								key={index}
-								onClick={() => {
-									setSelectedWeatherType(weather.en_name.toLowerCase())
-									setSelectedTab(index)
-								}}
-							>
-								<img src={weather.icon} />
-								<span>{weather.ch_name}</span>
-							</button>
-						))}
-					</section>
-					<section className='w-full px-8 py-6 bg-white rounded-b dark:bg-zinc-900/50 lg:rounded'>
-						{status === 'authenticated' ? (
-							<>
-								<div className='mb-4 flex-center-between'>
-									{chartData && (
-										<div className='space-x-2 flex-center'>
-											<h3 className='inline-flex items-baseline space-x-2'>
-												<span>{chartData.stock}</span>
-												<span className='text-xl font-light tracking-widest'>{selectedStockId}</span>
-											</h3>
-											<HtmlTooltip title={<React.Fragment>{weatherList[selectedTab].desc} </React.Fragment>}>
-												<p className='px-2.5 py-1 text-xs text-white rounded-full bg-secondary_blue'>
-													{chartData.weather}
-												</p>
-											</HtmlTooltip>
-										</div>
-									)}
-									<Autocomplete
-										options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
-										defaultValue={`${stock150[0].id} ${stock150[0].name}`}
-										sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
-										size='small'
-										renderInput={(params) => <TextField {...params} />}
-										onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
-										disableClearable
-										disablePortal
-									/>
-								</div>
-								{!isLoading ? (
-									<section className='flex flex-wrap items-start space-y-4'>
-										<Chart
-											option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
-											customHeight='h-72 md:h-[450px] xl:h-[560px]'
-										/>
-										<DataGrid
-											sx={{ height: 120, pl: 0, pr: 0.1, pt: 0, pb: 1 }}
-											rows={[
-												{
-													id: 1,
-													stock_id: selectedStockId,
-													stock_name: chartData.stock || null,
-													weather: chartData.weather,
-													price: stockInfo.closing_price || null,
-													quote_change: stockInfo.change || null,
-													week_quote_change: stockInfo.change_week || null,
-													volume: stockInfo.trade_volume || null,
-													correlation: calculateR(weatherData, stockPrices),
-												},
-											]}
-											columns={columns}
-											className='border-none dark:text-zinc-200'
-											hideFooter
-										/>
-									</section>
-								) : (
-									<Loading />
+			<h2 className='mb-6 text-center text-zinc-100'>天氣相關性分析</h2>
+			<div className='lg:gap-6 xl:gap-8 lg:flex'>
+				{/* 天氣型態 */}
+				<section className='w-full pb-3 overflow-y-auto bg-white border-b rounded-t mb:border-none lg:rounded h-28 lg:h-full lg:w-80 xl:w-64 dark:bg-zinc-900/80'>
+					<h4 className='py-4 tracking-wide text-center dark:bg-zinc-800'>選擇天氣型態</h4>
+					{weatherList.map((weather, index) => (
+						<button
+							className={`flex items-center mb-2 space-x-1.5 w-full px-3 py-2 hover:bg-primary_yellow/20 ${
+								selectedTab === index ? 'bg-primary_yellow/50 dark:bg-primary_yellow/30' : ''
+							}`}
+							onClick={() => {
+								setSelectedWeatherType(weather.en_name.toLowerCase())
+								setSelectedTab(index)
+							}}
+							key={index}
+						>
+							<img src={weather.icon} />
+							<span>{weather.ch_name}</span>
+						</button>
+					))}
+				</section>
+				<section className='w-full px-8 py-6 bg-white rounded-b dark:bg-zinc-900/50 lg:rounded'>
+					{status === 'authenticated' ? (
+						<>
+							<div className='mb-4 flex-center-between'>
+								{chartData && (
+									<div className='space-x-2 flex-center'>
+										<h3 className='inline-flex items-baseline space-x-2'>
+											<span>{chartData.stock}</span>
+											<span className='text-xl font-light tracking-widest'>{selectedStockId}</span>
+										</h3>
+										<HtmlTooltip title={<React.Fragment>{weatherList[selectedTab].desc} </React.Fragment>}>
+											<p className='px-2.5 py-1 text-xs text-white rounded-full bg-secondary_blue'>
+												{chartData.weather}
+											</p>
+										</HtmlTooltip>
+									</div>
 								)}
-								{/* 通用說明 */}
-								{!isLoading && (
-									<section className='mt-4 mb-12'>
-										<p className='mb-2 font-bold'>簡單線性迴歸模式 (Simple linear regression model)</p>
-										<ul className='pl-4 list-disc'>
-											<li>
-												<strong>散佈圖 (scatter plot)</strong>：蒐集天氣數據 (x) 與股價 (y) 兩個變量的 n
-												筆數據，並將其畫在 xy 平面上，可得知兩個變數之間的相關性。
-												<ul className='pl-4 list-disc'>
-													<li>完全正相關：當天氣數據 (x) 與股價 (y) 全部都在一條左下往右上的直線上。</li>
-													<li>正相關：當天氣數據 (x) 增加時，股價 (y) 也有增加的趨勢，圖形呈現左下往右上。</li>
-													<li>零相關：完全對稱的圖形、平行 x 軸或平行 y 軸的趨勢。</li>
-													<li>負相關：當天氣數據 (x) 增加時，股價 (y) 有減少的趨勢，圖形呈現左上往右下。</li>
-													<li>完全負相關：當天氣數據 (x) 與股價 (y) 全部都在一條左上往右下的直線上。</li>
-												</ul>
-											</li>
-											<li>
-												<strong>相關係數 (correlation coefficient)</strong>
-												：代表兩變數之間線性關係的強度及方向，數值範圍為 -1 ≤ r ≤ 1。
-												<ul className='pl-4 list-disc'>
-													<li>完全正相關：r = 1</li>
-													<li>
-														正相關：0 &lt; r &lt; 1，細分有：高度正相關 (0.7 ≤ r &lt; 1)、中度正相關 (0.3 ≤ r &lt;
-														0.7)、低度正相關 (0 &lt; r &lt; 0.3)
-													</li>
-													<li>零相關：r = 0</li>
-													<li>
-														負相關：-1 &lt; r &lt; 0，細分有：高度負相關 (-1 &lt; r ≤ -0.7)、中度負相關 (-0.7 &lt; r ≤
-														-0.3)、低度負相關 (-0.3 &lt; r &lt; 0)
-													</li>
-													<li>完全負相關：r = -1</li>
-												</ul>
-											</li>
-											<li>
-												<strong>迴歸直線 (regression)</strong>：利用最小平方法 (least square method)
-												所估計出的一條用來描述兩個變數之間關係的直線，並稱其為 y 對 x 的迴歸直線。
-											</li>
-										</ul>
-									</section>
-								)}
-								<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-							</>
-						) : (
-							<div className='flex-col h-full py-40 space-y-8 lg:py-0 flex-center'>
-								<h3>登入會員後，才能查看此數據！</h3>
-								<SubmitBtn
-									text='註冊 / 登入'
-									handleSubmit={() => router.push('/login')}
-									style='mt-3 py-2 font-normal rounded-full w-48'
+								<Autocomplete
+									options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
+									defaultValue={`${stock150[0].id} ${stock150[0].name}`}
+									sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
+									size='small'
+									renderInput={(params) => <TextField {...params} />}
+									onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
+									disableClearable
+									disablePortal
 								/>
 							</div>
-						)}
-					</section>
-				</div>
-			</>
+							{!isLoading && chartData.stock.length === 0 ? (
+								<section className='flex flex-wrap items-start space-y-4'>
+									<Chart
+										option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
+										customHeight='h-72 md:h-[450px] xl:h-[560px]'
+									/>
+									<DataGrid
+										sx={{ height: 120, pl: 0, pr: 0.1, pt: 0, pb: 1 }}
+										rows={[
+											{
+												id: 1,
+												stock_id: selectedStockId,
+												stock_name: chartData.stock || null,
+												weather: chartData.weather,
+												price: stockInfo.closing_price || null,
+												quote_change: stockInfo.change || null,
+												week_quote_change: stockInfo.change_week || null,
+												volume: stockInfo.trade_volume || null,
+												correlation: calculateR(weatherData, stockPrices),
+											},
+										]}
+										columns={columns}
+										className='border-none dark:text-zinc-200'
+										hideFooter
+									/>
+								</section>
+							) : (
+								<Loading />
+							)}
+							{/* 通用說明 */}
+							{!isLoading && (
+								<section className='mt-4 mb-12'>
+									<p className='mb-2 font-bold'>簡單線性迴歸模式 (Simple linear regression model)</p>
+									<ul className='pl-4 list-disc'>
+										<li>
+											<strong>散佈圖 (scatter plot)</strong>：蒐集天氣數據 (x) 與股價 (y) 兩個變量的 n
+											筆數據，並將其畫在 xy 平面上，可得知兩個變數之間的相關性。
+											<ul className='pl-4 list-disc'>
+												<li>完全正相關：當天氣數據 (x) 與股價 (y) 全部都在一條左下往右上的直線上。</li>
+												<li>正相關：當天氣數據 (x) 增加時，股價 (y) 也有增加的趨勢，圖形呈現左下往右上。</li>
+												<li>零相關：完全對稱的圖形、平行 x 軸或平行 y 軸的趨勢。</li>
+												<li>負相關：當天氣數據 (x) 增加時，股價 (y) 有減少的趨勢，圖形呈現左上往右下。</li>
+												<li>完全負相關：當天氣數據 (x) 與股價 (y) 全部都在一條左上往右下的直線上。</li>
+											</ul>
+										</li>
+										<li>
+											<strong>相關係數 (correlation coefficient)</strong>
+											：代表兩變數之間線性關係的強度及方向，數值範圍為 -1 ≤ r ≤ 1。
+											<ul className='pl-4 list-disc'>
+												<li>完全正相關：r = 1</li>
+												<li>
+													正相關：0 &lt; r &lt; 1，細分有：高度正相關 (0.7 ≤ r &lt; 1)、中度正相關 (0.3 ≤ r &lt;
+													0.7)、低度正相關 (0 &lt; r &lt; 0.3)
+												</li>
+												<li>零相關：r = 0</li>
+												<li>
+													負相關：-1 &lt; r &lt; 0，細分有：高度負相關 (-1 &lt; r ≤ -0.7)、中度負相關 (-0.7 &lt; r ≤
+													-0.3)、低度負相關 (-0.3 &lt; r &lt; 0)
+												</li>
+												<li>完全負相關：r = -1</li>
+											</ul>
+										</li>
+										<li>
+											<strong>迴歸直線 (regression)</strong>：利用最小平方法 (least square method)
+											所估計出的一條用來描述兩個變數之間關係的直線，並稱其為 y 對 x 的迴歸直線。
+										</li>
+									</ul>
+								</section>
+							)}
+							<p className='text-xs text-right opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+						</>
+					) : (
+						<div className='flex-col h-full py-40 space-y-8 lg:py-0 flex-center'>
+							<h3>登入會員後，才能查看此數據！</h3>
+							<SubmitBtn
+								text='註冊 / 登入'
+								handleSubmit={() => router.push('/login')}
+								style='mt-3 py-2 font-normal rounded-full w-48'
+							/>
+						</div>
+					)}
+				</section>
+			</div>
 		</StarryBackground>
 	)
 }

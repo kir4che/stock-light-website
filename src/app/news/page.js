@@ -37,7 +37,7 @@ export default function News() {
 			setAllNews(sortedNews)
 			if (data.success) setIsLoading(false)
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 

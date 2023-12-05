@@ -42,7 +42,7 @@ const handler = NextAuth({
 
 					return { user, token: data.data.token }
 				} catch (error) {
-					console.error('error', error)
+					console.error('Error: ', error)
 					if (credentials.email === 'test@gmail.com' && credentials.password === '12345') {
 						const user = {
 							id: 1,

@@ -43,7 +43,7 @@ export default function Register() {
 				}),
 			})
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		} finally {
 			setIsSucceed(true)
 		}

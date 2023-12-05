@@ -43,7 +43,7 @@ export default function FundamentalAnalysis() {
 			const data = await response.json()
 			if (data.success) setStockPePb(data.data)
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}, [])
 
@@ -84,7 +84,7 @@ export default function FundamentalAnalysis() {
 
 			if (data.success) setIsLoading(false)
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}, [])
 

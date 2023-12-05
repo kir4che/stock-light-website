@@ -10,7 +10,7 @@ export default function SidebarBlock({ icon, title, data }) {
 			const data = await response.json()
 			setTodayNews(data.data)
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 

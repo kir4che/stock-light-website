@@ -24,7 +24,7 @@ export default function StockProfile(stockId) {
 
 			if (data.success) setIsLoading(false)
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 

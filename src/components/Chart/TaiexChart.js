@@ -39,7 +39,7 @@ export default function TaiexChart() {
 
 			if (response.ok) setIsLoading(false)
 		} catch (error) {
-			console.error('error', error)
+			console.error('Error: ', error)
 		}
 	}
 
