@@ -16,7 +16,7 @@ export default function Gantt() {
 			<div className='flex-col sm:flex-row flex-center'>
 				{currentImg === 1 && (
 					<button
-						className='w-9 py-0.5 rounded-full dark:bg-zinc-600 dark:hover:bg-zinc-600/80'
+						className='w-9 pt-0.5 pb-1 rounded-full bg-zinc-200 hover:bg-zinc-200/80 dark:bg-zinc-600 dark:hover:bg-zinc-600/80'
 						onClick={handlePrevImg}
 					>
 						<NavigateBeforeIcon />
@@ -31,7 +31,7 @@ export default function Gantt() {
 				/>
 				{currentImg === 0 && (
 					<button
-						className='w-9 py-0.5 rounded-full dark:bg-zinc-600 dark:hover:bg-zinc-600/80'
+						className='w-9 pt-0.5 pb-1 rounded-full bg-zinc-200 hover:bg-zinc-200/80 dark:bg-zinc-600 dark:hover:bg-zinc-600/80'
 						onClick={handleNextImg}
 					>
 						<NavigateNextIcon />

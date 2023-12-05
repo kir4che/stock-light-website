@@ -418,7 +418,7 @@ body {
 .candle_wrapper:after {
 	@apply absolute top-0 bottom-0 left-0 right-0 m-auto;
 	content: '';
-	background: rgba(113, 92, 65, 0.3);
+	box-shadow: 0 0 30px #fff, 0 0 40px #ffb60c, 0 0 50px #ffde6b;
 	border-radius: 50%;
 	filter: blur(80px);
 }

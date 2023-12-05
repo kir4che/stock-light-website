@@ -74,15 +74,15 @@ export default function Skill() {
 
 	return (
 		<section>
-			<h3 className='mb-10 text-center'>主要技術</h3>
+			<h3 className='mb-10 text-center'>開發技術</h3>
 			<div className='flex-center'>
-				<div className='flex pb-8 overflow-x-scroll flex-nowrap'>
+				<div className='flex pb-4 overflow-x-scroll flex-nowrap'>
 					{skill_list.map((item) => (
 						<div className='inline-block mx-3 shadow-md dark:bg-zinc-700 rounded-xl' key={item.id}>
 							<h5 className='py-2 font-medium tracking-wider text-center bg-secondary_blue/30 dark:bg-secondary_blue/80 rounded-t-xl'>
 								{item.category}
 							</h5>
-							<div className='w-64 max-w-xs p-4 space-y-4'>
+							<div className='max-w-xs p-4 space-y-2 w-52'>
 								{item.skills.map((skill) => (
 									<div className='flex items-center space-x-1.5' key={skill.name}>
 										{skill.icon && <Image src={skill.icon} width={24} height={24} alt={skill.name} />}
