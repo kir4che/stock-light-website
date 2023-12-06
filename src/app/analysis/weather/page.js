@@ -9,6 +9,8 @@ import { styled } from '@mui/material/styles'
 import { DataGrid } from '@mui/x-data-grid'
 import React, { useEffect, useState } from 'react'
 
+import Chart from '@/components/Chart/Chart'
+import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import { stock150, weatherList } from '@/data/constants'
@@ -49,7 +51,6 @@ export default function WeatherAnalysis() {
 				}
 			)
 			const data = await response.json()
-			console.log('Weather', data)
 
 			setWeatherData(data.data.independent_datas)
 			setStockPrices(data.data.dependent_datas)
@@ -120,10 +121,10 @@ export default function WeatherAnalysis() {
 					</section>
 					{!isLoading && chartData ? (
 						<section className='flex flex-wrap items-start space-y-4'>
-							{/* <Chart
+							<Chart
 								option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
 								customHeight='h-72 md:h-[450px] xl:h-[560px]'
-							/> */}
+							/>
 							<DataGrid
 								sx={{ height: 120, pl: 0, pr: 0.1, pt: 0, pb: 1 }}
 								rows={[

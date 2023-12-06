@@ -5,6 +5,9 @@ import ecStat from 'echarts-stat'
 export function linearRegOption(stock, weather, weatherData, priceList) {
 	echarts.registerTransform(ecStat.transform.regression)
 
+	console.log('weatherData', weatherData)
+	console.log('priceList', priceList)
+
 	const resultData = []
 	// 合併成二維陣列
 	for (let i = 0; i < Math.max(weatherData.length, priceList.length); i++) {
@@ -12,6 +15,8 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 		const newPriceList = i < priceList.length ? priceList[i] : null
 		resultData.push([newWeatherData, newPriceList])
 	}
+
+	console.log('resultData', resultData)
 
 	return {
 		title: {
