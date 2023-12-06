@@ -51,6 +51,7 @@ export default function WeatherAnalysis() {
 				}
 			)
 			const data = await response.json()
+			console.log('Weather', data)
 
 			setWeatherData(data.data.independent_datas)
 			setStockPrices(data.data.dependent_datas)
