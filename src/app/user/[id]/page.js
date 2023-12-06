@@ -21,7 +21,7 @@ export default function User() {
 				<div className='text-zinc-100 w-96 bg-white/20 backdrop-blur-xl dark:bg-zinc-900/50 rounded-xl'>
 					<AccountCircleIcon sx={{ fontSize: 120 }} className='w-full mx-auto mt-5 rounded-xl' />
 					<p className='pb-8 font-medium tracking-wider text-center'>{session.user.name}</p>
-					{session.provider === 'credentials' && (
+					{session.provider !== 'facebook' && session.provider !== 'google' && (
 						<>
 							<hr className='mt-10' />
 							<div className='flex text-center'>
