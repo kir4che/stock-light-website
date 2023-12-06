@@ -12,6 +12,8 @@ import TodayLantern from '@/components/Light/TodayLantern'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import SubmitBtn from '@/components/ui/SubmitBtn'
+import AnalysisTable from '@/components/Analysis/AnalysisTable'
+import Loading from '@/components/common/Loading'
 
 // const columns = [
 // 	{ field: 'stock_id', headerName: '代號', flex: 1 },
@@ -142,6 +144,7 @@ export default function Result() {
 	const handleResultSave = () => setResultSavedAlertOpen(true) // 🚩 後端：需要把點燈紀錄存給使用者
 	const handleSavedAlertClose = () => setResultSavedAlertOpen(false)
 
+	const [selectedStockId, setSelectedStockId] = useState(2330)
 	// 需要針對該產業別的所有個股進行分析，並挑選出來五檔。
 	// const getStocksByIndustry = async () => {
 	// 	setIsLoading(true)
@@ -187,6 +190,7 @@ export default function Result() {
 
 	return (
 		<StarryBackground className={'pt-8 pb-12 md:pt-12 md:pb-20'}>
+			<h2 className='mb-6 text-center text-zinc-100'>個股分析儀表板</h2>
 			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='點燈結果' />
 			<PrayerCard industry={industry} handleNextDialog={handleLaternDialog} />
 			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} />
@@ -200,6 +204,7 @@ export default function Result() {
 					</h3>
 					<p className='text-xs font-medium tracking-wide opacity-70'>{getCurrentDate()}</p>
 				</div>
+
 				{/* 分析後的圖表、數據 */}
 				{/* <Chart option={multiLineOption()} customHeight={'h-72 sm:h-80 md:h-88 lg:h-96 xl:h-[520px]'} /> */}
 				{/* <DataGrid
@@ -289,7 +294,13 @@ export default function Result() {
 					disableRowSelectionOnClick
 					disableColumnMenu
 				/> */}
-				<div></div>
+				{/* {!isLoading ? (
+					<AnalysisTable/>
+				) : (
+					<Loading />
+				)} */}
+				<AnalysisTable
+				/>
 				<p className='flex justify-end text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 				<SubmitBtn text='保存分析結果' handleSubmit={handleResultSave} style='mt-16 py-3' />
 				<Snackbar open={resultSavedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
