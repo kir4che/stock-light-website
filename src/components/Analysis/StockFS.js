@@ -30,7 +30,7 @@ export default function StockFS({ stockId }) {
 			財報三率: false,
 		},
 		grow: {
-			營收成長率: false,
+			每股盈餘成長率: false,
 		},
 		safe: {
 			財務結構比率: false,
@@ -84,7 +84,7 @@ export default function StockFS({ stockId }) {
 
 	return (
 		<div className='flex gap-2 pt-4 overflow-hidden sm:gap-4 md:gap-6'>
-			<List className='px-1 py-4 tracking-wider bg-zinc-100/80 dark:bg-zinc-900/50'>
+			<List className='px-1 py-4 tracking-wider xl:min-w-[185px] bg-zinc-100/80 dark:bg-zinc-900/50'>
 				<ListItemButton
 					sx={{
 						py: '4px',
@@ -174,7 +174,7 @@ export default function StockFS({ stockId }) {
 				</ListItemButton>
 				<Collapse in={open.grow} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
-						{['營收成長率', '毛利成長率', '每股盈餘成長率'].map((tab, index) => (
+						{['每股盈餘成長率'].map((tab, index) => (
 							<ListItemButton sx={{ pl: 4 }}>
 								<ListItemText
 									primary={tab}
