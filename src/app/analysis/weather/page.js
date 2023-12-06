@@ -138,7 +138,7 @@ export default function WeatherAnalysis() {
 										quote_change: stockInfo.change || null,
 										week_quote_change: stockInfo.change_week || null,
 										volume: stockInfo.trade_volume || null,
-										correlation: calculateR(weatherData, stockPrices),
+										correlation: weatherData && stockPrices ? calculateR(weatherData, stockPrices) : null,
 									},
 								]}
 								columns={[
