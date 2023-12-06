@@ -21,7 +21,7 @@ export default function News() {
 	const [keyword, setKeyword] = useState('')
 
 	const newsPerPage = 12,
-		totalPages = 10
+		totalPages = 5
 
 	const fetchAllNews = async () => {
 		setIsLoading(true)

@@ -98,7 +98,7 @@ export default function StockFS({ stockId }) {
 					<List component='div' disablePadding>
 						{['營收表', '每股盈餘', '每股淨值', '損益表', '總資產', '負債和股東權益', '現金流量表', '電子書'].map(
 							(tab, index) => (
-								<ListItemButton sx={{ pl: 4 }}>
+								<ListItemButton sx={{ pl: 4 }} key={index}>
 									<ListItemText
 										primary={tab}
 										sx={{
@@ -144,7 +144,7 @@ export default function StockFS({ stockId }) {
 				<Collapse in={open.prof} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
 						{['財報三率', '營業費用率', '業外佔税前淨利比', 'ROE及ROA', '經營週轉能力'].map((tab, index) => (
-							<ListItemButton sx={{ pl: 4 }}>
+							<ListItemButton sx={{ pl: 4 }} key={index}>
 								<ListItemText
 									primary={tab}
 									sx={{
@@ -175,7 +175,7 @@ export default function StockFS({ stockId }) {
 				<Collapse in={open.grow} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
 						{['每股盈餘成長率'].map((tab, index) => (
-							<ListItemButton sx={{ pl: 4 }}>
+							<ListItemButton sx={{ pl: 4 }} key={index}>
 								<ListItemText
 									primary={tab}
 									sx={{
@@ -201,7 +201,7 @@ export default function StockFS({ stockId }) {
 					<List component='div' disablePadding>
 						{['財務結構比率', '流速動比率', '利息保障倍數', '現金流量分析', '營業現金流對淨利比', '盈餘再投資比率'].map(
 							(tab, index) => (
-								<ListItemButton sx={{ pl: 4 }}>
+								<ListItemButton sx={{ pl: 4 }} key={index}>
 									<ListItemText
 										primary={tab}
 										sx={{
@@ -227,7 +227,7 @@ export default function StockFS({ stockId }) {
 				<Collapse in={open.value} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
 						{['本益比'].map((tab, index) => (
-							<ListItemButton sx={{ pl: 4 }}>
+							<ListItemButton sx={{ pl: 4 }} key={index}>
 								<ListItemText
 									primary={tab}
 									sx={{
