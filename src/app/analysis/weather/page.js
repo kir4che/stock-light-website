@@ -1,12 +1,9 @@
 'use client'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import Autocomplete from '@mui/material/Autocomplete'
 import TextField from '@mui/material/TextField'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
-import { DataGrid } from '@mui/x-data-grid'
 import React, { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
@@ -14,7 +11,6 @@ import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import { stock150, weatherList } from '@/data/constants'
-import { calculateR } from '@/utils/calculateR'
 
 const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(
 	({ theme }) => ({
@@ -126,7 +122,7 @@ export default function WeatherAnalysis() {
 								option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
 								customHeight='h-72 md:h-[450px] xl:h-[560px]'
 							/>
-							<DataGrid
+							{/* <DataGrid
 								sx={{ height: 120, pl: 0, pr: 0.1, pt: 0, pb: 1 }}
 								rows={[
 									{
@@ -220,7 +216,7 @@ export default function WeatherAnalysis() {
 								]}
 								className='border-none dark:text-zinc-200'
 								hideFooter
-							/>
+							/> */}
 						</section>
 					) : (
 						<Loading />
