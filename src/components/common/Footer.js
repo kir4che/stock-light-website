@@ -45,13 +45,15 @@ export default function Footer() {
 				</div>
 				<div className='flex-col flex-wrap flex-grow mt-4 space-y-4 xl:w-1/4 flex-center sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0 sm:my-0 sm:text-left'>
 					<nav className='space-x-4 flex-center sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
-						<h4 className='mb-6'>頁尾導航</h4>
-						<div className='sm:grid sm:grid-cols-2 sm:gap-4'>
-							{pageList.map((link, index) => (
-								<Link className='text-sm' href={link.url} key={index}>
-									•{link.name}
-								</Link>
-							))}
+						<div className='mr-10'> 
+							<h4 className='text-center mb-6'>頁尾導航</h4>
+							<div className='sm:grid sm:grid-cols-2 sm:gap-4 mb-4'>
+								{pageList.map((link, index) => (
+									<Link className='text-sm' href={link.url} key={index}>
+										• {link.name}
+									</Link>
+								))}
+							</div>
 						</div>
 					</nav>
 					<div className='hidden space-y-5 sm:block'>
