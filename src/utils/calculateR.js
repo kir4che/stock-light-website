@@ -1,8 +1,5 @@
 export function calculateR(x, y) {
-	if (x.length === 0 || y.length === 0) {
-		console.error('error: x or y is empty!')
-		return null
-	}
+	if (x.length === 0 || y.length === 0) return null
 
 	const xMean = x.reduce((a, b) => a + b) / x.length
 	const yMean = y.reduce((a, b) => a + b) / y.length
