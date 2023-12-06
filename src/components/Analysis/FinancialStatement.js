@@ -54,6 +54,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 				method: 'GET',
 			})
 			const data = await response.json()
+			console.log('test: ', data)
 
 			if (data.success === false) {
 				console.error('Error: ', data.errorMessage)
