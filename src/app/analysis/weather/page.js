@@ -64,7 +64,9 @@ export default function WeatherAnalysis() {
 	}
 
 	useEffect(() => {
-		fetchWeatherPredict()
+		setTimeout(() => {
+			fetchWeatherPredict()
+		}, 5000)
 		setChartData({
 			stock: stock150.find((stock) => stock.id === selectedStockId).name,
 			weather: weatherList[selectedTab].ch_name,
@@ -118,7 +120,7 @@ export default function WeatherAnalysis() {
 							disablePortal
 						/>
 					</section>
-					{!isLoading && chartData.stock.length > 0 ? (
+					{!isLoading && chartData.stock.weather > 0 ? (
 						<section className='flex flex-wrap items-start space-y-4'>
 							<Chart
 								option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
