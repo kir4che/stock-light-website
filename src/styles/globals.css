@@ -51,6 +51,13 @@ body {
 	@apply flex items-center justify-between;
 }
 
+::-webkit-scrollbar {
+	@apply w-1.5 h-1.5;
+}
+::-webkit-scrollbar-thumb {
+	@apply rounded-full bg-zinc-900/30 dark:bg-zinc-500;
+}
+
 /* 團隊成員 */
 .team-card_group {
 	@apply flex-wrap gap-8 mx-auto xl:gap-0 xl:space-x-8;

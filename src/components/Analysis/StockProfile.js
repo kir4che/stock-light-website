@@ -1,13 +1,9 @@
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableRow from '@mui/material/TableRow'
+import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 import Loading from '@/components/common/Loading'
 
-export default function StockProfile(stockId) {
+export default function StockProfile({ stockId }) {
 	const [isLoading, setIsLoading] = useState(true)
 	const [profile, setProfile] = useState(null)
 
@@ -29,7 +25,7 @@ export default function StockProfile(stockId) {
 	}
 
 	useEffect(() => {
-		fetchStockProfile(stockId.stockId)
+		fetchStockProfile(stockId)
 	}, [stockId])
 
 	const renderTableRow = (label, value) => {

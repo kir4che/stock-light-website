@@ -201,7 +201,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						</section>
 					</section>
 					{/* 日期區間 */}
-					<section className='mt-4 overflow-x-auto flex-center-between'>
+					<section className='pt-3 pb-2 overflow-x-auto rounded dark:bg-zinc-900/80 flex-center-between'>
 						{renderZoomButton('5D', 5, 99.7)}
 						{renderZoomButton('1M', 30, 98)}
 						{renderZoomButton('3M', 90, 94.5)}

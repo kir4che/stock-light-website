@@ -19,84 +19,6 @@ import SubmitBtn from '@/components/ui/SubmitBtn'
 import { stock150, weatherList } from '@/data/constants'
 import { calculateR } from '@/utils/calculateR'
 
-const columns = [
-	{ field: 'stock_id', headerName: '代號', flex: 1 },
-	{ field: 'stock_name', headerName: '股票', flex: 1 },
-	{ field: 'weather', headerName: '天氣', flex: 1 },
-	{
-		field: 'price',
-		headerName: '股價',
-		headerAlign: 'right',
-		align: 'right',
-		flex: 1,
-	},
-	{
-		field: 'quote_change',
-		headerName: '漲跌幅',
-		headerAlign: 'right',
-		align: 'right',
-		flex: 1,
-		renderCell: (params) => {
-			const value = params.value || 0
-			if (value > 0) {
-				return (
-					<p className='flex items-center space-x-0.5 text-stock_red'>
-						<ArrowDropUpIcon color='error' />
-						<span>{value.toFixed(2)}</span>
-					</p>
-				)
-			} else if (value < 0) {
-				return (
-					<p className='flex items-center space-x-0.5 text-stock_green'>
-						<ArrowDropDownIcon color='success' />
-						<span>{Math.abs(value.toFixed(2))}</span>
-					</p>
-				)
-			} else return value.toFixed(2)
-		},
-	},
-	{
-		field: 'week_quote_change',
-		headerName: '週漲跌幅',
-		headerAlign: 'right',
-		align: 'right',
-		flex: 1,
-		renderCell: (params) => {
-			const value = params.value || 0
-			if (value > 0) {
-				return (
-					<p className='flex items-center space-x-0.5 text-stock_red'>
-						<ArrowDropUpIcon color='error' />
-						<span>{value.toFixed(2)}</span>
-					</p>
-				)
-			} else if (value < 0) {
-				return (
-					<p className='flex items-center space-x-0.5 text-stock_green'>
-						<ArrowDropDownIcon color='success' />
-						<span>{Math.abs(value.toFixed(2))}</span>
-					</p>
-				)
-			} else return value.toFixed(2)
-		},
-	},
-	{
-		field: 'volume',
-		headerName: '交易量',
-		headerAlign: 'right',
-		align: 'right',
-		flex: 1,
-		valueFormatter: (params) => params.value.toLocaleString(),
-	},
-	{
-		field: 'correlation',
-		headerName: '相關係數',
-		headerAlign: 'right',
-		align: 'right',
-		flex: 1,
-	},
-]
-
 const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(
 	({ theme }) => ({
 		[`& .${tooltipClasses.tooltip}`]: {
@@ -160,7 +82,7 @@ export default function WeatherAnalysis() {
 	}, [selectedStockId, selectedWeatherType])
 
 	return (
-		<StarryBackground className={'w-full pt-8 pb-12'}>
+		<StarryBackground className='w-full pt-8 pb-12'>
 			<h2 className='mb-6 text-center text-zinc-100'>天氣相關性分析</h2>
 			<div className='lg:gap-6 xl:gap-8 lg:flex'>
 				{/* 天氣型態 */}
@@ -185,7 +107,7 @@ export default function WeatherAnalysis() {
 				<section className='w-full px-8 py-6 bg-white rounded-b dark:bg-zinc-900/50 lg:rounded'>
 					{status === 'authenticated' ? (
 						<>
-							<div className='mb-4 flex-center-between'>
+							<session className='mb-4 flex-center-between'>
 								{chartData && (
 									<div className='space-x-2 flex-center'>
 										<h3 className='inline-flex items-baseline space-x-2'>
@@ -209,7 +131,7 @@ export default function WeatherAnalysis() {
 									disableClearable
 									disablePortal
 								/>
-							</div>
+							</session>
 							{!isLoading && chartData.stock.length === 0 ? (
 								<section className='flex flex-wrap items-start space-y-4'>
 									<Chart
@@ -231,7 +153,83 @@ export default function WeatherAnalysis() {
 												correlation: calculateR(weatherData, stockPrices),
 											},
 										]}
-										columns={columns}
+										columns={[
+											{ field: 'stock_id', headerName: '代號', flex: 1 },
+											{ field: 'stock_name', headerName: '股票', flex: 1 },
+											{ field: 'weather', headerName: '天氣', flex: 1 },
+											{
+												field: 'price',
+												headerName: '股價',
+												headerAlign: 'right',
+												align: 'right',
+												flex: 1,
+											},
+											{
+												field: 'quote_change',
+												headerName: '漲跌幅',
+												headerAlign: 'right',
+												align: 'right',
+												flex: 1,
+												renderCell: (params) => {
+													const value = params.value || 0
+													if (value > 0) {
+														return (
+															<p className='flex items-center space-x-0.5 text-stock_red'>
+																<ArrowDropUpIcon color='error' />
+																<span>{value.toFixed(2)}</span>
+															</p>
+														)
+													} else if (value < 0) {
+														return (
+															<p className='flex items-center space-x-0.5 text-stock_green'>
+																<ArrowDropDownIcon color='success' />
+																<span>{Math.abs(value.toFixed(2))}</span>
+															</p>
+														)
+													} else return value.toFixed(2)
+												},
+											},
+											{
+												field: 'week_quote_change',
+												headerName: '週漲跌幅',
+												headerAlign: 'right',
+												align: 'right',
+												flex: 1,
+												renderCell: (params) => {
+													const value = params.value || 0
+													if (value > 0) {
+														return (
+															<p className='flex items-center space-x-0.5 text-stock_red'>
+																<ArrowDropUpIcon color='error' />
+																<span>{value.toFixed(2)}</span>
+															</p>
+														)
+													} else if (value < 0) {
+														return (
+															<p className='flex items-center space-x-0.5 text-stock_green'>
+																<ArrowDropDownIcon color='success' />
+																<span>{Math.abs(value.toFixed(2))}</span>
+															</p>
+														)
+													} else return value.toFixed(2)
+												},
+											},
+											{
+												field: 'volume',
+												headerName: '交易量',
+												headerAlign: 'right',
+												align: 'right',
+												flex: 1,
+												valueFormatter: (params) => params.value.toLocaleString(),
+											},
+											{
+												field: 'correlation',
+												headerName: '相關係數',
+												headerAlign: 'right',
+												align: 'right',
+												flex: 1,
+											},
+										]}
 										className='border-none dark:text-zinc-200'
 										hideFooter
 									/>

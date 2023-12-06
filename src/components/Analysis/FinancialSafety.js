@@ -1,7 +1,7 @@
 import { Tab, Tabs } from '@mui/material'
 import { useState } from 'react'
 
-export default function FinancialSafety(stockId) {
+export default function FinancialSafety({ stockId }) {
 	const [selectedChildTabIndex, setSelectedChildTabIndex] = useState(0)
 
 	return (

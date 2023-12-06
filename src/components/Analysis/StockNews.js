@@ -2,7 +2,7 @@ import Loading from '@/components/common/Loading'
 import NewsPost from '@/components/ui/NewsPost'
 import { useEffect, useState } from 'react'
 
-export default function StockNews(stockId) {
+export default function StockNews({ stockId }) {
 	const [isLoading, setIsLoading] = useState(true)
 	const [news, setNews] = useState(null)
 
@@ -22,7 +22,7 @@ export default function StockNews(stockId) {
 
 	useEffect(() => {
 		setIsLoading(true)
-		fetchStockNews(stockId.stockId)
+		fetchStockNews(stockId)
 	}, [stockId])
 
 	return (
@@ -31,7 +31,7 @@ export default function StockNews(stockId) {
 				news && news.length > 0 ? (
 					news.map((newsItem, index) => <NewsPost news={newsItem} key={index} />)
 				) : (
-					<p className='text-stock_red dark:text-zinc-100'>No news available...</p>
+					<p className='font-medium tracking-wider text-stock_red'>暫無相關新聞...</p>
 				)
 			) : (
 				<Loading />

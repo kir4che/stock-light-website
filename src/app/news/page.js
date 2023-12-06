@@ -68,7 +68,7 @@ export default function News() {
 						paginatedNews && paginatedNews.length > 0 ? (
 							paginatedNews.map((news, index) => <NewsPost news={news} key={index} />)
 						) : (
-							<p className='text-stock_red dark:text-zinc-100'>No news available...</p>
+							<p className='font-medium tracking-wider text-stock_red'>暫無相關新聞...</p>
 						)
 					) : (
 						<Loading />

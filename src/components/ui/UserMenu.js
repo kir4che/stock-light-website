@@ -7,16 +7,11 @@ import { useState } from 'react'
 
 export default function UserMenu({ session }) {
 	const router = useRouter()
-
 	const [anchorEl, setAnchorEl] = useState(null)
-	const open = Boolean(anchorEl)
-
-	const handleClick = (e) => setAnchorEl(e.currentTarget)
-	const handleClose = () => setAnchorEl(null)
 
 	const handleUserPage = () => {
 		if (session.user) {
-			handleClose()
+			setAnchorEl(null)
 			router.push(`/user/${session.user.id}`)
 		}
 	}
@@ -30,11 +25,9 @@ export default function UserMenu({ session }) {
 
 	return (
 		<>
-			<PersonIcon className='ml-2 dark:text-white' onClick={handleClick} />
-			<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-				<MenuItem onClick={handleUserPage} style={{ cursor: 'pointer' }}>
-					會員管理
-				</MenuItem>
+			<PersonIcon className='ml-2 dark:text-white' onClick={(e) => setAnchorEl(e.currentTarget)} />
+			<Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => setAnchorEl(null)}>
+				<MenuItem onClick={handleUserPage}>會員管理</MenuItem>
 				<MenuItem onClick={handleSignOut}>
 					<p>登出</p>
 					<LogoutIcon sx={{ ml: 0.3 }} fontSize='small' />

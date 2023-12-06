@@ -1,7 +1,7 @@
 import { Tab, Tabs } from '@mui/material'
 import { useState } from 'react'
 
-export default function CorporateValue(stockId) {
+export default function CorporateValue({ stockId }) {
 	const [selectedChildTabIndex, setSelectedChildTabIndex] = useState(0)
 
 	return (

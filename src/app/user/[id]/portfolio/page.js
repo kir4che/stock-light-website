@@ -410,7 +410,6 @@ export default function Portfolio() {
 						columns={columns}
 						onRowSelectionModelChange={(ids) => setRowIds(ids)}
 						className='bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
-						checkboxSelection
 						hideFooter
 						disableRowSelectionOnClick
 						disableColumnMenu
