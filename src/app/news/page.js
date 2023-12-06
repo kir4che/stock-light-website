@@ -29,6 +29,7 @@ export default function News() {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/news/all`, { method: 'GET' })
 			const data = await response.json()
+			console.log('AllNews', data)
 			const sortedNews = data.data.sort((a, b) => {
 				const dateA = parseInt(a.time),
 					dateB = parseInt(b.time)

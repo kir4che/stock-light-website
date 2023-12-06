@@ -8,6 +8,7 @@ export default function SidebarBlock({ icon, title, data }) {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/news/today`, { method: 'GET' })
 			const data = await response.json()
+			console.log('TodayNews', data)
 			setTodayNews(data.data)
 		} catch (error) {
 			console.error('Error: ', error)
