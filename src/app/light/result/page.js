@@ -145,10 +145,6 @@ export default function Result() {
 	const handleSavedAlertClose = () => setResultSavedAlertOpen(false)
 
 	const [selectedStockId, setSelectedStockId] = useState(2330)
-	const [stockChartData, setStockChartData] = useState({
-		volume: []
-	})
-
 
     const fetchStockData = useCallback(async (stockId) => {
         setIsLoading(true)
@@ -162,11 +158,6 @@ export default function Result() {
                 .sort((a, b) => new Date(a.date) - new Date(b.date))
 
             const volumes = filteredData.map((stock) => stock.trade_volume)
-
-            setStockChartData((prevStockChartData) => ({
-                ...prevStockChartData,
-                volume: volumes,
-            }))
 
             if (data.success) setIsLoading(false)
         } catch (error) {
@@ -327,7 +318,7 @@ export default function Result() {
 					disableRowSelectionOnClick
 					disableColumnMenu
 				/> */}
-				
+
 				{/* {!isLoading ? (
 					<AnalysisTable/>
 				) : (
