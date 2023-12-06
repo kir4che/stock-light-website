@@ -4,7 +4,9 @@ import { List, ListItemButton, ListItemText } from '@mui/material'
 import Collapse from '@mui/material/Collapse'
 import { useState } from 'react'
 
+import CompanyGrowth from '@/components/Analysis/CompanyGrowth'
 import DividendPolicy from '@/components/Analysis/DividendPolicy'
+import FinancialSafety from '@/components/Analysis/FinancialSafety'
 import FinancialStatement from '@/components/Analysis/FinancialStatement'
 import Profitability from '@/components/Analysis/Profitability'
 
@@ -197,18 +199,20 @@ export default function StockFS({ stockId }) {
 				</ListItemButton>
 				<Collapse in={open.safe} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
-						{['財務結構比率', '流速動比率', '利息保障倍數'].map((tab, index) => (
-							<ListItemButton sx={{ pl: 4 }}>
-								<ListItemText
-									primary={tab}
-									sx={{
-										mb: '-2px',
-									}}
-									primaryTypographyProps={{ fontSize: '14px' }}
-									onClick={() => handleChildToggle('safe', tab)}
-								/>
-							</ListItemButton>
-						))}
+						{['財務結構比率', '流速動比率', '利息保障倍數', '現金流量分析', '營業現金流對淨利比', '盈餘再投資比率'].map(
+							(tab, index) => (
+								<ListItemButton sx={{ pl: 4 }}>
+									<ListItemText
+										primary={tab}
+										sx={{
+											mb: '-2px',
+										}}
+										primaryTypographyProps={{ fontSize: '14px' }}
+										onClick={() => handleChildToggle('safe', tab)}
+									/>
+								</ListItemButton>
+							)
+						)}
 					</List>
 				</Collapse>
 				{/* <ListItemButton
@@ -240,6 +244,8 @@ export default function StockFS({ stockId }) {
 			{open.fs && <FinancialStatement stockId={stockId} childOpen={childOpen.fs} />}
 			{open.policy && <DividendPolicy stockId={stockId} childOpen={childOpen.policy} />}
 			{open.prof && <Profitability stockId={stockId} childOpen={childOpen.prof} />}
+			{open.grow && <CompanyGrowth stockId={stockId} childOpen={childOpen.grow} />}
+			{open.safe && <FinancialSafety stockId={stockId} childOpen={childOpen.safe} />}
 		</div>
 	)
 }
