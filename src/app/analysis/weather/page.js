@@ -120,7 +120,7 @@ export default function WeatherAnalysis() {
 							disablePortal
 						/>
 					</section>
-					{!isLoading && chartData.stock.weather > 0 ? (
+					{!isLoading && chartData ? (
 						<section className='flex flex-wrap items-start space-y-4'>
 							<Chart
 								option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
