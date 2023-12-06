@@ -4,7 +4,9 @@ import { List, ListItemButton, ListItemText } from '@mui/material'
 import Collapse from '@mui/material/Collapse'
 import { useState } from 'react'
 
+import DividendPolicy from '@/components/Analysis/DividendPolicy'
 import FinancialStatement from '@/components/Analysis/FinancialStatement'
+import Profitability from '@/components/Analysis/Profitability'
 
 export default function StockFS({ stockId }) {
 	const [open, setOpen] = useState({
@@ -13,7 +15,7 @@ export default function StockFS({ stockId }) {
 		prof: false,
 		grow: false,
 		safe: false,
-		value: false,
+		// value: false,
 	})
 	const [childOpen, setChildOpen] = useState({
 		fs: {
@@ -31,9 +33,9 @@ export default function StockFS({ stockId }) {
 		safe: {
 			財務結構比率: false,
 		},
-		value: {
-			本益比: false,
-		},
+		// value: {
+		// 	本益比: false,
+		// },
 	})
 
 	const handleParentToggle = (section) => {
@@ -41,6 +43,10 @@ export default function StockFS({ stockId }) {
 			const updatedSection = Object.fromEntries(
 				Object.entries(prevChildOpen[section]).map(([key, value], index) => [key, index === 0])
 			)
+
+			Object.keys(prevChildOpen).forEach((key) => {
+				if (key !== section) updatedSection[key] = false
+			})
 
 			return {
 				...prevChildOpen,
@@ -50,7 +56,12 @@ export default function StockFS({ stockId }) {
 
 		setOpen((prevOpen) => ({
 			...prevOpen,
-			[section]: !prevOpen[section],
+			fs: section === 'fs' ? !prevOpen.fs : false,
+			policy: section === 'policy' ? !prevOpen.policy : false,
+			prof: section === 'prof' ? !prevOpen.prof : false,
+			grow: section === 'grow' ? !prevOpen.grow : false,
+			safe: section === 'safe' ? !prevOpen.safe : false,
+			value: section === 'value' ? !prevOpen.value : false,
 		}))
 	}
 
@@ -130,7 +141,7 @@ export default function StockFS({ stockId }) {
 				</ListItemButton>
 				<Collapse in={open.prof} timeout='auto' unmountOnExit>
 					<List component='div' disablePadding>
-						{['財報三率', 'ROE / ROA', '杜邦分析'].map((tab, index) => (
+						{['財報三率', '營業費用率', '業外佔税前淨利比', 'ROE及ROA', '經營週轉能力'].map((tab, index) => (
 							<ListItemButton sx={{ pl: 4 }}>
 								<ListItemText
 									primary={tab}
@@ -200,7 +211,7 @@ export default function StockFS({ stockId }) {
 						))}
 					</List>
 				</Collapse>
-				<ListItemButton
+				{/* <ListItemButton
 					sx={{
 						py: '4px',
 					}}
@@ -224,9 +235,11 @@ export default function StockFS({ stockId }) {
 							</ListItemButton>
 						))}
 					</List>
-				</Collapse>
+				</Collapse> */}
 			</List>
 			{open.fs && <FinancialStatement stockId={stockId} childOpen={childOpen.fs} />}
+			{open.policy && <DividendPolicy stockId={stockId} childOpen={childOpen.policy} />}
+			{open.prof && <Profitability stockId={stockId} childOpen={childOpen.prof} />}
 		</div>
 	)
 }

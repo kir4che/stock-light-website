@@ -1141,6 +1141,30 @@ export default function FinancialStatement({ stockId, childOpen }) {
 									{selectedChart === 0 ? (
 										<>
 											<TableRow className='dark:bg-zinc-900/30'>
+												<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>折舊</TableCell>
+												{FSData.cashFlowStatements.map((item) => (
+													<TableCell
+														align='right'
+														className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
+														key={item.id}
+													>
+														{parseInt(item.depreciation).toLocaleString()}
+													</TableCell>
+												))}
+											</TableRow>
+											<TableRow className='dark:bg-zinc-900/30'>
+												<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>攤銷</TableCell>
+												{FSData.cashFlowStatements.map((item) => (
+													<TableCell
+														align='right'
+														className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
+														key={item.id}
+													>
+														{parseInt(item.amortization).toLocaleString()}
+													</TableCell>
+												))}
+											</TableRow>
+											<TableRow className='dark:bg-zinc-900/30'>
 												<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 													營業現金流
 												</TableCell>
@@ -1179,6 +1203,20 @@ export default function FinancialStatement({ stockId, childOpen }) {
 														key={item.id}
 													>
 														{parseInt(item.financingCashFlow).toLocaleString()}
+													</TableCell>
+												))}
+											</TableRow>
+											<TableRow className='dark:bg-zinc-900/30'>
+												<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+													資本支出
+												</TableCell>
+												{FSData.cashFlowStatements.map((item) => (
+													<TableCell
+														align='right'
+														className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
+														key={item.id}
+													>
+														{parseInt(item.capex).toLocaleString()}
 													</TableCell>
 												))}
 											</TableRow>

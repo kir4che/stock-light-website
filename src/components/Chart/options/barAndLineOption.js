@@ -1,4 +1,4 @@
-export function multiLineOption(text, date, dataName, data) {
+export function barAndLineOption(text, date, dataName, data) {
 	if (!Array.isArray(data) || data.length === 0) {
 		console.error('Invalid or empty data array.')
 		return {}
@@ -8,8 +8,9 @@ export function multiLineOption(text, date, dataName, data) {
 		if (Array.isArray(item) && item.length > 0) {
 			return {
 				name: dataName[index],
-				type: 'line',
+				type: index === 0 ? 'line' : 'bar',
 				data: item,
+				yAxisIndex: index === 0 ? 0 : 1,
 			}
 		} else {
 			console.error(`Invalid data for ${dataName[index]}.`)
@@ -37,9 +38,14 @@ export function multiLineOption(text, date, dataName, data) {
 				interval: 3,
 			},
 		},
-		yAxis: {
-			type: 'value',
-		},
+		yAxis: [
+			{
+				type: 'value',
+			},
+			{
+				type: 'value',
+			},
+		],
 		series: seriesData,
 		tooltip: {
 			trigger: 'axis',
@@ -55,8 +61,8 @@ export function multiLineOption(text, date, dataName, data) {
 		},
 		grid: {
 			top: '15%',
-			left: '8%',
-			right: '3%',
+			left: '10%',
+			right: '6%',
 			height: '68%',
 		},
 	}
