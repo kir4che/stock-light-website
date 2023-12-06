@@ -5,7 +5,7 @@ import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import { useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useCallback,useEffect, useState } from 'react'
 
 import PrayerCard from '@/components/Light/PrayerCard'
 import TodayLantern from '@/components/Light/TodayLantern'
@@ -145,6 +145,39 @@ export default function Result() {
 	const handleSavedAlertClose = () => setResultSavedAlertOpen(false)
 
 	const [selectedStockId, setSelectedStockId] = useState(2330)
+	const [stockChartData, setStockChartData] = useState({
+		volume: []
+	})
+
+
+    const fetchStockData = useCallback(async (stockId) => {
+        setIsLoading(true)
+
+        try {
+            const response = await fetch(`${process.env.DB_URL}/api/stock/all/info`, { method: 'GET' })
+            let data = await response.json()
+
+            const filteredData = data.data
+                .filter((stock) => stock.stock_id === stockId)
+                .sort((a, b) => new Date(a.date) - new Date(b.date))
+
+            const volumes = filteredData.map((stock) => stock.trade_volume)
+
+            setStockChartData((prevStockChartData) => ({
+                ...prevStockChartData,
+                volume: volumes,
+            }))
+
+            if (data.success) setIsLoading(false)
+        } catch (error) {
+            console.error('Error: ', error)
+        }
+    }, [])
+	
+    useEffect(() => {
+        fetchStockData(selectedStockId)
+    }, [selectedStockId])
+
 	// 需要針對該產業別的所有個股進行分析，並挑選出來五檔。
 	// const getStocksByIndustry = async () => {
 	// 	setIsLoading(true)
@@ -294,14 +327,14 @@ export default function Result() {
 					disableRowSelectionOnClick
 					disableColumnMenu
 				/> */}
+				
 				{/* {!isLoading ? (
 					<AnalysisTable/>
 				) : (
 					<Loading />
 				)} */}
-				<AnalysisTable
-				/>
-				<p className='flex justify-end text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+				<AnalysisTable/>
+				<p className='flex justify-end text-xs opacity-80 mt-8'>※ 所有結果皆來自歷史數據所反映</p>
 				<SubmitBtn text='保存分析結果' handleSubmit={handleResultSave} style='mt-16 py-3' />
 				<Snackbar open={resultSavedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
 					<Alert onClose={handleSavedAlertClose} severity='success' sx={{ width: '100%' }}>
