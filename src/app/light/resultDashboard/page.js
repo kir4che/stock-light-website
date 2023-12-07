@@ -33,7 +33,6 @@ export default function ResultDashboard() {
 	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
 
 	const [resultStockId, setResultStockId] = useState(2330) // 暫時設定為台積電
-	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 	const [stockPrice, setStockPrice] = useState({
 		closePrice: [],
 		change: [],
@@ -41,11 +40,6 @@ export default function ResultDashboard() {
 	const [stockPePb, setStockPePb] = useState({
 		pb: null,
 		pe: null,
-	})
-	const [fsData, setFsData] = useState({
-		stockInfo: {},
-		assetStatements: [],
-		liabilityEquityStatements: [],
 	})
 
 	useEffect(() => {
@@ -68,10 +62,6 @@ export default function ResultDashboard() {
 
 		fetchData(resultStockId)
 	}, [resultStockId])
-
-	useEffect(() => {
-		console.log(stockPePb)
-	}, [stockPePb])
 
 	// 需要針對該產業別的所有個股進行分析，並挑選出來五檔。
 	// const getStocksByIndustry = async () => {
@@ -113,12 +103,12 @@ export default function ResultDashboard() {
 	// }, [industry])
 
 	return (
-		<StarryBackground className='py-8'>
+		<StarryBackground className='pt-8 pb-12'>
 			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='個股分析儀表板' />
 			{/* 測試用先註解掉 */}
 			{/* <PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
 			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} /> */}
-			<div className='pb-12 bg-white rounded dark:bg-zinc-900/50'>
+			<div className='pb-10 bg-white rounded dark:bg-zinc-900/50'>
 				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 mb-4 tracking-wider sm:px-8 lg:px-10 bg-secondary_blue/20 dark:bg-zinc-800/60'>
 					<h3 className='space-x-2 flex-center'>
 						<sapn>本日光明燈</sapn>
@@ -128,7 +118,7 @@ export default function ResultDashboard() {
 					</h3>
 					<p className='text-xs'>{getCurrentDate()}</p>
 				</section>
-				<section className='px-4 sm:px-8 lg:px-10'>
+				<section className='px-4 mb-4 sm:px-8 lg:px-10'>
 					<h4 className='inline-flex items-baseline px-2 mb-2 space-x-2 rounded-lg dark:text-zinc-800 bg-primary_yellow'>
 						<span>{stock150.find((stock) => stock.id === resultStockId)?.name || null}</span>
 						<span className='text-lg font-light tracking-widest'>{resultStockId}</span>
@@ -167,22 +157,24 @@ export default function ResultDashboard() {
 								</div>
 							</div>
 						) : null}
-						<div className='flex space-x-5'>
-							<div className='flex flex-col items-center'>
-								<h4 className='font-extrabold text-zinc-800'>{stockPePb.pb}</h4>
-								<p className='text-xs text-zinc-500'>本益比</p>
+						{stockPePb && (
+							<div className='flex space-x-5'>
+								<div className='flex flex-col items-center'>
+									<h4 className='font-extrabold text-zinc-800'>{stockPePb.pb}</h4>
+									<p className='text-xs text-zinc-500'>本益比</p>
+								</div>
+								<div className='flex flex-col items-center'>
+									<h4 className='font-extrabold text-zinc-800'>{stockPePb.pe}</h4>
+									<p className='text-xs text-zinc-500'>本淨比</p>
+								</div>
 							</div>
-							<div className='flex flex-col items-center'>
-								<h4 className='font-extrabold text-zinc-800'>{stockPePb.pe}</h4>
-								<p className='text-xs text-zinc-500'>本淨比</p>
-							</div>
-						</div>
+						)}
 					</div>
 				</section>
 				<section className='px-4 sm:px-8 lg:px-10'>
-					{!isLoading ? <AnalysisTable /> : <Loading />}
-					<p className='flex justify-end mt-8 text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-					<SubmitBtn text='保存分析結果' handleSubmit={() => setResultSavedAlertOpen(true)} style='mt-16 py-3' />
+					{!isLoading ? <AnalysisTable stockId={resultStockId} /> : <Loading />}
+					<p className='flex justify-end mt-4 mb-10 text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+					<SubmitBtn text='保存分析結果' handleSubmit={() => setResultSavedAlertOpen(true)} style='py-3' />
 					<Snackbar open={resultSavedAlertOpen} autoHideDuration={3000} onClose={() => setResultSavedAlertOpen(false)}>
 						<Alert onClose={() => setResultSavedAlertOpen(false)} severity='success' sx={{ width: '100%' }}>
 							保存成功！

@@ -5,8 +5,10 @@ import { useEffect, useState } from 'react'
 import Chart from '@/components/Chart/Chart'
 import { groupedBarOption } from '@/components/Chart/options/groupedBarOption'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
+import fetchEReport from '@/utils/fetchEReport'
 
 export default function FinancialStatement({ stockId, childOpen }) {
+	const [isLoading, setIsLoading] = useState(true)
 	const [selectedChart, setSelectedChart] = useState(0)
 
 	const [FSData, setFSData] = useState({
@@ -180,18 +182,6 @@ export default function FinancialStatement({ stockId, childOpen }) {
 		}
 	}
 
-	const fetchEReport = async () => {
-		try {
-			const responce = await fetch(`${process.env.DB_URL}/api/stock/history/financial_statement/${stockId}`, {
-				method: 'GET',
-			})
-			const data = await responce.json()
-			setEReport(data.data.reverse())
-		} catch (error) {
-			console.error('Error: ', error)
-		}
-	}
-
 	useEffect(() => {
 		setSelectedChart(0)
 
@@ -218,7 +208,10 @@ export default function FinancialStatement({ stockId, childOpen }) {
 				fetchFinancialStatement('cashFlowStatement', 'cashFlowStatements')
 				break
 			case childOpen.電子書:
-				fetchEReport()
+				const fetchData = async (stockId) => {
+					setEReport(await fetchEReport({ stockId, setIsLoading }))
+				}
+				fetchData(stockId)
 				break
 			default:
 				break
