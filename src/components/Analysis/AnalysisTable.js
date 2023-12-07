@@ -90,7 +90,7 @@ export default function AnalysisTable({ stockId }) {
 				{/* 情緒分析 */}
 				{sentimentData && (
 					<section className='flex-col sm:w-3/4 h-full gap-y-2.5 flex-center-between'>
-						<div className='p-4 overflow-y-scroll border rounded-lg shadow dark:border-zinc-500 dark:bg-zinc-900/30'>
+						<div className='p-4 overflow-y-scroll border rounded-lg shadow dark:border-none dark:bg-zinc-900/60'>
 							<h3 className='mb-2'>情緒分析</h3>
 							{sentimentData.slice(0, 3).map((item) => (
 								<div className='flex items-center space-y-4 gap-x-2' key={item.title}>
@@ -128,7 +128,6 @@ export default function AnalysisTable({ stockId }) {
 									option={{
 										radar: {
 											center: ['50%', '50%'],
-											radius: 125,
 											indicator: sentimentData.map((item) => ({
 												name: item.title.length > 10 ? item.title.substring(0, 20) + '...' : item.title,
 												max: 1,
@@ -174,10 +173,18 @@ export default function AnalysisTable({ stockId }) {
 											trigger: 'item',
 										},
 									}}
-									customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+									customHeight='h-72 md:h-88 lg:h-96'
 								/>
+								<div className='flex justify-end gap-4 mt-2 -mb-4'>
+									{['正面', '中性', '負面'].map((sentiment) => (
+										<div className='space-x-1 text-xs flex-center' key={sentiment}>
+											<div className='w-6'>{sentimentIcon(sentiment)}</div>
+											<span>{sentiment}</span>
+										</div>
+									))}
+								</div>
 								{sentimentData.map((item) => (
-									<div className='flex items-center space-y-6 gap-x-3' key={item.title}>
+									<div className='flex items-center space-y-5 gap-x-3' key={item.title}>
 										{sentimentIcon(item.sentiment)}
 										<div>
 											<p className='mb-1.5 space-x-2 font-medium leading-6'>
@@ -198,7 +205,7 @@ export default function AnalysisTable({ stockId }) {
 				)}
 				{/* 相關新聞 */}
 				{newsData && (
-					<section className='p-4 space-y-2 overflow-y-auto border rounded-lg shadow sm:w-1/3 sm:h-full h-80 dark:border-zinc-500 dark:bg-zinc-900/30 '>
+					<section className='p-4 space-y-2 overflow-y-auto border rounded-lg shadow sm:w-1/3 sm:h-full h-80 dark:border-none dark:bg-zinc-900/60'>
 						<h3 className='flex items-center'>相關新聞</h3>
 						<ul className='flex flex-col pl-4 leading-4 list-disc gap-y-1'>
 							{newsData.map((news) => (
@@ -220,7 +227,7 @@ export default function AnalysisTable({ stockId }) {
 			</div>
 			{/* 歷年財務報表 */}
 			{fsData.eReport && (
-				<section className='p-4 space-y-2 border rounded-lg shadow dark:border-zinc-500 dark:bg-zinc-900/30'>
+				<section className='p-4 space-y-2 border rounded-lg shadow dark:border-none dark:bg-zinc-900/60'>
 					<h5 className='flex items-center font-medium'>歷年財務報表</h5>
 					<div className='flex flex-wrap gap-x-4 gap-y-2'>
 						{fsData.eReport.map((report, index) => (
