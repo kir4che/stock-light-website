@@ -5,9 +5,6 @@ import ecStat from 'echarts-stat'
 export function linearRegOption(stock, weather, weatherData, priceList) {
 	echarts.registerTransform(ecStat.transform.regression)
 
-	console.log('weatherData', weatherData)
-	console.log('priceList', priceList)
-
 	const resultData = []
 	// 合併成二維陣列
 	for (let i = 0; i < Math.max(weatherData.length, priceList.length); i++) {
@@ -18,7 +15,7 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 
 	console.log('resultData', resultData)
 
-	return {
+	const option = {
 		title: {
 			text: `${stock}股價 (y) 與${weather} (x) 的相關性分析`,
 			top: 18,
@@ -66,4 +63,6 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 			height: '75%',
 		},
 	}
+
+	return option
 }

@@ -56,6 +56,13 @@ export default function WeatherAnalysis() {
 			setStockPrices(data.data.dependent_datas)
 			setStockInfo(data.data.stockinfo)
 
+			setChartData({
+				stock: stock150.find((stock) => stock.id === selectedStockId).name,
+				weather: weatherList[selectedTab].ch_name,
+			})
+
+			setIsLoading(false)
+
 			if (data.success) setIsLoading(false)
 		} catch (error) {
 			console.error('Error: ', error)
@@ -63,13 +70,7 @@ export default function WeatherAnalysis() {
 	}
 
 	useEffect(() => {
-		setTimeout(() => {
-			fetchWeatherPredict()
-		}, 3000)
-		setChartData({
-			stock: stock150.find((stock) => stock.id === selectedStockId).name,
-			weather: weatherList[selectedTab].ch_name,
-		})
+		fetchWeatherPredict()
 	}, [selectedStockId, selectedWeatherType])
 
 	return (
