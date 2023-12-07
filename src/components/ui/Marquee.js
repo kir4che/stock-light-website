@@ -1,4 +1,4 @@
-import { ANNOUNCEMENT } from '@/data/constants'
+const ANNOUNCEMENT = '網站版本目前已更新到 Version 2.0.0 🎉'
 
 export default function Marquee() {
 	return (

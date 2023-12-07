@@ -4,8 +4,40 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { industryList } from '@/data/constants'
-
+const INDUSTY_LIST = [
+	'光電業',
+	'其他',
+	'其他電子業',
+	'化學工業',
+	'半導體業',
+	'塑膠工業',
+	'居家生活',
+	'建材營造',
+	'數位雲端',
+	'橡膠工業',
+	'水泥工業',
+	'汽車工業',
+	'油電燃氣業',
+	'玻璃陶瓷',
+	'生技醫療業',
+	'紡織纖維',
+	'綠能環保',
+	'航運業',
+	'觀光餐旅',
+	'貿易百貨',
+	'資訊服務業',
+	'通信網路業',
+	'造紙工業',
+	'運動休閒',
+	'金融保險業',
+	'鋼鐵工業',
+	'電器電纜',
+	'電子通路業',
+	'電子零組件業',
+	'電機機械',
+	'電腦及週邊設備業',
+	'食品工業',
+]
 export default function DropMenu({ user, handleHover }) {
 	const uuid = uuidv4()
 
@@ -30,7 +62,7 @@ export default function DropMenu({ user, handleHover }) {
 			</div>
 			{menuOpen ? (
 				<ul className='absolute top-0 left-0 flex justify-center w-full py-3 space-x-4 overflow-x-auto text-sm duration-150 ease-in-out bg-amber-100'>
-					{industryList.map((industry) => (
+					{INDUSTY_LIST.map((industry) => (
 						<li
 							onMouseEnter={() => handleHover(industry)}
 							onMouseLeave={() => handleHover(null)}

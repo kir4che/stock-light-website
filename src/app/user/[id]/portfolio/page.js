@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
-import { stock150 } from '@/data/constants'
+import stock150 from '@/data/stock150.json'
 
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },

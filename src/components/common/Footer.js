@@ -1,4 +1,4 @@
-import pageData from '@/data/pageData.json'
+import pageList from '@/data/pageList.json'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneIcon from '@mui/icons-material/Phone'
 import PlaceIcon from '@mui/icons-material/Place'
@@ -48,7 +48,7 @@ export default function Footer() {
 						<div className='mr-10'>
 							<h4 className='mb-6 text-center'>頁尾導航</h4>
 							<div className='mb-4 sm:grid sm:grid-cols-2 sm:gap-4'>
-								{pageData.map((link, index) => (
+								{pageList.map((link, index) => (
 									<Link className='text-sm' href={link.url} key={index}>
 										• {link.name}
 									</Link>

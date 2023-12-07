@@ -17,7 +17,7 @@ import { getCurrentDate } from '@/utils/getCurrentDate'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import { stock150 } from '@/data/constants'
+import stock150 from '@/data/stock150.json'
 import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 

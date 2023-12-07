@@ -13,7 +13,9 @@ import Chart from '@/components/Chart/Chart'
 import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
-import { stock150, weatherList } from '@/data/constants'
+import stock150 from '@/data/stock150.json'
+import weatherList from '@/data/weatherList.json'
+
 import { calculateR } from '@/utils/calculateR'
 
 const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(

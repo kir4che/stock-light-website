@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "en_name": "Sunny",
+    "ch_name": "晴天",
+    "icon": "https://img.icons8.com/emoji/32/sun-emoji.png",
+    "desc": "雲量佔全天空0~4/10"
+  },
+  {
+    "id": 2,
+    "en_name": "Cloudy",
+    "ch_name": "多雲",
+    "icon": "https://img.icons8.com/office/32/partly-cloudy-day--v1.png",
+    "desc": "雲量佔全天空5/10~8/10"
+  },
+  {
+    "id": 3,
+    "en_name": "Rainny",
+    "ch_name": "雨天",
+    "icon": "https://img.icons8.com/external-filled-outline-lima-studio/32/external-rainny-spring-filled-outline-lima-studio.png",
+    "desc": "從層狀雲降落，降雨強度均勻緩和之連續或間歇性降雨"
+  },
+  {
+    "id": 4,
+    "en_name": "Temperature",
+    "ch_name": "溫度",
+    "icon": "https://img.icons8.com/stickers/32/temperature-low.png"
+  },
+  {
+    "id": 5,
+    "en_name": "Humidity",
+    "ch_name": "濕度",
+    "icon": "https://img.icons8.com/office/32/humidity.png"
+  },
+  {
+    "id": 6,
+    "en_name": "Precipitation",
+    "ch_name": "降雨量",
+    "icon": "https://img.icons8.com/external-microdots-premium-microdot-graphic/32/external-precipitation-weather-forecast-microdots-premium-microdot-graphic-2.png"
+  }
+]
