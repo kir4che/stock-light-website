@@ -32,7 +32,7 @@ export default function WeatherAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [selectedTab, setSelectedTab] = useState(0)
-	const [selectedStockId, setSelectedStockId] = useState(2330)
+	const [selectedStockId, setSelectedStockId] = useState(1101)
 	const [selectedWeatherType, setSelectedWeatherType] = useState('sunny')
 
 	const [weatherData, setWeatherData] = useState({
@@ -130,7 +130,7 @@ export default function WeatherAnalysis() {
 							disablePortal
 						/>
 					</section>
-					{!isLoading && chartData && weatherData ? (
+					{!isLoading && chartData && weather && stockPrice ? (
 						<section className='flex flex-wrap items-start space-y-4'>
 							<Chart
 								option={linearRegOption(stockName, weatherType, weather, stockPrice)}
