@@ -13,8 +13,6 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 		resultData.push([newWeatherData, newPriceList])
 	}
 
-	console.log('resultData', resultData)
-
 	const option = {
 		title: {
 			text: `${stock}股價 (y) 與${weather} (x) 的相關性分析`,

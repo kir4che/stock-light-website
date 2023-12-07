@@ -30,35 +30,34 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
 
 export default function WeatherAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
+
 	const [selectedTab, setSelectedTab] = useState(0)
 	const [selectedStockId, setSelectedStockId] = useState(1101)
 	const [selectedWeatherType, setSelectedWeatherType] = useState('sunny')
 
-	const [weatherData, setWeatherData] = useState([])
-	const [stockPrices, setStockPrices] = useState([])
-	const [stockInfo, setStockInfo] = useState([])
+	const [weatherData, setWeatherData] = useState({
+		weather: [],
+		stockPrice: [],
+		stockInfo: [],
+	})
+	const { weather, stockPrice, stockInfo } = weatherData
 
-	const [chartData, setChartData] = useState({ stock: '', weather: '' })
+	const [chartData, setChartData] = useState({ stockName: '', weatherType: '' })
+	const { stockName, weatherType } = chartData
 
-	const fetchWeatherPredict = async () => {
+	const fetchWeatherPredict = async (stockId, weatherType) => {
 		setIsLoading(true)
 
 		try {
-			const response = await fetch(
-				`${process.env.DB_URL}/api/weather/predict/${selectedWeatherType}/${selectedStockId}`,
-				{
-					method: 'GET',
-				}
-			)
+			const response = await fetch(`${process.env.DB_URL}/api/weather/predict/${weatherType}/${stockId}`, {
+				method: 'GET',
+			})
 			const data = await response.json()
 
-			setWeatherData(data.data.independent_datas)
-			setStockPrices(data.data.dependent_datas)
-			setStockInfo(data.data.stockinfo)
-
-			setChartData({
-				stock: stock150.find((stock) => stock.id === selectedStockId).name,
-				weather: weatherList[selectedTab].ch_name,
+			setWeatherData({
+				weather: data.data.independent_datas,
+				stockPrice: data.data.dependent_datas,
+				stockInfo: data.data.stockinfo,
 			})
 
 			setIsLoading(false)
@@ -70,7 +69,11 @@ export default function WeatherAnalysis() {
 	}
 
 	useEffect(() => {
-		fetchWeatherPredict()
+		fetchWeatherPredict(selectedStockId, selectedWeatherType)
+		setChartData({
+			stockName: stock150.find((stock) => stock.id === selectedStockId).name,
+			weatherType: weatherList[selectedTab].ch_name,
+		})
 	}, [selectedStockId, selectedWeatherType])
 
 	return (
@@ -101,11 +104,11 @@ export default function WeatherAnalysis() {
 						{chartData && (
 							<div className='space-x-2 flex-center'>
 								<h3 className='inline-flex items-baseline space-x-2'>
-									<span>{chartData.stock}</span>
+									<span>{stockName}</span>
 									<span className='text-xl font-light tracking-widest'>{selectedStockId}</span>
 								</h3>
 								<HtmlTooltip title={<React.Fragment>{weatherList[selectedTab].desc} </React.Fragment>}>
-									<p className='px-2.5 py-1 text-xs text-white rounded-full bg-secondary_blue'>{chartData.weather}</p>
+									<p className='px-2.5 py-1 text-xs text-white rounded-full bg-secondary_blue'>{weatherType}</p>
 								</HtmlTooltip>
 							</div>
 						)}
@@ -120,10 +123,10 @@ export default function WeatherAnalysis() {
 							disablePortal
 						/>
 					</section>
-					{!isLoading && chartData && weatherData && stockPrices ? (
+					{!isLoading && chartData && weatherData ? (
 						<section className='flex flex-wrap items-start space-y-4'>
 							<Chart
-								option={linearRegOption(chartData.stock, chartData.weather, weatherData, stockPrices)}
+								option={linearRegOption(stockName, weatherType, weather, stockPrice)}
 								customHeight='h-72 md:h-[450px] xl:h-[560px]'
 							/>
 							<DataGrid
@@ -132,13 +135,13 @@ export default function WeatherAnalysis() {
 									{
 										id: 1,
 										stock_id: selectedStockId,
-										stock_name: chartData.stock || null,
-										weather: chartData.weather,
+										stock_name: stockName || null,
+										weather: weatherType,
 										price: stockInfo.closing_price || null,
 										quote_change: stockInfo.change || null,
 										week_quote_change: stockInfo.change_week || null,
 										volume: stockInfo.trade_volume || null,
-										correlation: calculateR(weatherData, stockPrices),
+										correlation: calculateR(weather, stockPrice),
 									},
 								]}
 								columns={[
