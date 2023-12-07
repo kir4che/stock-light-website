@@ -86,10 +86,10 @@ export default function AnalysisTable({ stockId }) {
 
 	return (
 		<div className='flex flex-col gap-4'>
-			<div className='flex items-start justify-between gap-6 h-80'>
+			<div className='flex flex-col items-start justify-between gap-6 sm:flex-row sm:h-80'>
 				{/* 情緒分析 */}
 				{sentimentData && (
-					<section className='flex-col w-3/4 h-full gap-y-2.5 flex-center-between'>
+					<section className='flex-col sm:w-3/4 h-full gap-y-2.5 flex-center-between'>
 						<div className='p-4 overflow-y-scroll border rounded-lg shadow dark:border-zinc-500 dark:bg-zinc-900/30'>
 							<h3 className='mb-2'>情緒分析</h3>
 							{sentimentData.slice(0, 3).map((item) => (
@@ -198,7 +198,7 @@ export default function AnalysisTable({ stockId }) {
 				)}
 				{/* 相關新聞 */}
 				{newsData && (
-					<section className='w-1/3 h-full p-4 space-y-2 overflow-y-auto border rounded-lg shadow dark:border-zinc-500 dark:bg-zinc-900/30 '>
+					<section className='p-4 space-y-2 overflow-y-auto border rounded-lg shadow sm:w-1/3 sm:h-full h-80 dark:border-zinc-500 dark:bg-zinc-900/30 '>
 						<h3 className='flex items-center'>相關新聞</h3>
 						<ul className='flex flex-col pl-4 leading-4 list-disc gap-y-1'>
 							{newsData.map((news) => (
