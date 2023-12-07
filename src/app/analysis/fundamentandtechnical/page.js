@@ -89,8 +89,14 @@ export default function FundamentalAnalysis() {
 						>
 							<p>
 								<span>
-									{' '}
-									{stockData.change[stockData.change.length - 1] > 0 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+									{stockData.change[stockData.change.length - 1] - stockData.change[stockData.change.length - 2] > 0 ? (
+										<ArrowDropUpIcon />
+									) : stockData.change[stockData.change.length - 1] - stockData.change[stockData.change.length - 2] <
+									  0 ? (
+										<ArrowDropDownIcon />
+									) : (
+										''
+									)}
 								</span>
 								<span>{Math.abs(stockData.change[stockData.change.length - 1]).toFixed(2)}</span>
 							</p>

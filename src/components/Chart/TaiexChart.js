@@ -55,7 +55,6 @@ export default function TaiexChart() {
 					{dates.length ? convertDateTime(dates[dates.length - 1]) : getCurrentDate()} 更新
 				</p>
 			</div>
-
 			{closeIndex ? (
 				<section className='flex items-baseline mb-4 space-x-1 tracking-wide'>
 					<p
@@ -82,8 +81,10 @@ export default function TaiexChart() {
 							<span>
 								{closeIndex[closeIndex.length - 1] - closeIndex[closeIndex.length - 2] > 0 ? (
 									<ArrowDropUpIcon />
-								) : (
+								) : closeIndex[closeIndex.length - 1] - closeIndex[closeIndex.length - 2] < 0 ? (
 									<ArrowDropDownIcon />
+								) : (
+									''
 								)}
 							</span>
 							<span>{Math.abs(closeIndex[closeIndex.length - 1] - closeIndex[closeIndex.length - 2]).toFixed(2)}</span>

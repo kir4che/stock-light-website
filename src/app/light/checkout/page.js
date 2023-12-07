@@ -95,7 +95,7 @@ export default function Checkout() {
 
 		setSuccess(true)
 		setTimeout(() => {
-			router.push(`/light/result?industry=${industry}&userId=${session.user.id}&date=${getCurrentDate()}`)
+			router.push(`/light/resultDashboard?industry=${industry}&userId=${session.user.id}&date=${getCurrentDate()}`)
 		}, 3000)
 	}
 
