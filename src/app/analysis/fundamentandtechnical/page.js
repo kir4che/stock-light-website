@@ -13,16 +13,16 @@ import StarryBackground from '@/components/common/StarryBackground'
 import { stock150 } from '@/data/constants'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
+import fetchStockData from '@/utils/fetchStockData'
+import fetchStockPePb from '@/utils/fetchStockPePb'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 
 export default function FundamentalAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
-
 	const [selectedStockId, setSelectedStockId] = useState(1101)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-
 	const [stockPePb, setStockPePb] = useState(null)
-	const [stockChartData, setStockChartData] = useState({
+	const [stockData, setStockData] = useState({
 		date: [],
 		price: [],
 		closePrice: [],
@@ -31,80 +31,27 @@ export default function FundamentalAnalysis() {
 		change: [],
 		volume: [],
 	})
-	const { date, closePrice, change } = stockChartData
-
-	const fetchStockPePb = useCallback(async (stockId) => {
-		setIsLoading(true)
-
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/stock/${stockId}`, {
-				method: 'GET',
-			})
-			const data = await response.json()
-			if (data.success) setStockPePb(data.data)
-		} catch (error) {
-			console.error('Error: ', error)
-		}
-	}, [])
-
-	const fetchStockData = useCallback(async (stockId) => {
-		setIsLoading(true)
-
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/stock/all/info`, { method: 'GET' })
-			let data = await response.json()
-
-			const filteredData = data.data
-				.filter((stock) => stock.stock_id === stockId)
-				.sort((a, b) => new Date(a.date) - new Date(b.date))
-
-			const dates = filteredData.map((stock) => convertDateTime(stock.date).split(' ')[0])
-			const closingPrices = filteredData.map((stock) => stock.closing_price)
-			const openingPrices = filteredData.map((stock) => stock.opening_price)
-			const highestPrices = filteredData.map((stock) => stock.highest_price)
-			const lowestPrices = filteredData.map((stock) => stock.lowest_price)
-			const changes = filteredData.map((stock) => stock.change)
-			const volumes = filteredData.map((stock) => stock.trade_volume)
-
-			setStockChartData((prevStockChartData) => ({
-				...prevStockChartData,
-				date: dates,
-				price: highestPrices.map((_, index) => [
-					closingPrices[index],
-					openingPrices[index],
-					lowestPrices[index],
-					highestPrices[index],
-				]),
-				closePrice: closingPrices,
-				highPrice: highestPrices,
-				lowPrice: lowestPrices,
-				change: changes,
-				volume: volumes,
-			}))
-
-			if (data.success) setIsLoading(false)
-		} catch (error) {
-			console.error('Error: ', error)
-		}
-	}, [])
 
 	useEffect(() => {
-		selectedTabIndex === 0 && fetchStockPePb(selectedStockId)
-		fetchStockData(selectedStockId)
+		const fetchData = async (stockId) => {
+			setStockPePb(await fetchStockPePb({ stockId, setIsLoading }))
+			setStockData(await fetchStockData({ stockId, setIsLoading }))
+		}
+
+		fetchData(selectedStockId)
 	}, [selectedStockId])
 
 	return (
 		<StarryBackground className='pt-8 pb-12 md:pt-10'>
 			<div className='px-4 py-5 bg-white md:px-8 dark:bg-zinc-900/50 md:rounded'>
 				<div className='flex flex-col-reverse xs:flex-row xs:justify-between'>
-					{/* 個股名稱、代號 */}
 					<div className='flex items-baseline mt-4 mb-2 space-x-4 xs:mt-0'>
 						<h3 className='inline-flex items-baseline space-x-2'>
-							<span>{stock150.find((stock) => stock.id === selectedStockId).name || null}</span>
+							<span>{stock150.find((stock) => stock.id === selectedStockId)?.name || null}</span>
 							<span className='text-xl font-light tracking-widest'>{selectedStockId}</span>
 						</h3>
 						<p className='text-xs font-medium tracking-wide opacity-70'>
-							{date.length ? convertDateTime(date[date.length - 1]) : getCurrentDate()} 更新
+							{stockData ? convertDateTime(stockData.date[stockData.date.length - 1]) : getCurrentDate()} 更新
 						</p>
 					</div>
 					<Autocomplete
@@ -118,41 +65,46 @@ export default function FundamentalAnalysis() {
 						disablePortal
 					/>
 				</div>
-				{/* 當日收盤價資訊 */}
-				{change.length && closePrice.length ? (
+				{stockData ? (
 					<section className='flex items-baseline mb-4 space-x-1 tracking-wide'>
 						<p
 							className={`text-4xl font-bold ${
-								change[change.length - 1] > 0
+								stockData.change[stockData.change.length - 1] > 0
 									? 'text-stock_red'
-									: change[change.length - 1] < 0
+									: stockData.change[stockData.change.length - 1] < 0
 									? 'text-stock_green'
 									: ''
 							} `}
 						>
-							{closePrice[closePrice.length - 1]?.toFixed(2)}
+							{stockData.closePrice[stockData.closePrice.length - 1]?.toFixed(2)}
 						</p>
 						<div
 							className={`flex items-baseline text-xl font-medium space-x-1 ${
-								change[change.length - 1] > 0
+								stockData.change[stockData.change.length - 1] > 0
 									? 'text-stock_red'
-									: change[change.length - 1] < 0
+									: stockData.change[stockData.change.length - 1] < 0
 									? 'text-stock_green'
 									: ''
 							}`}
 						>
 							<p>
-								<span> {change[change.length - 1] > 0 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}</span>
-								<span>{Math.abs(change[change.length - 1]).toFixed(2)}</span>
+								<span>
+									{' '}
+									{stockData.change[stockData.change.length - 1] > 0 ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+								</span>
+								<span>{Math.abs(stockData.change[stockData.change.length - 1]).toFixed(2)}</span>
 							</p>
 							<p>
-								({calculatePriceChange(closePrice[closePrice.length - 2], closePrice[closePrice.length - 1]).toFixed(2)}
+								(
+								{calculatePriceChange(
+									stockData.closePrice[stockData.closePrice.length - 2],
+									stockData.closePrice[stockData.closePrice.length - 1]
+								).toFixed(2)}
 								%)
 							</p>
 						</div>
 					</section>
 				) : null}
-				{/* 個股選單 */}
 				<Tabs
 					variant='scrollable'
 					value={selectedTabIndex}
@@ -169,12 +121,11 @@ export default function FundamentalAnalysis() {
 						/>
 					))}
 				</Tabs>
-				{/* 個股選單內容 */}
-				{!isLoading && stockChartData ? (
+				{!isLoading && stockData ? (
 					<TabContent
 						stockId={selectedStockId}
 						tabIndex={selectedTabIndex}
-						stockData={stockChartData}
+						stockData={stockData}
 						stockPePb={stockPePb}
 					/>
 				) : (

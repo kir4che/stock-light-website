@@ -5,7 +5,7 @@ import { Box, Drawer, ListItemButton, ListItemText, Toolbar } from '@mui/materia
 import Link from 'next/link'
 import { useState } from 'react'
 
-export default function BurgerMenu({ pageList, userData }) {
+export default function BurgerMenu({ pageData, userData }) {
 	const [open, setState] = useState(false)
 
 	const toggleDrawer = (open) => (e) => {
@@ -23,7 +23,7 @@ export default function BurgerMenu({ pageList, userData }) {
 						onClick={toggleDrawer(false)}
 					/>
 					<Box className='mt-8'>
-						{pageList.map((page) => {
+						{pageData.map((page) => {
 							if (page.childPages.length > 0) {
 								return (
 									<div key={page.url}>

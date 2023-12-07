@@ -11,7 +11,7 @@ import { useState } from 'react'
 import BurgerMenu from '@/components/ui/BurgerMenu'
 import DarkModeToggle from '@/components/ui/DarkModeToggle'
 import UserMenu from '@/components/ui/UserMenu'
-import { pageList } from '@/data/pageList'
+import pageData from '@/data/pageData.json'
 
 export default function Header() {
 	const { data: session } = useSession()
@@ -30,7 +30,7 @@ export default function Header() {
 				<h4>股市光明燈</h4>
 			</Link>
 			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 md:flex lg:space-x-8'>
-				{pageList.map((page) => {
+				{pageData.map((page) => {
 					if (page.childPages.length > 0) {
 						return (
 							<div key={page.url}>
@@ -78,7 +78,7 @@ export default function Header() {
 						<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
 					</button>
 				)}
-				<BurgerMenu pageList={pageList} session={session} />
+				<BurgerMenu pageData={pageData} session={session} />
 				<DarkModeToggle />
 			</div>
 		</div>

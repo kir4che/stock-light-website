@@ -17,7 +17,6 @@ export default function StockFS({ stockId }) {
 		prof: false,
 		grow: false,
 		safe: false,
-		// value: false,
 	})
 	const [childOpen, setChildOpen] = useState({
 		fs: {
@@ -35,9 +34,6 @@ export default function StockFS({ stockId }) {
 		safe: {
 			財務結構比率: false,
 		},
-		// value: {
-		// 	本益比: false,
-		// },
 	})
 
 	const handleParentToggle = (section) => {
@@ -46,9 +42,7 @@ export default function StockFS({ stockId }) {
 				Object.entries(prevChildOpen[section]).map(([key, value], index) => [key, index === 0])
 			)
 
-			Object.keys(prevChildOpen).forEach((key) => {
-				if (key !== section) updatedSection[key] = false
-			})
+			Object.keys(prevChildOpen).forEach((key) => (key !== section ? (updatedSection[key] = false) : null))
 
 			return {
 				...prevChildOpen,
@@ -57,19 +51,13 @@ export default function StockFS({ stockId }) {
 		})
 
 		setOpen((prevOpen) => ({
-			...prevOpen,
-			fs: section === 'fs' ? !prevOpen.fs : false,
-			policy: section === 'policy' ? !prevOpen.policy : false,
-			prof: section === 'prof' ? !prevOpen.prof : false,
-			grow: section === 'grow' ? !prevOpen.grow : false,
-			safe: section === 'safe' ? !prevOpen.safe : false,
-			value: section === 'value' ? !prevOpen.value : false,
+			...Object.fromEntries(Object.keys(prevOpen).map((key) => [key, key === section ? !prevOpen[key] : false])),
 		}))
 	}
 
 	const handleChildToggle = (section, childSection) => {
 		setChildOpen((prevChildOpen) => {
-			if (prevChildOpen[section][childSection]) return prevChildOpen // 確認是否已經開啟
+			if (prevChildOpen[section][childSection]) return prevChildOpen
 			const updatedSection = Object.fromEntries(
 				Object.entries(prevChildOpen[section]).map(([key, value]) => [key, false])
 			)
@@ -215,31 +203,6 @@ export default function StockFS({ stockId }) {
 						)}
 					</List>
 				</Collapse>
-				{/* <ListItemButton
-					sx={{
-						py: '4px',
-					}}
-					onClick={() => handleParentToggle('value')}
-				>
-					<ListItemText primary='企業價值' primaryTypographyProps={{ fontSize: '14px' }} />
-					{open.value ? <ExpandLess /> : <ExpandMore />}
-				</ListItemButton>
-				<Collapse in={open.value} timeout='auto' unmountOnExit>
-					<List component='div' disablePadding>
-						{['本益比'].map((tab, index) => (
-							<ListItemButton sx={{ pl: 4 }} key={index}>
-								<ListItemText
-									primary={tab}
-									sx={{
-										mb: '-2px',
-									}}
-									primaryTypographyProps={{ fontSize: '14px' }}
-									onClick={() => handleChildToggle('value', tab)}
-								/>
-							</ListItemButton>
-						))}
-					</List>
-				</Collapse> */}
 			</List>
 			{open.fs && <FinancialStatement stockId={stockId} childOpen={childOpen.fs} />}
 			{open.policy && <DividendPolicy stockId={stockId} childOpen={childOpen.policy} />}

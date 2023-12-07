@@ -1,0 +1,158 @@
+{
+	"table": "financial_statement",
+	"rows":
+	[
+		{
+			"stock_id": 2330,
+			"year": 2019,
+			"season": 1,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=201901_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2019,
+			"season": 2,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=201902_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2019,
+			"season": 3,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=201903_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2019,
+			"season": 4,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=201904_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2020,
+			"season": 1,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202001_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2020,
+			"season": 2,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202002_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2020,
+			"season": 3,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202003_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2020,
+			"season": 4,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202004_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2021,
+			"season": 1,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202101_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2021,
+			"season": 2,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202102_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2021,
+			"season": 3,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202103_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2021,
+			"season": 4,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202104_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2022,
+			"season": 1,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202201_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2022,
+			"season": 2,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202202_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2022,
+			"season": 3,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202203_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2022,
+			"season": 4,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202204_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2023,
+			"season": 1,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202301_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2023,
+			"season": 2,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202302_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		},
+		{
+			"stock_id": 2330,
+			"year": 2023,
+			"season": 3,
+			"link": "https://doc.twse.com.tw/server-java/t57sb01?co_id=2330&colorchg=1&kind=A&step=9&filename=202303_2330_AI1.pdf",
+			"create_date": "2023-12-02 10:59:10",
+			"update_date": "2023-12-02 10:59:10"
+		}
+	]
+}

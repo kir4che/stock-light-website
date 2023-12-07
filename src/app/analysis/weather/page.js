@@ -72,10 +72,6 @@ export default function WeatherAnalysis() {
 	}
 
 	useEffect(() => {
-		console.log('weatherData', weatherData)
-	}, [weatherData])
-
-	useEffect(() => {
 		fetchWeatherPredict(selectedStockId, selectedWeatherType)
 		setChartData({
 			stockName: stock150.find((stock) => stock.id === selectedStockId).name,

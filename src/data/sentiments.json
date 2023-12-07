@@ -1,0 +1,126 @@
+{
+	"table": "sentiment_analysis",
+	"rows":
+	[
+		{
+			"sentiment_analysis_id": 17,
+			"stock_id": 2330,
+			"title": "金融占台股市值比僅次半導體 GDP貢獻12年來近零成長",
+			"sentiment": "中性",
+			"score": 0.00,
+			"description": "金融占台股市值比僅次半導體 GDP貢獻12年來近零成長,這是一個客觀的報告,並沒有表現出特別的正面或負面情緒。",
+			"create_date": "2023-12-02 07:07:58",
+			"update_date": "2023-12-02 07:07:58"
+		},
+		{
+			"sentiment_analysis_id": 18,
+			"stock_id": 2330,
+			"title": "台積電賺很多股價「要死不活」 反觀死敵噴漲30％ 驚爆2大弱點",
+			"sentiment": "負面",
+			"score": -0.70,
+			"description": "台積電賺很多股價「要死不活」 反觀死敵噴漲30％ 驚爆2大弱點,這種表現反映出對於台積電的擔憂和批評,屬於負向且悲觀的投資消息。",
+			"create_date": "2023-12-02 07:07:58",
+			"update_date": "2023-12-02 07:07:58"
+		},
+		{
+			"sentiment_analysis_id": 19,
+			"stock_id": 2330,
+			"title": "Nvidia beats TSMC and Intel to take top chip industry revenue crown for the first time",
+			"sentiment": "負面",
+			"score": -0.60,
+			"description": "Nvidia beats TSMC and Intel to take top chip industry revenue crown for the first time,此新聞顯示Nvidia在收入上超越了TSMC和Intel,可能導致TSMC投資者感到不安。",
+			"create_date": "2023-12-02 07:07:58",
+			"update_date": "2023-12-02 07:07:58"
+		},
+		{
+			"sentiment_analysis_id": 20,
+			"stock_id": 2330,
+			"title": "TSMC (TSM) Stock Declines While Market Improves: Some Information for Investors",
+			"sentiment": "負面",
+			"score": -0.50,
+			"description": "TSMC (TSM) Stock Declines While Market Improves: Some Information for Investors,這種情況可能會對台積電的股價產生影響,並引起市場的擔憂。",
+			"create_date": "2023-12-02 07:07:58",
+			"update_date": "2023-12-02 07:07:58"
+		},
+		{
+			"sentiment_analysis_id": 21,
+			"stock_id": 2330,
+			"title": "Chip firms to invest US$210bn globally",
+			"sentiment": "正面",
+			"score": 0.60,
+			"description": "Chip firms to invest US$210bn globally,此新聞顯示全球晶片公司將大規模投資,反映出行業的活躍和發展前景。",
+			"create_date": "2023-12-02 07:07:58",
+			"update_date": "2023-12-02 07:07:58"
+		},
+		{
+			"sentiment_analysis_id": 22,
+			"stock_id": 2330,
+			"title": "整體分析",
+			"sentiment": "負面",
+			"score": -0.40,
+			"description": "整體來看,這五個標題呈現出一種負面的情緒。其中四篇關於台積電與半導體行業的新聞帶有負面訊息;最後一篇則是正向訊息,但無法完全抵消前四篇新聞帶來的負面影響。",
+			"create_date": "2023-12-02 07:07:58",
+			"update_date": "2023-12-02 07:07:58"
+		},
+		{
+			"sentiment_analysis_id": 53,
+			"stock_id": 2345,
+			"title": "美股連四周上漲 交易變動不大 感恩節正蓄積年終全面漲勢",
+			"sentiment": "正面",
+			"score": 0.80,
+			"description": "美股連四周上漲 交易變動不大 感恩節正蓄積年終全面漲勢,這個標題展現了對於美國股市的樂觀預期,表現出一種正向的情緒。",
+			"create_date": "2023-12-02 14:54:11",
+			"update_date": "2023-12-02 14:54:11"
+		},
+		{
+			"sentiment_analysis_id": 54,
+			"stock_id": 2345,
+			"title": "道指漲逾百點 史指連漲四周",
+			"sentiment": "正面",
+			"score": 0.70,
+			"description": "道指漲逾百點 史指連漲四周,此標題提到道琼斯工業平均指數和S&P500都有所上升,是一種正向的投資消息。",
+			"create_date": "2023-12-02 14:54:11",
+			"update_date": "2023-12-02 14:54:11"
+		},
+		{
+			"sentiment_analysis_id": 55,
+			"stock_id": 2345,
+			"title": "美國股市連續第四周上漲",
+			"sentiment": "正面",
+			"score": 0.70,
+			"description": "美國股市連續第四周上漲,反映出投資者對於美國股市的信心和需求持續增長。",
+			"create_date": "2023-12-02 14:54:11",
+			"update_date": "2023-12-02 14:54:11"
+		},
+		{
+			"sentiment_analysis_id": 56,
+			"stock_id": 2345,
+			"title": "法興銀行：美聯儲明年將降息150個基點標普500指數或升至4750點提供者智通財經",
+			"sentiment": "中性",
+			"score": 0.00,
+			"description": "法興銀行:美聯儲明年將降息150個基點標普500指數或升至4750點提供者智通財經,此標題是一種中性的市場分析和預測。",
+			"create_date": "2023-12-02 14:54:11",
+			"update_date": "2023-12-02 14:54:11"
+		},
+		{
+			"sentiment_analysis_id": 57,
+			"stock_id": 2345,
+			"title": "Weekly Preview: Earnings to Watch This Week (CRM",
+			"sentiment": "中性",
+			"score": 0.00,
+			"description": "Weekly Preview: Earnings to Watch This Week (CRM, CRWD),這是一個對於即將公佈財報的公司(CRM, CRWD)的觀察和等待,屬於中性情緒。",
+			"create_date": "2023-12-02 14:54:11",
+			"update_date": "2023-12-02 14:54:11"
+		},
+		{
+			"sentiment_analysis_id": 58,
+			"stock_id": 2345,
+			"title": "整體分析",
+			"sentiment": "正面",
+			"score": 0.60,
+			"description": "整體來看,這六個標題主要呈現出對美國股市上漲趨勢的積極看法。其中四篇帶有強烈的正向情感;另外兩篇則帶有中立觀察和等待之立場。",
+			"create_date": "2023-12-02 14:54:11",
+			"update_date": "2023-12-02 14:54:11"
+		}
+	]
+}

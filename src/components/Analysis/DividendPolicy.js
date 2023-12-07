@@ -49,13 +49,13 @@ export default function DividendPolicy({ stockId, childOpen }) {
 	const fetchDividendPolicy = async () => {
 		setIsLoading(true)
 		try {
-			const responce = await fetch(`${process.env.DB_URL}/api/stock/history/dividend_policy/${stockId}`, {
+			const response = await fetch(`${process.env.DB_URL}/api/stock/history/dividend_policy/${stockId}`, {
 				method: 'GET',
 			})
-			const data = await responce.json()
-			setData(data.data.slice(1, data.data.length))
+			const responseData = await response.json()
+			setData(responseData.data.slice(1, responseData.data.length))
 
-			const summary = data.data.reduce((acc, dividend) => {
+			const summary = responseData.data.reduce((acc, dividend) => {
 				const year = dividend.announcedDate.substring(0, 4)
 
 				if (!acc[year]) acc[year] = { year, cash: 0, stock: 0 }
@@ -89,103 +89,52 @@ export default function DividendPolicy({ stockId, childOpen }) {
 			<Table size='medium'>
 				<TableBody>
 					<TableRow className='bg-secondary_blue/20 '>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '108px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							公告日
-						</TableCell>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '90px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							現金股利
-						</TableCell>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '90px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							股票股利
-						</TableCell>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '108px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							除息日
-						</TableCell>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '108px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							除權日
-						</TableCell>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '132px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							現金股利發放日
-						</TableCell>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '118px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							填息花費日數
-						</TableCell>
-						<TableCell
-							sx={{
-								width: '100%',
-								minWidth: '120px',
-							}}
-							className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-						>
-							股利發放形式
-						</TableCell>
+						{[
+							'公告日',
+							'現金股利',
+							'股票股利',
+							'除息日',
+							'除權日',
+							'現金股利發放日',
+							'填息花費日數',
+							'股利發放形式',
+						].map((header) => (
+							<TableCell
+								key={header}
+								sx={{
+									width: '100%',
+									minWidth: header === '填息花費日數' ? '118px' : '108px',
+								}}
+								className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
+							>
+								{header}
+							</TableCell>
+						))}
 					</TableRow>
 					{data.map((item) => (
-						<TableRow>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+						<TableRow key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.announcedDate}
 							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.cashDividend}
 							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.stockDividend}
 							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.XDTradingDate}
 							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.XRTradingDate}
 							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.cashDividendPaidDate}
 							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.XDPriceRecoveryDays}
 							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600' key={item.id}>
+							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
 								{item.payoutType}
 							</TableCell>
 						</TableRow>

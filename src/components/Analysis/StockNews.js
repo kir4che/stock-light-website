@@ -1,28 +1,19 @@
+import { useEffect, useState } from 'react'
+
 import Loading from '@/components/common/Loading'
 import NewsPost from '@/components/ui/NewsPost'
-import { useEffect, useState } from 'react'
+import fetchStockNews from '@/utils/fetchStockNews'
 
 export default function StockNews({ stockId }) {
 	const [isLoading, setIsLoading] = useState(true)
-	const [news, setNews] = useState(null)
-
-	const fetchStockNews = async (stockId) => {
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/stock/news/${stockId}`, {
-				method: 'GET',
-			})
-			const data = await response.json()
-			setNews(data.data)
-
-			if (data.success) setIsLoading(false)
-		} catch (error) {
-			console.error('Error: ', error)
-		}
-	}
+	const [news, setNews] = useState([])
 
 	useEffect(() => {
-		setIsLoading(true)
-		fetchStockNews(stockId)
+		const fetchData = async () => {
+			setNews(await fetchStockNews({ stockId, setIsLoading }))
+		}
+
+		fetchData()
 	}, [stockId])
 
 	return (
