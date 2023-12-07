@@ -53,6 +53,7 @@ export default function WeatherAnalysis() {
 				method: 'GET',
 			})
 			const data = await response.json()
+			console.log(data)
 
 			setWeatherData({
 				weather: data.data.independent_datas,
@@ -60,9 +61,11 @@ export default function WeatherAnalysis() {
 				stockInfo: data.data.stockinfo,
 			})
 
-			setIsLoading(false)
-
 			if (data.success) setIsLoading(false)
+			else {
+				console.error('Error: ', data.errorMessage)
+				return
+			}
 		} catch (error) {
 			console.error('Error: ', error)
 		}
