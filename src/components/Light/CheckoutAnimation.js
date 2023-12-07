@@ -1,25 +1,36 @@
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { getCurrentDate } from '@/utils/getCurrentDate'
 
-export default function CheckoutAnimation() {
+export default function CheckoutAnimation({ industry }) {
 	const router = useRouter()
-	const { category } = router.query
 
 	const [isCoinVisible, setIsCoinVisible] = useState(true)
+	const [success, setSuccess] = useState(false)
 
 	const handleAnimationEnd = () => {
 		setIsCoinVisible(false)
+
 		setTimeout(() => {
-			const token = uuidv4()
-			router.push(`/light/result/${token}?category=${category}&date=${getCurrentDate()}`)
+			setSuccess(true)
 		}, 3000)
 	}
 
-	return (
+	useEffect(() => {
+		const uuid = uuidv4()
+		setTimeout(() => {
+			router.push(`/light/resultDashboard?industry=${industry}&id=${uuid}&date=${getCurrentDate()}`)
+		}, 6000)
+	}, [success])
+
+	return success ? (
+		<div className='glowing-circle-container'>
+			<div className='glowing-circle' />
+		</div>
+	) : (
 		<div className='donation-animation place-content-center' onAnimationEnd={handleAnimationEnd}>
 			<h2 className='mb-16'>香油錢已成功投遞！</h2>
 			{isCoinVisible && (

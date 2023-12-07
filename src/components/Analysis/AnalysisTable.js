@@ -98,7 +98,7 @@ export default function AnalysisTable({ stockId }) {
 									<div>
 										<p className='mb-1.5 space-x-2 font-medium leading-6'>
 											<span>{item.title}</span>
-											<button className='w-10 text-sm rounded dark:text-zinc-800 bg-primary_yellow'>
+											<button className='w-10 text-sm rounded outline-none dark:text-zinc-800 bg-primary_yellow'>
 												{item.score}
 											</button>
 										</p>

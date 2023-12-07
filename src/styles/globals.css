@@ -196,6 +196,45 @@ body {
 	}
 }
 
+/* 付款動畫 */
+
+.donation-animation {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.coin {
+	animation: bounce 1.2s ease-in-out;
+}
+
+.box {
+	animation: swing 2s ease-in-out;
+	animation-delay: 2s;
+}
+
+@keyframes bounce {
+	0% {
+		transform: translateY(-50px);
+	}
+	100% {
+		transform: translateY(20px);
+	}
+}
+
+@keyframes swing {
+	0%,
+	100% {
+		transform: rotate(0deg);
+	}
+	30% {
+		transform: rotate(-5deg);
+	}
+	65% {
+		transform: rotate(5deg);
+	}
+}
+
 /* 點燈後呈現出的亮光效果*/
 .glowing-circle-container {
 	@apply grid h-screen place-items-center;

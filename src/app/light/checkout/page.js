@@ -7,11 +7,11 @@ import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
+import CheckoutAnimation from '@/components/Light/CheckoutAnimation'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import { Lantern } from '@/components/ui/Lantern'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import { getCurrentDate } from '@/utils/getCurrentDate'
 
 // 🚩尚未串接金流
 export default function Checkout() {
@@ -94,17 +94,12 @@ export default function Checkout() {
 		// }
 
 		setSuccess(true)
-		setTimeout(() => {
-			router.push(`/light/resultDashboard?industry=${industry}&userId=${session.user.id}&date=${getCurrentDate()}`)
-		}, 3000)
 	}
 
 	return (
 		<StarryBackground className={'min-h-screen md:min-h-full md:h-screen py-8 md:py-0 md:grid md:place-content-center'}>
 			{success ? (
-				<div className='glowing-circle-container'>
-					<div className='glowing-circle'></div>
-				</div>
+				<CheckoutAnimation industry={industry} />
 			) : (
 				<>
 					<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='線上付款' />
