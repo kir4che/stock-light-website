@@ -1,13 +1,18 @@
 import sentiments from '@/data/sentiments.json'
+import CloseIcon from '@mui/icons-material/Close'
+import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
+import Chart from '@/components/Chart/Chart'
 import fetchEReport from '@/utils/fetchEReport'
 import fetchStockNews from '@/utils/fetchStockNews'
 
 export default function AnalysisTable({ stockId }) {
 	const [isLoading, setIsLoading] = useState(true)
+	const [sentimentOpen, setSentimentOpen] = useState(false)
+
 	const [fsData, setFsData] = useState({
 		assetStatements: [],
 		liabilityEquityStatements: [],
@@ -23,10 +28,14 @@ export default function AnalysisTable({ stockId }) {
 			})
 			const data = await response.json()
 
+			if (!data.success) setSentimentData(sentiments.rows.filter((item) => item.stock_id === stockId))
+
+			const filteredData = data.data.filter((item) => item.stock_id === stockId)
+
 			if (data.success) {
-				setSentimentData(data.data)
+				setSentimentData(filteredData)
 				setIsLoading(false)
-			} else setSentimentData(sentiments.rows)
+			}
 		} catch (error) {
 			console.error('Error: ', error)
 		}
@@ -73,7 +82,7 @@ export default function AnalysisTable({ stockId }) {
 		}
 		fetchData()
 		fetchSentimentData()
-	}, [stockId])
+	}, [])
 
 	return (
 		<div className='flex flex-col gap-4'>
@@ -93,14 +102,75 @@ export default function AnalysisTable({ stockId }) {
 												{item.score}
 											</button>
 										</p>
-										<p className='text-sm font-light line-clamp-2 text-zinc-500 dark:text-zinc-400'>
+										<p className='text-sm font-light line-clamp-1 text-zinc-500 dark:text-zinc-400'>
 											{item.description}
 										</p>
 									</div>
 								</div>
 							))}
 						</div>
-						<button className='self-end px-4 border rounded-full'>查看更多</button>
+						<button
+							className='self-end px-4 text-white rounded-full hover:bg-sky-500 bg-secondary_blue'
+							onClick={() => {
+								setSentimentOpen(true)
+							}}
+						>
+							查看更多
+						</button>
+						<Dialog open={sentimentOpen} maxWidth='md' fullWidth onClose={() => setSentimentOpen(false)}>
+							<CloseIcon
+								className='absolute cursor-pointer top-3 right-3 dark:text-zinc-100 opacity-80 hover:opacity-60'
+								onClick={() => setSentimentOpen(false)}
+							/>
+							<DialogTitle className='text-2xl dark:bg-zinc-800 dark:text-zinc-100'>情緒分析</DialogTitle>
+							<DialogContent className='dark:bg-zinc-800 dark:text-zinc-100'>
+								<Chart
+									option={{
+										radar: {
+											indicator: sentimentData.map((item) => ({
+												name: item.title.length > 10 ? item.title.substring(0, 20) + '...' : item.title,
+												max: 1,
+											})),
+											axisLabel: {
+												show: true,
+												showMaxLabel: true,
+												showMinLabel: true,
+												fontSize: 10,
+											},
+										},
+										series: [
+											{
+												name: '情感分析',
+												type: 'radar',
+												data: [
+													{
+														value: sentimentData.map((item) => item.score),
+														name: '情感分數',
+													},
+												],
+											},
+										],
+									}}
+									customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+								/>
+								{sentimentData.map((item) => (
+									<div className='flex items-center space-y-6 gap-x-3' key={item.title}>
+										{sentimentIcon(item.sentiment)}
+										<div>
+											<p className='mb-1.5 space-x-2 font-medium leading-6'>
+												<span>{item.title}</span>
+												<button className='w-10 text-sm rounded dark:text-zinc-800 bg-primary_yellow'>
+													{item.score}
+												</button>
+											</p>
+											<p className='text-sm font-light leading-7 text-zinc-500 dark:text-zinc-400'>
+												{item.description}
+											</p>
+										</div>
+									</div>
+								))}
+							</DialogContent>
+						</Dialog>
 					</section>
 				)}
 				{/* 相關新聞 */}
