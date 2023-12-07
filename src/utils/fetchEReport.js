@@ -6,7 +6,7 @@ const fetchEReport = async ({ stockId, setIsLoading }) => {
 			method: 'GET',
 		})
 		const data = await responce.json()
-		console.log(data)
+
 		if (data.success) {
 			setIsLoading(false)
 			return data.data

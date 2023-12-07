@@ -160,12 +160,12 @@ export default function ResultDashboard() {
 						{stockPePb && (
 							<div className='flex space-x-5'>
 								<div className='flex flex-col items-center'>
-									<h4 className='font-extrabold text-zinc-800'>{stockPePb.pb}</h4>
-									<p className='text-xs text-zinc-500'>本益比</p>
+									<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pb}</h4>
+									<p className='text-xs text-zinc-500 dark:text-zinc-300'>本益比</p>
 								</div>
 								<div className='flex flex-col items-center'>
-									<h4 className='font-extrabold text-zinc-800'>{stockPePb.pe}</h4>
-									<p className='text-xs text-zinc-500'>本淨比</p>
+									<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pe}</h4>
+									<p className='text-xs text-zinc-500 dark:text-zinc-300'>本淨比</p>
 								</div>
 							</div>
 						)}
