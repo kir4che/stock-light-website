@@ -1,6 +1,4 @@
 export function calculateR(x, y) {
-	console.log('x', x)
-	console.log('y', y)
 	if (!Array.isArray(x) || !Array.isArray(y) || x.length === 0 || y.length === 0) return null
 
 	const xMean = x.reduce((a, b) => a + b) / x.length
