@@ -127,15 +127,32 @@ export default function AnalysisTable({ stockId }) {
 								<Chart
 									option={{
 										radar: {
+											center: ['50%', '50%'],
+											radius: 125,
 											indicator: sentimentData.map((item) => ({
 												name: item.title.length > 10 ? item.title.substring(0, 20) + '...' : item.title,
 												max: 1,
+												min: -1,
 											})),
+											axisName: {
+												color: '#A0A0A0',
+											},
 											axisLabel: {
 												show: true,
 												showMaxLabel: true,
 												showMinLabel: true,
 												fontSize: 10,
+												color: '#F4F3F4',
+											},
+											splitArea: {
+												areaStyle: {
+													color: ['#8CCCFF', '#A0D078', '#FFCB62', '#FF8C5E', '#EB5554'],
+												},
+											},
+											splitLine: {
+												lineStyle: {
+													color: '#fff',
+												},
 											},
 										},
 										series: [
@@ -148,8 +165,14 @@ export default function AnalysisTable({ stockId }) {
 														name: '情感分數',
 													},
 												],
+												areaStyle: {
+													opacity: 0.5,
+												},
 											},
 										],
+										tooltip: {
+											trigger: 'item',
+										},
 									}}
 									customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 								/>
