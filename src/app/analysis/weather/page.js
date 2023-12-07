@@ -32,7 +32,7 @@ export default function WeatherAnalysis() {
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [selectedTab, setSelectedTab] = useState(0)
-	const [selectedStockId, setSelectedStockId] = useState(1101)
+	const [selectedStockId, setSelectedStockId] = useState(2330)
 	const [selectedWeatherType, setSelectedWeatherType] = useState('sunny')
 
 	const [weatherData, setWeatherData] = useState({
