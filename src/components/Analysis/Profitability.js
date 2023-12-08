@@ -593,7 +593,7 @@ export default function Profitability({ stockId, childOpen }) {
 						<Chart
 							option={
 								selectedChart === 0
-									? multiLineOption('經營週轉能力', dates, ['應收帳款周轉', '存貨週轉'], opTurnover)
+									? multiLineOption('經營週轉能力', dates, ['應收帳款週轉', '存貨週轉'], opTurnover)
 									: barAndLineOption(
 											'經營週轉能力',
 											dates,
@@ -630,7 +630,7 @@ export default function Profitability({ stockId, childOpen }) {
 									</TableRow>
 									<TableRow className='dark:bg-zinc-900/30'>
 										<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-											{selectedChart === 0 ? '應收帳款周轉' : selectedChart === 1 ? '固定資產' : '總資產'}
+											{selectedChart === 0 ? '應收帳款週轉' : selectedChart === 1 ? '固定資產' : '總資產'}
 										</TableCell>
 										{FSData.assetStatements.map((item) => (
 											<TableCell
