@@ -103,13 +103,13 @@ export default function ResultDashboard() {
 	// }, [industry])
 
 	return (
-		<StarryBackground className='pt-8 pb-12'>
+		<StarryBackground className='pt-6 pb-10'>
 			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='個股分析儀表板' />
-			{/* 測試用先註解掉 */}
+			{/* 測試用先註解掉: 手機版測試有問題，之後需檢查處裡 */}
 			{/* <PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
 			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} /> */}
-			<div className='pb-10 bg-white rounded dark:bg-zinc-900/50'>
-				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 mb-4 tracking-wider sm:px-8 lg:px-10 bg-secondary_blue/20 dark:bg-zinc-800/60'>
+			<div className='pb-10 bg-[#FAFDFF] rounded dark:bg-zinc-900/50'>
+				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 mb-4 tracking-wider sm:px-8 lg:px-10 bg-sky-100 dark:bg-zinc-800/60'>
 					<h3 className='space-x-2 flex-center'>
 						<sapn>本日光明燈</sapn>
 						<span className='px-2 text-sm bg-white border-2 rounded-full dark:bg-zinc-900 border-secondary_blue text-secondary_blue'>

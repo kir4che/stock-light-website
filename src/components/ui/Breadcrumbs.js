@@ -9,7 +9,7 @@ export default function Breadcrumbs({ prevPage, prevPageLink, curPage }) {
 
 	return (
 		<div role='presentation' onClick={handleClick}>
-			<MaterialBreadcrumbs aria-label='breadcrumb' className='mb-2 -ml-1.5 text-xs text-zinc-200'>
+			<MaterialBreadcrumbs aria-label='breadcrumb' className='mb-1 -ml-1.5 text-xs text-zinc-200'>
 				<Button
 					onClick={() => {
 						if (prevPageLink) router.push(prevPageLink)
