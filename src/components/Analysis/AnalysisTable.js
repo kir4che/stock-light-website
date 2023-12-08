@@ -98,8 +98,8 @@ export default function AnalysisTable({ stockId }) {
 			<div className='flex flex-col items-start justify-between gap-6 sm:flex-row sm:h-80'>
 				{/* 情緒分析 */}
 				{sentimentData && (
-					<section className='flex-col sm:w-3/4 h-full gap-y-2.5 flex-center-between'>
-						<div className='p-4 overflow-y-scroll bg-white rounded-lg shadow dark:bg-zinc-900/60'>
+					<section className='flex-col h-full gap-2.5 sm:w-3/4 flex-center-between'>
+						<div className='h-full p-4 overflow-y-scroll bg-white rounded-lg shadow dark:bg-zinc-900/60'>
 							<h4 className='mb-2'>情緒分析</h4>
 							{sentimentData.slice(0, 3).map((item) => (
 								<div className='flex items-center space-y-4 gap-x-2' key={item.title}>
@@ -239,9 +239,9 @@ export default function AnalysisTable({ stockId }) {
 			</div>
 			{/* 損益表 */}
 			{incomeStatement && (
-				<>
-					{/* 營收、毛利、利潤 */}
-					<section className='space-y-4 sm:space-y-0 sm:gap-4 lg:gap-6 sm:flex'>
+				<section>
+					<h4 className='flex items-center mb-2 font-medium sm:-mt-6'>損益表</h4>
+					<div className='space-y-4 sm:space-y-0 sm:gap-4 lg:gap-6 sm:flex'>
 						<Chart
 							option={{
 								legend: {
@@ -422,8 +422,97 @@ export default function AnalysisTable({ stockId }) {
 							}}
 							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
 						/>
-					</section>
-				</>
+					</div>
+				</section>
+			)}
+			{/* EPS */}
+			{incomeStatement && (
+				<section className='p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
+					<h4 className='flex items-center font-medium'>每股盈餘 (EPS)</h4>
+					<Chart
+						option={{
+							legend: {
+								data: ['EPS', 'EPS季增率', 'EPS年增率'],
+								bottom: '0',
+							},
+							xAxis: [
+								{
+									type: 'category',
+									data: incomeStatement.map((item) => item.year + ' Q' + item.quarter),
+								},
+							],
+							yAxis: [
+								{
+									type: 'value',
+									name: '元',
+									alignTicks: true,
+								},
+								{
+									type: 'value',
+									name: '%',
+									axisLabel: {
+										interval: 2,
+									},
+								},
+							],
+							series: [
+								{
+									name: 'EPS',
+									type: 'bar',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + ' 元'
+										},
+									},
+									data: incomeStatement.map((item) => parseInt(item.eps)),
+								},
+								{
+									name: 'EPS季增率',
+									type: 'line',
+									yAxisIndex: 1,
+									tooltip: {
+										valueFormatter: function (value) {
+											return value + '%'
+										},
+									},
+									data: incomeStatement.map((item) => item.epsQOQ),
+								},
+								{
+									name: 'EPS年增率',
+									type: 'line',
+									yAxisIndex: 1,
+									tooltip: {
+										valueFormatter: function (value) {
+											return value + '%'
+										},
+									},
+									data: incomeStatement.map((item) => item.epsYOY),
+								},
+							],
+							tooltip: {
+								trigger: 'axis',
+								axisPointer: {
+									type: 'cross',
+									crossStyle: {
+										color: '#999',
+									},
+								},
+							},
+							grid: {
+								top: '12%',
+								left: '4%',
+								right: '6%',
+								height: '70%',
+							},
+							toolbox: {
+								feature: {
+									saveAsImage: { show: true },
+								},
+							},
+						}}
+						customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+					/>
+				</section>
 			)}
 			{/* 資產負債表 */}
 			{assetStatement && liabilityEquityStatement && (
