@@ -204,10 +204,10 @@ export default function Checkout() {
 									<li>
 										<p className='flex gap-x-2'>
 											<CheckCircleRoundedIcon className='mt-0.5 text-stock_green' />
-											<span className='font-medium tracking-wide'>該產業別的五盞光明燈</span>
+											<span className='font-medium tracking-wide'>該產業別的今日最有潛力光明燈</span>
 										</p>
 										<p className='px-1 text-sm font-light leading-6 tracking-wide opacity-60'>
-											每盞燈代表一支有潛力的產業股票，我們通過歷史分析挑選這些具有希望、潛力的股票，並祈求上天保佑投資者未來獲得更好的回報。{' '}
+											此盞光明燈代表，我們通過歷史分析挑選出這支具有希望、潛力的股票，並祈求上天保佑投資者未來獲得更好的回報。{' '}
 										</p>
 									</li>
 									<li>
