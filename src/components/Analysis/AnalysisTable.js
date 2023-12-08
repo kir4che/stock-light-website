@@ -833,7 +833,7 @@ export default function AnalysisTable({ stockId }) {
 							</section>
 						)}
 						{/* EPS */}
-						<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow xl:w-3/4 dark:bg-zinc-900/60'>
+						<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow xl:min-w-[75%] dark:bg-zinc-900/60'>
 							<h4 className='flex items-center font-medium'>每股盈餘 (EPS)</h4>
 							<Chart
 								option={{
