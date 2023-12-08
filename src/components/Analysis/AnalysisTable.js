@@ -102,7 +102,7 @@ export default function AnalysisTable({ stockId }) {
 		}
 		fetchData()
 		fetchSentimentData()
-	}, [])
+	}, [stockId])
 
 	return (
 		<div className='flex flex-col gap-4'>
@@ -111,8 +111,8 @@ export default function AnalysisTable({ stockId }) {
 				liabilityEquityStatement[liabilityEquityStatement.length - 1] &&
 				incomeStatement[incomeStatement.length - 1] &&
 				cashFlowStatement[cashFlowStatement.length - 1] && (
-					<section>
-						<div className='flex gap-4'>
+					<section className='flex flex-col space-y-2'>
+						<div className='space-y-2 sm:space-y-0 sm:gap-4 sm:flex'>
 							<h4>
 								{assetStatement[assetStatement.length - 1].year} Q{assetStatement[assetStatement.length - 1].quarter}{' '}
 								財務比率
@@ -133,16 +133,16 @@ export default function AnalysisTable({ stockId }) {
 								))}
 							</section>
 						</div>
-						<div className='flex justify-start gap-6 px-4 py-3 bg-white rounded-lg shadow w-fit dark:bg-zinc-900/60'>
+						<div className='flex justify-start w-full gap-6 px-4 py-3 overflow-x-auto bg-white rounded-lg shadow dark:bg-zinc-900/60'>
 							{selectedRatio === 0 ? (
 								<>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>負債比率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{liabilityEquityStatement[liabilityEquityStatement.length - 1].debtRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>長期資金佔固定資產比率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].longTermLiabilitiesRatio} %
@@ -151,31 +151,31 @@ export default function AnalysisTable({ stockId }) {
 								</>
 							) : selectedRatio === 1 ? (
 								<>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>流動比率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].currentRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>速動比率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].quickRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>現金對流動負債比率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{cashFlowStatement[cashFlowStatement.length - 1].operatingCashFlowToCurrentLiabilitiesRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>現金對負債比率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{cashFlowStatement[cashFlowStatement.length - 1].operatingCashFlowToLiabilitiesRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>利息保障倍數</span>
 										<span className='text-2xl text-secondary_blue'>
 											{cashFlowStatement[cashFlowStatement.length - 1].interestCoverageRatio} 倍
@@ -184,13 +184,13 @@ export default function AnalysisTable({ stockId }) {
 								</>
 							) : selectedRatio === 2 ? (
 								<>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>應收帳款週轉率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].accountsAndNotesReceivableTurnoverRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>平均收現天數</span>
 										<span className='text-2xl text-secondary_blue'>
 											{Math.round(
@@ -200,26 +200,26 @@ export default function AnalysisTable({ stockId }) {
 											天
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>存貨週轉率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].inventoryTurnoverRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>平均銷貨天數</span>
 										<span className='text-2xl text-secondary_blue'>
 											{Math.round(365 / parseFloat(assetStatement[assetStatement.length - 1].inventoryTurnoverRatio))}{' '}
 											天
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>固定資產週轉率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].fixedAssetsTurnoverRatio} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>總資產週轉率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].assetsTurnoverRatio} %
@@ -228,19 +228,19 @@ export default function AnalysisTable({ stockId }) {
 								</>
 							) : selectedRatio === 3 ? (
 								<>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>資產報酬率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{assetStatement[assetStatement.length - 1].roa} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>股東權益報酬率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{liabilityEquityStatement[liabilityEquityStatement.length - 1].roe} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>財務槓桿指數</span>
 										<span className='text-2xl text-secondary_blue'>
 											{(
@@ -252,13 +252,13 @@ export default function AnalysisTable({ stockId }) {
 											).toFixed(2)}
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>淨利率</span>
 										<span className='text-2xl text-secondary_blue'>
 											{incomeStatement[incomeStatement.length - 1].netIncomeMargin} %
 										</span>
 									</p>
-									<p className='flex flex-col text-center'>
+									<p className='flex flex-col text-center whitespace-nowrap'>
 										<span className='font-light opacity-80'>每股盈餘</span>
 										<span className='text-2xl text-secondary_blue'>
 											{incomeStatement[incomeStatement.length - 1].eps}
