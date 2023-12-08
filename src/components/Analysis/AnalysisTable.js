@@ -92,7 +92,6 @@ export default function AnalysisTable({ stockId }) {
 		fetchData()
 		fetchSentimentData()
 	}, [])
-
 	return (
 		<div className='flex flex-col gap-4'>
 			<div className='flex flex-col items-start justify-between gap-6 sm:flex-row sm:h-80'>
@@ -696,7 +695,7 @@ export default function AnalysisTable({ stockId }) {
 													return value.toLocaleString() + ' 元'
 												},
 											},
-											data: incomeStatement.map((item) => parseInt(item.eps)),
+											data: incomeStatement.map((item) => parseFloat(item.eps)),
 										},
 										{
 											name: 'EPS季增率',
@@ -844,6 +843,105 @@ export default function AnalysisTable({ stockId }) {
 						</section>
 					)}
 				</div>
+			)}
+			{/* 杜邦分析：ROE、ROA */}
+			{incomeStatement && assetStatement && liabilityEquityStatement && (
+				<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
+					<h4 className='flex items-center font-medium'>杜邦分析</h4>
+					<Chart
+						option={{
+							legend: {
+								data: ['稅後淨利率', '總資產週轉率', '權益乘數', 'ROE'],
+								bottom: '0',
+							},
+							xAxis: [
+								{
+									type: 'category',
+									data: incomeStatement.map((item) => item.year + ' Q' + item.quarter),
+								},
+							],
+							yAxis: [
+								{
+									type: 'value',
+									name: '%',
+									axisLabel: {
+										interval: 2,
+									},
+								},
+								{
+									type: 'value',
+								},
+							],
+							series: [
+								{
+									name: '稅後淨利率',
+									type: 'line',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + '%'
+										},
+									},
+									data: incomeStatement.map((item) => parseFloat(item.netIncomeMargin)),
+								},
+								{
+									name: '總資產週轉率',
+									type: 'line',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + '%'
+										},
+									},
+									data: assetStatement.map((item) => parseFloat(item.assetsTurnoverRatio)),
+								},
+								{
+									name: 'ROE',
+									type: 'line',
+									yAxisIndex: 1,
+									tooltip: {
+										valueFormatter: function (value) {
+											return value + '%'
+										},
+									},
+									data: liabilityEquityStatement.map((item) => parseFloat(item.roe)),
+								},
+								{
+									name: '權益乘數',
+									type: 'line',
+									yAxisIndex: 1,
+									tooltip: {
+										valueFormatter: function (value) {
+											return value + '%'
+										},
+									},
+									data: assetStatement.map((item, index) =>
+										(Math.round((item.assets / liabilityEquityStatement[index].equity) * 100) / 100).toFixed(2)
+									),
+								},
+							],
+							tooltip: {
+								trigger: 'axis',
+								axisPointer: {
+									type: 'cross',
+									crossStyle: {
+										color: '#999',
+									},
+								},
+							},
+							grid: {
+								top: '12%',
+								left: '4%',
+								right: '6%',
+								height: '70%',
+							},
+							toolbox: {
+								feature: {
+									saveAsImage: { show: true },
+								},
+							},
+						}}
+						customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+					/>
+				</section>
 			)}
 			{/* 歷年財務報表 */}
 			{eReport && (
