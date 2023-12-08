@@ -9,43 +9,6 @@ export default function DividendPolicy({ stockId, childOpen }) {
 	const [data, setData] = useState([])
 	const [chartData, setChartData] = useState([])
 
-	const option = {
-		title: {
-			text: '歷年股利政策及除權息一覽表',
-			left: 'center',
-			top: '4%',
-		},
-		dataset: {
-			source: chartData,
-		},
-		xAxis: { type: 'category' },
-		yAxis: {
-			type: 'value',
-		},
-		series: [
-			{ type: 'bar', name: '現金股利' },
-			{ type: 'bar', name: '股票股利' },
-		],
-		tooltip: {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'cross',
-			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
-			},
-		},
-		grid: {
-			top: '15%',
-			left: '5%',
-			right: '3%',
-			height: '72%',
-		},
-	}
-
 	const fetchDividendPolicy = async () => {
 		setIsLoading(true)
 		try {
@@ -85,7 +48,45 @@ export default function DividendPolicy({ stockId, childOpen }) {
 
 	return !isLoading && childOpen ? (
 		<section className='w-full space-y-4 overflow-x-auto'>
-			<Chart option={option} customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]' />
+			<Chart
+				option={{
+					title: {
+						text: '歷年股利政策及除權息一覽表',
+						left: 'center',
+						top: '4%',
+					},
+					dataset: {
+						source: chartData,
+					},
+					xAxis: { type: 'category' },
+					yAxis: {
+						type: 'value',
+					},
+					series: [
+						{ type: 'bar', name: '現金股利' },
+						{ type: 'bar', name: '股票股利' },
+					],
+					tooltip: {
+						trigger: 'axis',
+						axisPointer: {
+							type: 'cross',
+						},
+						borderWidth: 1,
+						borderColor: '#ccc',
+						padding: 10,
+						textStyle: {
+							color: '#000',
+						},
+					},
+					grid: {
+						top: '15%',
+						left: '5%',
+						right: '3%',
+						height: '72%',
+					},
+				}}
+				customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+			/>
 			<Table size='medium'>
 				<TableBody>
 					<TableRow className='bg-secondary_blue/20 '>

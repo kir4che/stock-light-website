@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import fetchEReport from '@/utils/fetchEReport'
+import { fetchIncomeStatement } from '@/utils/fetchStockFS'
 import fetchStockNews from '@/utils/fetchStockNews'
 
 export default function AnalysisTable({ stockId }) {
@@ -15,8 +16,9 @@ export default function AnalysisTable({ stockId }) {
 	const [sentimentOpen, setSentimentOpen] = useState(false)
 
 	const [fsData, setFsData] = useState({
-		assetStatements: [],
-		liabilityEquityStatements: [],
+		assetStatement: [],
+		liabilityEquityStatement: [],
+		incomeStatement: [],
 		eReport: [],
 	})
 	const [sentimentData, setSentimentData] = useState([])
@@ -78,21 +80,208 @@ export default function AnalysisTable({ stockId }) {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			setFsData({ eReport: await fetchEReport({ stockId, setIsLoading }) })
+			setFsData({
+				...fsData,
+				incomeStatement: await fetchIncomeStatement({ stockId, setIsLoading }),
+				eReport: await fetchEReport({ stockId, setIsLoading }),
+			})
 			setNewsData(await fetchStockNews({ stockId, setIsLoading }))
 		}
 		fetchData()
 		fetchSentimentData()
 	}, [])
 
+	useEffect(() => {
+		console.log(fsData.incomeStatement.map((item) => item.revenue))
+	}, [fsData.incomeStatement])
+
 	return (
 		<div className='flex flex-col gap-4'>
+			{/* 營收、毛利、利潤 */}
+			{fsData.incomeStatement && (
+				<section className='space-y-4 sm:space-y-0 sm:gap-4 lg:gap-8 sm:flex'>
+					<Chart
+						option={{
+							legend: {
+								data: ['營業收入', '營業成本', '毛利率'],
+								top: '2%',
+							},
+							xAxis: [
+								{
+									type: 'category',
+									data: fsData.incomeStatement.map((item) => item.year + ' Q' + item.quarter),
+									axisPointer: {
+										type: 'shadow',
+									},
+								},
+							],
+							yAxis: [
+								{
+									type: 'value',
+									name: '千元',
+									alignTicks: true,
+									axisLabel: {
+										formatter: function (value) {
+											return (value / 1000).toLocaleString()
+										},
+									},
+								},
+								{
+									type: 'value',
+									name: '%',
+								},
+							],
+							series: [
+								{
+									name: '營業收入',
+									type: 'bar',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + ' 元'
+										},
+									},
+									data: fsData.incomeStatement.map((item) => parseInt(item.revenue)),
+								},
+								{
+									name: '營業成本',
+									type: 'bar',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + ' 元'
+										},
+									},
+									data: fsData.incomeStatement.map((item) => parseInt(item.revenue) - parseInt(item.grossProfit)),
+								},
+								{
+									name: '毛利率',
+									type: 'line',
+									yAxisIndex: 1,
+									tooltip: {
+										valueFormatter: function (value) {
+											return value + '%'
+										},
+									},
+									data: fsData.incomeStatement.map((item) => item.grossMargin),
+								},
+							],
+							tooltip: {
+								trigger: 'axis',
+								axisPointer: {
+									type: 'cross',
+									crossStyle: {
+										color: '#999',
+									},
+								},
+							},
+							grid: {
+								top: '16%',
+								left: '12%',
+								right: '8%',
+								height: '70%',
+							},
+							toolbox: {
+								feature: {
+									saveAsImage: { show: true },
+								},
+							},
+						}}
+						customHeight='h-64 sm:h-56 md:h-60 lg:h-80 rounded-lg'
+					/>
+					<Chart
+						option={{
+							legend: {
+								data: ['毛利', '營業費用', '淨利率'],
+								top: '2%',
+							},
+							xAxis: [
+								{
+									type: 'category',
+									data: fsData.incomeStatement.map((item) => item.year + ' Q' + item.quarter),
+									axisPointer: {
+										type: 'shadow',
+									},
+								},
+							],
+							yAxis: [
+								{
+									type: 'value',
+									name: '千元',
+									alignTicks: true,
+									axisLabel: {
+										formatter: function (value) {
+											return (value / 1000).toLocaleString()
+										},
+									},
+								},
+								{
+									type: 'value',
+									name: '%',
+								},
+							],
+							series: [
+								{
+									name: '毛利',
+									type: 'bar',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + ' 元'
+										},
+									},
+									data: fsData.incomeStatement.map((item) => parseInt(item.grossProfit)),
+								},
+								{
+									name: '營業費用',
+									type: 'bar',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + ' 元'
+										},
+									},
+									data: fsData.incomeStatement.map((item) => parseInt(item.operatingExpenses)),
+								},
+								{
+									name: '淨利率',
+									type: 'line',
+									yAxisIndex: 1,
+									tooltip: {
+										valueFormatter: function (value) {
+											return value + '%'
+										},
+									},
+									data: fsData.incomeStatement.map((item) => item.netIncomeMargin),
+								},
+							],
+							tooltip: {
+								trigger: 'axis',
+								axisPointer: {
+									type: 'cross',
+									crossStyle: {
+										color: '#999',
+									},
+								},
+							},
+							grid: {
+								top: '16%',
+								left: '12%',
+								right: '8%',
+								height: '70%',
+							},
+							toolbox: {
+								feature: {
+									saveAsImage: { show: true },
+								},
+							},
+						}}
+						customHeight='h-64 sm:h-56 md:h-60 lg:h-80 rounded-lg'
+					/>
+				</section>
+			)}
 			<div className='flex flex-col items-start justify-between gap-6 sm:flex-row sm:h-80'>
 				{/* 情緒分析 */}
 				{sentimentData && (
 					<section className='flex-col sm:w-3/4 h-full gap-y-2.5 flex-center-between'>
 						<div className='p-4 overflow-y-scroll border rounded-lg shadow dark:border-none dark:bg-zinc-900/60'>
-							<h3 className='mb-2'>情緒分析</h3>
+							<h4 className='mb-2'>情緒分析</h4>
 							{sentimentData.slice(0, 3).map((item) => (
 								<div className='flex items-center space-y-4 gap-x-2' key={item.title}>
 									{sentimentIcon(item.sentiment)}
@@ -210,7 +399,7 @@ export default function AnalysisTable({ stockId }) {
 				{/* 相關新聞 */}
 				{newsData && (
 					<section className='p-4 space-y-2 overflow-y-auto border rounded-lg shadow sm:w-1/3 sm:h-full h-80 dark:border-none dark:bg-zinc-900/60'>
-						<h3 className='flex items-center'>相關新聞</h3>
+						<h4 className='flex items-center'>相關新聞</h4>
 						<ul className='flex flex-col pl-4 leading-4 list-disc gap-y-1'>
 							{newsData.map((news) => (
 								<li>

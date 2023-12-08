@@ -1,8 +1,8 @@
-const fetchStockNews = async ({ stockId, setIsLoading }) => {
+const fetchIncomeStatement = async ({ stockId, setIsLoading }) => {
 	setIsLoading(true)
 
 	try {
-		const response = await fetch(`${process.env.DB_URL}/api/stock/news/${stockId}`, {
+		const response = await fetch(`${process.env.DB_URL}/api/stock/financial/incomeStatements/${stockId}`, {
 			method: 'GET',
 		})
 		const data = await response.json()
@@ -17,4 +17,4 @@ const fetchStockNews = async ({ stockId, setIsLoading }) => {
 	}
 }
 
-export default fetchStockNews
+export { fetchIncomeStatement }
