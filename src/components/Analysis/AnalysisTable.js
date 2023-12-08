@@ -428,7 +428,7 @@ export default function AnalysisTable({ stockId }) {
 					<div className='flex-col w-full gap-4 xl:gap-6 flex-center-between xl:flex-row'>
 						{/* 毛利率、淨利率... */}
 						{incomeStatement[incomeStatement.length - 1] && (
-							<section className='flex self-start justify-between gap-2 overflow-x-auto xl:w-1/5 xl:flex-col'>
+							<section className='flex self-start justify-between gap-1.5 overflow-x-auto xl:w-[22%] xl:flex-col'>
 								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
 									<p className='mr-3 font-light opacity-80'>毛利率</p>
 									<Chart
@@ -660,7 +660,7 @@ export default function AnalysisTable({ stockId }) {
 							</section>
 						)}
 						{/* EPS */}
-						<section className='w-full xl:w-[78%] p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
+						<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow xl:w-3/4 dark:bg-zinc-900/60'>
 							<h4 className='flex items-center font-medium'>每股盈餘 (EPS)</h4>
 							<Chart
 								option={{
@@ -732,7 +732,7 @@ export default function AnalysisTable({ stockId }) {
 										},
 									},
 									grid: {
-										top: '12%',
+										top: '10%',
 										left: '4%',
 										right: '6%',
 										height: '70%',
@@ -988,7 +988,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '12%',
+									top: '10%',
 									left: '8%',
 									right: '6%',
 									height: '70%',
@@ -1077,7 +1077,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '12%',
+									top: '10%',
 									left: '4%',
 									right: '6%',
 									height: '70%',
@@ -1091,7 +1091,55 @@ export default function AnalysisTable({ stockId }) {
 							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
 						/>
 					) : selectedChart === 2 ? (
-						<Chart />
+						<Chart
+							option={{
+								xAxis: [
+									{
+										type: 'category',
+										data: incomeStatement.map((item) => item.year + ' Q' + item.quarter),
+									},
+								],
+								yAxis: [
+									{
+										type: 'value',
+										name: '元',
+									},
+								],
+								series: {
+									name: '每股淨值',
+									type: 'line',
+									tooltip: {
+										valueFormatter: function (value) {
+											return value.toLocaleString() + '元'
+										},
+									},
+									data: liabilityEquityStatement.map((item) => parseFloat(item.nav)),
+								},
+								tooltip: {
+									trigger: 'axis',
+									axisPointer: {
+										type: 'cross',
+										crossStyle: {
+											color: '#999',
+										},
+									},
+								},
+								grid: {
+									top: '10%',
+									left: '4%',
+									right: '6%',
+									height: '78%',
+								},
+								toolbox: {
+									feature: {
+										magicType: { show: true, type: ['line', 'bar'] },
+										restore: { show: true },
+										saveAsImage: { show: true },
+									},
+								},
+							}}
+							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+						/>
 					) : (
 						''
 					)}
