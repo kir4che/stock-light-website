@@ -14,6 +14,7 @@ import fetchStockNews from '@/utils/fetchStockNews'
 export default function AnalysisTable({ stockId }) {
 	const [isLoading, setIsLoading] = useState(true)
 	const [sentimentOpen, setSentimentOpen] = useState(false)
+	const [selectedChart, setSelectedChart] = useState(0)
 
 	const [fsData, setFsData] = useState({
 		assetStatement: [],
@@ -847,7 +848,49 @@ export default function AnalysisTable({ stockId }) {
 			{/* 杜邦分析：ROE、ROA */}
 			{incomeStatement && assetStatement && liabilityEquityStatement && (
 				<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
-					<h4 className='flex items-center font-medium'>杜邦分析</h4>
+					<div className='flex-center-between'>
+						<h4 className='flex items-center font-medium'>
+							{selectedChart === 0
+								? 'ROA / ROE'
+								: selectedChart === 1
+								? '杜邦分析'
+								: selectedChart === 2
+								? '每股淨值'
+								: ''}
+						</h4>
+						<section className='mb-2 space-x-1 text-sm'>
+							<button
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === 0
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
+								onClick={() => setSelectedChart(0)}
+							>
+								ROA / ROE
+							</button>
+							<button
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === 1
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
+								onClick={() => setSelectedChart(1)}
+							>
+								杜邦分析
+							</button>
+							<button
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === 2
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
+								onClick={() => setSelectedChart(2)}
+							>
+								每股淨值
+							</button>
+						</section>
+					</div>
 					<Chart
 						option={{
 							legend: {
