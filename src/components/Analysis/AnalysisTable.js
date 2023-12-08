@@ -32,6 +32,7 @@ export default function AnalysisTable({ stockId }) {
 				method: 'GET',
 			})
 			const data = await response.json()
+			console.log(data) // test
 
 			if (!data.success) setSentimentData(sentiments.rows.filter((item) => item.stock_id === stockId))
 
@@ -429,7 +430,7 @@ export default function AnalysisTable({ stockId }) {
 						{incomeStatement[incomeStatement.length - 1] && (
 							<section className='flex self-start justify-between gap-2 overflow-x-auto xl:w-1/5 xl:flex-col'>
 								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
-									<p className='font-light opacity-80 mr-3'>毛利率</p>
+									<p className='mr-3 font-light opacity-80'>毛利率</p>
 									<Chart
 										option={{
 											series: [
@@ -486,7 +487,7 @@ export default function AnalysisTable({ stockId }) {
 									/>
 								</div>
 								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
-									<p className='font-light opacity-80 mr-3'>營業費用率</p>
+									<p className='mr-3 font-light opacity-80'>營業費用率</p>
 									<Chart
 										option={{
 											series: [
@@ -543,7 +544,7 @@ export default function AnalysisTable({ stockId }) {
 									/>
 								</div>
 								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
-									<p className='font-light opacity-80 mr-3'>稅前淨利率</p>
+									<p className='mr-3 font-light opacity-80'>稅前淨利率</p>
 									<Chart
 										option={{
 											series: [
@@ -600,7 +601,7 @@ export default function AnalysisTable({ stockId }) {
 									/>
 								</div>
 								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
-									<p className='font-light opacity-80 mr-3'>稅後淨利率</p>
+									<p className='mr-3 font-light opacity-80'>稅後淨利率</p>
 									<Chart
 										option={{
 											series: [
@@ -750,7 +751,7 @@ export default function AnalysisTable({ stockId }) {
 			)}
 			{/* 資產負債表 */}
 			{assetStatement && liabilityEquityStatement && (
-				<div className='flex flex-col gap-4 xs:flex-row justify-between'>
+				<div className='flex flex-col justify-between gap-4 xs:flex-row'>
 					{assetStatement[assetStatement.length - 1] && (
 						<section className='px-4 py-3 bg-white rounded-lg shadow xs:w-72 dark:bg-zinc-900/60'>
 							<h5 className='px-1.5 mb-1 py-0.5 flex-center-between bg-amber-200'>
@@ -853,35 +854,38 @@ export default function AnalysisTable({ stockId }) {
 							{selectedChart === 0
 								? 'ROA / ROE'
 								: selectedChart === 1
-									? '杜邦分析'
-									: selectedChart === 2
-										? '每股淨值'
-										: ''}
+								? '杜邦分析'
+								: selectedChart === 2
+								? '每股淨值'
+								: ''}
 						</h4>
 						<section className='mb-2 space-x-1 text-sm'>
 							<button
-								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${selectedChart === 0
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-									}`}
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === 0
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
 								onClick={() => setSelectedChart(0)}
 							>
 								ROA / ROE
 							</button>
 							<button
-								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${selectedChart === 1
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-									}`}
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === 1
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
 								onClick={() => setSelectedChart(1)}
 							>
 								杜邦分析
 							</button>
 							<button
-								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${selectedChart === 2
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-									}`}
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === 2
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
 								onClick={() => setSelectedChart(2)}
 							>
 								每股淨值
@@ -892,7 +896,7 @@ export default function AnalysisTable({ stockId }) {
 						<Chart
 							option={{
 								legend: {
-									data: ['稅後淨利率', '總資產', '股東權益', 'ROE', 'ROA'],
+									data: ['總資產', '股東權益', '稅後淨利', 'ROE', 'ROA'],
 									bottom: '0',
 								},
 								xAxis: [
@@ -904,45 +908,52 @@ export default function AnalysisTable({ stockId }) {
 								yAxis: [
 									{
 										type: 'value',
+										name: '千元',
+										alignTicks: true,
+										axisLabel: {
+											formatter: function (value) {
+												return (value / 1000).toLocaleString()
+											},
+										},
+									},
+									{
+										type: 'value',
 										name: '%',
 										axisLabel: {
 											interval: 2,
 										},
 									},
-									{
-										type: 'value',
-									},
 								],
 								series: [
 									{
-										name: '稅後淨利率',
-										type: 'line',
-										tooltip: {
-											valueFormatter: function (value) {
-												return value.toLocaleString() + '%'
-											},
-										},
-										data: incomeStatement.map((item) => parseFloat(item.netIncomeMargin)),
-									},
-									{
 										name: '總資產',
-										type: 'line',
+										type: 'bar',
 										tooltip: {
 											valueFormatter: function (value) {
-												return value.toLocaleString() + '%'
+												return value.toLocaleString() + ' 元'
 											},
 										},
-										data: assetStatement.map((item) => parseFloat(item.assets)),
+										data: assetStatement.map((item) => parseInt(item.assets)),
 									},
 									{
 										name: '股東權益',
-										type: 'line',
+										type: 'bar',
 										tooltip: {
 											valueFormatter: function (value) {
-												return value.toLocaleString() + '%'
+												return value.toLocaleString() + ' 元'
 											},
 										},
-										data: liabilityEquityStatement.map((item) => parseFloat(item.equity)),
+										data: liabilityEquityStatement.map((item) => parseInt(item.equity)),
+									},
+									{
+										name: '稅後淨利',
+										type: 'bar',
+										tooltip: {
+											valueFormatter: function (value) {
+												return value.toLocaleString() + ' 元'
+											},
+										},
+										data: incomeStatement.map((item) => parseInt(item.netIncome)),
 									},
 									{
 										name: 'ROE',
@@ -978,6 +989,95 @@ export default function AnalysisTable({ stockId }) {
 								},
 								grid: {
 									top: '12%',
+									left: '8%',
+									right: '6%',
+									height: '70%',
+								},
+								toolbox: {
+									feature: {
+										saveAsImage: { show: true },
+									},
+								},
+							}}
+							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+						/>
+					) : selectedChart === 1 ? (
+						<Chart
+							option={{
+								legend: {
+									data: ['稅後淨利率', '總資產週轉率', '權益乘數', 'ROE'],
+									bottom: '0',
+								},
+								xAxis: [
+									{
+										type: 'category',
+										data: incomeStatement.map((item) => item.year + ' Q' + item.quarter),
+									},
+								],
+								yAxis: [
+									{
+										type: 'value',
+										name: '%',
+										axisLabel: {
+											interval: 2,
+										},
+									},
+									{
+										type: 'value',
+									},
+								],
+								series: [
+									{
+										name: '稅後淨利率',
+										type: 'line',
+										tooltip: {
+											valueFormatter: function (value) {
+												return value.toLocaleString() + '%'
+											},
+										},
+										data: incomeStatement.map((item) => parseFloat(item.netIncomeMargin)),
+									},
+									{
+										name: '總資產週轉率',
+										type: 'line',
+										tooltip: {
+											valueFormatter: function (value) {
+												return value.toLocaleString() + '%'
+											},
+										},
+										data: assetStatement.map((item) => parseFloat(item.assetsTurnoverRatio)),
+									},
+									{
+										name: 'ROE',
+										type: 'line',
+										yAxisIndex: 1,
+										tooltip: {
+											valueFormatter: function (value) {
+												return value + '%'
+											},
+										},
+										data: liabilityEquityStatement.map((item) => parseFloat(item.roe)),
+									},
+									{
+										name: '權益乘數',
+										type: 'line',
+										yAxisIndex: 1,
+										data: assetStatement.map((item, index) =>
+											(Math.round((item.assets / liabilityEquityStatement[index].equity) * 100) / 100).toFixed(2)
+										),
+									},
+								],
+								tooltip: {
+									trigger: 'axis',
+									axisPointer: {
+										type: 'cross',
+										crossStyle: {
+											color: '#999',
+										},
+									},
+								},
+								grid: {
+									top: '12%',
 									left: '4%',
 									right: '6%',
 									height: '70%',
@@ -989,105 +1089,12 @@ export default function AnalysisTable({ stockId }) {
 								},
 							}}
 							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
-						/>) : selectedChart === 1 ? (
-							<Chart
-								option={{
-									legend: {
-										data: ['稅後淨利率', '總資產週轉率', '權益乘數', 'ROE'],
-										bottom: '0',
-									},
-									xAxis: [
-										{
-											type: 'category',
-											data: incomeStatement.map((item) => item.year + ' Q' + item.quarter),
-										},
-									],
-									yAxis: [
-										{
-											type: 'value',
-											name: '%',
-											axisLabel: {
-												interval: 2,
-											},
-										},
-										{
-											type: 'value',
-										},
-									],
-									series: [
-										{
-											name: '稅後淨利率',
-											type: 'line',
-											tooltip: {
-												valueFormatter: function (value) {
-													return value.toLocaleString() + '%'
-												},
-											},
-											data: incomeStatement.map((item) => parseFloat(item.netIncomeMargin)),
-										},
-										{
-											name: '總資產週轉率',
-											type: 'line',
-											tooltip: {
-												valueFormatter: function (value) {
-													return value.toLocaleString() + '%'
-												},
-											},
-											data: assetStatement.map((item) => parseFloat(item.assetsTurnoverRatio)),
-										},
-										{
-											name: 'ROE',
-											type: 'line',
-											yAxisIndex: 1,
-											tooltip: {
-												valueFormatter: function (value) {
-													return value + '%'
-												},
-											},
-											data: liabilityEquityStatement.map((item) => parseFloat(item.roe)),
-										},
-										{
-											name: '權益乘數',
-											type: 'line',
-											yAxisIndex: 1,
-											tooltip: {
-												valueFormatter: function (value) {
-													return value + '%'
-												},
-											},
-											data: assetStatement.map((item, index) =>
-												(Math.round((item.assets / liabilityEquityStatement[index].equity) * 100) / 100).toFixed(2)
-											),
-										},
-									],
-									tooltip: {
-										trigger: 'axis',
-										axisPointer: {
-											type: 'cross',
-											crossStyle: {
-												color: '#999',
-											},
-										},
-									},
-									grid: {
-										top: '12%',
-										left: '4%',
-										right: '6%',
-										height: '70%',
-									},
-									toolbox: {
-										feature: {
-											saveAsImage: { show: true },
-										},
-									},
-								}}
-								customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
-							/>
-						) : selectedChart === 2 ? (
-							<Chart
-
-							/>
-						) : ""}
+						/>
+					) : selectedChart === 2 ? (
+						<Chart />
+					) : (
+						''
+					)}
 				</section>
 			)}
 			{/* 歷年財務報表 */}
