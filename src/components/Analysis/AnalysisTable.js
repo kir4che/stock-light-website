@@ -425,11 +425,11 @@ export default function AnalysisTable({ stockId }) {
 							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
 						/>
 					</div>
-					<div className='flex-col w-full gap-4 xl:gap-6 flex-center-between xl:flex-row'>
+					<div className='flex-col w-full flex-center-between xl:flex-row'>
 						{/* 毛利率、淨利率... */}
 						{incomeStatement[incomeStatement.length - 1] && (
-							<section className='flex self-start justify-between gap-1.5 overflow-x-auto xl:w-[22%] xl:flex-col'>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+							<section className='flex self-start justify-between gap-1.5 w-full overflow-x-auto xl:flex-col'>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'>
 									<p className='mr-3 font-light opacity-80'>毛利率</p>
 									<Chart
 										option={{
@@ -486,7 +486,7 @@ export default function AnalysisTable({ stockId }) {
 										customHeight='h-20 w-32 border-none shadow-none'
 									/>
 								</div>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
 									<p className='mr-3 font-light opacity-80'>營業費用率</p>
 									<Chart
 										option={{
@@ -543,7 +543,7 @@ export default function AnalysisTable({ stockId }) {
 										customHeight='h-20 w-32 border-none shadow-none'
 									/>
 								</div>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
 									<p className='mr-3 font-light opacity-80'>稅前淨利率</p>
 									<Chart
 										option={{
@@ -600,7 +600,7 @@ export default function AnalysisTable({ stockId }) {
 										customHeight='h-20 w-32 border-none shadow-none'
 									/>
 								</div>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
 									<p className='mr-3 font-light opacity-80'>稅後淨利率</p>
 									<Chart
 										option={{
@@ -751,9 +751,9 @@ export default function AnalysisTable({ stockId }) {
 			)}
 			{/* 資產負債表 */}
 			{assetStatement && liabilityEquityStatement && (
-				<div className='flex flex-col justify-between gap-4 xs:flex-row'>
+				<div className='flex flex-col justify-between gap-4 sm:flex-row'>
 					{assetStatement[assetStatement.length - 1] && (
-						<section className='px-4 py-3 bg-white rounded-lg shadow xs:w-72 dark:bg-zinc-900/60'>
+						<section className='px-4 py-3 bg-white rounded-lg shadow sm:w-72 dark:bg-zinc-900/60'>
 							<h5 className='px-1.5 mb-1 py-0.5 flex-center-between bg-amber-200'>
 								<span>總資產</span>
 								<span className='text-base font-semibold'>
@@ -794,7 +794,7 @@ export default function AnalysisTable({ stockId }) {
 						</section>
 					)}
 					{liabilityEquityStatement[liabilityEquityStatement.length - 1] && (
-						<section className='px-4 py-3 bg-white rounded-lg shadow xs:w-72 dark:bg-zinc-900/60'>
+						<section className='px-4 py-3 bg-white rounded-lg shadow sm:w-72 dark:bg-zinc-900/60'>
 							<h5 className='px-1.5 mb-1 py-0.5 flex-center-between bg-red-300'>
 								<span>總負債</span>
 								<span className='text-base font-semibold'>
