@@ -241,7 +241,8 @@ export default function AnalysisTable({ stockId }) {
 			{incomeStatement && (
 				<section>
 					<h4 className='flex items-center mb-2 font-medium sm:-mt-6'>損益表</h4>
-					<div className='space-y-4 sm:space-y-0 sm:gap-4 lg:gap-6 sm:flex'>
+					{/* 營收、毛利... */}
+					<div className='mb-4 space-y-4 sm:space-y-0 sm:gap-4 lg:gap-6 sm:flex'>
 						<Chart
 							option={{
 								legend: {
@@ -423,95 +424,328 @@ export default function AnalysisTable({ stockId }) {
 							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
 						/>
 					</div>
-				</section>
-			)}
-			{/* EPS */}
-			{incomeStatement && (
-				<section className='p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
-					<h4 className='flex items-center font-medium'>每股盈餘 (EPS)</h4>
-					<Chart
-						option={{
-							legend: {
-								data: ['EPS', 'EPS季增率', 'EPS年增率'],
-								bottom: '0',
-							},
-							xAxis: [
-								{
-									type: 'category',
-									data: incomeStatement.map((item) => item.year + ' Q' + item.quarter),
-								},
-							],
-							yAxis: [
-								{
-									type: 'value',
-									name: '元',
-									alignTicks: true,
-								},
-								{
-									type: 'value',
-									name: '%',
-									axisLabel: {
-										interval: 2,
+					<div className='flex-col w-full gap-4 xl:gap-6 flex-center-between xl:flex-row'>
+						{/* 毛利率、淨利率... */}
+						{incomeStatement[incomeStatement.length - 1] && (
+							<section className='flex self-start justify-between gap-2 overflow-x-auto xl:w-1/5 xl:flex-col'>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+									<p className='font-light opacity-80'>毛利率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
+													},
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].grossMargin,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+									<p className='font-light opacity-80'>營業費用率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
+													},
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].operatingExpenseRatio,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+									<p className='font-light opacity-80'>稅前淨利率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
+													},
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].profitBeforeTaxMargin,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow flex-center-between dark:bg-zinc-900/60'>
+									<p className='font-light opacity-80'>稅後淨利率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
+													},
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].netIncomeMargin,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
+							</section>
+						)}
+						{/* EPS */}
+						<section className='w-full xl:w-[78%] p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
+							<h4 className='flex items-center font-medium'>每股盈餘 (EPS)</h4>
+							<Chart
+								option={{
+									legend: {
+										data: ['EPS', 'EPS季增率', 'EPS年增率'],
+										bottom: '0',
 									},
-								},
-							],
-							series: [
-								{
-									name: 'EPS',
-									type: 'bar',
+									xAxis: [
+										{
+											type: 'category',
+											data: incomeStatement.map((item) => item.year + ' Q' + item.quarter),
+										},
+									],
+									yAxis: [
+										{
+											type: 'value',
+											name: '元',
+											alignTicks: true,
+										},
+										{
+											type: 'value',
+											name: '%',
+											axisLabel: {
+												interval: 2,
+											},
+										},
+									],
+									series: [
+										{
+											name: 'EPS',
+											type: 'bar',
+											tooltip: {
+												valueFormatter: function (value) {
+													return value.toLocaleString() + ' 元'
+												},
+											},
+											data: incomeStatement.map((item) => parseInt(item.eps)),
+										},
+										{
+											name: 'EPS季增率',
+											type: 'line',
+											yAxisIndex: 1,
+											tooltip: {
+												valueFormatter: function (value) {
+													return value + '%'
+												},
+											},
+											data: incomeStatement.map((item) => item.epsQOQ),
+										},
+										{
+											name: 'EPS年增率',
+											type: 'line',
+											yAxisIndex: 1,
+											tooltip: {
+												valueFormatter: function (value) {
+													return value + '%'
+												},
+											},
+											data: incomeStatement.map((item) => item.epsYOY),
+										},
+									],
 									tooltip: {
-										valueFormatter: function (value) {
-											return value.toLocaleString() + ' 元'
+										trigger: 'axis',
+										axisPointer: {
+											type: 'cross',
+											crossStyle: {
+												color: '#999',
+											},
 										},
 									},
-									data: incomeStatement.map((item) => parseInt(item.eps)),
-								},
-								{
-									name: 'EPS季增率',
-									type: 'line',
-									yAxisIndex: 1,
-									tooltip: {
-										valueFormatter: function (value) {
-											return value + '%'
+									grid: {
+										top: '12%',
+										left: '4%',
+										right: '6%',
+										height: '70%',
+									},
+									toolbox: {
+										feature: {
+											saveAsImage: { show: true },
 										},
 									},
-									data: incomeStatement.map((item) => item.epsQOQ),
-								},
-								{
-									name: 'EPS年增率',
-									type: 'line',
-									yAxisIndex: 1,
-									tooltip: {
-										valueFormatter: function (value) {
-											return value + '%'
-										},
-									},
-									data: incomeStatement.map((item) => item.epsYOY),
-								},
-							],
-							tooltip: {
-								trigger: 'axis',
-								axisPointer: {
-									type: 'cross',
-									crossStyle: {
-										color: '#999',
-									},
-								},
-							},
-							grid: {
-								top: '12%',
-								left: '4%',
-								right: '6%',
-								height: '70%',
-							},
-							toolbox: {
-								feature: {
-									saveAsImage: { show: true },
-								},
-							},
-						}}
-						customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
-					/>
+								}}
+								customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+							/>
+						</section>
+					</div>
 				</section>
 			)}
 			{/* 資產負債表 */}
