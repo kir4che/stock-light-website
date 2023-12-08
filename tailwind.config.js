@@ -33,6 +33,8 @@ module.exports = {
 			colors: {
 				amber: {
 					300: '#FFD852',
+					400: '#FFCD19',
+					500: '#FFC300',
 				},
 				sky: {
 					300: '#85CFFF',

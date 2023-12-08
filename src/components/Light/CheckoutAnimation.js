@@ -32,7 +32,7 @@ export default function CheckoutAnimation({ industry }) {
 		</div>
 	) : (
 		<div className='donation-animation place-content-center' onAnimationEnd={handleAnimationEnd}>
-			<h2 className='mb-16'>香油錢已成功投遞！</h2>
+			<h2 className='mb-16 text-white'>香油錢已成功投遞！</h2>
 			{isCoinVisible && (
 				<Image src='/assets/money_coin_blank_500_new.png' width={80} height={80} className='coin' alt='coin' />
 			)}
