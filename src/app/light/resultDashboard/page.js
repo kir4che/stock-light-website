@@ -10,14 +10,14 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Analysis/AnalysisTable'
+import PrayerCard from '@/components/Light/PrayerCard'
+import TodayLantern from '@/components/Light/TodayLantern'
 import Loading from '@/components/common/Loading'
-import { calculatePriceChange } from '@/utils/calculatePriceChange'
-// import PrayerCard from '@/components/Light/PrayerCard'
-// import TodayLantern from '@/components/Light/TodayLantern'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import SubmitBtn from '@/components/ui/SubmitBtn'
 import stock150 from '@/data/stock150.json'
+import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
@@ -38,8 +38,8 @@ export default function ResultDashboard() {
 		change: [],
 	})
 	const [stockPePb, setStockPePb] = useState({
-		pb: null,
-		pe: null,
+		pb: 0,
+		pe: 0,
 	})
 
 	useEffect(() => {
@@ -105,9 +105,8 @@ export default function ResultDashboard() {
 	return (
 		<StarryBackground className='pt-6 pb-10'>
 			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='個股分析儀表板' />
-			{/* 測試用先註解掉: 手機版測試有問題，之後需檢查處裡 */}
-			{/* <PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
-			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} /> */}
+			<PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
+			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} />
 			<div className='pb-10 bg-[#FAFDFF] rounded dark:bg-zinc-900/50'>
 				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 mb-4 tracking-wider sm:px-8 lg:px-10 bg-sky-100 dark:bg-zinc-800/60'>
 					<h3 className='space-x-2 flex-center'>

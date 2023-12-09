@@ -34,7 +34,6 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 	const handleEnvelopeDialog = () => setEnvelopeOpen(!envelopeOpen)
 	const handleCardDialog = () => setCardOpen(!cardOpen)
 	const handleCardSave = () => setSavedAlertOpen(true) // 🚩 後端：需要把祈福小卡存給使用者
-	const handleSavedAlertClose = () => setSavedAlertOpen(false)
 
 	const getRandomCard = () => {
 		const randomIndex = Math.floor(Math.random() * cardList.length)
@@ -60,13 +59,13 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 					},
 				}}
 			>
-				<DialogContent className='w-[600px] h-[63vw] md:h-[500px]'>
+				<DialogContent className='w-screen md:w-[600px] h-96 sm:h-[450px] md:h-[500px]'>
 					<div className='absolute w-full h-full flex-center -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>
-						<div className='absolute w-full h-full -z-10'>
-							<div className='border-b-[212px] border-b-white border-x-[40vw] md:border-x-[300px] border-x-transparent' />
+						<div className='absolute hidden w-full h-full sm:block right-2 sm:right-0 top-6 sm:top-2 md:top-8 -z-10'>
+							<div className='border-b-[120px] sm:border-b-[180px] border-b-white border-x-[280px] sm:border-x-[300px] border-x-transparent' />
 						</div>
 						<div
-							className='absolute text-center cursor-pointer flex pt-5 flex-col w-[540px] h-72 rounded bg-primary_yellow duration-500 ease-out z-10 bottom-20 hover:bottom-32'
+							className='absolute text-center cursor-pointer flex p-5 flex-col w-[540px] h-24 xs:h-40 sm:h-64 md:h-72 rounded bg-primary_yellow duration-500 ease-out z-10 top-24 xs:top-16 sm:top-24 sm:bottom-20 hover:bottom-32'
 							onClick={() => {
 								handleEnvelopeDialog()
 								handleCardDialog()
@@ -75,10 +74,12 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 							<h2>打開小卡...</h2>
 						</div>
 						<div className='absolute w-full h-full overflow-hidden'>
-							<div className='absolute flex flex-col justify-between pt-28 text-sm text-zinc-600 px-3 pb-2 w-[600px] h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
-								<h3 className='text-5xl text-center'>{industry}祈福小卡</h3>
+							<div className='absolute flex flex-col justify-between text-zinc-600 px-3 pb-2 w-full md:w-[600px] md:h-72 bg-white shadow-[0px_0px_7px_0px_rgba(0,0,0,0.5)] z-20 bottom-0'>
+								<h2 className='py-16 text-center xs:text-4xl xs:py-20 sm:py-22 md:pt-24 sm:text-5xl'>
+									{industry}祈福小卡
+								</h2>
 								{session && (
-									<div className='flex items-end justify-between text-zinc-400'>
+									<div className='flex items-end justify-between text-xs md:text-sm text-zinc-400'>
 										<p>
 											<span>{session.user.name}</span>
 											<br />
@@ -94,7 +95,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 			</Dialog>
 			{/* 祈福小卡 */}
 			<Dialog open={cardOpen} maxWidth='md' align='center'>
-				<DialogContent>
+				<DialogContent className='dark:bg-zinc-900'>
 					{selectedCard && <Image src={selectedCard} width={680} height={360} alt='pray-card' />}
 					<Button
 						size='large'
@@ -103,8 +104,8 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 					>
 						保存您的祈福小卡
 					</Button>
-					<Snackbar cardOpen={savedAlertOpen} autoHideDuration={3000} onClose={handleSavedAlertClose}>
-						<Alert onClose={handleSavedAlertClose} severity='success' sx={{ width: '100%' }}>
+					<Snackbar cardOpen={savedAlertOpen} autoHideDuration={3000} onClose={() => setSavedAlertOpen(false)}>
+						<Alert onClose={() => setSavedAlertOpen(false)} severity='success' sx={{ width: '100%' }}>
 							保存成功！
 						</Alert>
 					</Snackbar>

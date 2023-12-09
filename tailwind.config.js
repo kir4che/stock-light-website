@@ -30,6 +30,9 @@ module.exports = {
 			inset: {
 				22: '5.5rem',
 			},
+			padding: {
+				22: '5.5rem',
+			},
 			colors: {
 				amber: {
 					300: '#FFD852',
