@@ -1,6 +1,5 @@
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Link from 'next/link'
 import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -38,9 +37,8 @@ const INDUSTY_LIST = [
 	'電腦及週邊設備業',
 	'食品工業',
 ]
-export default function DropMenu({ user, handleHover }) {
+export default function DropMenu({ handleSelect }) {
 	const uuid = uuidv4()
-
 	const [menuOpen, setMenuOpen] = useState(false)
 
 	return (
@@ -64,12 +62,12 @@ export default function DropMenu({ user, handleHover }) {
 				<ul className='absolute top-0 left-0 flex justify-center w-full py-3 space-x-4 overflow-x-auto text-sm duration-150 ease-in-out bg-amber-100'>
 					{INDUSTY_LIST.map((industry) => (
 						<li
-							onMouseEnter={() => handleHover(industry)}
-							onMouseLeave={() => handleHover(null)}
+							onMouseEnter={() => handleSelect(industry)}
+							onMouseLeave={() => handleSelect('')}
 							className='whitespace-nowrap text-amber-500 hover:text-zinc-900'
 							key={industry}
 						>
-							<Link href={`/light/${industry}/checkout/${uuid}`}>{industry}</Link>
+							{industry}
 						</li>
 					))}
 				</ul>
