@@ -8,9 +8,9 @@ export function barAndLineOption(text, date, dataName, data) {
 		if (Array.isArray(item) && item.length > 0) {
 			return {
 				name: dataName[index],
-				type: index === 0 ? 'line' : 'bar',
+				type: index === 0 ? 'bar' : 'line',
 				data: item,
-				yAxisIndex: index === 0 ? 0 : 1,
+				yAxisIndex: index === 0 ? 1 : 0,
 			}
 		} else {
 			console.error(`Invalid data for ${dataName[index]}.`)
@@ -41,9 +41,23 @@ export function barAndLineOption(text, date, dataName, data) {
 		yAxis: [
 			{
 				type: 'value',
+				name: '次',
+				alignTicks: true,
+				axisLabel: {
+					formatter: function (value) {
+						return value.toLocaleString()
+					},
+				},
 			},
 			{
 				type: 'value',
+				name: '千元',
+				alignTicks: true,
+				axisLabel: {
+					formatter: function (value) {
+						return (value / 1000).toLocaleString()
+					},
+				},
 			},
 		],
 		series: seriesData,
@@ -61,8 +75,8 @@ export function barAndLineOption(text, date, dataName, data) {
 		},
 		grid: {
 			top: '15%',
-			left: '10%',
-			right: '6%',
+			left: '6%',
+			right: '8%',
 			height: '68%',
 		},
 	}

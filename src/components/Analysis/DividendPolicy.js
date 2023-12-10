@@ -61,6 +61,13 @@ export default function DividendPolicy({ stockId, childOpen }) {
 					xAxis: { type: 'category' },
 					yAxis: {
 						type: 'value',
+						name: '元',
+						alignTicks: true,
+						axisLabel: {
+							formatter: function (value) {
+								return value.toLocaleString()
+							},
+						},
 					},
 					series: [
 						{ type: 'bar', name: '現金股利' },
@@ -76,6 +83,9 @@ export default function DividendPolicy({ stockId, childOpen }) {
 						padding: 10,
 						textStyle: {
 							color: '#000',
+						},
+						valueFormatter: function (value) {
+							return value.toLocaleString() + '元'
 						},
 					},
 					grid: {

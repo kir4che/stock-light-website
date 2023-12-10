@@ -1,5 +1,23 @@
-export function multiLineOption(text, date, dataName, data) {
-	if (!Array.isArray(data) || data.length === 0) {
+export function multiLineOption(
+	text,
+	date,
+	dataName,
+	data,
+	unit = {
+		type: 'value',
+		name: '%',
+		alignTicks: true,
+		axisLabel: {
+			formatter: function (value) {
+				return value.toLocaleString()
+			},
+		},
+	}
+) {
+	if (!date) {
+		console.error('date is required.')
+		return {}
+	} else if (!Array.isArray(data) || data.length === 0) {
 		console.error('Invalid or empty data array.')
 		return {}
 	}
@@ -37,9 +55,7 @@ export function multiLineOption(text, date, dataName, data) {
 				interval: 3,
 			},
 		},
-		yAxis: {
-			type: 'value',
-		},
+		yAxis: unit,
 		series: seriesData,
 		tooltip: {
 			trigger: 'axis',
@@ -52,12 +68,22 @@ export function multiLineOption(text, date, dataName, data) {
 			textStyle: {
 				color: '#000',
 			},
+			valueFormatter: function (value) {
+				return value.toLocaleString() + (unit.name === '%' ? '%' : unit.name === '千元' ? '元' : '次')
+			},
 		},
 		grid: {
 			top: '15%',
 			left: '8%',
 			right: '3%',
 			height: '68%',
+		},
+		toolbox: {
+			feature: {
+				magicType: { show: true, type: ['line', 'bar'] },
+				restore: { show: true },
+				saveAsImage: { show: true },
+			},
 		},
 	}
 

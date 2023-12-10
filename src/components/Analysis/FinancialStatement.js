@@ -56,7 +56,6 @@ export default function FinancialStatement({ stockId, childOpen }) {
 				method: 'GET',
 			})
 			const data = await response.json()
-			console.log('test: ', data)
 
 			if (data.success === false) {
 				console.error('Error: ', data.errorMessage)
@@ -220,10 +219,19 @@ export default function FinancialStatement({ stockId, childOpen }) {
 
 	return (
 		<div className='w-full overflow-hidden'>
-			{childOpen.營收表 && (
+			{childOpen.營收表 && revenues[1] && (
 				<section className='space-y-4'>
 					<Chart
-						option={groupedBarOption('營業收入', revenues)}
+						option={groupedBarOption('營業收入', revenues, {
+							type: 'value',
+							name: '千元',
+							alignTicks: true,
+							axisLabel: {
+								formatter: function (value) {
+									return (value / 1000).toLocaleString()
+								},
+							},
+						})}
 						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
@@ -294,7 +302,16 @@ export default function FinancialStatement({ stockId, childOpen }) {
 					</section>
 					<section className='space-y-4'>
 						<Chart
-							option={groupedBarOption('每股盈餘(EPS)', selectedChart === 0 ? epss : epsT4Qs)}
+							option={groupedBarOption('每股盈餘(EPS)', selectedChart === 0 ? epss : epsT4Qs, {
+								type: 'value',
+								name: '元',
+								alignTicks: true,
+								axisLabel: {
+									formatter: function (value) {
+										return value.toLocaleString()
+									},
+								},
+							})}
 							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
@@ -382,7 +399,19 @@ export default function FinancialStatement({ stockId, childOpen }) {
 			)}
 			{childOpen.每股淨值 && (
 				<section className='space-y-4'>
-					<Chart option={groupedBarOption('每股淨值', navs)} customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]' />
+					<Chart
+						option={groupedBarOption('每股淨值', navs, {
+							type: 'value',
+							name: '元',
+							alignTicks: true,
+							axisLabel: {
+								formatter: function (value) {
+									return value.toLocaleString()
+								},
+							},
+						})}
+						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+					/>
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
@@ -432,7 +461,17 @@ export default function FinancialStatement({ stockId, childOpen }) {
 							'損益表',
 							dates,
 							['營收', '毛利', '營業利益', '稅前淨利', '稅後淨利', '母公司業主淨利'],
-							incomes
+							incomes,
+							{
+								type: 'value',
+								name: '千元',
+								alignTicks: true,
+								axisLabel: {
+									formatter: function (value) {
+										return (value / 1000).toLocaleString()
+									},
+								},
+							}
 						)}
 						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 					/>
@@ -616,7 +655,17 @@ export default function FinancialStatement({ stockId, childOpen }) {
 								selectedChart === 0
 									? ['流動資產', '長期投資', '固定資產', '總資產']
 									: ['現金及約當現金', '短期投資', '應收帳款及票據', '存貨', '流動資產'],
-								selectedChart === 0 ? assets : currentAssets
+								selectedChart === 0 ? assets : currentAssets,
+								{
+									type: 'value',
+									name: '千元',
+									alignTicks: true,
+									axisLabel: {
+										formatter: function (value) {
+											return (value / 1000).toLocaleString()
+										},
+									},
+								}
 							)}
 							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 						/>
@@ -845,7 +894,17 @@ export default function FinancialStatement({ stockId, childOpen }) {
 											'總負債',
 									  ]
 									: ['普通股股本', '保留盈餘', '淨值'],
-								selectedChart === 0 ? liabilitiesEquities : selectedChart === 1 ? liabilities : equities
+								selectedChart === 0 ? liabilitiesEquities : selectedChart === 1 ? liabilities : equities,
+								{
+									type: 'value',
+									name: '千元',
+									alignTicks: true,
+									axisLabel: {
+										formatter: function (value) {
+											return (value / 1000).toLocaleString()
+										},
+									},
+								}
 							)}
 							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 						/>
@@ -1107,7 +1166,17 @@ export default function FinancialStatement({ stockId, childOpen }) {
 								selectedChart === 0
 									? ['營業現金流', '投資現金流', '融資現金流', '自由現金流', '淨現金流']
 									: ['每股營業現金流入', '每股投資現金流出', '每股融資現金流入', '每股自由現金流入', '每股淨現金流入'],
-								selectedChart === 0 ? cashFlows : cashFlowsByStock
+								selectedChart === 0 ? cashFlows : cashFlowsByStock,
+								{
+									type: 'value',
+									name: selectedChart === 0 ? '千元' : '元',
+									alignTicks: true,
+									axisLabel: {
+										formatter: function (value) {
+											return selectedChart === 0 ? (value / 1000).toLocaleString() : value.toLocaleString()
+										},
+									},
+								}
 							)}
 							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 						/>

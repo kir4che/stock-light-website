@@ -593,7 +593,16 @@ export default function Profitability({ stockId, childOpen }) {
 						<Chart
 							option={
 								selectedChart === 0
-									? multiLineOption('經營週轉能力', dates, ['應收帳款週轉', '存貨週轉'], opTurnover)
+									? multiLineOption('經營週轉能力', dates, ['應收帳款週轉', '存貨週轉'], opTurnover, {
+											type: 'value',
+											name: '次',
+											alignTicks: true,
+											axisLabel: {
+												formatter: function (value) {
+													return value.toLocaleString()
+												},
+											},
+									  })
 									: barAndLineOption(
 											'經營週轉能力',
 											dates,
