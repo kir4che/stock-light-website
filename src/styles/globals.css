@@ -4,16 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-	@apply box-border p-0 m-0;
-}
-html,
-body {
-	@apply max-w-[100vw] leading-8 overflow-x-hidden text-zinc-800 dark:text-zinc-100;
-	font-family: 'Libre Franklin', 'Noto Sans TC', sans-serif;
-}
-
 @layer base {
+	* {
+		@apply box-border p-0 m-0;
+	}
+	html,
+	body {
+		@apply max-w-[100vw] leading-8 overflow-x-hidden text-zinc-800 dark:text-zinc-100;
+		font-family: 'Libre Franklin', 'Noto Sans TC', sans-serif;
+	}
 	h1 {
 		@apply font-extrabold text-9xl;
 	}
@@ -49,13 +48,6 @@ body {
 
 .flex-center-between {
 	@apply flex items-center justify-between;
-}
-
-::-webkit-scrollbar {
-	@apply w-1.5 h-1.5;
-}
-::-webkit-scrollbar-thumb {
-	@apply rounded-full bg-zinc-900/30 dark:bg-zinc-500;
 }
 
 /* 團隊成員 */
