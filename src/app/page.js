@@ -14,7 +14,7 @@ export default function Home() {
 		<>
 			<Hero />
 			<TaiexChart />
-			<div className='flex flex-col gap-8 mt-[6vw] md:mt-[3vw] md:gap-24 h-min'>
+			<div className='flex flex-col gap-8 mt-[6vw] md:mt-[3vw] lg:gap-16 xl:gap-20 h-min'>
 				<FlexCard
 					title='你曾在股市中感到迷惘嗎？'
 					content={

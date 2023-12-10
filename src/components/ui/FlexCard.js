@@ -3,7 +3,7 @@ import Image from 'next/image'
 export function FlexCard({ title, content, imgSrc, reverse = false }) {
 	return (
 		<article
-			className={`flex xl:max-w-[80%] items-start flex-col rounded-lg justify-between gap-5 px-6 py-8 shadow-lg md:flex-row bg-white dark:bg-zinc-900 md:items-center md:gap-12 lg:px-8 lg:py-9 ${
+			className={`flex lg:max-w-[80%] items-start flex-col rounded-lg justify-between gap-5 px-6 py-8 shadow-lg md:flex-row bg-white dark:bg-zinc-700/30 md:items-center md:gap-12 lg:px-8 lg:py-9 ${
 				reverse ? 'ml-auto ' : ''
 			}`}
 		>
