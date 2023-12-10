@@ -1,96 +1,5 @@
 import { boll, ema, ma } from 'finmath'
 
-export function candlestickOption(dateData, indexData) {
-	const option = {
-		xAxis: [
-			{
-				type: 'category',
-				data: dateData,
-				boundaryGap: true,
-				axisLine: { onZero: false },
-				splitLine: { show: false },
-				axisPointer: {
-					z: 100,
-				},
-			},
-		],
-		yAxis: [
-			{
-				scale: true,
-				splitArea: {
-					show: true,
-				},
-			},
-		],
-		tooltip: {
-			trigger: 'axis',
-			axisPointer: {
-				type: 'cross',
-			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
-			},
-		},
-		toolbox: {
-			feature: {
-				dataZoom: {
-					yAxisIndex: false,
-				},
-				brush: {
-					type: ['lineX', 'clear'],
-				},
-			},
-		},
-		brush: {
-			xAxisIndex: 'all',
-			brushLink: 'all',
-			outOfBrush: {
-				colorAlpha: 0.1,
-			},
-		},
-		axisPointer: {
-			link: [
-				{
-					xAxisIndex: 'all',
-				},
-			],
-			label: {
-				backgroundColor: '#777',
-			},
-		},
-		series: [
-			{
-				name: '指數',
-				type: 'candlestick',
-				data: indexData,
-				itemStyle: {
-					color: '#EB5554',
-					color0: '#46B262',
-					borderColor: '#EB5554',
-					borderColor0: '#46B262',
-				},
-			},
-		],
-		grid: {
-			top: '6%',
-			left: '6%',
-			right: '3%',
-			height: '82%',
-		},
-		dataZoom: {
-			type: 'inside',
-			xAxisIndex: [0],
-			start: 0,
-			end: 100,
-		},
-	}
-
-	return option
-}
-
 export function candlestickOptionByMA(
 	dateData,
 	closePriceData,
@@ -277,6 +186,11 @@ export function candlestickOptionByMA(
 				},
 			},
 		],
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: [
 			{
 				top: '6%',
@@ -501,6 +415,11 @@ export function candlestickOptionByEMA(
 				},
 			},
 		],
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: [
 			{
 				top: '6%',
@@ -701,6 +620,11 @@ export function candlestickOptionByBoll(
 				},
 			},
 		],
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: [
 			{
 				top: '6%',

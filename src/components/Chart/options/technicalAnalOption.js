@@ -70,6 +70,11 @@ export function macdOption(dateData, closePriceData, dataZoomRange, handleDataZo
 				color: '#000',
 			},
 		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: [
 			{
 				top: '12%',
@@ -214,6 +219,16 @@ export function rsiOption(dateData, changeData, dataZoomRange, handleDataZoomCha
 				color: '#000',
 			},
 		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: [
 			{
 				top: '12%',
@@ -272,6 +287,11 @@ export function williamOption(dateData, closePriceData, dataZoomRange, handleDat
 			padding: 10,
 			textStyle: {
 				color: '#000',
+			},
+		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
 			},
 		},
 		grid: [
@@ -363,6 +383,11 @@ export function biasOption(dateData, closePriceData, dataZoomRange, handleDataZo
 				color: '#000',
 			},
 		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: [
 			{
 				top: '12%',
@@ -429,6 +454,11 @@ export function adlOption(
 			padding: 10,
 			textStyle: {
 				color: '#000',
+			},
+		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
 			},
 		},
 		grid: [

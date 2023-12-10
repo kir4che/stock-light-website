@@ -54,6 +54,11 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 				encode: { label: 2, tooltip: 1 },
 			},
 		],
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: {
 			top: '15%',
 			left: '5%',

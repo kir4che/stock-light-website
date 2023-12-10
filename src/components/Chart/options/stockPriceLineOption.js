@@ -112,6 +112,11 @@ export function stockPriceLineOption(
 				backgroundColor: '#777',
 			},
 		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+		},
 		grid: [
 			{
 				top: '6%',

@@ -3,7 +3,6 @@ import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
-import { candlestickOption } from '@/components/Chart/options/candlestickOption'
 import Loading from '@/components/common/Loading'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
@@ -97,7 +96,77 @@ export default function TaiexChart() {
 				</section>
 			) : null}
 			{!isLoading && data ? (
-				<Chart option={candlestickOption(dates, indexs)} customHeight='h-72 md:h-[400px] xl:h-[520px]' />
+				<Chart
+					option={{
+						xAxis: {
+							type: 'category',
+							data: dates,
+							boundaryGap: true,
+							axisLine: {
+								onZero: false,
+							},
+							axisLabel: {
+								interval: 5,
+								rotate: 45,
+							},
+							splitLine: { show: false },
+						},
+						yAxis: {
+							type: 'value',
+							scale: true,
+							splitArea: {
+								show: true,
+							},
+						},
+						tooltip: {
+							trigger: 'axis',
+							axisPointer: {
+								type: 'cross',
+							},
+							borderWidth: 1,
+							borderColor: '#ccc',
+							padding: 10,
+							textStyle: {
+								color: '#000',
+							},
+						},
+						axisPointer: {
+							link: [
+								{
+									xAxisIndex: 'all',
+								},
+							],
+							label: {
+								backgroundColor: '#777',
+							},
+						},
+						series: [
+							{
+								name: '指數',
+								type: 'candlestick',
+								data: indexs,
+								itemStyle: {
+									color: '#EB5554',
+									color0: '#46B262',
+									borderColor: '#EB5554',
+									borderColor0: '#46B262',
+								},
+							},
+						],
+						toolbox: {
+							feature: {
+								saveAsImage: { show: true },
+							},
+						},
+						grid: {
+							top: '6%',
+							left: '6%',
+							right: '3%',
+							height: '80%',
+						},
+					}}
+					customHeight='h-72 md:h-[400px] xl:h-[520px]'
+				/>
 			) : (
 				<Loading />
 			)}
