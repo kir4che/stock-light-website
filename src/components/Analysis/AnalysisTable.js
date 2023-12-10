@@ -1223,7 +1223,7 @@ export default function AnalysisTable({ stockId }) {
 			)}
 			{/* 資產負債 */}
 			{assetStatement && liabilityEquityStatement && incomeStatement && cashFlowStatement && (
-				<div className='gap-4 flex-center-between lg:gap-8'>
+				<div className='space-y-4'>
 					{assetStatement[assetStatement.length - 1] && (
 						<div className='px-4 py-3 bg-white rounded-lg shadow sm:w-72 dark:bg-zinc-900/60'>
 							<h5 className='px-1.5 mb-1 dark:text-zinc-800 py-0.5 flex-center-between bg-amber-200'>
