@@ -62,6 +62,12 @@ export function multiLineOption(
 			axisPointer: {
 				type: 'cross',
 			},
+			borderWidth: 1,
+			borderColor: '#ccc',
+			padding: 10,
+			textStyle: {
+				color: '#000',
+			},
 			valueFormatter: function (value) {
 				return value.toLocaleString() + (unit.name === '%' ? '%' : unit.name === '千元' ? '元' : '次')
 			},

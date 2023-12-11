@@ -43,9 +43,6 @@ export function candlestickOptionByMA(
 				scale: true,
 				splitArea: {
 					show: true,
-					areaStyle: {
-						color: ['', 'rgba(140,177,235,0.1)'],
-					},
 				},
 			},
 			{
@@ -62,6 +59,12 @@ export function candlestickOptionByMA(
 			trigger: 'axis',
 			axisPointer: {
 				type: 'cross',
+			},
+			borderWidth: 1,
+			borderColor: '#ccc',
+			padding: 10,
+			textStyle: {
+				color: '#000',
 			},
 		},
 		toolbox: {
@@ -269,9 +272,6 @@ export function candlestickOptionByEMA(
 				scale: true,
 				splitArea: {
 					show: true,
-					areaStyle: {
-						color: ['', 'rgba(140,177,235,0.1)'],
-					},
 				},
 			},
 			{
@@ -288,6 +288,12 @@ export function candlestickOptionByEMA(
 			trigger: 'axis',
 			axisPointer: {
 				type: 'cross',
+			},
+			borderWidth: 1,
+			borderColor: '#ccc',
+			padding: 10,
+			textStyle: {
+				color: '#000',
 			},
 		},
 		toolbox: {
@@ -495,9 +501,6 @@ export function candlestickOptionByBoll(
 				scale: true,
 				splitArea: {
 					show: true,
-					areaStyle: {
-						color: ['', 'rgba(140,177,235,0.1)'],
-					},
 				},
 			},
 			{
@@ -514,6 +517,12 @@ export function candlestickOptionByBoll(
 			trigger: 'axis',
 			axisPointer: {
 				type: 'cross',
+			},
+			borderWidth: 1,
+			borderColor: '#ccc',
+			padding: 10,
+			textStyle: {
+				color: '#000',
 			},
 		},
 		toolbox: {
