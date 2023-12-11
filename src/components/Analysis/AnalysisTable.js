@@ -58,7 +58,7 @@ export default function AnalysisTable({ stockId }) {
 					width={100}
 					height={100}
 					className='object-contain w-12 h-16'
-					alt='external-sunny-weather-justicon-flat-justicon'
+					alt='sunny-weather'
 				/>
 			)
 		} else if (sentiment === '中性') {
@@ -68,7 +68,7 @@ export default function AnalysisTable({ stockId }) {
 					width={100}
 					height={100}
 					className='object-contain w-12 h-16'
-					alt='external-cloudy-weather-kmg-design-flat-kmg-design-1'
+					alt='cloudy-weather'
 				/>
 			)
 		} else if (sentiment === '負面') {
@@ -78,7 +78,7 @@ export default function AnalysisTable({ stockId }) {
 					width={100}
 					height={100}
 					className='object-contain w-12 h-16'
-					alt='external-rainy-weather-justicon-flat-justicon-1'
+					alt='rainy-weather'
 				/>
 			)
 		}
