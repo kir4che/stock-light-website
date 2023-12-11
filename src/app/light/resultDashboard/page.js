@@ -3,10 +3,10 @@
 import { getCurrentDate } from '@/utils/getCurrentDate'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Tab, Tabs } from '@mui/material'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
-import { useSearchParams } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Analysis/AnalysisTable'
@@ -22,13 +22,16 @@ import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
 export default function ResultDashboard() {
+	const { data: session, status } = useSession()
+	const token = session?.token
+
+	const router = useRouter()
 	const industry = useSearchParams().get('industry')
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [laternOpen, setLaternOpen] = useState(false)
 	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
 
-	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 	const [resultStockId, setResultStockId] = useState(2330) // 暫時設定為台積電
 	const [stockPrice, setStockPrice] = useState({
 		closePrice: [],
@@ -38,11 +41,6 @@ export default function ResultDashboard() {
 		pb: 0,
 		pe: 0,
 	})
-
-	const handleTabSelect = (e, index) => {
-		setSelectedTabIndex(index)
-		setResultStockId(index === 0 ? 2330 : 2345) // 暫時
-	}
 
 	useEffect(() => {
 		// 透過 resultStockId 取得該股票的所有資料
@@ -110,7 +108,7 @@ export default function ResultDashboard() {
 			<PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
 			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} />
 			<div className='pb-10 bg-[#FAFDFF] rounded dark:bg-zinc-900/50'>
-				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 tracking-wider sm:px-8 lg:px-10 bg-sky-100 dark:bg-zinc-800/60'>
+				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 mb-4 tracking-wider sm:px-8 lg:px-10 bg-sky-100 dark:bg-zinc-800/60'>
 					<h3 className='space-x-2 flex-center'>
 						<sapn>本日光明燈</sapn>
 						<span className='px-2 text-sm bg-white border-2 rounded-full dark:bg-zinc-900 border-secondary_blue text-secondary_blue'>
@@ -119,22 +117,6 @@ export default function ResultDashboard() {
 					</h3>
 					<p className='text-xs'>{getCurrentDate()}</p>
 				</section>
-				<Tabs
-					variant='scrollable'
-					value={selectedTabIndex}
-					className='mb-4 rounded bg-sky-100 dark:bg-zinc-800/60'
-					onChange={handleTabSelect}
-				>
-					{['台積電', '智邦'].map((label, index) => (
-						<Tab
-							label={label}
-							className={`${
-								selectedTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
-							} hover:bg-sky-300/10 `}
-							key={index}
-						/>
-					))}
-				</Tabs>
 				<section className='px-4 mb-4 sm:px-8 lg:px-10'>
 					<h4 className='inline-flex items-baseline px-2 mb-2 space-x-2 rounded-lg dark:text-zinc-800 bg-primary_yellow'>
 						<span>{stock100.find((stock) => stock.stock_id === resultStockId)?.name || null}</span>

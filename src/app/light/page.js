@@ -1,7 +1,5 @@
 'use client'
 
-import CloseIcon from '@mui/icons-material/Close'
-import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -18,18 +16,10 @@ export default function Light() {
 	const uuid = uuidv4()
 
 	const [selectedIndustry, setSelectedIndustry] = useState('')
-	const [factorOpen, setFactorOpen] = useState(false) // 選股視窗開關
-	const [selectedFactor, setSelectedFactor] = useState('') // 選股條件
 	const [success, setSuccess] = useState(false)
 
 	const handleLightUp = (industry) => {
 		setSelectedIndustry(industry)
-		setFactorOpen(true)
-	}
-
-	const handleFactorSelect = (factor) => {
-		setSelectedFactor(factor)
-		setFactorOpen(false)
 		setSuccess(true)
 	}
 
@@ -51,9 +41,9 @@ export default function Light() {
 					<div className='glowing-circle' />
 				</div>
 			) : (
-				session && (
-					<>
-						<DropMenu handleSelect={handleLightUp} />
+				<>
+					{session && <DropMenu handleSelect={handleLightUp} />}
+					{session && (
 						<LanternLayout>
 							<button type='button' onClick={() => handleLightUp('光電業')}>
 								<Lantern
@@ -261,43 +251,8 @@ export default function Light() {
 								/>
 							</button>
 						</LanternLayout>
-						<Dialog open={factorOpen} maxWidth='sm' align='center' onClose={() => setFactorOpen(false)} fullWidth>
-							<CloseIcon
-								className='absolute cursor-pointer top-3 right-3 dark:text-zinc-100 opacity-80 hover:opacity-60'
-								onClick={() => setFactorOpen(false)}
-							/>
-							<DialogTitle className='text-2xl border-b-[1px] dark:bg-zinc-800 dark:text-zinc-100 border-zinc-400/50'>
-								選股條件
-							</DialogTitle>
-							<DialogContent className='pt-4 dark:bg-zinc-800 dark:text-zinc-100'>
-								<ul className='flex flex-col divide-y divide-zinc-400/80'>
-									<li className='flex-row py-4 flex-center-between'>
-										<p className='font-medium dark:text-white'>巴菲特選股</p>
-										<p className='text-xs text-gray-600 dark:text-gray-200'>ROE ＞ 10</p>
-										<button
-											type='submit'
-											className='px-3 py-1 text-sm text-right rounded-full text-zinc-800 bg-primary_yellow hover:bg-amber-300'
-											onClick={handleFactorSelect}
-										>
-											選擇此條件
-										</button>
-									</li>
-									<li className='flex-row py-4 flex-center-between'>
-										<p className='font-medium dark:text-white'>巴菲特選股</p>
-										<p className='text-xs text-gray-600 dark:text-gray-200'>ROE ＞ 10</p>
-										<button
-											type='submit'
-											className='px-3 py-1 text-sm text-right rounded-full text-zinc-800 bg-primary_yellow hover:bg-amber-300'
-											onClick={handleFactorSelect}
-										>
-											選擇此條件
-										</button>
-									</li>
-								</ul>
-							</DialogContent>
-						</Dialog>
-					</>
-				)
+					)}
+				</>
 			)}
 		</StarryBackground>
 	)

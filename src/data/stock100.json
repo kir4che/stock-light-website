@@ -1,562 +1,562 @@
 [
   {
     "stock_id": 1101,
-    "name": "台泥",
+    "name": "臺灣水泥股份有限公司",
     "industry": "水泥工業"
   },
   {
     "stock_id": 1102,
-    "name": "亞泥",
+    "name": "亞洲水泥股份有限公司",
     "industry": "水泥工業"
   },
   {
     "stock_id": 1216,
-    "name": "統一",
+    "name": "統一企業股份有限公司",
     "industry": "食品工業"
   },
   {
     "stock_id": 1227,
-    "name": "佳格",
+    "name": "佳格食品股份有限公司",
     "industry": "食品工業"
   },
   {
     "stock_id": 1301,
-    "name": "台塑",
+    "name": "台灣塑膠工業股份有限公司",
     "industry": "塑膠工業"
   },
   {
     "stock_id": 1303,
-    "name": "南亞",
+    "name": "南亞塑膠工業股份有限公司",
     "industry": "塑膠工業"
   },
   {
     "stock_id": 1319,
-    "name": "東陽",
+    "name": "東陽實業廠股份有限公司",
     "industry": "汽車工業"
   },
   {
     "stock_id": 1326,
-    "name": "台化",
+    "name": "台灣化學纖維股份有限公司",
     "industry": "塑膠工業"
   },
   {
     "stock_id": 1402,
-    "name": "遠東新",
+    "name": "遠東新世紀股份有限公司",
     "industry": "紡織纖維"
   },
   {
     "stock_id": 1440,
-    "name": "南紡",
+    "name": "臺南紡織股份有限公司",
     "industry": "紡織纖維"
   },
   {
     "stock_id": 1476,
-    "name": "儒鴻",
+    "name": "儒鴻企業股份有限公司",
     "industry": "紡織纖維"
   },
   {
     "stock_id": 1477,
-    "name": "聚陽",
+    "name": "聚陽實業股份有限公司",
     "industry": "紡織纖維"
   },
   {
     "stock_id": 1504,
-    "name": "東元",
+    "name": "東元電機股份有限公司",
     "industry": "電機機械"
   },
   {
     "stock_id": 1536,
-    "name": "和大",
+    "name": "和大工業股份有限公司",
     "industry": "汽車工業"
   },
   {
     "stock_id": 1605,
-    "name": "華新",
+    "name": "華新麗華股份有限公司",
     "industry": "電器電纜"
   },
   {
     "stock_id": 1707,
-    "name": "葡萄王",
+    "name": "葡萄王生技股份有限公司",
     "industry": "生技醫療業"
   },
   {
     "stock_id": 1717,
-    "name": "長興",
+    "name": "長興材料工業股份有限公司",
     "industry": "化學工業"
   },
   {
     "stock_id": 1722,
-    "name": "台肥",
+    "name": "台灣肥料股份有限公司",
     "industry": "化學工業"
   },
   {
     "stock_id": 1723,
-    "name": "中碳",
+    "name": "中鋼碳素化學股份有限公司",
     "industry": "化學工業"
   },
   {
     "stock_id": 1789,
-    "name": "神隆",
+    "name": "台灣神隆股份有限公司",
     "industry": "生技醫療業"
   },
   {
     "stock_id": 1802,
-    "name": "台玻",
+    "name": "台灣玻璃工業股份有限公司",
     "industry": "玻璃陶瓷"
   },
   {
     "stock_id": 2002,
-    "name": "中鋼",
+    "name": "中國鋼鐵股份有限公司",
     "industry": "鋼鐵工業"
   },
   {
     "stock_id": 2015,
-    "name": "豐興",
+    "name": "豐興鋼鐵股份有限公司",
     "industry": "鋼鐵工業"
   },
   {
     "stock_id": 2049,
-    "name": "上銀",
+    "name": "上銀科技股份有限公司",
     "industry": "電機機械"
   },
   {
     "stock_id": 2059,
-    "name": "川湖",
+    "name": "川湖科技股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2101,
-    "name": "南港",
+    "name": "南港輪胎股份有限公司",
     "industry": "橡膠工業"
   },
   {
     "stock_id": 2103,
-    "name": "台橡",
+    "name": "台橡股份有限公司",
     "industry": "橡膠工業"
   },
   {
     "stock_id": 2105,
-    "name": "正新",
+    "name": "正新橡膠工業股份有限公司",
     "industry": "橡膠工業"
   },
   {
     "stock_id": 2106,
-    "name": "建大",
+    "name": "建大工業股份有限公司",
     "industry": "橡膠工業"
   },
   {
     "stock_id": 2201,
-    "name": "裕隆",
+    "name": "裕隆汽車製造股份有限公司",
     "industry": "汽車工業"
   },
   {
     "stock_id": 2204,
-    "name": "中華",
+    "name": "中華汽車工業股份有限公司",
     "industry": "汽車工業"
   },
   {
     "stock_id": 2206,
-    "name": "三陽工業",
+    "name": "三陽工業股份有限公司",
     "industry": "汽車工業"
   },
   {
     "stock_id": 2207,
-    "name": "和泰車",
+    "name": "和泰汽車股份有限公司",
     "industry": "汽車工業"
   },
   {
     "stock_id": 2231,
-    "name": "為升",
+    "name": "為升電裝工業股份有限公司",
     "industry": "汽車工業"
   },
   {
     "stock_id": 2301,
-    "name": "光寶",
+    "name": "光寶科技股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2303,
-    "name": "聯電",
+    "name": "聯華電子股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 2308,
-    "name": "台達電",
+    "name": "台達電子工業股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2313,
-    "name": "華通",
+    "name": "華通電腦股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2317,
-    "name": "鴻海",
+    "name": "鴻海精密工業股份有限公司",
     "industry": "其他電子業"
   },
   {
     "stock_id": 2324,
-    "name": "仁寶",
+    "name": "仁寶電腦工業股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2327,
-    "name": "國巨",
+    "name": "國巨股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2330,
-    "name": "台積電",
+    "name": "台灣積體電路製造股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 2345,
-    "name": "智邦",
+    "name": "智邦科技股份有限公司",
     "industry": "通信網路業"
   },
   {
     "stock_id": 2347,
-    "name": "聯強",
+    "name": "聯強國際股份有限公司",
     "industry": "電子通路業"
   },
   {
     "stock_id": 2352,
-    "name": "佳世達",
+    "name": "佳世達科技股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2353,
-    "name": "宏碁",
+    "name": "宏碁股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2354,
-    "name": "鴻準",
+    "name": "鴻準精密工業股份有限公司",
     "industry": "其他電子業"
   },
   {
     "stock_id": 2355,
-    "name": "敬鵬",
+    "name": "敬鵬工業股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2356,
-    "name": "英業達",
+    "name": "英業達股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2357,
-    "name": "華碩",
+    "name": "華碩電腦股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2360,
-    "name": "致茂",
+    "name": "致茂電子股份有限公司",
     "industry": "其他電子業"
   },
   {
     "stock_id": 2362,
-    "name": "藍天",
+    "name": "藍天電腦股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2376,
-    "name": "技嘉",
+    "name": "技嘉科技股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2377,
-    "name": "微星",
+    "name": "微星科技股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2379,
-    "name": "瑞昱",
+    "name": "瑞昱半導體股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 2382,
-    "name": "廣達",
+    "name": "廣達電腦股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2383,
-    "name": "台光電",
+    "name": "台光電子材料股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2385,
-    "name": "群光",
+    "name": "群光電子股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2392,
-    "name": "正崴",
+    "name": "正崴精密工業股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 2395,
-    "name": "研華",
+    "name": "研華股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 2408,
-    "name": "南亞科",
+    "name": "南亞科技股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 2409,
-    "name": "友達",
+    "name": "友達光電股份有限公司",
     "industry": "光電業"
   },
   {
     "stock_id": 2412,
-    "name": "中華電",
+    "name": "中華電信股份有限公司",
     "industry": "通信網路業"
   },
   {
     "stock_id": 2449,
-    "name": "京元電子",
+    "name": "京元電子股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 2451,
-    "name": "創見",
+    "name": "創見資訊股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 2454,
-    "name": "聯發科",
+    "name": "聯發科技股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 2474,
-    "name": "可成",
+    "name": "可成科技股份有限公司",
     "industry": "其他電子業"
   },
   {
     "stock_id": 2498,
-    "name": "宏達電",
+    "name": "宏達國際電子股份有限公司",
     "industry": "通信網路業"
   },
   {
     "stock_id": 2542,
-    "name": "興富發",
+    "name": "興富發建設股份有限公司",
     "industry": "建材營造"
   },
   {
     "stock_id": 2603,
-    "name": "長榮",
+    "name": "長榮海運股份有限公司",
     "industry": "航運業"
   },
   {
     "stock_id": 2609,
-    "name": "陽明",
+    "name": "陽明海運股份有限公司",
     "industry": "航運業"
   },
   {
     "stock_id": 2610,
-    "name": "華航",
+    "name": "中華航空股份有限公司",
     "industry": "航運業"
   },
   {
     "stock_id": 2615,
-    "name": "萬海",
+    "name": "萬海航運股份有限公司",
     "industry": "航運業"
   },
   {
     "stock_id": 2618,
-    "name": "長榮航",
+    "name": "長榮航空股份有限公司",
     "industry": "航運業"
   },
   {
     "stock_id": 2707,
-    "name": "晶華",
+    "name": "晶華國際酒店股份有限公司",
     "industry": "觀光餐旅"
   },
   {
     "stock_id": 2809,
-    "name": "京城銀",
+    "name": "京城商業銀行股份有限公司",
     "industry": "金融保險業"
   },
   {
     "stock_id": 2812,
-    "name": "台中銀",
+    "name": "台中商業銀行股份有限公司",
     "industry": "金融保險業"
   },
   {
     "stock_id": 2867,
-    "name": "三商壽",
+    "name": "三商美邦人壽保險股份有限公司",
     "industry": "金融保險業"
   },
   {
     "stock_id": 2903,
-    "name": "遠百",
+    "name": "遠東百貨股份有限公司",
     "industry": "貿易百貨"
   },
   {
     "stock_id": 2912,
-    "name": "統一超",
+    "name": "統一超商股份有限公司",
     "industry": "貿易百貨"
   },
   {
     "stock_id": 2915,
-    "name": "潤泰全",
+    "name": "潤泰全球股份有限公司",
     "industry": "貿易百貨"
   },
   {
     "stock_id": 3008,
-    "name": "大立光",
+    "name": "大立光電股份有限公司",
     "industry": "光電業"
   },
   {
     "stock_id": 3034,
-    "name": "聯詠",
+    "name": "聯詠科技股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 3037,
-    "name": "欣興",
+    "name": "欣興電子股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 3044,
-    "name": "健鼎",
+    "name": "健鼎科技股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 3045,
-    "name": "台灣大",
+    "name": "台灣大哥大股份有限公司",
     "industry": "通信網路業"
   },
   {
     "stock_id": 3189,
-    "name": "景碩",
+    "name": "景碩科技股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 3231,
-    "name": "緯創",
+    "name": "緯創資通股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 3443,
-    "name": "創意",
+    "name": "創意電子股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 3682,
-    "name": "亞太電",
+    "name": "亞太電信股份有限公司",
     "industry": "通信網路業"
   },
   {
     "stock_id": 4904,
-    "name": "遠傳",
+    "name": "遠傳電信股份有限公司",
     "industry": "通信網路業"
   },
   {
     "stock_id": 4938,
-    "name": "和碩",
+    "name": "和碩聯合科技股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 4958,
-    "name": "臻鼎-KY",
+    "name": "臻鼎科技控股股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 5522,
-    "name": "遠雄",
+    "name": "遠雄建設事業股份有限公司",
     "industry": "建材營造"
   },
   {
     "stock_id": 6176,
-    "name": "瑞儀",
+    "name": "瑞儀光電股份有限公司",
     "industry": "光電業"
   },
   {
     "stock_id": 6239,
-    "name": "力成",
+    "name": "力成科技股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 6269,
-    "name": "台郡",
+    "name": "台郡科技股份有限公司",
     "industry": "電子零組件業"
   },
   {
     "stock_id": 6285,
-    "name": "啟碁",
+    "name": "啟碁科技股份有限公司",
     "industry": "通信網路業"
   },
   {
     "stock_id": 6414,
-    "name": "樺漢",
+    "name": "樺漢科技股份有限公司",
     "industry": "電腦及週邊設備業"
   },
   {
     "stock_id": 6456,
-    "name": "GIS-KY",
+    "name": "GIS Holding Limited",
     "industry": "光電業"
   },
   {
     "stock_id": 6505,
-    "name": "台塑化",
+    "name": "台塑石化股份有限公司",
     "industry": "油電燃氣業"
   },
   {
     "stock_id": 8150,
-    "name": "南茂",
+    "name": "南茂科技股份有限公司",
     "industry": "半導體業"
   },
   {
     "stock_id": 8454,
-    "name": "富邦媒",
+    "name": "富邦媒體科技股份有限公司",
     "industry": "數位雲端"
   },
   {
     "stock_id": 8464,
-    "name": "億豐",
+    "name": "億豐綜合工業股份有限公司",
     "industry": "居家生活"
   },
   {
     "stock_id": 9904,
-    "name": "寶成",
+    "name": "寶成工業股份有限公司",
     "industry": "運動休閒"
   },
   {
     "stock_id": 9907,
-    "name": "統一實",
+    "name": "統一實業股份有限公司",
     "industry": "其他"
   },
   {
     "stock_id": 9910,
-    "name": "豐泰",
+    "name": "豐泰企業股份有限公司",
     "industry": "運動休閒"
   },
   {
     "stock_id": 9917,
-    "name": "中保科",
+    "name": "中興保全科技股份有限公司",
     "industry": "其他"
   },
   {
     "stock_id": 9921,
-    "name": "巨大",
+    "name": "巨大機械工業股份有限公司",
     "industry": "運動休閒"
   },
   {
     "stock_id": 9933,
-    "name": "中鼎",
+    "name": "中鼎工程股份有限公司",
     "industry": "其他"
   },
   {
     "stock_id": 9938,
-    "name": "百和",
+    "name": "台灣百和工業股份有限公司",
     "industry": "其他"
   },
   {
     "stock_id": 9945,
-    "name": "潤泰新",
+    "name": "潤泰創新國際股份有限公司",
     "industry": "其他"
   }
 ]
