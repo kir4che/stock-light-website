@@ -3,7 +3,6 @@ import ReactEcharts from 'echarts-for-react'
 
 export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 	const { isDarkMode } = useDarkMode()
-<<<<<<< HEAD
 
 	const darkTheme = {
 		color: ['#4992ff', '#7cffb2', '#fddd60', '#ff6e76', '#58d9f9', '#05c091', '#ff8a45', '#8d48e3', '#dd79ff'],
@@ -142,22 +141,14 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 	const lightTheme = {
 		color: ['#4992ff', '#fddd60', '#ff6e76', '#58d9f9', '#05c091', '#ff8a45', '#8d48e3', '#dd79ff'],
 		backgroundColor: '#fff',
-		tooltip: {
-			label: {
-				color: '#fff',
-				backgroundColor: '#3FB4FF',
-			},
-		},
 	}
 
-=======
->>>>>>> parent of 92096be (Update: 圖表)
 	return (
 		<ReactEcharts
 			id='echart'
 			className={`border rounded shadow-md dark:border-zinc-800 ${customHeight} pl-2 md:pl-0`}
 			option={option}
-			theme={isDarkMode ? 'dark' : 'light'}
+			theme={isDarkMode ? darkTheme : lightTheme}
 			style={{
 				height: '100%',
 				width: '100%',
