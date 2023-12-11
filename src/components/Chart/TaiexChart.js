@@ -106,8 +106,12 @@ export default function TaiexChart() {
 								onZero: false,
 							},
 							axisLabel: {
-								interval: parseInt(dates[0].length) / 8,
 								rotate: 45,
+
+								formatter: function (value, index) {
+									if (index % 2 === 0) return value
+									else return ''
+								},
 							},
 							splitLine: { show: false },
 						},
