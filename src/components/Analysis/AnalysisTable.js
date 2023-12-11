@@ -913,7 +913,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-							customHeight='h-64 sm:h-56 border-none shadow-none md:h-72 lg:h-88'
+							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
 						/>
 					) : selectedChart === 1 ? (
 						<Chart
@@ -1004,7 +1004,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-							customHeight='h-64 sm:h-56 border-none shadow-none md:h-72 lg:h-88'
+							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
 						/>
 					) : selectedChart === 2 ? (
 						<Chart
@@ -1054,7 +1054,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-							customHeight='h-64 sm:h-56 border-none shadow-none md:h-72 lg:h-88'
+							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
 						/>
 					) : (
 						''
