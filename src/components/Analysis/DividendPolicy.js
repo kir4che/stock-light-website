@@ -111,6 +111,7 @@ export default function DividendPolicy({ stockId, childOpen }) {
 									minWidth: header === '填息花費日數' ? '118px' : '108px',
 								}}
 								className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
+								key={header}
 							>
 								{header}
 							</TableCell>

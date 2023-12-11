@@ -395,13 +395,12 @@ export default function AnalysisTable({ stockId }) {
 						<h4 className='flex items-center'>相關新聞</h4>
 						<ul className='flex flex-col pl-4 leading-4 list-disc gap-y-1'>
 							{newsData.map((news) => (
-								<li>
+								<li key={news.title}>
 									<Link
 										href={news.link}
 										target='_blank'
 										rel='noopener noreferrer'
 										className='text-sm text-blue-500 hover:font-medium hover:underline'
-										key={news.title}
 									>
 										{news.title}
 									</Link>
@@ -603,7 +602,10 @@ export default function AnalysisTable({ stockId }) {
 						{incomeStatement[incomeStatement.length - 1] && (
 							<section className='flex self-start justify-between gap-1.5 w-full overflow-x-auto xl:flex-col'>
 								{['毛利率', '營業費用率', '稅前淨利率', '稅後淨利率'].map((margin) => (
-									<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'>
+									<div
+										className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'
+										key={margin}
+									>
 										<p className='mr-3 font-light opacity-80'>{margin}</p>
 										<Chart
 											option={{
@@ -1169,6 +1171,7 @@ export default function AnalysisTable({ stockId }) {
 								target='_blank'
 								rel='noopener noreferrer'
 								className='text-sm text-blue-500 hover:font-medium hover:underline'
+								key={index}
 							>
 								{report.year} 年第 {report.season} 季財務報表
 							</Link>
