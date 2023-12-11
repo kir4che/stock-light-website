@@ -60,7 +60,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 				}}
 			>
 				<DialogContent className='w-screen md:w-[600px] h-96 sm:h-[450px] md:h-[500px]'>
-					<div className='absolute w-full h-full overflow-y-hidden flex-center -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>
+					<div className='absolute w-full h-full flex-center -translate-x-2/4 -translate-y-2/4 left-2/4 top-2/4'>
 						<div className='absolute hidden w-full h-full sm:block right-2 sm:right-0 top-6 sm:top-2 md:top-8 -z-10'>
 							<div className='border-b-[120px] sm:border-b-[180px] border-b-white border-x-[280px] sm:border-x-[300px] border-x-transparent' />
 						</div>

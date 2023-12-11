@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
-import Loading from '@/components/common/Loading'
 import fetchEReport from '@/utils/fetchEReport'
 import {
 	fetchAssetStatement,
@@ -39,10 +38,16 @@ export default function AnalysisTable({ stockId }) {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/sentiment_analysis/${stockId}`, {
 				method: 'GET',
 			})
+			console.log(response) // test
 			const data = await response.json()
+			console.log(data) // test
+
+			// if (!data.success) setSentimentData(sentiments.rows.filter((item) => item.stock_id === stockId))
+
+			const filteredData = data.data.filter((item) => item.stock_id === stockId)
 
 			if (data.success) {
-				setSentimentData(data.data)
+				setSentimentData(filteredData)
 				setIsLoading(false)
 			}
 		} catch (error) {
@@ -58,7 +63,7 @@ export default function AnalysisTable({ stockId }) {
 					width={100}
 					height={100}
 					className='object-contain w-12 h-16'
-					alt='sunny-weather'
+					alt='external-sunny-weather-justicon-flat-justicon'
 				/>
 			)
 		} else if (sentiment === '中性') {
@@ -68,7 +73,7 @@ export default function AnalysisTable({ stockId }) {
 					width={100}
 					height={100}
 					className='object-contain w-12 h-16'
-					alt='cloudy-weather'
+					alt='external-cloudy-weather-kmg-design-flat-kmg-design-1'
 				/>
 			)
 		} else if (sentiment === '負面') {
@@ -78,7 +83,7 @@ export default function AnalysisTable({ stockId }) {
 					width={100}
 					height={100}
 					className='object-contain w-12 h-16'
-					alt='rainy-weather'
+					alt='external-rainy-weather-justicon-flat-justicon-1'
 				/>
 			)
 		}
@@ -98,10 +103,6 @@ export default function AnalysisTable({ stockId }) {
 		fetchData()
 		fetchSentimentData()
 	}, [stockId])
-
-	useEffect(() => {
-		console.log('sentimentData', sentimentData)
-	}, [sentimentData])
 
 	return (
 		<div className='flex flex-col gap-4'>
@@ -269,12 +270,13 @@ export default function AnalysisTable({ stockId }) {
 					</section>
 				)}
 			<div className='flex flex-col items-start justify-between gap-6 sm:flex-row sm:h-80'>
-				{sentimentData.length !== 0 ? (
+				{/* 情緒分析 */}
+				{sentimentData && (
 					<section className='flex-col h-full gap-2.5 sm:w-3/4 flex-center-between'>
 						<div className='h-full p-4 overflow-y-scroll bg-white rounded-lg shadow dark:bg-zinc-900/60'>
 							<h4 className='mb-2'>情緒分析</h4>
-							{sentimentData.slice(0, 3).map((item, index) => (
-								<div className='flex items-center space-y-4 gap-x-2' key={index}>
+							{sentimentData.slice(0, 3).map((item) => (
+								<div className='flex items-center space-y-4 gap-x-2' key={item.title}>
 									{sentimentIcon(item.sentiment)}
 									<div>
 										<p className='mb-1.5 space-x-2 font-medium leading-6'>
@@ -357,18 +359,18 @@ export default function AnalysisTable({ stockId }) {
 									customHeight='h-72 md:h-88 lg:h-96'
 								/>
 								<div className='flex justify-end gap-4 mt-2 -mb-4'>
-									{['正面', '中性', '負面'].map((sentiment, index) => (
+									{['正面', '中性', '負面'].map((sentiment) => (
 										<div
 											className='space-x-1 text-xs font-medium text-zinc-600 dark:text-zinc-300 flex-center'
-											key={index}
+											key={sentiment}
 										>
 											<div className='w-6'>{sentimentIcon(sentiment)}</div>
 											<span>{sentiment}</span>
 										</div>
 									))}
 								</div>
-								{sentimentData.map((item, index) => (
-									<div className='flex items-center space-y-5 gap-x-3' key={index}>
+								{sentimentData.map((item) => (
+									<div className='flex items-center space-y-5 gap-x-3' key={item.title}>
 										{sentimentIcon(item.sentiment)}
 										<div>
 											<p className='mb-1.5 space-x-2 font-medium leading-6'>
@@ -386,21 +388,20 @@ export default function AnalysisTable({ stockId }) {
 							</DialogContent>
 						</Dialog>
 					</section>
-				) : (
-					<Loading />
 				)}
 				{/* 相關新聞 */}
 				{newsData && (
 					<section className='p-4 space-y-2 overflow-y-auto bg-white rounded-lg shadow sm:w-1/3 sm:h-full h-80 dark:bg-zinc-900/60'>
 						<h4 className='flex items-center'>相關新聞</h4>
 						<ul className='flex flex-col pl-4 leading-4 list-disc gap-y-1'>
-							{newsData.map((news, index) => (
-								<li key={index}>
+							{newsData.map((news) => (
+								<li>
 									<Link
 										href={news.link}
 										target='_blank'
 										rel='noopener noreferrer'
 										className='text-sm text-blue-500 hover:font-medium hover:underline'
+										key={news.title}
 									>
 										{news.title}
 									</Link>
@@ -597,79 +598,238 @@ export default function AnalysisTable({ stockId }) {
 							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
 						/>
 					</section>
-					<div className='flex-col w-full gap-2 xl:gap-0 flex-center-between xl:flex-row'>
+					<div className='flex-col w-full flex-center-between xl:flex-row'>
 						{/* 毛利率、淨利率... */}
 						{incomeStatement[incomeStatement.length - 1] && (
 							<section className='flex self-start justify-between gap-1.5 w-full overflow-x-auto xl:flex-col'>
-								{['毛利率', '營業費用率', '稅前淨利率', '稅後淨利率'].map((margin) => (
-									<div
-										className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'
-										key={margin}
-									>
-										<p className='mr-3 font-light opacity-80'>{margin}</p>
-										<Chart
-											option={{
-												series: [
-													{
-														type: 'gauge',
-														center: ['50%', '85%'],
-														radius: '150%',
-														startAngle: 180,
-														endAngle: 0,
-														min: 0,
-														max: 100,
-														itemStyle: {
-															color: '#40B4FF',
-														},
-														pointer: {
-															show: false,
-														},
-														axisLine: {
-															lineStyle: {
-																width: 20,
-															},
-														},
-														progress: {
-															show: true,
-															width: 20,
-															color: '#FFB800',
-														},
-														axisLabel: {
-															show: false,
-														},
-														axisTick: {
-															show: false,
-														},
-														splitLine: {
-															show: false,
-														},
-														detail: {
-															fontSize: 16,
-															fontWeight: 300,
-															offsetCenter: [0, '-15%'],
-															formatter: function (value) {
-																return value + '%'
-															},
-														},
-														data: [
-															{
-																value:
-																	margin === '毛利率'
-																		? incomeStatement[incomeStatement.length - 1].grossMargin
-																		: margin === '營業費用率'
-																		? incomeStatement[incomeStatement.length - 1].operatingExpenseRatio
-																		: margin === '稅前淨利率'
-																		? incomeStatement[incomeStatement.length - 1].profitBeforeTaxMargin
-																		: incomeStatement[incomeStatement.length - 1].netIncomeMargin,
-															},
-														],
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'>
+									<p className='mr-3 font-light opacity-80'>毛利率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
 													},
-												],
-											}}
-											customHeight='h-20 w-32 border-none shadow-none'
-										/>
-									</div>
-								))}
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].grossMargin,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
+									<p className='mr-3 font-light opacity-80'>營業費用率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
+													},
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].operatingExpenseRatio,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
+									<p className='mr-3 font-light opacity-80'>稅前淨利率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
+													},
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].profitBeforeTaxMargin,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
+								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
+									<p className='mr-3 font-light opacity-80'>稅後淨利率</p>
+									<Chart
+										option={{
+											series: [
+												{
+													type: 'gauge',
+													center: ['50%', '85%'],
+													radius: '150%',
+													startAngle: 180,
+													endAngle: 0,
+													min: 0,
+													max: 100,
+													itemStyle: {
+														color: '#40B4FF',
+													},
+													pointer: {
+														show: false,
+													},
+													axisLine: {
+														lineStyle: {
+															width: 20,
+														},
+													},
+													progress: {
+														show: true,
+														width: 20,
+														color: '#FFB800',
+													},
+													axisLabel: {
+														show: false,
+													},
+													axisTick: {
+														show: false,
+													},
+													splitLine: {
+														show: false,
+													},
+													detail: {
+														fontSize: 16,
+														fontWeight: 300,
+														offsetCenter: [0, '-15%'],
+														formatter: function (value) {
+															return value + '%'
+														},
+													},
+													data: [
+														{
+															value: incomeStatement[incomeStatement.length - 1].netIncomeMargin,
+														},
+													],
+												},
+											],
+										}}
+										customHeight='h-20 w-32 border-none shadow-none'
+									/>
+								</div>
 							</section>
 						)}
 						{/* EPS */}
@@ -904,10 +1064,10 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '14%',
+									top: '10%',
 									left: '8%',
-									right: '4%',
-									height: '68%',
+									right: '6%',
+									height: '70%',
 								},
 								toolbox: {
 									feature: {
@@ -915,7 +1075,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
+							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
 						/>
 					) : selectedChart === 1 ? (
 						<Chart
@@ -993,20 +1153,18 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '14%',
-									left: '5%',
-									right: '5%',
-									height: '68%',
+									top: '10%',
+									left: '4%',
+									right: '6%',
+									height: '70%',
 								},
 								toolbox: {
 									feature: {
-										magicType: { show: true, type: ['line', 'bar'] },
-										restore: { show: true },
 										saveAsImage: { show: true },
 									},
 								},
 							}}
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
+							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
 						/>
 					) : selectedChart === 2 ? (
 						<Chart
@@ -1043,10 +1201,10 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '14%',
+									top: '10%',
 									left: '4%',
-									right: '3%',
-									height: '72%',
+									right: '6%',
+									height: '78%',
 								},
 								toolbox: {
 									feature: {
@@ -1056,7 +1214,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
+							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
 						/>
 					) : (
 						''
@@ -1171,7 +1329,6 @@ export default function AnalysisTable({ stockId }) {
 								target='_blank'
 								rel='noopener noreferrer'
 								className='text-sm text-blue-500 hover:font-medium hover:underline'
-								key={index}
 							>
 								{report.year} 年第 {report.season} 季財務報表
 							</Link>

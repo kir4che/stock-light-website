@@ -78,6 +78,12 @@ export default function DividendPolicy({ stockId, childOpen }) {
 						axisPointer: {
 							type: 'cross',
 						},
+						borderWidth: 1,
+						borderColor: '#ccc',
+						padding: 10,
+						textStyle: {
+							color: '#000',
+						},
 						valueFormatter: function (value) {
 							return value.toLocaleString() + '元'
 						},
@@ -93,7 +99,7 @@ export default function DividendPolicy({ stockId, childOpen }) {
 			/>
 			<Table size='medium'>
 				<TableBody>
-					<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+					<TableRow className='bg-secondary_blue/20 '>
 						{[
 							'公告日',
 							'現金股利',
@@ -111,7 +117,6 @@ export default function DividendPolicy({ stockId, childOpen }) {
 									minWidth: header === '填息花費日數' ? '118px' : '108px',
 								}}
 								className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-								key={header}
 							>
 								{header}
 							</TableCell>

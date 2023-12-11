@@ -237,7 +237,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table size='medium'>
 							<TableBody>
-								<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+								<TableRow className='bg-secondary_blue/20 '>
 									<TableCell
 										sx={{
 											width: '100%',
@@ -317,7 +317,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+									<TableRow className='bg-secondary_blue/20 '>
 										<TableCell
 											sx={{
 												width: '100%',
@@ -415,7 +415,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+								<TableRow className='bg-secondary_blue/20 '>
 									<TableCell
 										sx={{
 											width: '100%',
@@ -478,7 +478,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+								<TableRow className='bg-secondary_blue/20 '>
 									<TableCell
 										sx={{
 											width: '100%',
@@ -672,7 +672,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+									<TableRow className='bg-secondary_blue/20 '>
 										<TableCell
 											sx={{
 												width: '100%',
@@ -911,7 +911,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+									<TableRow className='bg-secondary_blue/20 '>
 										<TableCell
 											sx={{
 												width: '100%',
@@ -1183,7 +1183,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+									<TableRow className='bg-secondary_blue/20 '>
 										<TableCell
 											sx={{
 												width: '100%',

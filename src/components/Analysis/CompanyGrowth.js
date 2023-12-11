@@ -98,7 +98,7 @@ export default function CompanyGrowth({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+									<TableRow className='bg-secondary_blue/20 '>
 										<TableCell
 											sx={{
 												width: '100%',

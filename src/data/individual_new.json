@@ -1,0 +1,126 @@
+{
+	"table": "individual_new",
+	"rows":
+	[
+		{
+			"individual_new_id": 7,
+			"stock_id": 2330,
+			"title": "金融占台股市值比僅次半導體 GDP貢獻12年來近零成長",
+			"time": "7 小時前",
+			"link": "https://tw.sports.yahoo.com/news/%E9%87%91%E8%9E%8D%E5%8D%A0%E5%8F%B0%E8%82%A1%E5%B8%82%E5%80%BC%E6%AF%94%E5%83%85%E6%AC%A1%E5%8D%8A%E5%B0%8E%E9%AB%94-gdp%E8%B2%A2%E7%8D%BB12%E5%B9%B4%E4%BE%86%E8%BF%91%E9%9B%B6%E6%88%90%E9%95%B7-032824594.html",
+			"imageSrc": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT4OhtbI8AZop3avD5LHckHenYwHk2qf3HfttobRyIceyVzStDro3viVPNlf-g",
+			"create_date": "2023-11-26 22:01:11",
+			"update_date": "2023-11-26 22:01:11"
+		},
+		{
+			"individual_new_id": 8,
+			"stock_id": 2330,
+			"title": "台積電賺很多股價「要死不活」 反觀死敵噴漲30％ 驚爆2大弱點",
+			"time": "2 天前",
+			"link": "https://www.chinatimes.com/realtimenews/20231124001791-260410",
+			"imageSrc": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3xo4iYgo8Rb1Tw0TsDxw-3LvKZkS0tewMU7he_KkA6r0vqIUtgFHy6NoYdMs",
+			"create_date": "2023-11-26 22:01:11",
+			"update_date": "2023-11-26 22:01:11"
+		},
+		{
+			"individual_new_id": 9,
+			"stock_id": 2330,
+			"title": "Nvidia beats TSMC and Intel to take top chip industry revenue crown for the first time",
+			"time": "1 天前",
+			"link": "https://www.tomshardware.com/news/nvidia-takes-chip-business-revenue-crown-from-tsmc",
+			"imageSrc": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSTWyOLpVNoNFjdiwEYa8QvMvVIvSb4I1FHVv1q822ZN-wYowmuZdlS2jPR-T4",
+			"create_date": "2023-11-26 22:01:11",
+			"update_date": "2023-11-26 22:01:11"
+		},
+		{
+			"individual_new_id": 10,
+			"stock_id": 2330,
+			"title": "TSMC (TSM) Stock Declines While Market Improves: Some Information for Investors",
+			"time": "1 天前",
+			"link": "https://finance.yahoo.com/news/tsmc-tsm-stock-declines-while-224508341.html",
+			"imageSrc": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTaRCChFiKmNR7QzlR7HTK6GKO4bwFwdB13tA53BbcIB3w7IreqWDjn3wHCsi8",
+			"create_date": "2023-11-26 22:01:11",
+			"update_date": "2023-11-26 22:01:11"
+		},
+		{
+			"individual_new_id": 11,
+			"stock_id": 2330,
+			"title": "Chip firms to invest US$210bn globally",
+			"time": "22 小時前",
+			"link": "https://www.taipeitimes.com/News/front/archives/2023/11/26/2003809715",
+			"imageSrc": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRZHRX0lstogTs5RlSn9nJoFGPEqjd8is0vvDTfuPN0YIGPbjRkCX6A_qIWICI",
+			"create_date": "2023-11-26 22:01:11",
+			"update_date": "2023-11-26 22:01:11"
+		},
+		{
+			"individual_new_id": 12,
+			"stock_id": 2330,
+			"title": "2 Artificial Intelligence (AI) Stocks That Could Be Millionaire Makers",
+			"time": "6 天前",
+			"link": "https://www.fool.com/investing/2023/11/20/2-artificial-intelligence-ai-stocks-that-could-be/",
+			"imageSrc": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS79Ox8YorOuhQCfhd5-vN8pPXF3906CHNfS5XvINEyLTOSW3o0R9mhlB1h4U0",
+			"create_date": "2023-11-26 22:01:11",
+			"update_date": "2023-11-26 22:01:11"
+		},
+		{
+			"individual_new_id": 447,
+			"stock_id": 2330,
+			"title": "《台北股市》台積居高、傳產撐場 台股反攻5日線",
+			"time": "1 小時前",
+			"link": "https://tw.stock.yahoo.com/news/%E5%8F%B0%E5%8C%97%E8%82%A1%E5%B8%82-%E5%8F%B0%E7%A9%8D%E5%B1%85%E9%AB%98-%E5%82%B3%E7%94%A2%E6%92%90%E5%A0%B4-%E5%8F%B0%E8%82%A1%E5%8F%8D%E6%94%BB5%E6%97%A5%E7%B7%9A-011945334.html",
+			"imageSrc": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT4OhtbI8AZop3avD5LHckHenYwHk2qf3HfttobRyIceyVzStDro3viVPNlf-g",
+			"create_date": "2023-11-27 10:30:52",
+			"update_date": "2023-11-27 10:30:52"
+		},
+		{
+			"individual_new_id": 448,
+			"stock_id": 2330,
+			"title": "台積電賺很多股價「要死不活」 反觀死敵噴漲30％ 驚爆2大弱點",
+			"time": "2 天前",
+			"link": "https://www.chinatimes.com/realtimenews/20231124001791-260410",
+			"imageSrc": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3xo4iYgo8Rb1Tw0TsDxw-3LvKZkS0tewMU7he_KkA6r0vqIUtgFHy6NoYdMs",
+			"create_date": "2023-11-27 10:30:52",
+			"update_date": "2023-11-27 10:30:52"
+		},
+		{
+			"individual_new_id": 449,
+			"stock_id": 2330,
+			"title": "Nvidia beats TSMC and Intel to take top chip industry revenue crown for the first time",
+			"time": "2 天前",
+			"link": "https://www.tomshardware.com/news/nvidia-takes-chip-business-revenue-crown-from-tsmc",
+			"imageSrc": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSTWyOLpVNoNFjdiwEYa8QvMvVIvSb4I1FHVv1q822ZN-wYowmuZdlS2jPR-T4",
+			"create_date": "2023-11-27 10:30:52",
+			"update_date": "2023-11-27 10:30:52"
+		},
+		{
+			"individual_new_id": 450,
+			"stock_id": 2330,
+			"title": "TSMC (TSM) Stock Declines While Market Improves: Some Information for Investors",
+			"time": "2 天前",
+			"link": "https://finance.yahoo.com/news/tsmc-tsm-stock-declines-while-224508341.html",
+			"imageSrc": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTaRCChFiKmNR7QzlR7HTK6GKO4bwFwdB13tA53BbcIB3w7IreqWDjn3wHCsi8",
+			"create_date": "2023-11-27 10:30:52",
+			"update_date": "2023-11-27 10:30:52"
+		},
+		{
+			"individual_new_id": 451,
+			"stock_id": 2330,
+			"title": "Chip firms to invest US$210bn globally",
+			"time": "1 天前",
+			"link": "https://www.taipeitimes.com/News/front/archives/2023/11/26/2003809715",
+			"imageSrc": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRZHRX0lstogTs5RlSn9nJoFGPEqjd8is0vvDTfuPN0YIGPbjRkCX6A_qIWICI",
+			"create_date": "2023-11-27 10:30:52",
+			"update_date": "2023-11-27 10:30:52"
+		},
+		{
+			"individual_new_id": 452,
+			"stock_id": 2330,
+			"title": "TSM Stock Rises On Strong Sales Growth In October",
+			"time": "2 週前",
+			"link": "https://www.investors.com/news/technology/tsm-stock-rises-on-strong-sales-growth-in-october/",
+			"imageSrc": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQkpMSl6U06boajQ0RsrcWwoFSMjhZL5NRUK9BJFl06sb4wX50fUuunaTXrXZw",
+			"create_date": "2023-11-27 10:30:52",
+			"update_date": "2023-11-27 10:30:52"
+		}
+	]
+}

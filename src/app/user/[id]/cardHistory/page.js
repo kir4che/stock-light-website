@@ -13,7 +13,7 @@ export default function cardHistory() {
 				<div className='gap-10 card-grid'>
 					<a className='relative list-none card' href='#'>
 						<div className='card__background'>
-							<Image src={'https://imgur.com/h4ICpmE.png'} width={640} height={320} alt='card' />
+							<Image src={'https://imgur.com/h4ICpmE.png'} width={640} height={320} alt='' />
 						</div>
 						<div className='absolute top-0 left-0'>
 							<p className='text-sm uppercase'>2023年10月28日</p>
@@ -23,7 +23,7 @@ export default function cardHistory() {
 
 					<a className='relative list-none card' href='#'>
 						<div className='card__background '>
-							<Image src={'https://i.imgur.com/bZOT3Sq.png'} width={640} height={320} alt='card' />
+							<Image src={'https://i.imgur.com/bZOT3Sq.png'} width={640} height={320} alt='' />
 						</div>
 						<div className='absolute top-0 left-0'>
 							<p className='text-sm uppercase'>2023年10月30日</p>
