@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react'
 import Chart from '@/components/Chart/Chart'
 import fetchEReport from '@/utils/fetchEReport'
 import {
-  fetchAssetStatement,
-  fetchCashFlowStatement,
-  fetchIncomeStatement,
-  fetchLiabilitiesEquity,
+	fetchAssetStatement,
+	fetchCashFlowStatement,
+	fetchIncomeStatement,
+	fetchLiabilitiesEquity,
 } from '@/utils/fetchStockFS'
 import fetchStockNews from '@/utils/fetchStockNews'
 
@@ -39,7 +39,7 @@ export default function AnalysisTable({ stockId }) {
 				method: 'GET',
 			})
 			const data = await response.json()
-      
+
 			if (data.success) {
 				setSentimentData(data.data)
 				setIsLoading(false)
@@ -1068,11 +1068,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-<<<<<<< HEAD
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
-=======
 							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
->>>>>>> parent of 92096be (Update: 圖表)
 						/>
 					) : selectedChart === 1 ? (
 						<Chart
@@ -1161,11 +1157,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-<<<<<<< HEAD
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
-=======
 							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
->>>>>>> parent of 92096be (Update: 圖表)
 						/>
 					) : selectedChart === 2 ? (
 						<Chart
@@ -1215,11 +1207,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-<<<<<<< HEAD
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
-=======
 							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
->>>>>>> parent of 92096be (Update: 圖表)
 						/>
 					) : (
 						''
