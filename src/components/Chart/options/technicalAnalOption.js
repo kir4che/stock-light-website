@@ -63,12 +63,6 @@ export function macdOption(dateData, closePriceData, dataZoomRange, handleDataZo
 			axisPointer: {
 				type: 'cross',
 			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
-			},
 		},
 		toolbox: {
 			feature: {
@@ -140,12 +134,6 @@ export function kdOption(dateData, closePriceData, lowPriceData, highPriceData, 
 			axisPointer: {
 				type: 'cross',
 			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
-			},
 		},
 		grid: [
 			{
@@ -212,12 +200,6 @@ export function rsiOption(dateData, changeData, dataZoomRange, handleDataZoomCha
 			axisPointer: {
 				type: 'cross',
 			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
-			},
 		},
 		toolbox: {
 			feature: {
@@ -281,12 +263,6 @@ export function williamOption(dateData, closePriceData, dataZoomRange, handleDat
 			trigger: 'axis',
 			axisPointer: {
 				type: 'cross',
-			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
 			},
 		},
 		toolbox: {
@@ -376,12 +352,6 @@ export function biasOption(dateData, closePriceData, dataZoomRange, handleDataZo
 			axisPointer: {
 				type: 'cross',
 			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
-			},
 		},
 		toolbox: {
 			feature: {
@@ -448,12 +418,6 @@ export function adlOption(
 			trigger: 'axis',
 			axisPointer: {
 				type: 'cross',
-			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
 			},
 		},
 		toolbox: {

@@ -78,12 +78,6 @@ export default function DividendPolicy({ stockId, childOpen }) {
 						axisPointer: {
 							type: 'cross',
 						},
-						borderWidth: 1,
-						borderColor: '#ccc',
-						padding: 10,
-						textStyle: {
-							color: '#000',
-						},
 						valueFormatter: function (value) {
 							return value.toLocaleString() + '元'
 						},
