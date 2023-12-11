@@ -1,8 +1,6 @@
 'use client'
 
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
-import Pagination from '@mui/material/Pagination'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import SearchInput from '@/components/News/SearchInput'
@@ -11,17 +9,11 @@ import NewsPost from '@/components/ui/NewsPost'
 import SidebarBlock from '@/components/ui/SidebarBlock'
 
 export default function News() {
-	const router = useRouter()
-	const { page } = router.query || 1
-
 	const [isLoading, setIsLoading] = useState(true)
 	const [allNews, setAllNews] = useState([])
 	const [paginatedNews, setPaginatedNews] = useState([])
 
 	const [keyword, setKeyword] = useState('')
-
-	const newsPerPage = 12,
-		totalPages = 5
 
 	const fetchAllNews = async () => {
 		setIsLoading(true)
@@ -30,13 +22,16 @@ export default function News() {
 			const response = await fetch(`${process.env.DB_URL}/api/news/all`, { method: 'GET' })
 			const data = await response.json()
 			console.log('AllNews', data)
-			const sortedNews = data.data.sort((a, b) => {
-				const dateA = parseInt(a.time),
-					dateB = parseInt(b.time)
-				return dateA - dateB
-			})
-			setAllNews(sortedNews)
-			if (data.success) setIsLoading(false)
+
+			if (data.success) {
+				const sortedNews = data.data.sort((a, b) => {
+					const dateA = parseInt(a.time),
+						dateB = parseInt(b.time)
+					return dateA - dateB
+				})
+				setAllNews(sortedNews)
+				setIsLoading(false)
+			}
 		} catch (error) {
 			console.error('Error: ', error)
 		}
@@ -44,21 +39,7 @@ export default function News() {
 
 	useEffect(() => {
 		fetchAllNews()
-	}, [page])
-
-	useEffect(() => {
-		const startIndex = ((parseInt(page) || 1) - 1) * newsPerPage
-		const endIndex = startIndex + newsPerPage
-		const paginatedNews = allNews.slice(startIndex, endIndex)
-		setPaginatedNews(paginatedNews)
-	}, [page, isLoading, allNews])
-
-	const handlePageChange = (event, value) => {
-		router.push({
-			pathname: '/news',
-			query: { page: value },
-		})
-	}
+	}, [])
 
 	return (
 		<div className='flex flex-col px-4 py-8 md:px-0'>
@@ -80,17 +61,11 @@ export default function News() {
 						allNews={allNews}
 						keyword={keyword}
 						setKeyword={setKeyword}
-						newsPerPage={newsPerPage}
 						setPaginatedNews={setPaginatedNews}
 					/>
 					<SidebarBlock icon={<RocketLaunchIcon className='dark:text-white' />} title={'今日熱點'} />
 				</section>
 			</div>
-			{!keyword && (
-				<div className='w-full flex overflow-x-scroll flex-nowrap justify-center py-0.5 mt-20 mb-2 rounded bg-primary_yellow'>
-					<Pagination page={parseInt(page) || 1} count={totalPages} onChange={handlePageChange} />
-				</div>
-			)}
 		</div>
 	)
 }
