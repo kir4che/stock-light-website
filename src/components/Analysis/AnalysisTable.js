@@ -1,3 +1,4 @@
+import sentiments from '@/data/sentiments.json'
 import CloseIcon from '@mui/icons-material/Close'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
@@ -40,6 +41,14 @@ export default function AnalysisTable({ stockId }) {
 				method: 'GET',
 			})
 			const data = await response.json()
+<<<<<<< HEAD
+=======
+			console.log(data) // test
+
+			if (!data.success) setSentimentData(sentiments.rows.filter((item) => item.stock_id === stockId))
+
+			const filteredData = data.data.filter((item) => item.stock_id === stockId)
+>>>>>>> parent of 47ba71b (Update: 情緒分析)
 
 			if (data.success) {
 				setSentimentData(data.data)
