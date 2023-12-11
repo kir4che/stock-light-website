@@ -141,6 +141,12 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 	const lightTheme = {
 		color: ['#4992ff', '#fddd60', '#ff6e76', '#58d9f9', '#05c091', '#ff8a45', '#8d48e3', '#dd79ff'],
 		backgroundColor: '#fff',
+		tooltip: {
+			label: {
+				color: '#fff',
+				backgroundColor: '#3FB4FF',
+			},
+		},
 	}
 
 	return (

@@ -105,13 +105,6 @@ export default function TaiexChart() {
 							axisLine: {
 								onZero: false,
 							},
-							axisLabel: {
-								rotate: 45,
-								formatter: function (value, index) {
-									if (index % 4 === 0) return value
-									else return ''
-								},
-							},
 							splitLine: { show: false },
 						},
 						yAxis: {
@@ -119,18 +112,15 @@ export default function TaiexChart() {
 							scale: true,
 							splitArea: {
 								show: true,
+								areaStyle: {
+									color: ['', 'rgba(140,177,235,0.1)'],
+								},
 							},
 						},
 						tooltip: {
 							trigger: 'axis',
 							axisPointer: {
 								type: 'cross',
-							},
-							borderWidth: 1,
-							borderColor: '#ccc',
-							padding: 10,
-							textStyle: {
-								color: '#000',
 							},
 						},
 						axisPointer: {
@@ -162,10 +152,10 @@ export default function TaiexChart() {
 							},
 						},
 						grid: {
-							top: '6%',
-							left: '6%',
-							right: '3%',
-							height: '80%',
+							top: '8%',
+							left: '7%',
+							right: '4%',
+							height: '82%',
 						},
 					}}
 					customHeight='h-72 md:h-[400px] xl:h-[520px]'

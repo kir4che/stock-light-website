@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
+import Loading from '@/components/common/Loading'
 import fetchEReport from '@/utils/fetchEReport'
 import {
 	fetchAssetStatement,
@@ -97,6 +98,10 @@ export default function AnalysisTable({ stockId }) {
 		fetchData()
 		fetchSentimentData()
 	}, [stockId])
+
+	useEffect(() => {
+		console.log('sentimentData', sentimentData)
+	}, [sentimentData])
 
 	return (
 		<div className='flex flex-col gap-4'>
@@ -264,8 +269,7 @@ export default function AnalysisTable({ stockId }) {
 					</section>
 				)}
 			<div className='flex flex-col items-start justify-between gap-6 sm:flex-row sm:h-80'>
-				{/* 情緒分析 */}
-				{sentimentData && (
+				{sentimentData.length !== 0 ? (
 					<section className='flex-col h-full gap-2.5 sm:w-3/4 flex-center-between'>
 						<div className='h-full p-4 overflow-y-scroll bg-white rounded-lg shadow dark:bg-zinc-900/60'>
 							<h4 className='mb-2'>情緒分析</h4>
@@ -382,6 +386,8 @@ export default function AnalysisTable({ stockId }) {
 							</DialogContent>
 						</Dialog>
 					</section>
+				) : (
+					<Loading />
 				)}
 				{/* 相關新聞 */}
 				{newsData && (
@@ -591,238 +597,79 @@ export default function AnalysisTable({ stockId }) {
 							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
 						/>
 					</section>
-					<div className='flex-col w-full flex-center-between xl:flex-row'>
+					<div className='flex-col w-full gap-2 xl:gap-0 flex-center-between xl:flex-row'>
 						{/* 毛利率、淨利率... */}
 						{incomeStatement[incomeStatement.length - 1] && (
 							<section className='flex self-start justify-between gap-1.5 w-full overflow-x-auto xl:flex-col'>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'>
-									<p className='mr-3 font-light opacity-80'>毛利率</p>
-									<Chart
-										option={{
-											series: [
-												{
-													type: 'gauge',
-													center: ['50%', '85%'],
-													radius: '150%',
-													startAngle: 180,
-													endAngle: 0,
-													min: 0,
-													max: 100,
-													itemStyle: {
-														color: '#40B4FF',
-													},
-													pointer: {
-														show: false,
-													},
-													axisLine: {
-														lineStyle: {
+								{['毛利率', '營業費用率', '稅前淨利率', '稅後淨利率'].map((margin) => (
+									<div
+										className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'
+										key={margin}
+									>
+										<p className='mr-3 font-light opacity-80'>{margin}</p>
+										<Chart
+											option={{
+												series: [
+													{
+														type: 'gauge',
+														center: ['50%', '85%'],
+														radius: '150%',
+														startAngle: 180,
+														endAngle: 0,
+														min: 0,
+														max: 100,
+														itemStyle: {
+															color: '#40B4FF',
+														},
+														pointer: {
+															show: false,
+														},
+														axisLine: {
+															lineStyle: {
+																width: 20,
+															},
+														},
+														progress: {
+															show: true,
 															width: 20,
+															color: '#FFB800',
 														},
-													},
-													progress: {
-														show: true,
-														width: 20,
-														color: '#FFB800',
-													},
-													axisLabel: {
-														show: false,
-													},
-													axisTick: {
-														show: false,
-													},
-													splitLine: {
-														show: false,
-													},
-													detail: {
-														fontSize: 16,
-														fontWeight: 300,
-														offsetCenter: [0, '-15%'],
-														formatter: function (value) {
-															return value + '%'
+														axisLabel: {
+															show: false,
 														},
-													},
-													data: [
-														{
-															value: incomeStatement[incomeStatement.length - 1].grossMargin,
+														axisTick: {
+															show: false,
 														},
-													],
-												},
-											],
-										}}
-										customHeight='h-20 w-32 border-none shadow-none'
-									/>
-								</div>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
-									<p className='mr-3 font-light opacity-80'>營業費用率</p>
-									<Chart
-										option={{
-											series: [
-												{
-													type: 'gauge',
-													center: ['50%', '85%'],
-													radius: '150%',
-													startAngle: 180,
-													endAngle: 0,
-													min: 0,
-													max: 100,
-													itemStyle: {
-														color: '#40B4FF',
-													},
-													pointer: {
-														show: false,
-													},
-													axisLine: {
-														lineStyle: {
-															width: 20,
+														splitLine: {
+															show: false,
 														},
-													},
-													progress: {
-														show: true,
-														width: 20,
-														color: '#FFB800',
-													},
-													axisLabel: {
-														show: false,
-													},
-													axisTick: {
-														show: false,
-													},
-													splitLine: {
-														show: false,
-													},
-													detail: {
-														fontSize: 16,
-														fontWeight: 300,
-														offsetCenter: [0, '-15%'],
-														formatter: function (value) {
-															return value + '%'
+														detail: {
+															fontSize: 16,
+															fontWeight: 300,
+															offsetCenter: [0, '-15%'],
+															formatter: function (value) {
+																return value + '%'
+															},
 														},
+														data: [
+															{
+																value:
+																	margin === '毛利率'
+																		? incomeStatement[incomeStatement.length - 1].grossMargin
+																		: margin === '營業費用率'
+																		? incomeStatement[incomeStatement.length - 1].operatingExpenseRatio
+																		: margin === '稅前淨利率'
+																		? incomeStatement[incomeStatement.length - 1].profitBeforeTaxMargin
+																		: incomeStatement[incomeStatement.length - 1].netIncomeMargin,
+															},
+														],
 													},
-													data: [
-														{
-															value: incomeStatement[incomeStatement.length - 1].operatingExpenseRatio,
-														},
-													],
-												},
-											],
-										}}
-										customHeight='h-20 w-32 border-none shadow-none'
-									/>
-								</div>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
-									<p className='mr-3 font-light opacity-80'>稅前淨利率</p>
-									<Chart
-										option={{
-											series: [
-												{
-													type: 'gauge',
-													center: ['50%', '85%'],
-													radius: '150%',
-													startAngle: 180,
-													endAngle: 0,
-													min: 0,
-													max: 100,
-													itemStyle: {
-														color: '#40B4FF',
-													},
-													pointer: {
-														show: false,
-													},
-													axisLine: {
-														lineStyle: {
-															width: 20,
-														},
-													},
-													progress: {
-														show: true,
-														width: 20,
-														color: '#FFB800',
-													},
-													axisLabel: {
-														show: false,
-													},
-													axisTick: {
-														show: false,
-													},
-													splitLine: {
-														show: false,
-													},
-													detail: {
-														fontSize: 16,
-														fontWeight: 300,
-														offsetCenter: [0, '-15%'],
-														formatter: function (value) {
-															return value + '%'
-														},
-													},
-													data: [
-														{
-															value: incomeStatement[incomeStatement.length - 1].profitBeforeTaxMargin,
-														},
-													],
-												},
-											],
-										}}
-										customHeight='h-20 w-32 border-none shadow-none'
-									/>
-								</div>
-								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[260px] xl:w-60 flex-center-between dark:bg-zinc-900/60'>
-									<p className='mr-3 font-light opacity-80'>稅後淨利率</p>
-									<Chart
-										option={{
-											series: [
-												{
-													type: 'gauge',
-													center: ['50%', '85%'],
-													radius: '150%',
-													startAngle: 180,
-													endAngle: 0,
-													min: 0,
-													max: 100,
-													itemStyle: {
-														color: '#40B4FF',
-													},
-													pointer: {
-														show: false,
-													},
-													axisLine: {
-														lineStyle: {
-															width: 20,
-														},
-													},
-													progress: {
-														show: true,
-														width: 20,
-														color: '#FFB800',
-													},
-													axisLabel: {
-														show: false,
-													},
-													axisTick: {
-														show: false,
-													},
-													splitLine: {
-														show: false,
-													},
-													detail: {
-														fontSize: 16,
-														fontWeight: 300,
-														offsetCenter: [0, '-15%'],
-														formatter: function (value) {
-															return value + '%'
-														},
-													},
-													data: [
-														{
-															value: incomeStatement[incomeStatement.length - 1].netIncomeMargin,
-														},
-													],
-												},
-											],
-										}}
-										customHeight='h-20 w-32 border-none shadow-none'
-									/>
-								</div>
+												],
+											}}
+											customHeight='h-20 w-32 border-none shadow-none'
+										/>
+									</div>
+								))}
 							</section>
 						)}
 						{/* EPS */}
@@ -1057,10 +904,10 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '10%',
+									top: '14%',
 									left: '8%',
-									right: '6%',
-									height: '70%',
+									right: '4%',
+									height: '68%',
 								},
 								toolbox: {
 									feature: {
@@ -1068,7 +915,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
 						/>
 					) : selectedChart === 1 ? (
 						<Chart
@@ -1146,18 +993,20 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '10%',
-									left: '4%',
-									right: '6%',
-									height: '70%',
+									top: '14%',
+									left: '5%',
+									right: '5%',
+									height: '68%',
 								},
 								toolbox: {
 									feature: {
+										magicType: { show: true, type: ['line', 'bar'] },
+										restore: { show: true },
 										saveAsImage: { show: true },
 									},
 								},
 							}}
-							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
 						/>
 					) : selectedChart === 2 ? (
 						<Chart
@@ -1194,10 +1043,10 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '10%',
+									top: '14%',
 									left: '4%',
-									right: '6%',
-									height: '78%',
+									right: '3%',
+									height: '72%',
 								},
 								toolbox: {
 									feature: {
@@ -1207,7 +1056,7 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 							}}
-							customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
 						/>
 					) : (
 						''
