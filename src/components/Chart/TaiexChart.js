@@ -107,9 +107,8 @@ export default function TaiexChart() {
 							},
 							axisLabel: {
 								rotate: 45,
-
 								formatter: function (value, index) {
-									if (index % 2 === 0) return value
+									if (index % 4 === 0) return value
 									else return ''
 								},
 							},
