@@ -1,3 +1,4 @@
+import sentiments from '@/data/sentiments.json'
 import CloseIcon from '@mui/icons-material/Close'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
@@ -38,11 +39,10 @@ export default function AnalysisTable({ stockId }) {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/sentiment_analysis/${stockId}`, {
 				method: 'GET',
 			})
-			console.log(response) // test
 			const data = await response.json()
 			console.log(data) // test
 
-			// if (!data.success) setSentimentData(sentiments.rows.filter((item) => item.stock_id === stockId))
+			if (!data.success) setSentimentData(sentiments.rows.filter((item) => item.stock_id === stockId))
 
 			const filteredData = data.data.filter((item) => item.stock_id === stockId)
 
