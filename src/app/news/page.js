@@ -45,15 +45,7 @@ export default function News() {
 			<h2 className='mb-12'>最新財經新聞</h2>
 			<div className='flex w-full md:gap-12 xl:gap-24'>
 				<section className='w-full space-y-5'>
-					{!isLoading ? (
-						paginatedNews && paginatedNews.length > 0 ? (
-							paginatedNews.map((news, index) => <NewsPost news={news} key={index} />)
-						) : (
-							<p className='font-medium tracking-wider text-stock_red'>暫無相關新聞...</p>
-						)
-					) : (
-						<Loading />
-					)}
+					{!isLoading ? allNews.map((news, index) => <NewsPost news={news} key={index} />) : <Loading />}
 				</section>
 				<section className='hidden space-y-8 w-96 md:block'>
 					<SearchInput allNews={allNews} keyword={keyword} setKeyword={setKeyword} setNews={setAllNews} />
