@@ -10,7 +10,7 @@ import { useCallback, useEffect, useState } from 'react'
 import TabContent from '@/components/Analysis/TabContent'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
-import stock150 from '@/data/stock150.json'
+import stock100 from '@/data/stock100.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
 import fetchStockData from '@/utils/fetchStockData'
@@ -47,7 +47,7 @@ export default function FundamentalAnalysis() {
 				<div className='flex flex-col-reverse xs:flex-row xs:justify-between'>
 					<div className='flex items-baseline mt-4 mb-2 space-x-4 xs:mt-0'>
 						<h3 className='inline-flex items-baseline space-x-2'>
-							<span>{stock150.find((stock) => stock.id === selectedStockId)?.name || null}</span>
+							<span>{stock100.find((stock) => stock.stock_id === selectedStockId)?.name || null}</span>
 							<span className='text-xl font-light tracking-widest'>{selectedStockId}</span>
 						</h3>
 						<p className='text-xs font-medium tracking-wide opacity-70'>
@@ -55,8 +55,8 @@ export default function FundamentalAnalysis() {
 						</p>
 					</div>
 					<Autocomplete
-						options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
-						defaultValue={`${stock150[0].id} ${stock150[0].name}`}
+						options={stock100.map((stock) => `${stock.stock_id} ${stock.name}`)}
+						defaultValue={`${stock100[0].stock_id} ${stock100[0].name}`}
 						sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
 						size='small'
 						renderInput={(params) => <TextField {...params} />}

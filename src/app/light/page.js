@@ -173,13 +173,6 @@ export default function Light() {
 									hovered={selectedIndustry === '紡織纖維' ? true : false}
 								/>
 							</button>
-							<button type='button' onClick={() => handleLightUp('綠能環保')}>
-								<Lantern
-									position='right-32 top-16'
-									label='綠能環保股'
-									hovered={selectedIndustry === '綠能環保' ? true : false}
-								/>
-							</button>
 							<button type='button' onClick={() => handleLightUp('航運業')}>
 								<Lantern
 									position='right-24 top-56'
@@ -201,25 +194,11 @@ export default function Light() {
 									hovered={selectedIndustry === '貿易百貨' ? true : false}
 								/>
 							</button>
-							<button type='button' onClick={() => handleLightUp('資訊服務業')}>
-								<Lantern
-									position='right-64 top-0'
-									label='資訊服務股'
-									hovered={selectedIndustry === '資訊服務業' ? true : false}
-								/>
-							</button>
 							<button type='button' onClick={() => handleLightUp('通信網路業')}>
 								<Lantern
 									position='right-60 top-52 scale-[.65]'
 									label='通信網路股'
 									hovered={selectedIndustry === '通信網路業' ? true : false}
-								/>
-							</button>
-							<button type='button' onClick={() => handleLightUp('造紙工業')}>
-								<Lantern
-									position='right-[400px] -top-4'
-									label='造紙股'
-									hovered={selectedIndustry === '造紙工業' ? true : false}
 								/>
 							</button>
 							<button type='button' onClick={() => handleLightUp('運動休閒')}>

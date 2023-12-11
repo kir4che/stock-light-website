@@ -16,7 +16,7 @@ import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import stock150 from '@/data/stock150.json'
+import stock100 from '@/data/stock100.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
@@ -119,7 +119,7 @@ export default function ResultDashboard() {
 				</section>
 				<section className='px-4 mb-4 sm:px-8 lg:px-10'>
 					<h4 className='inline-flex items-baseline px-2 mb-2 space-x-2 rounded-lg dark:text-zinc-800 bg-primary_yellow'>
-						<span>{stock150.find((stock) => stock.id === resultStockId)?.name || null}</span>
+						<span>{stock100.find((stock) => stock.stock_id === resultStockId)?.name || null}</span>
 						<span className='text-lg font-light tracking-widest'>{resultStockId}</span>
 					</h4>
 					<div className='flex items-end justify-between'>

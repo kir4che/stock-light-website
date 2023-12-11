@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
-import stock150 from '@/data/stock150.json'
+import stock100 from '@/data/stock100.json'
 
 const columns = [
 	{ field: 'stock_id', headerName: '代號', flex: 1 },
@@ -367,8 +367,8 @@ export default function Portfolio() {
 				<>
 					<div className='flex items-center justify-end mb-3 space-x-2 dark:text-zinc-800'>
 						<Autocomplete
-							options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
-							defaultValue={`${stock150[0].id} ${stock150[0].name}`}
+							options={stock100.map((stock) => `${stock.stock_id} ${stock.name}`)}
+							defaultValue={`${stock100[0].stock_id} ${stock100[0].name}`}
 							sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
 							size='small'
 							renderInput={(params) => <TextField {...params} />}

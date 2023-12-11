@@ -13,7 +13,7 @@ import Chart from '@/components/Chart/Chart'
 import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
-import stock150 from '@/data/stock150.json'
+import stock100 from '@/data/stock100.json'
 import weatherList from '@/data/weatherList.json'
 
 import { calculateR } from '@/utils/calculateR'
@@ -76,7 +76,7 @@ export default function WeatherAnalysis() {
 	useEffect(() => {
 		fetchWeatherPredict(selectedStockId, selectedWeatherType)
 		setChartData({
-			stockName: stock150.find((stock) => stock.id === selectedStockId).name,
+			stockName: stock100.find((stock) => stock.stock_id === selectedStockId).name,
 			weatherType: weatherList[selectedTab].ch_name,
 		})
 	}, [selectedStockId, selectedWeatherType])
@@ -118,8 +118,8 @@ export default function WeatherAnalysis() {
 							</div>
 						)}
 						<Autocomplete
-							options={stock150.map((stock) => `${stock.id} ${stock.name}`)}
-							defaultValue={`${stock150[0].id} ${stock150[0].name}`}
+							options={stock100.map((stock) => `${stock.stock_id} ${stock.name}`)}
+							defaultValue={`${stock100[0].stock_id} ${stock100[0].name}`}
 							sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
 							size='small'
 							renderInput={(params) => <TextField {...params} />}
