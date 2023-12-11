@@ -56,7 +56,6 @@ module.exports = {
 	},
 	plugins: [
 		require('postcss-import'),
-		require('tailwind-scrollbar'),
 		require('tailwindcss/nesting')(require('postcss-nesting')),
 		require('autoprefixer'),
 		require('tailwindcss'),
