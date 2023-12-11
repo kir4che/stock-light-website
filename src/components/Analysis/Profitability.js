@@ -165,7 +165,7 @@ export default function Profitability({ stockId, childOpen }) {
 							<div className='overflow-x-auto'>
 								<Table>
 									<TableBody>
-										<TableRow className='bg-secondary_blue/20 '>
+										<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 											<TableCell
 												sx={{
 													width: '100%',
@@ -259,7 +259,7 @@ export default function Profitability({ stockId, childOpen }) {
 							<div className='overflow-x-auto'>
 								<Table>
 									<TableBody>
-										<TableRow className='bg-secondary_blue/20 '>
+										<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 											<TableCell
 												sx={{
 													width: '100%',
@@ -316,7 +316,7 @@ export default function Profitability({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								<TableRow className='bg-secondary_blue/20 '>
+								<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 									<TableCell
 										sx={{
 											width: '100%',
@@ -417,7 +417,7 @@ export default function Profitability({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								<TableRow className='bg-secondary_blue/20 '>
+								<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 									<TableCell
 										sx={{
 											width: '100%',
@@ -503,7 +503,7 @@ export default function Profitability({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 '>
+									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 										<TableCell
 											sx={{
 												width: '100%',
@@ -615,7 +615,7 @@ export default function Profitability({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 '>
+									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 										<TableCell
 											sx={{
 												width: '100%',

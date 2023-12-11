@@ -7,7 +7,15 @@ export default function NewsPost({ news }) {
 	return (
 		<article className='gap-6 space-y-2 xs:space-y-0 xs:flex'>
 			<div className='xs:max-w-[225px] h-full w-full'>
-				<Image src={coverImg} width={400} height={400} className='xs:max-h-[145px] object-cover' alt={news.news_id} />
+				{coverImg && (
+					<Image
+						src={coverImg}
+						width={400}
+						height={400}
+						className='xs:max-h-[145px] object-cover'
+						alt={news.news_id || 'news-cover'}
+					/>
+				)}
 			</div>
 			<div className='space-y-1.5'>
 				<Link href={news.link} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>

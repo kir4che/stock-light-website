@@ -66,12 +66,6 @@ export function barAndLineOption(text, date, dataName, data) {
 			axisPointer: {
 				type: 'cross',
 			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
-			},
 		},
 		grid: {
 			top: '15%',

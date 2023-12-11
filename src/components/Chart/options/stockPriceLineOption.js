@@ -37,6 +37,9 @@ export function stockPriceLineOption(
 				scale: true,
 				splitArea: {
 					show: true,
+					areaStyle: {
+						color: ['', 'rgba(140,177,235,0.1)'],
+					},
 				},
 			},
 			{
@@ -53,12 +56,6 @@ export function stockPriceLineOption(
 			trigger: 'axis',
 			axisPointer: {
 				type: 'cross',
-			},
-			borderWidth: 1,
-			borderColor: '#ccc',
-			padding: 10,
-			textStyle: {
-				color: '#000',
 			},
 		},
 		series: [

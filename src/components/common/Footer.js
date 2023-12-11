@@ -1,9 +1,10 @@
-import pageList from '@/data/pageList.json'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneIcon from '@mui/icons-material/Phone'
 import PlaceIcon from '@mui/icons-material/Place'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import pageList from '@/data/pageList.json'
 
 export default function Footer() {
 	const contactInfo = [
@@ -23,55 +24,57 @@ export default function Footer() {
 	]
 
 	return (
-		<footer>
-			<div className='z-50 flex-col py-4 mx-auto bg-white border-t sm:pb-2 sm:pt-6 dark:bg-zinc-800 flex-center dark:border-none sm:items-start sm:flex-row'>
-				<div className='lg:w-1/2 xl:w-1/3'>
-					<h4 className='flex items-center justify-center sm:justify-start mb-2 sm:mb-4 space-x-1.5'>
+		<footer className='mt-10 bg-white border-t dark:bg-zinc-800 dark:border-zinc-600'>
+			<div className='grid grid-cols-1 pt-4 lg:grid-cols-2'>
+				<div className='max-w-sm mx-auto lg:mx-0 lg:max-w-none'>
+					<h4 className='flex-center sm:justify-start mb-2 sm:mb-4 space-x-1.5'>
 						<Image src='/assets/logo.png' width={32} height={32} alt='temple' />
 						<span>股市光明燈</span>
 					</h4>
 					<p className='text-sm font-light text-center sm:mb-20 sm:text-left'>帶給所有投資人新的希望</p>
-					<p className='hidden text-sm font-thin opacity-50 md:inline'>
-						Copyright © 北科大資財四乙 2023 All Rights Reserved.
-					</p>
 				</div>
-				{/* 蠟燭動畫 */}
-				<div className='mt-8 mb-4 scale-75 sm:my-0 lg:w-1/2 xl:w-1/3 candle_wrapper flex-center'>
-					<div className='candle_spark' />
-					<div className='candle_sparkling' />
-					<div className='candle' />
-					<div className='candle_wax' />
-					<div className='candle_wax-bot' />
-				</div>
-				<div className='flex-col flex-wrap flex-grow mt-4 space-y-4 xl:w-1/4 flex-center sm:flex-row sm:justify-end sm:space-x-2 sm:space-y-0 sm:my-0 sm:text-left'>
-					<nav className='space-x-4 flex-center sm:flex-col sm:justify-start sm:space-x-0 sm:space-y-4'>
-						<div className='mr-10'>
-							<h4 className='mb-6 text-center'>頁尾導航</h4>
-							<div className='mb-4 sm:grid sm:grid-cols-2 sm:gap-4'>
-								{pageList.map((link, index) => (
-									<Link className='text-sm' href={link.url} key={index}>
-										• {link.name}
-									</Link>
-								))}
-							</div>
-						</div>
-					</nav>
-					<div className='hidden space-y-5 sm:block'>
-						<h4 className='mb-2'>聯絡方式</h4>
-						{contactInfo.map((info, index) => (
-							<div className='flex items-center space-x-2 text-sm' key={index}>
-								{info.icon}
-								{info.link ? (
-									<Link target='_blank' href={info.link}>
-										{info.text}
-									</Link>
-								) : (
-									<p>{info.text}</p>
-								)}
-							</div>
-						))}
+				<div className='text-center lg:gap-8 lg:flex lg:text-left'>
+					<div className='-mt-2 scale-50 md:-mt-10 lg:mt-0 candle_wrapper'>
+						<div className='candle_spark' />
+						<div className='candle_sparkling' />
+						<div className='candle' />
+						<div className='candle_wax' />
+						<div className='candle_wax-bot' />
+					</div>
+					<div className='lg:ml-8 lg:w-96'>
+						<p className='hidden font-medium lg:block'>頁尾導航</p>
+						<ul className='space-x-4 lg:space-x-0 lg:mt-4 lg:grid lg:grid-cols-2 lg:gap-y-4'>
+							{pageList.map((link, index) => (
+								<Link className='text-sm font-thin hover:underline' href={link.url} key={index}>
+									{link.name}
+								</Link>
+							))}
+						</ul>
+					</div>
+					<div className='w-full'>
+						<p className='hidden font-medium lg:block'>聯絡方式</p>
+						<ul className='flex-wrap gap-4 mt-4 lg:gap-0 lg:space-y-3 flex-center lg:block'>
+							{contactInfo.map((info, index) => (
+								<div className='flex items-center font-thin space-x-1.5 text-sm' key={index}>
+									{info.icon}
+									{info.link ? (
+										<Link target='_blank' href={info.link}>
+											{info.text}
+										</Link>
+									) : (
+										<p>{info.text}</p>
+									)}
+								</div>
+							))}
+						</ul>
 					</div>
 				</div>
+			</div>
+			{/* 版權聲明 */}
+			<div className='py-3 mt-8 border-t border-gray-100 dark:border-zinc-600'>
+				<p className='text-center text-gray-500 dark:text-zinc-400 text-xs/relaxed'>
+					Copyright © 北科大資財四乙 2023 All Rights Reserved.
+				</p>
 			</div>
 		</footer>
 	)
