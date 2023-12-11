@@ -595,70 +595,6 @@ export default function AnalysisTable({ stockId }) {
 						{/* 毛利率、淨利率... */}
 						{incomeStatement[incomeStatement.length - 1] && (
 							<section className='flex self-start justify-between gap-1.5 w-full overflow-x-auto xl:flex-col'>
-<<<<<<< HEAD
-								{['毛利率', '營業費用率', '稅前淨利率', '稅後淨利率'].map((margin) => (
-									<div
-										className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'
-										key={margin}
-									>
-										<p className='mr-3 font-light opacity-80'>{margin}</p>
-										<Chart
-											option={{
-												series: [
-													{
-														type: 'gauge',
-														center: ['50%', '85%'],
-														radius: '150%',
-														startAngle: 180,
-														endAngle: 0,
-														min: 0,
-														max: 100,
-														itemStyle: {
-															color: '#40B4FF',
-														},
-														pointer: {
-															show: false,
-														},
-														axisLine: {
-															lineStyle: {
-																width: 20,
-															},
-														},
-														progress: {
-															show: true,
-															width: 20,
-															color: '#FFB800',
-														},
-														axisLabel: {
-															show: false,
-														},
-														axisTick: {
-															show: false,
-														},
-														splitLine: {
-															show: false,
-														},
-														detail: {
-															fontSize: 16,
-															fontWeight: 300,
-															offsetCenter: [0, '-15%'],
-															formatter: function (value) {
-																return value + '%'
-															},
-														},
-														data: [
-															{
-																value:
-																	margin === '毛利率'
-																		? incomeStatement[incomeStatement.length - 1].grossMargin
-																		: margin === '營業費用率'
-																		? incomeStatement[incomeStatement.length - 1].operatingExpenseRatio
-																		: margin === '稅前淨利率'
-																		? incomeStatement[incomeStatement.length - 1].profitBeforeTaxMargin
-																		: incomeStatement[incomeStatement.length - 1].netIncomeMargin,
-															},
-														],
-=======
 								<div className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'>
 									<p className='mr-3 font-light opacity-80'>毛利率</p>
 									<Chart
@@ -674,7 +610,6 @@ export default function AnalysisTable({ stockId }) {
 													max: 100,
 													itemStyle: {
 														color: '#40B4FF',
->>>>>>> parent of 92096be (Update: 圖表)
 													},
 													pointer: {
 														show: false,
