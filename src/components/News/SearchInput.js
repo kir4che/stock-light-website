@@ -3,13 +3,14 @@ import SearchIcon from '@mui/icons-material/Search'
 import InputBase from '@mui/material/InputBase'
 import Paper from '@mui/material/Paper'
 
-export default function SearchInput({ allNews, keyword, setKeyword }) {
+export default function SearchInput({ allNews, keyword, setKeyword, setNews }) {
 	const handleKeywordChange = (e) => setKeyword(e.target.value)
 
 	const handleKeywordSearch = () => {
 		const filteredNews = allNews.filter((news) => news.title.toLowerCase().includes(keyword.toLowerCase()))
-		setPaginatedNews(filteredNews)
+		setNews(filteredNews)
 	}
+
 	return (
 		<Paper component='form' className='flex relative items-center pl-3 py-1.5'>
 			<InputBase placeholder='Search' value={keyword} onChange={handleKeywordChange} />
@@ -18,7 +19,7 @@ export default function SearchInput({ allNews, keyword, setKeyword }) {
 					fontSize='small'
 					className='absolute mr-1 cursor-pointer text-zinc-800 dark:text-zinc-800 right-9 hover:opacity-80'
 					onClick={() => {
-						setPaginatedNews(allNews)
+						setNews(allNews)
 						setKeyword('')
 					}}
 				/>

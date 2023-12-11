@@ -11,7 +11,6 @@ import SidebarBlock from '@/components/ui/SidebarBlock'
 export default function News() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [allNews, setAllNews] = useState([])
-	const [paginatedNews, setPaginatedNews] = useState([])
 
 	const [keyword, setKeyword] = useState('')
 
@@ -57,12 +56,7 @@ export default function News() {
 					)}
 				</section>
 				<section className='hidden space-y-8 w-96 md:block'>
-					<SearchInput
-						allNews={allNews}
-						keyword={keyword}
-						setKeyword={setKeyword}
-						setPaginatedNews={setPaginatedNews}
-					/>
+					<SearchInput allNews={allNews} keyword={keyword} setKeyword={setKeyword} setNews={setAllNews} />
 					<SidebarBlock icon={<RocketLaunchIcon className='dark:text-white' />} title={'今日熱點'} />
 				</section>
 			</div>
