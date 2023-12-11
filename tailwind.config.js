@@ -49,6 +49,7 @@ module.exports = {
 				},
 				primary_yellow: '#FFDE6B',
 				secondary_blue: '#40B4FF',
+				deep_blue: '#3D4664',
 				stock_red: '#EB5554',
 				stock_green: '#46B262',
 			},

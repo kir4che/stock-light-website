@@ -66,7 +66,7 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 				},
 				label: {
 					color: '#fff',
-					backgroundColor: '#3E4764',
+					backgroundColor: '#3D4664',
 				},
 			},
 		},

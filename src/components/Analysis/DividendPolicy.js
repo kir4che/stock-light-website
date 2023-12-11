@@ -93,7 +93,7 @@ export default function DividendPolicy({ stockId, childOpen }) {
 			/>
 			<Table size='medium'>
 				<TableBody>
-					<TableRow className='bg-secondary_blue/20 '>
+					<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 						{[
 							'公告日',
 							'現金股利',
