@@ -273,8 +273,8 @@ export default function AnalysisTable({ stockId }) {
 					<section className='flex-col h-full gap-2.5 sm:w-3/4 flex-center-between'>
 						<div className='h-full p-4 overflow-y-scroll bg-white rounded-lg shadow dark:bg-zinc-900/60'>
 							<h4 className='mb-2'>情緒分析</h4>
-							{sentimentData.slice(0, 3).map((item) => (
-								<div className='flex items-center space-y-4 gap-x-2' key={item.title}>
+							{sentimentData.slice(0, 3).map((item, index) => (
+								<div className='flex items-center space-y-4 gap-x-2' key={index}>
 									{sentimentIcon(item.sentiment)}
 									<div>
 										<p className='mb-1.5 space-x-2 font-medium leading-6'>
@@ -357,18 +357,18 @@ export default function AnalysisTable({ stockId }) {
 									customHeight='h-72 md:h-88 lg:h-96'
 								/>
 								<div className='flex justify-end gap-4 mt-2 -mb-4'>
-									{['正面', '中性', '負面'].map((sentiment) => (
+									{['正面', '中性', '負面'].map((sentiment, index) => (
 										<div
 											className='space-x-1 text-xs font-medium text-zinc-600 dark:text-zinc-300 flex-center'
-											key={sentiment}
+											key={index}
 										>
 											<div className='w-6'>{sentimentIcon(sentiment)}</div>
 											<span>{sentiment}</span>
 										</div>
 									))}
 								</div>
-								{sentimentData.map((item) => (
-									<div className='flex items-center space-y-5 gap-x-3' key={item.title}>
+								{sentimentData.map((item, index) => (
+									<div className='flex items-center space-y-5 gap-x-3' key={index}>
 										{sentimentIcon(item.sentiment)}
 										<div>
 											<p className='mb-1.5 space-x-2 font-medium leading-6'>
@@ -394,8 +394,8 @@ export default function AnalysisTable({ stockId }) {
 					<section className='p-4 space-y-2 overflow-y-auto bg-white rounded-lg shadow sm:w-1/3 sm:h-full h-80 dark:bg-zinc-900/60'>
 						<h4 className='flex items-center'>相關新聞</h4>
 						<ul className='flex flex-col pl-4 leading-4 list-disc gap-y-1'>
-							{newsData.map((news) => (
-								<li key={news.title}>
+							{newsData.map((news, index) => (
+								<li key={index}>
 									<Link
 										href={news.link}
 										target='_blank'
