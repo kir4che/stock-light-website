@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react'
 import Chart from '@/components/Chart/Chart'
 import fetchEReport from '@/utils/fetchEReport'
 import {
-	fetchAssetStatement,
-	fetchCashFlowStatement,
-	fetchIncomeStatement,
-	fetchLiabilitiesEquity,
+  fetchAssetStatement,
+  fetchCashFlowStatement,
+  fetchIncomeStatement,
+  fetchLiabilitiesEquity,
 } from '@/utils/fetchStockFS'
 import fetchStockNews from '@/utils/fetchStockNews'
 
@@ -38,16 +38,10 @@ export default function AnalysisTable({ stockId }) {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/sentiment_analysis/${stockId}`, {
 				method: 'GET',
 			})
-			console.log(response) // test
 			const data = await response.json()
-			console.log(data) // test
-
-			// if (!data.success) setSentimentData(sentiments.rows.filter((item) => item.stock_id === stockId))
-
-			const filteredData = data.data.filter((item) => item.stock_id === stockId)
-
+      
 			if (data.success) {
-				setSentimentData(filteredData)
+				setSentimentData(data.data)
 				setIsLoading(false)
 			}
 		} catch (error) {
