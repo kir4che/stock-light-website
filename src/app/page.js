@@ -1,11 +1,11 @@
 'use client'
 
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import TaiexChart from '@/components/Chart/TaiexChart'
 import Hero from '@/components/common/Hero'
 import { FlexCard } from '@/components/ui/FlexCard'
-import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 
 export default function Home() {
 	const router = useRouter()
@@ -63,11 +63,29 @@ export default function Home() {
 					>
 						我要點燈！
 					</button>
-					<LanternLayout otherStyle='hidden md:block'>
-						<Lantern position='z-0 scale-75 -top-80 -left-12 lg:-left-10 xl:left-0' />
-						<Lantern position='z-0 -top-28 scale-100 left-20 lg:left-32 xl:left-56' />
-						<Lantern position='z-0 -top-[420px] scale-105 -right-8 lg:right-0 xl:right-28' />
-					</LanternLayout>
+					<div className='relative hidden md:block'>
+						<Image
+							src='/assets/lantern.png'
+							width={120}
+							height={120}
+							alt='lantern-1'
+							className='absolute left-12 -top-80'
+						/>
+						<Image
+							src='/assets/lantern.png'
+							width={100}
+							height={100}
+							alt='lantern-2'
+							className='absolute -top-14 left-72'
+						/>
+						<Image
+							src='/assets/lantern.png'
+							width={100}
+							height={100}
+							alt='lantern-3'
+							className='absolute -top-80 right-40'
+						/>
+					</div>
 				</article>
 			</div>
 		</>

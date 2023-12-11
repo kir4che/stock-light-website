@@ -13,101 +13,6 @@ import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import stock100 from '@/data/stock100.json'
 
-const columns = [
-	{ field: 'stock_id', headerName: '代號', flex: 1 },
-	{ field: 'stock_name', headerName: '股票', flex: 1 },
-	{
-		field: 'price',
-		headerName: '股價',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-		// valueFormatter: (params) => `${params.value.toFixed(2)}`,
-		cellClassName: (params) => {
-			const changeValue = params.row.quote_change || 0
-			return changeValue > 0 ? 'text-stock_red' : changeValue < 0 ? 'text-stock_green' : ''
-		},
-	},
-	{
-		field: 'quote_change',
-		headerName: '漲跌',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-		// valueFormatter: (params) => `${params.value.toFixed(2)}`,
-		cellClassName: (params) => {
-			const value = params.value || 0
-			return value > 0 ? 'text-stock_red' : value < 0 ? 'text-stock_green' : ''
-		},
-	},
-	{
-		field: 'quote_change_percent',
-		headerName: '漲跌幅 (%)',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-		renderCell: (params) => {
-			const value = params.value || 0
-			if (value > 0) {
-				return (
-					<p className='flex items-center space-x-0.5 text-stock_red'>
-						<ArrowDropUpIcon color='error' />
-						<span>{`${value.toFixed(2)}%`}</span>
-					</p>
-				)
-			} else if (value < 0) {
-				return (
-					<p className='flex items-center space-x-0.5 text-stock_green'>
-						<ArrowDropDownIcon color='success' />
-						<span>{`${Math.abs(value.toFixed(2))}%`}</span>
-					</p>
-				)
-			} else {
-				return `${value.toFixed(2)}%`
-			}
-		},
-	},
-	{
-		field: 'opening_price',
-		headerName: '開盤價',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-		// valueFormatter: (params) => `${params.value.toFixed(2)}`,
-	},
-	{
-		field: 'closing_price',
-		headerName: '收盤價',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-		// valueFormatter: (params) => `${params.value.toFixed(2)}`,
-	},
-	{
-		field: 'highest_price',
-		headerName: '最高價',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-		// valueFormatter: (params) => `${params.value.toFixed(2)}`,
-	},
-	{
-		field: 'lowest_price',
-		headerName: '最低價',
-		headerAlign: 'right',
-		align: 'right',
-		sortable: true,
-		flex: 1,
-		// valueFormatter: (params) => `${params.value.toFixed(2)}`,
-	},
-]
-
 export default function Portfolio() {
 	const { data: session } = useSession()
 	const token = session?.token
@@ -407,7 +312,94 @@ export default function Portfolio() {
 							},
 						}}
 						rows={rows}
-						columns={columns}
+						columns={[
+							{ field: 'stock_id', headerName: '代號', flex: 1 },
+							{ field: 'stock_name', headerName: '股票', flex: 1 },
+							{
+								field: 'price',
+								headerName: '股價',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+								cellClassName: (params) => {
+									const changeValue = params.row.quote_change || 0
+									return changeValue > 0 ? 'text-stock_red' : changeValue < 0 ? 'text-stock_green' : ''
+								},
+							},
+							{
+								field: 'quote_change',
+								headerName: '漲跌',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+								cellClassName: (params) => {
+									const value = params.value || 0
+									return value > 0 ? 'text-stock_red' : value < 0 ? 'text-stock_green' : ''
+								},
+							},
+							{
+								field: 'quote_change_percent',
+								headerName: '漲跌幅 (%)',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+								renderCell: (params) => {
+									const value = params.value || 0
+									if (value > 0) {
+										return (
+											<p className='flex items-center space-x-0.5 text-stock_red'>
+												<ArrowDropUpIcon color='error' />
+												<span>{`${value.toFixed(2)}%`}</span>
+											</p>
+										)
+									} else if (value < 0) {
+										return (
+											<p className='flex items-center space-x-0.5 text-stock_green'>
+												<ArrowDropDownIcon color='success' />
+												<span>{`${Math.abs(value.toFixed(2))}%`}</span>
+											</p>
+										)
+									} else {
+										return `${value.toFixed(2)}%`
+									}
+								},
+							},
+							{
+								field: 'opening_price',
+								headerName: '開盤價',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+							},
+							{
+								field: 'closing_price',
+								headerName: '收盤價',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+							},
+							{
+								field: 'highest_price',
+								headerName: '最高價',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+							},
+							{
+								field: 'lowest_price',
+								headerName: '最低價',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+							},
+						]}
 						onRowSelectionModelChange={(ids) => setRowIds(ids)}
 						className='bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
 						hideFooter

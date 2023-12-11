@@ -7,6 +7,7 @@ import TextField from '@mui/material/TextField'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 import { DataGrid } from '@mui/x-data-grid'
+import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
@@ -55,16 +56,15 @@ export default function WeatherAnalysis() {
 				method: 'GET',
 			})
 			const data = await response.json()
-			console.log(data)
 
-			setWeatherData({
-				weather: data.data.independent_datas,
-				stockPrice: data.data.dependent_datas,
-				stockInfo: data.data.stockinfo,
-			})
-
-			if (data.success) setIsLoading(false)
-			else {
+			if (data.success) {
+				setWeatherData({
+					weather: data.data.independent_datas,
+					stockPrice: data.data.dependent_datas,
+					stockInfo: data.data.stockinfo,
+				})
+				setIsLoading(false)
+			} else {
 				console.error('Error: ', data.errorMessage)
 				return
 			}
@@ -99,7 +99,7 @@ export default function WeatherAnalysis() {
 							}}
 							key={index}
 						>
-							<img src={weather.icon} />
+							<Image src={weather.icon} width={30} height={30} alt={weather.ch_name} />
 							<span>{weather.ch_name}</span>
 						</button>
 					))}

@@ -4,7 +4,7 @@
   "private": false,
   "scripts": {
     "dev": "next dev",
-    "build": "DISABLE_ESLINT_PLUGIN='true' next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
