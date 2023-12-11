@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
-export default function SidebarBlock({ icon, title, data }) {
+export default function SidebarBlock({ icon, title }) {
 	const [todayNews, setTodayNews] = useState(null)
 
 	const fetchTodayNews = async () => {

@@ -3,7 +3,6 @@
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'
 import { useEffect, useState } from 'react'
 
-import SearchInput from '@/components/News/SearchInput'
 import Loading from '@/components/common/Loading'
 import NewsPost from '@/components/ui/NewsPost'
 import SidebarBlock from '@/components/ui/SidebarBlock'
@@ -11,7 +10,6 @@ import SidebarBlock from '@/components/ui/SidebarBlock'
 export default function News() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [allNews, setAllNews] = useState([])
-
 	const [keyword, setKeyword] = useState('')
 
 	const fetchAllNews = async () => {
@@ -48,7 +46,7 @@ export default function News() {
 					{!isLoading ? allNews.map((news, index) => <NewsPost news={news} key={index} />) : <Loading />}
 				</section>
 				<section className='hidden space-y-8 w-96 md:block'>
-					<SearchInput allNews={allNews} keyword={keyword} setKeyword={setKeyword} setNews={setAllNews} />
+					{/* <SearchInput allNews={allNews} keyword={keyword} setKeyword={setKeyword} setNews={setAllNews} /> */}
 					<SidebarBlock icon={<RocketLaunchIcon className='dark:text-white' />} title={'今日熱點'} />
 				</section>
 			</div>
