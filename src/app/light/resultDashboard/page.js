@@ -7,7 +7,7 @@ import { Tab, Tabs } from '@mui/material'
 import Alert from '@mui/material/Alert'
 import Snackbar from '@mui/material/Snackbar'
 import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Analysis/AnalysisTable'
 import PrayerCard from '@/components/Light/PrayerCard'
@@ -21,7 +21,7 @@ import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
-export default function ResultDashboard() {
+function ResultDashboard() {
 	const industry = useSearchParams().get('industry')
 
 	const [isLoading, setIsLoading] = useState(true)
@@ -49,8 +49,8 @@ export default function ResultDashboard() {
 		const fetchData = async (stockId) => {
 			const pePbData = await fetchStockPePb({ stockId, setIsLoading })
 			setStockPePb({
-				pb: pePbData.p_b_ratio,
-				pe: pePbData.p_e_ratio,
+				pb: pePbData.p_b_ratio || 0,
+				pe: pePbData.p_e_ratio || 0,
 			})
 			const stockData = await fetchStockData({ stockId, setIsLoading })
 			setStockPrice({
@@ -202,3 +202,11 @@ export default function ResultDashboard() {
 		</StarryBackground>
 	)
 }
+
+const ResultDashboardWithSuspense = () => (
+	<Suspense fallback={<Loading />}>
+		<ResultDashboard />
+	</Suspense>
+)
+
+export default ResultDashboardWithSuspense
