@@ -1,3 +1,5 @@
+'use client'
+
 import MaterialBreadcrumbs from '@mui/material/Breadcrumbs'
 import Button from '@mui/material/Button'
 import { useRouter } from 'next/navigation'

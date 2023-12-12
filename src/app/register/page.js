@@ -24,43 +24,43 @@ export default function Register() {
 
 	const handleRegister = async (e) => {
 		e.preventDefault()
+		const { name, email, password, confirmPassword } = user
 
-		if (user.password !== user.confirmPassword) {
+		if (password !== confirmPassword) {
 			alert('密碼與確認密碼不相符，請重新輸入！')
 			return
 		}
 
 		try {
-			await fetch(`${process.env.DB_URL}/api/user/register`, {
+			const responce = await fetch(`${process.env.DB_URL}/api/user/register`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({
-					name: user.name,
-					email: user.email,
-					password: user.password,
-				}),
+				body: JSON.stringify({ name, email, password }),
 			})
+			const data = await responce.json()
+			if (data.success) setIsSucceed(true)
+			else alert('註冊失敗，請重新註冊！')
 		} catch (error) {
 			console.error('Error: ', error)
-		} finally {
-			setIsSucceed(true)
 		}
 	}
 
 	useEffect(() => {
-		setTimeout(() => {
+		const timeoutId = setTimeout(() => {
 			if (isSucceed) router.push('/login')
 		}, 3000)
+
+		return () => clearTimeout(timeoutId)
 	}, [isSucceed])
 
 	return (
 		<StarryBackground className='flex-col pt-10 pb-12 flex-center'>
 			<div className='px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
 				<h3 className='text-zinc-100'>註冊股市光明燈</h3>
-				<p className='mt-4 mb-8 text-sm text-zinc-100 opacity-80'>
-					已經有帳號了！{' '}
+				<p className='mt-4 mb-8 space-x-1 text-sm text-zinc-100 opacity-80'>
+					<sapn>已經有帳號了！</sapn>{' '}
 					<Link href={'/login'} className='underline opacity-80'>
 						登入
 					</Link>
@@ -75,7 +75,7 @@ export default function Register() {
 					label='Email'
 					type='email'
 					onChange={(e) => setUser({ ...user, email: e.target.value })}
-					placeholder='請輸入您的 Email 帳號'
+					placeholder='請輸入您的 Email'
 				/>
 				<InputField
 					label='密碼'

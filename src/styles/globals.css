@@ -331,7 +331,7 @@
 }
 
 .card-grid:hover > .card:not(:hover) .card__background {
-	filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
+	filter: brightness(0.5) saturate(0) contrast(1.2) blur(5px);
 }
 
 .card__category {

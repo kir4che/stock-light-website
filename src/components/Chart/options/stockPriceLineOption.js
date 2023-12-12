@@ -7,9 +7,6 @@ export function stockPriceLineOption(
 	handleDataZoomChange
 ) {
 	const option = {
-		legend: {
-			data: [],
-		},
 		xAxis: [
 			{
 				type: 'category',
