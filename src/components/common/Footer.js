@@ -24,8 +24,8 @@ export default function Footer() {
 	]
 
 	return (
-		<footer className='mt-10 bg-white border-t dark:bg-zinc-800 dark:border-zinc-600'>
-			<div className='grid grid-cols-1 pt-4 lg:grid-cols-2'>
+		<footer className='pt-6 bg-white dark:bg-zinc-800'>
+			<div className='grid grid-cols-1 lg:grid-cols-2'>
 				<div className='max-w-sm mx-auto lg:mx-0 lg:max-w-none'>
 					<h4 className='flex-center sm:justify-start mb-2 sm:mb-4 space-x-1.5'>
 						<Image src='/assets/logo.png' width={32} height={32} alt='temple' />
