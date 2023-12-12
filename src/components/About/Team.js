@@ -45,7 +45,7 @@ export default function Team() {
 					<li className='team-card' key={member.id}>
 						<h4>{member.name}</h4>
 						<p className='team-card_content'>{member.content}</p>
-						<Image src={member.img} width={800} height={800} alt={member.name} className='team-card' />
+						<Image src={member.img} width={800} height={800} className='team-card_img' alt={member.name} />
 						<p className='team-card_back'>{member.desc}</p>
 					</li>
 				))}

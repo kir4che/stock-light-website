@@ -77,7 +77,7 @@
 	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 
-/* 天燈bcss */
+/* 天燈 css */
 .lantern {
 	@apply flex h-40 w-48 perspective-5 animate-[rising_3s_ease-in-out];
 }
