@@ -9,10 +9,10 @@ import Chart from '@/components/Chart/Chart'
 import Loading from '@/components/common/Loading'
 import fetchEReport from '@/utils/fetchEReport'
 import {
-	fetchAssetStatement,
-	fetchCashFlowStatement,
-	fetchIncomeStatement,
-	fetchLiabilitiesEquity,
+  fetchAssetStatement,
+  fetchCashFlowStatement,
+  fetchIncomeStatement,
+  fetchLiabilitiesEquity,
 } from '@/utils/fetchStockFS'
 import fetchStockNews from '@/utils/fetchStockNews'
 
@@ -502,6 +502,8 @@ export default function AnalysisTable({ stockId }) {
 									feature: {
 										saveAsImage: { show: true },
 									},
+									top: '1.5%',
+									right: '0.5%',
 								},
 							}}
 							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
@@ -592,6 +594,8 @@ export default function AnalysisTable({ stockId }) {
 									feature: {
 										saveAsImage: { show: true },
 									},
+									top: '1.5%',
+									right: '0.5%',
 								},
 							}}
 							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
@@ -754,6 +758,8 @@ export default function AnalysisTable({ stockId }) {
 										feature: {
 											saveAsImage: { show: true },
 										},
+										top: '1.5%',
+										right: '0.5%',
 									},
 								}}
 								customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
@@ -913,6 +919,8 @@ export default function AnalysisTable({ stockId }) {
 									feature: {
 										saveAsImage: { show: true },
 									},
+									top: '1.5%',
+									right: '0.5%',
 								},
 							}}
 							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
@@ -1004,6 +1012,8 @@ export default function AnalysisTable({ stockId }) {
 										restore: { show: true },
 										saveAsImage: { show: true },
 									},
+									top: '1.5%',
+									right: '0.5%',
 								},
 							}}
 							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
@@ -1054,6 +1064,8 @@ export default function AnalysisTable({ stockId }) {
 										restore: { show: true },
 										saveAsImage: { show: true },
 									},
+                  top: '1.5%',
+			right: '0.5%',
 								},
 							}}
 							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'

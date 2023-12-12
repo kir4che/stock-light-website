@@ -5,7 +5,7 @@ export function groupedBarOption(text, data, unit = { type: 'value' }) {
 	}
 
 	// 最後一年度尚無第四季度資料，補上空值
-	if (data[data.length - 1].length < 4) data[data.length - 1].push('-')
+	if (data[data.length - 1].length < 5) data[data.length - 1].push('-')
 
 	const option = {
 		title: {
@@ -40,6 +40,8 @@ export function groupedBarOption(text, data, unit = { type: 'value' }) {
 				restore: { show: true },
 				saveAsImage: { show: true },
 			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 	}
 

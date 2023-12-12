@@ -9,7 +9,7 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 		backgroundColor: 'rgba(27,29,38,1)',
 		title: {
 			textStyle: {
-				color: '#EEF1FA',
+				color: '#F6F9FC',
 			},
 			subtextStyle: {
 				color: '#B9B8CE',
@@ -17,11 +17,11 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 		},
 		legend: {
 			textStyle: {
-				color: '#E7EFF4',
+				color: '#fff',
 			},
 		},
 		textStyle: {
-			color: '#E7EFF4',
+			color: '#ECF0F2',
 		},
 		categoryAxis: {
 			axisLine: {
@@ -34,9 +34,6 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 					color: 'rgba(128,128,128,0.3)',
 				},
 			},
-			splitArea: {
-				show: false,
-			},
 		},
 		valueAxis: {
 			axisLine: {
@@ -47,6 +44,12 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 			splitLine: {
 				lineStyle: {
 					color: 'rgba(128,128,128,0.3)',
+				},
+			},
+			splitArea: {
+				show: true,
+				areaStyle: {
+					color: ['', 'rgba(140,177,235,0.1)'],
 				},
 			},
 		},
@@ -115,11 +118,6 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 				},
 			},
 		},
-		visualMap: {
-			textStyle: {
-				color: '#E7EFF4',
-			},
-		},
 		toolbox: {
 			iconStyle: {
 				borderColor: '#E7EFF4',
@@ -139,13 +137,50 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 	}
 
 	const lightTheme = {
-		color: ['#4992ff', '#fddd60', '#ff6e76', '#58d9f9', '#05c091', '#ff8a45', '#8d48e3', '#dd79ff'],
+		color: ['#4992ff', '#fddd60', '#ff6e76', '#05c091', '#ff8a45', '#8d48e3', '#dd79ff'],
 		backgroundColor: '#fff',
-		tooltip: {
-			label: {
-				color: '#fff',
-				backgroundColor: '#3FB4FF',
+		categoryAxis: {
+			axisLine: {
+				lineStyle: {
+					color: '#3A4361',
+				},
 			},
+			splitLine: {
+				lineStyle: {
+					color: 'rgba(128,128,128,0.3)',
+				},
+			},
+		},
+		valueAxis: {
+			axisLine: {
+				lineStyle: {
+					color: '#3A4361',
+				},
+			},
+			splitLine: {
+				lineStyle: {
+					color: 'rgba(128,128,128,0.3)',
+				},
+			},
+			splitArea: {
+				show: true,
+				areaStyle: {
+					color: ['', '#EEF9FF'],
+				},
+			},
+		},
+		axisPointer: {
+			label: {
+				backgroundColor: '#4FBAFF',
+			},
+		},
+		toolbox: {
+			iconStyle: {
+				borderColor: '#3D4664',
+			},
+		},
+		line: {
+			symbol: 'circle',
 		},
 	}
 

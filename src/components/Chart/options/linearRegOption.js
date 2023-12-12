@@ -58,6 +58,8 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 			feature: {
 				saveAsImage: { show: true },
 			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 		grid: {
 			top: '15%',

@@ -43,9 +43,6 @@ export function candlestickOptionByMA(
 				scale: true,
 				splitArea: {
 					show: true,
-					areaStyle: {
-						color: ['', 'rgba(140,177,235,0.1)'],
-					},
 				},
 			},
 			{
@@ -187,6 +184,8 @@ export function candlestickOptionByMA(
 			feature: {
 				saveAsImage: { show: true },
 			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 		grid: [
 			{
@@ -269,9 +268,6 @@ export function candlestickOptionByEMA(
 				scale: true,
 				splitArea: {
 					show: true,
-					areaStyle: {
-						color: ['', 'rgba(140,177,235,0.1)'],
-					},
 				},
 			},
 			{
@@ -413,6 +409,8 @@ export function candlestickOptionByEMA(
 			feature: {
 				saveAsImage: { show: true },
 			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 		grid: [
 			{
@@ -495,9 +493,6 @@ export function candlestickOptionByBoll(
 				scale: true,
 				splitArea: {
 					show: true,
-					areaStyle: {
-						color: ['', 'rgba(140,177,235,0.1)'],
-					},
 				},
 			},
 			{
@@ -615,6 +610,8 @@ export function candlestickOptionByBoll(
 			feature: {
 				saveAsImage: { show: true },
 			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 		grid: [
 			{

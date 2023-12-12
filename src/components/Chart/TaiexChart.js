@@ -112,9 +112,6 @@ export default function TaiexChart() {
 							scale: true,
 							splitArea: {
 								show: true,
-								areaStyle: {
-									color: ['', 'rgba(140,177,235,0.1)'],
-								},
 							},
 						},
 						tooltip: {
@@ -150,6 +147,8 @@ export default function TaiexChart() {
 							feature: {
 								saveAsImage: { show: true },
 							},
+							top: '1.5%',
+							right: '0.5%',
 						},
 						grid: {
 							top: '8%',

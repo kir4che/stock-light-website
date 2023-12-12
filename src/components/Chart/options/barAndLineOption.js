@@ -26,7 +26,7 @@ export function barAndLineOption(text, date, dataName, data) {
 		},
 		legend: {
 			data: dataName,
-			bottom: '4%',
+			bottom: '3%',
 		},
 		xAxis: {
 			type: 'category',
@@ -69,9 +69,16 @@ export function barAndLineOption(text, date, dataName, data) {
 		},
 		grid: {
 			top: '15%',
-			left: '6%',
-			right: '8%',
-			height: '68%',
+			left: '8%',
+			right: '12%',
+			height: '67%',
+		},
+		toolbox: {
+			feature: {
+				saveAsImage: { show: true },
+			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 	}
 

@@ -43,7 +43,7 @@ export function multiLineOption(
 		},
 		legend: {
 			data: dataName,
-			bottom: '4%',
+			bottom: '3%',
 		},
 		xAxis: {
 			type: 'category',
@@ -63,14 +63,17 @@ export function multiLineOption(
 				type: 'cross',
 			},
 			valueFormatter: function (value) {
-				return value.toLocaleString() + (unit.name === '%' ? '%' : unit.name === '千元' ? '元' : '次')
+				return isNaN(value)
+					? '－'
+					: parseFloat(value).toLocaleString() +
+							(unit.name === '%' ? '%' : unit.name === '千元' || unit.name === '元' ? '元' : '次')
 			},
 		},
 		grid: {
 			top: '15%',
 			left: '8%',
 			right: '3%',
-			height: '68%',
+			height: '67%',
 		},
 		toolbox: {
 			feature: {
@@ -78,6 +81,8 @@ export function multiLineOption(
 				restore: { show: true },
 				saveAsImage: { show: true },
 			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 	}
 

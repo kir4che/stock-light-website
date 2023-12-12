@@ -1,13 +1,14 @@
-import { Table, TableBody, TableCell, TableRow } from '@mui/material'
+import { Table, TableBody } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
+import { fetchIncomeStatement } from '@/utils/fetchStockFS'
+import { renderDataRow, renderDateRow } from '@/utils/renderTableRow'
 
 export default function CompanyGrowth({ stockId, childOpen }) {
+	const [isLoading, setIsLoading] = useState(false)
 	const [selectedChart, setSelectedChart] = useState(0)
-
-	const [incomeData, setIncomeData] = useState()
 	const [chartData, setChartData] = useState({
 		dates: [],
 		epsYOYs: [],
@@ -15,75 +16,52 @@ export default function CompanyGrowth({ stockId, childOpen }) {
 	})
 	const { dates, epsYOYs, epsQOQs } = chartData
 
-	const fetchIncomeData = async () => {
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/stock/financial/incomeStatements/${stockId}`, {
-				method: 'GET',
-			})
-			const data = await response.json()
-			setIncomeData(data.data.reverse())
-
-			if (data.success === false) {
-				console.error('Error: ', data.errorMessage)
-				return
-			}
-
-			setChartData({ dates: data.data.map((item) => `${item.year} Q${item.quarter}`) })
-
-			const epsYOYsDataArray = data.data.map((item) => ({
-				epsYOY: item.epsYOY,
-				epsT4QYOY: item.epsT4QYOY,
-			}))
-
-			const epsQOQsDataArray = data.data.map((item) => ({
-				epsQOQ: item.epsQOQ,
-				epsT4QQOQ: item.epsT4QQOQ,
-			}))
-
-			setChartData((prevChartData) => ({
-				...prevChartData,
-				epsYOYs: Object.keys(epsYOYsDataArray[0]).map((metric) => {
-					return epsYOYsDataArray.map((item) => item[metric])
-				}),
-				epsQOQs: Object.keys(epsQOQsDataArray[0]).map((metric) => {
-					return epsQOQsDataArray.map((item) => item[metric])
-				}),
-			}))
-		} catch (error) {
-			console.error('Error fetching data: ', error)
-		}
-	}
-
 	useEffect(() => {
 		setSelectedChart(0)
-		fetchIncomeData()
-	}, [stockId, childOpen])
+
+		const fetchData = async () => {
+			const incomeStatement = await fetchIncomeStatement({ stockId, setIsLoading })
+			const mapEpsData = (metric) =>
+				incomeStatement.map((item) => ({
+					[metric]: item[metric],
+					[`epsT4Q${metric.slice(3, 6)}`]: item[`epsT4Q${metric.slice(3, 6)}`],
+				}))
+
+			const epsYOYsDataArray = mapEpsData('epsYOY')
+			const epsQOQsDataArray = mapEpsData('epsQOQ')
+
+			setChartData({
+				dates: incomeStatement.map((item) => `${item.year} Q${item.quarter}`),
+				epsYOYs: Object.keys(epsYOYsDataArray[0]).map((metric) =>
+					epsYOYsDataArray.map((item) => parseFloat(item[metric]))
+				),
+				epsQOQs: Object.keys(epsQOQsDataArray[0]).map((metric) =>
+					epsQOQsDataArray.map((item) => parseFloat(item[metric]))
+				),
+			})
+		}
+
+		fetchData()
+	}, [stockId])
 
 	return (
 		<div className='w-full overflow-hidden'>
-			{childOpen.每股盈餘成長率 && incomeData && (
+			{childOpen && chartData && (
 				<>
 					<section className='mb-2 space-x-1 text-sm'>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 0
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(0)}
-						>
-							年增率
-						</button>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 1
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(1)}
-						>
-							季增率
-						</button>
+						{['年增率', '季增率'].map((label, index) => (
+							<button
+								key={index}
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === index
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-primary_yellow dark:hover:bg-primary_yellow'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
+								onClick={() => setSelectedChart(index)}
+							>
+								{label}
+							</button>
+						))}
 					</section>
 					<section className='space-y-4'>
 						<Chart
@@ -98,60 +76,14 @@ export default function CompanyGrowth({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-										<TableCell
-											sx={{
-												width: '100%',
-												minWidth: '150px',
-											}}
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-										>
-											年度 / 季度
-										</TableCell>
-										{incomeData.map((item) => (
-											<TableCell
-												align='right'
-												sx={{
-													width: '100%',
-													minWidth: '90px',
-												}}
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>{`${item.year} Q${item.quarter}`}</TableCell>
-										))}
-									</TableRow>
-									<TableRow className='dark:bg-zinc-900/30'>
-										<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-											{selectedChart === 0 ? '單季EPS年增率' : '單季EPS季增率'}
-										</TableCell>
-										{incomeData.map((item) => (
-											<TableCell
-												align='right'
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>
-												{selectedChart === 0
-													? parseFloat(item.epsYOY) || item.epsYOY
-													: parseFloat(item.epsQOQ) || item.epsQOQ}
-											</TableCell>
-										))}
-									</TableRow>
-									<TableRow className='dark:bg-zinc-900/30'>
-										<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-											{selectedChart === 0 ? '近四季EPS年增率' : '近四季EPS季增率'}
-										</TableCell>
-										{incomeData.map((item) => (
-											<TableCell
-												align='right'
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>
-												{selectedChart === 0
-													? parseFloat(item.epsT4QYOY) || item.epsT4QYOY
-													: parseFloat(item.epsT4QQOQ) || item.epsT4QQOQ}
-											</TableCell>
-										))}
-									</TableRow>
+									{renderDateRow(dates, '150px')}
+									{selectedChart === 0
+										? ['單季', '近四季'].map(
+												(label, index) => epsYOYs[index] && renderDataRow(`${label}EPS年增率`, epsYOYs[index])
+										  )
+										: ['單季', '近四季'].map(
+												(label, index) => epsQOQs[index] && renderDataRow(`${label}EPS季增率`, epsQOQs[index])
+										  )}
 								</TableBody>
 							</Table>
 						</div>

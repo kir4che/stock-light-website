@@ -1,305 +1,156 @@
-import { Table, TableBody, TableCell, TableRow } from '@mui/material'
+import { Table, TableBody } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import { barAndLineOption } from '@/components/Chart/options/barAndLineOption'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
+import { fetchAssetStatement, fetchIncomeStatement, fetchLiabilitiesEquity } from '@/utils/fetchStockFS'
+import { renderDataRow, renderDateRow } from '@/utils/renderTableRow'
 
 export default function Profitability({ stockId, childOpen }) {
+	const [isLoading, setIsLoading] = useState(false)
 	const [selectedChart, setSelectedChart] = useState(0)
-
-	const [FSData, setFSData] = useState({
-		assetStatements: [],
-		liabilityEquityStatements: [],
-		cashFlowStatements: [],
-		incomeStatements: [],
-	})
 
 	const [chartData, setChartData] = useState({
 		dates: [],
 		profitRatio: [],
+		taxToProfitRatio: [],
 		opexRatio: [],
+		nonOpexToProfit: [],
+		roe: [],
+		roa: [],
+		roeT4Q: [],
+		roaT4Q: [],
 		opTurnover: [],
 		faTurnover: [],
 		assetTurnover: [],
 	})
-	const { dates, profitRatio, opexRatio, opTurnover, faTurnover, assetTurnover } = chartData
-
-	const fetchFinancialStatement = async (endpoint, dataKey) => {
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/stock/financial/${endpoint}/${stockId}`, {
-				method: 'GET',
-			})
-			const data = await response.json()
-
-			if (data.success === false) {
-				console.error('Error: ', data.errorMessage)
-				return
-			}
-
-			setFSData((prevData) => ({
-				...prevData,
-				[dataKey]: data.data.map((item, index) => ({ id: index, ...item })).reverse(),
-			}))
-
-			setChartData({ dates: data.data.map((item) => `${item.year} Q${item.quarter}`) })
-
-			if (endpoint === 'incomeStatements') {
-				const profitRatioDataArray = data.data.map((item) => ({
-					grossMargin: item.grossMargin,
-					operatingMargin: item.operatingMargin,
-					profitBeforeTaxMargin: item.profitBeforeTaxMargin,
-					netIncomeMargin: item.netIncomeMargin,
-				}))
-
-				const opexRatioDataArray = data.data.map((item) => ({
-					operatingExpenseRatio: item.operatingExpenseRatio,
-					sellingExpensesToSalesRatio: item.sellingExpensesToSalesRatio,
-					administrativeExpensesToSalesRatio: item.administrativeExpensesToSalesRatio,
-					researchAndDevelopmentExpensesToSalesRatio: item.researchAndDevelopmentExpensesToSalesRatio,
-				}))
-
-				setChartData((prevChartData) => ({
-					...prevChartData,
-					profitRatio: Object.keys(profitRatioDataArray[0]).map((metric) => {
-						return profitRatioDataArray.map((item) => item[metric])
-					}),
-					opexRatio: Object.keys(opexRatioDataArray[0]).map((metric) => {
-						return opexRatioDataArray.map((item) => item[metric])
-					}),
-				}))
-			} else if (endpoint === 'assetStatements') {
-				const opTurnoverDataArray = data.data.map((item) => ({
-					accountsAndNotesReceivableTurnoverRatio: item.accountsAndNotesReceivableTurnoverRatio,
-					inventoryTurnoverRatio: item.inventoryTurnoverRatio,
-				}))
-				const faTurnoverDataArray = data.data.map((item) => ({
-					fixedAssets: item.fixedAssets,
-					fixedAssetsTurnoverRatio: item.fixedAssetsTurnoverRatio,
-				}))
-				const assetTurnoverDataArray = data.data.map((item) => ({
-					assets: item.assets,
-					assetsTurnoverRatio: item.assetsTurnoverRatio,
-				}))
-
-				setChartData((prevChartData) => ({
-					...prevChartData,
-					opTurnover: Object.keys(opTurnoverDataArray[0]).map((metric) => {
-						return opTurnoverDataArray.map((item) => item[metric])
-					}),
-					faTurnover: Object.keys(faTurnoverDataArray[0]).map((metric) => {
-						return faTurnoverDataArray.map((item) => item[metric])
-					}),
-					assetTurnover: Object.keys(assetTurnoverDataArray[0]).map((metric) => {
-						return assetTurnoverDataArray.map((item) => item[metric])
-					}),
-				}))
-			} else return
-		} catch (error) {
-			console.error('Error fetching data: ', error)
-		}
-	}
+	const {
+		dates,
+		profitRatio,
+		taxToProfitRatio,
+		opexRatio,
+		nonOpexToProfit,
+		roe,
+		roa,
+		roeT4Q,
+		roaT4Q,
+		opTurnover,
+		faTurnover,
+		assetTurnover,
+	} = chartData
 
 	useEffect(() => {
 		setSelectedChart(0)
 
-		switch (true) {
-			case childOpen.財報三率:
-				fetchFinancialStatement('incomeStatements', 'incomeStatements')
-				break
-			case childOpen.營業費用率:
-				fetchFinancialStatement('incomeStatements', 'incomeStatements')
-				break
-			case childOpen.業外佔税前淨利比:
-				fetchFinancialStatement('incomeStatements', 'incomeStatements')
-				break
-			case childOpen.ROE及ROA:
-				fetchFinancialStatement('assetStatements', 'assetStatements')
-				fetchFinancialStatement('balanceSheetLiabilitiesEquity', 'liabilityEquityStatements')
-				break
-			case childOpen.經營週轉能力:
-				fetchFinancialStatement('assetStatements', 'assetStatements')
-				break
-			default:
-				break
+		const fetchData = async () => {
+			const assetStatement = await fetchAssetStatement({ stockId, setIsLoading })
+			const liabilityEquityStatement = await fetchLiabilitiesEquity({ stockId, setIsLoading })
+			const incomeStatement = await fetchIncomeStatement({ stockId, setIsLoading })
+
+			const profitRatioDataArray = incomeStatement.map((item) => ({
+				grossMargin: item.grossMargin,
+				operatingMargin: item.operatingMargin,
+				profitBeforeTaxMargin: item.profitBeforeTaxMargin,
+				netIncomeMargin: item.netIncomeMargin,
+			}))
+
+			const opexRatioDataArray = incomeStatement.map((item) => ({
+				operatingExpenseRatio: item.operatingExpenseRatio,
+				sellingExpensesToSalesRatio: item.sellingExpensesToSalesRatio,
+				administrativeExpensesToSalesRatio: item.administrativeExpensesToSalesRatio,
+				researchAndDevelopmentExpensesToSalesRatio: item.researchAndDevelopmentExpensesToSalesRatio,
+			}))
+
+			const opTurnoverDataArray = assetStatement.map((item) => ({
+				accountsAndNotesReceivableTurnoverRatio: item.accountsAndNotesReceivableTurnoverRatio,
+				inventoryTurnoverRatio: item.inventoryTurnoverRatio,
+			}))
+			const faTurnoverDataArray = assetStatement.map((item) => ({
+				fixedAssets: item.fixedAssets,
+				fixedAssetsTurnoverRatio: item.fixedAssetsTurnoverRatio,
+			}))
+			const assetTurnoverDataArray = assetStatement.map((item) => ({
+				assets: item.assets,
+				assetsTurnoverRatio: item.assetsTurnoverRatio,
+			}))
+
+			setChartData({
+				dates: incomeStatement.map((item) => `${item.year} Q${item.quarter}`),
+				profitRatio: Object.keys(profitRatioDataArray[0]).map((metric) =>
+					profitRatioDataArray.map((item) => parseFloat(item[metric]))
+				),
+				taxToProfitRatio: incomeStatement.map((item) => parseFloat(item.incomeTaxToProfitBeforeTaxRatio)),
+				opexRatio: Object.keys(opexRatioDataArray[0]).map((metric) =>
+					opexRatioDataArray.map((item) => parseFloat(item[metric]))
+				),
+				nonOpexToProfit: incomeStatement.map((item) => parseFloat(item.nonOperatingIncomeToProfitBeforeTax)),
+				opTurnover: Object.keys(opTurnoverDataArray[0]).map((metric) =>
+					opTurnoverDataArray.map((item) => parseFloat(item[metric]))
+				),
+				roe: liabilityEquityStatement.map((item) => parseFloat(item.roe)),
+				roa: assetStatement.map((item) => parseFloat(item.roa)),
+				roeT4Q: liabilityEquityStatement.map((item) => parseFloat(item.roeT4Q)),
+				roaT4Q: assetStatement.map((item) => parseFloat(item.roaT4Q)),
+				faTurnover: Object.keys(faTurnoverDataArray[0]).map((metric) =>
+					faTurnoverDataArray.map((item) => parseFloat(item[metric]))
+				),
+				assetTurnover: Object.keys(assetTurnoverDataArray[0]).map((metric) =>
+					assetTurnoverDataArray.map((item) => parseFloat(item[metric]))
+				),
+			})
 		}
-	}, [stockId, childOpen])
+
+		fetchData()
+	}, [stockId])
 
 	return (
 		<div className='w-full overflow-hidden'>
 			{childOpen.財報三率 && (
 				<>
 					<section className='mb-2 space-x-1 text-sm'>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 0
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(0)}
-						>
-							利潤比率
-						</button>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 1
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(1)}
-						>
-							所得稅佔税前淨利比
-						</button>
+						{['利潤比率', '所得稅佔税前淨利比'].map((label, index) => (
+							<button
+								key={index}
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === index
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-primary_yellow dark:hover:bg-primary_yellow'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
+								onClick={() => setSelectedChart(index)}
+							>
+								{label}
+							</button>
+						))}
 					</section>
-					{selectedChart === 0 ? (
-						<section className='space-y-4'>
-							<Chart
-								option={multiLineOption(
-									'財報三率',
-									dates,
-									['毛利率', '營業利益率', '稅前淨利率', '稅後淨利率'],
-									profitRatio
-								)}
-								customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
-							/>
-							<div className='overflow-x-auto'>
-								<Table>
-									<TableBody>
-										<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-											<TableCell
-												sx={{
-													width: '100%',
-													minWidth: '105px',
-												}}
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											>
-												年度 / 季度
-											</TableCell>
-											{FSData.incomeStatements.map((item) => (
-												<TableCell
-													align='right'
-													sx={{
-														width: '100%',
-														minWidth: '90px',
-													}}
-													className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-													key={item.id}
-												>{`${item.year} Q${item.quarter}`}</TableCell>
-											))}
-										</TableRow>
-										<TableRow className='dark:bg-zinc-900/30'>
-											<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>毛利率</TableCell>
-											{FSData.incomeStatements.map((item) => (
-												<TableCell
-													align='right'
-													className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-													key={item.id}
-												>
-													{parseFloat(item.grossMargin)}
-												</TableCell>
-											))}
-										</TableRow>
-										<TableRow className='dark:bg-zinc-900/30'>
-											<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-												營業利益率
-											</TableCell>
-											{FSData.incomeStatements.map((item) => (
-												<TableCell
-													align='right'
-													className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-													key={item.id}
-												>
-													{parseFloat(item.operatingMargin)}
-												</TableCell>
-											))}
-										</TableRow>
-										<TableRow className='dark:bg-zinc-900/30'>
-											<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-												稅前淨利率
-											</TableCell>
-											{FSData.incomeStatements.map((item) => (
-												<TableCell
-													align='right'
-													className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-													key={item.id}
-												>
-													{parseFloat(item.profitBeforeTaxMargin)}
-												</TableCell>
-											))}
-										</TableRow>
-										<TableRow className='dark:bg-zinc-900/30'>
-											<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-												稅後淨利率
-											</TableCell>
-											{FSData.incomeStatements.map((item) => (
-												<TableCell
-													align='right'
-													className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-													key={item.id}
-												>
-													{parseFloat(item.netIncomeMargin)}
-												</TableCell>
-											))}
-										</TableRow>
-									</TableBody>
-								</Table>
-							</div>
-						</section>
-					) : (
-						<section className='space-y-4'>
-							<Chart
-								option={multiLineOption(
-									'所得稅佔稅前淨利比',
-									dates,
-									['所得稅佔稅前淨利比'],
-									[FSData.incomeStatements.map((item) => item.incomeTaxToProfitBeforeTaxRatio)]
-								)}
-								customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
-							/>
-							<div className='overflow-x-auto'>
-								<Table>
-									<TableBody>
-										<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-											<TableCell
-												sx={{
-													width: '100%',
-													minWidth: '160px',
-												}}
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											>
-												年度 / 季度
-											</TableCell>
-											{FSData.incomeStatements.map((item) => (
-												<TableCell
-													align='right'
-													sx={{
-														width: '100%',
-														minWidth: '90px',
-													}}
-													className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-													key={item.id}
-												>{`${item.year} Q${item.quarter}`}</TableCell>
-											))}
-										</TableRow>
-										<TableRow className='dark:bg-zinc-900/30'>
-											<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-												所得稅佔稅前淨利比
-											</TableCell>
-											{FSData.incomeStatements.map((item) => (
-												<TableCell
-													align='right'
-													className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-													key={item.id}
-												>
-													{parseFloat(item.incomeTaxToProfitBeforeTaxRatio)}
-												</TableCell>
-											))}
-										</TableRow>
-									</TableBody>
-								</Table>
-							</div>
-						</section>
-					)}
+					<section className='space-y-4'>
+						<Chart
+							option={multiLineOption(
+								selectedChart === 0 ? '財報三率' : '所得稅佔税前淨利比',
+								dates,
+								selectedChart === 0 ? ['毛利率', '營業利益率', '稅前淨利率', '稅後淨利率'] : ['所得稅佔稅前淨利比'],
+								selectedChart === 0 ? profitRatio : [taxToProfitRatio]
+							)}
+							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+						/>
+						<div className='overflow-x-auto'>
+							<Table>
+								<TableBody>
+									{renderDateRow(dates, selectedChart === 0 ? '105px' : '160px')}
+									{selectedChart === 0 ? (
+										<>
+											{profitRatio[0] && renderDataRow('毛利率', profitRatio[0])}
+											{profitRatio[1] && renderDataRow('營業利益率', profitRatio[1])}
+											{profitRatio[2] && renderDataRow('稅前淨利率', profitRatio[2])}
+											{profitRatio[3] && renderDataRow('稅後淨利率', profitRatio[3])}
+										</>
+									) : (
+										taxToProfitRatio && renderDataRow('所得稅佔稅前淨利比', taxToProfitRatio)
+									)}
+								</TableBody>
+							</Table>
+						</div>
+					</section>
 				</>
 			)}
 			{childOpen.營業費用率 && (
@@ -316,88 +167,11 @@ export default function Profitability({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-									<TableCell
-										sx={{
-											width: '100%',
-											minWidth: '105px',
-										}}
-										className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-									>
-										年度 / 季度
-									</TableCell>
-									{FSData.incomeStatements.map((item) => (
-										<TableCell
-											align='right'
-											sx={{
-												width: '100%',
-												minWidth: '90px',
-											}}
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											key={item.id}
-										>{`${item.year} Q${item.quarter}`}</TableCell>
-									))}
-								</TableRow>
-								<TableRow className='dark:bg-zinc-900/30'>
-									<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-										{' '}
-										營業費用率{' '}
-									</TableCell>
-									{FSData.incomeStatements.map((item) => (
-										<TableCell
-											align='right'
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											key={item.id}
-										>
-											{parseFloat(item.operatingExpenseRatio)}
-										</TableCell>
-									))}
-								</TableRow>
-								<TableRow className='dark:bg-zinc-900/30'>
-									<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-										{' '}
-										銷售費用率{' '}
-									</TableCell>
-									{FSData.incomeStatements.map((item) => (
-										<TableCell
-											align='right'
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											key={item.id}
-										>
-											{parseFloat(item.sellingExpensesToSalesRatio)}
-										</TableCell>
-									))}
-								</TableRow>
-								<TableRow className='dark:bg-zinc-900/30'>
-									<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-										{' '}
-										管理費用率{' '}
-									</TableCell>
-									{FSData.incomeStatements.map((item) => (
-										<TableCell
-											align='right'
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											key={item.id}
-										>
-											{parseFloat(item.administrativeExpensesToSalesRatio)}
-										</TableCell>
-									))}
-								</TableRow>
-								<TableRow className='dark:bg-zinc-900/30'>
-									<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-										{' '}
-										研發費用率{' '}
-									</TableCell>
-									{FSData.incomeStatements.map((item) => (
-										<TableCell
-											align='right'
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											key={item.id}
-										>
-											{parseFloat(item.researchAndDevelopmentExpensesToSalesRatio)}
-										</TableCell>
-									))}
-								</TableRow>
+								{renderDateRow(dates)}
+								{opexRatio[0] && renderDataRow('營業費用率', opexRatio[0])}
+								{opexRatio[1] && renderDataRow('銷售費用率', opexRatio[1])}
+								{opexRatio[2] && renderDataRow('管理費用率', opexRatio[2])}
+								{opexRatio[3] && renderDataRow('研發費用率', opexRatio[3])}
 							</TableBody>
 						</Table>
 					</div>
@@ -406,53 +180,14 @@ export default function Profitability({ stockId, childOpen }) {
 			{childOpen.業外佔税前淨利比 && (
 				<section className='space-y-4'>
 					<Chart
-						option={multiLineOption(
-							'業外佔税前淨利比',
-							dates,
-							['業外佔税前淨利比'],
-							[FSData.incomeStatements.map((item) => item.nonOperatingIncomeToProfitBeforeTax)]
-						)}
+						option={multiLineOption('業外佔税前淨利比', dates, ['業外佔税前淨利比'], [nonOpexToProfit])}
 						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-									<TableCell
-										sx={{
-											width: '100%',
-											minWidth: '150px',
-										}}
-										className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-									>
-										年度 / 季度
-									</TableCell>
-									{FSData.incomeStatements.map((item) => (
-										<TableCell
-											align='right'
-											sx={{
-												width: '100%',
-												minWidth: '90px',
-											}}
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											key={item.id}
-										>{`${item.year} Q${item.quarter}`}</TableCell>
-									))}
-								</TableRow>
-								<TableRow className='dark:bg-zinc-900/30'>
-									<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-										業外佔税前淨利比
-									</TableCell>
-									{FSData.incomeStatements.map((item) => (
-										<TableCell
-											align='right'
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-											key={item.id}
-										>
-											{parseFloat(item.nonOperatingIncomeToProfitBeforeTax)}
-										</TableCell>
-									))}
-								</TableRow>
+								{renderDateRow(dates, '150px')}
+								{nonOpexToProfit && renderDataRow('業外佔税前淨利比', nonOpexToProfit)}
 							</TableBody>
 						</Table>
 					</div>
@@ -461,26 +196,19 @@ export default function Profitability({ stockId, childOpen }) {
 			{childOpen.ROE及ROA && (
 				<>
 					<section className='mb-2 space-x-1 text-sm'>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 0
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(0)}
-						>
-							單季
-						</button>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 1
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(1)}
-						>
-							近四季
-						</button>
+						{['單季', '近四季'].map((label, index) => (
+							<button
+								key={index}
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === index
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-primary_yellow dark:hover:bg-primary_yellow'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
+								onClick={() => setSelectedChart(index)}
+							>
+								{label}
+							</button>
+						))}
 					</section>
 					<section className='space-y-4'>
 						<Chart
@@ -488,67 +216,25 @@ export default function Profitability({ stockId, childOpen }) {
 								'ROE／ROA',
 								dates,
 								['ROE', 'ROA'],
-								selectedChart === 0
-									? [
-											FSData.liabilityEquityStatements.map((item) => item.roe),
-											FSData.assetStatements.map((item) => item.roa),
-									  ]
-									: [
-											FSData.liabilityEquityStatements.map((item) => item.roeT4Q),
-											FSData.assetStatements.map((item) => item.roaT4Q),
-									  ]
+								selectedChart === 0 ? [roe, roa] : [roeT4Q, roaT4Q]
 							)}
 							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-										<TableCell
-											sx={{
-												width: '100%',
-												minWidth: '105px',
-											}}
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-										>
-											年度 / 季度
-										</TableCell>
-										{FSData.liabilityEquityStatements.map((item) => (
-											<TableCell
-												align='right'
-												sx={{
-													width: '100%',
-													minWidth: '90px',
-												}}
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>{`${item.year} Q${item.quarter}`}</TableCell>
-										))}
-									</TableRow>
-									<TableRow className='dark:bg-zinc-900/30'>
-										<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>ROE</TableCell>
-										{FSData.liabilityEquityStatements.map((item) => (
-											<TableCell
-												align='right'
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>
-												{selectedChart === 0 ? parseFloat(item.roe) : parseFloat(item.roeT4Q)}
-											</TableCell>
-										))}
-									</TableRow>
-									<TableRow className='dark:bg-zinc-900/30'>
-										<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>ROA</TableCell>
-										{FSData.assetStatements.map((item) => (
-											<TableCell
-												align='right'
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>
-												{selectedChart === 0 ? parseFloat(item.roa) : parseFloat(item.roaT4Q)}
-											</TableCell>
-										))}
-									</TableRow>
+									{renderDateRow(dates)}
+									{selectedChart === 0 ? (
+										<>
+											{roe && renderDataRow('ROE', roe)}
+											{roa && renderDataRow('ROA', roa)}
+										</>
+									) : (
+										<>
+											{roeT4Q && renderDataRow('ROE', roeT4Q)}
+											{roaT4Q && renderDataRow('ROA', roaT4Q)}
+										</>
+									)}
 								</TableBody>
 							</Table>
 						</div>
@@ -558,36 +244,19 @@ export default function Profitability({ stockId, childOpen }) {
 			{childOpen.經營週轉能力 && (
 				<>
 					<section className='mb-2 space-x-1 text-sm'>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 0
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(0)}
-						>
-							營運週轉
-						</button>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 1
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(1)}
-						>
-							固定資產週轉
-						</button>
-						<button
-							className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
-								selectedChart === 2
-									? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-200'
-									: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
-							}`}
-							onClick={() => setSelectedChart(2)}
-						>
-							總資產週轉
-						</button>
+						{['營運週轉', '固定資產週轉', '總資產週轉'].map((label, index) => (
+							<button
+								key={index}
+								className={`px-4 py-1 dark:border-zinc-400 border rounded-full ${
+									selectedChart === index
+										? 'bg-amber-200 dark:text-zinc-800 border-none hover:bg-primary_yellow dark:hover:bg-primary_yellow'
+										: 'hover:bg-zinc-100/50 dark:hover:bg-zinc-900/60'
+								}`}
+								onClick={() => setSelectedChart(index)}
+							>
+								{label}
+							</button>
+						))}
 					</section>
 					<section className='space-y-4'>
 						<Chart
@@ -615,68 +284,17 @@ export default function Profitability({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-										<TableCell
-											sx={{
-												width: '100%',
-												minWidth: '118px',
-											}}
-											className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-										>
-											年度 / 季度
-										</TableCell>
-										{FSData.assetStatements.map((item) => (
-											<TableCell
-												align='right'
-												sx={{
-													width: '100%',
-													minWidth: '90px',
-												}}
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>{`${item.year} Q${item.quarter}`}</TableCell>
-										))}
-									</TableRow>
-									<TableRow className='dark:bg-zinc-900/30'>
-										<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-											{selectedChart === 0 ? '應收帳款週轉' : selectedChart === 1 ? '固定資產' : '總資產'}
-										</TableCell>
-										{FSData.assetStatements.map((item) => (
-											<TableCell
-												align='right'
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>
-												{parseFloat(
-													selectedChart === 0
-														? item.accountsAndNotesReceivableTurnoverRatio
-														: selectedChart === 1
-														? item.fixedAssets
-														: item.assets
-												).toLocaleString()}
-											</TableCell>
-										))}
-									</TableRow>
-									<TableRow className='dark:bg-zinc-900/30'>
-										<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-											{selectedChart === 0 ? '存貨週轉' : selectedChart === 1 ? '固定資產週轉' : '總資產週轉'}
-										</TableCell>
-										{FSData.assetStatements.map((item) => (
-											<TableCell
-												align='right'
-												className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-												key={item.id}
-											>
-												{parseFloat(
-													selectedChart === 0
-														? item.inventoryTurnoverRatio
-														: selectedChart === 1
-														? item.fixedAssetsTurnoverRatio
-														: item.assetsTurnoverRatio
-												).toLocaleString()}
-											</TableCell>
-										))}
-									</TableRow>
+									{renderDateRow(dates, '118px')}
+									{selectedChart === 0
+										? opTurnover[0] && renderDataRow('應收帳款週轉', opTurnover[0])
+										: selectedChart === 1
+										? faTurnover[0] && renderDataRow('固定資產', faTurnover[0])
+										: assetTurnover[0] && renderDataRow('總資產', assetTurnover[0])}
+									{selectedChart === 0
+										? opTurnover[1] && renderDataRow('存貨週轉', opTurnover[1])
+										: selectedChart === 1
+										? faTurnover[1] && renderDataRow('固定資產週轉', faTurnover[1])
+										: assetTurnover[1] && renderDataRow('總資產週轉', assetTurnover[1])}
 								</TableBody>
 							</Table>
 						</div>

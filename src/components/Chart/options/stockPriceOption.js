@@ -1,11 +1,4 @@
-export function stockPriceLineOption(
-	dateData,
-	priceData,
-	closePriceData,
-	volumeData,
-	dataZoomRange,
-	handleDataZoomChange
-) {
+export function stockPriceOption(dateData, priceData, closePriceData, volumeData, dataZoomRange, handleDataZoomChange) {
 	const option = {
 		xAxis: [
 			{
@@ -32,12 +25,6 @@ export function stockPriceLineOption(
 		yAxis: [
 			{
 				scale: true,
-				splitArea: {
-					show: true,
-					areaStyle: {
-						color: ['', 'rgba(140,177,235,0.1)'],
-					},
-				},
 			},
 			{
 				scale: true,
@@ -97,19 +84,16 @@ export function stockPriceLineOption(
 			},
 		],
 		axisPointer: {
-			link: [
-				{
-					xAxisIndex: 'all',
-				},
-			],
-			label: {
-				backgroundColor: '#777',
+			link: {
+				xAxisIndex: 'all',
 			},
 		},
 		toolbox: {
 			feature: {
 				saveAsImage: { show: true },
 			},
+			top: '1.5%',
+			right: '0.5%',
 		},
 		grid: [
 			{

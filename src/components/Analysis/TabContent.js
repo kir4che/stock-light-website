@@ -9,7 +9,7 @@ import {
 	candlestickOptionByEMA,
 	candlestickOptionByMA,
 } from '@/components/Chart/options/candlestickOption'
-import { stockPriceLineOption } from '@/components/Chart/options/stockPriceLineOption'
+import { stockPriceOption } from '@/components/Chart/options/stockPriceOption'
 import {
 	adlOption,
 	biasOption,
@@ -172,7 +172,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 					{/* 股價走勢圖與成交量等資訊 */}
 					<section className='flex flex-col-reverse items-start gap-2 xs:gap-6 md:flex-row'>
 						<Chart
-							option={stockPriceLineOption(date, price, closePrice, volume, dataZoomRange, handleDataZoomChange)}
+							option={stockPriceOption(date, price, closePrice, volume, dataZoomRange, handleDataZoomChange)}
 							customHeight='h-72 md:h-80 xl:h-[450px]'
 						/>
 						<section className='flex flex-col w-full mt-3 space-y-2 xs:items-center xs:space-y-0 xs:space-x-2 xs:flex-row md:items-stretch md:mt-0 md:space-x-0 md:space-y-2 md:mb-2 md:w-48 md:flex-col'>
@@ -201,7 +201,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						</section>
 					</section>
 					{/* 日期區間 */}
-					<section className='pt-3 pb-2 overflow-x-auto rounded dark:bg-zinc-900/80 flex-center-between'>
+					<section className='pt-3 pb-2 overflow-x-auto rounded flex-center-between'>
 						{renderZoomButton('5D', 5, 99.7)}
 						{renderZoomButton('1M', 30, 98)}
 						{renderZoomButton('3M', 90, 94.5)}

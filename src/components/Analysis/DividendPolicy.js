@@ -2,7 +2,6 @@ import { Table, TableBody, TableCell, TableRow } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
-import Loading from '@/components/common/Loading'
 
 export default function DividendPolicy({ stockId, childOpen }) {
 	const [isLoading, setIsLoading] = useState(true)
@@ -15,28 +14,31 @@ export default function DividendPolicy({ stockId, childOpen }) {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/history/dividend_policy/${stockId}`, {
 				method: 'GET',
 			})
-			const responseData = await response.json()
-			setData(responseData.data.slice(1, responseData.data.length))
+			const data = await response.json()
 
-			const summary = responseData.data.reduce((acc, dividend) => {
-				const year = dividend.announcedDate.substring(0, 4)
+			if (data.success) {
+				setData(data.data.slice(1, data.data.length))
 
-				if (!acc[year]) acc[year] = { year, cash: 0, stock: 0 }
+				const summary = data.data.reduce((acc, dividend) => {
+					const year = dividend.announcedDate.substring(0, 4)
 
-				acc[year].cash += dividend.cashDividend
-				acc[year].stock += dividend.stockDividend
+					if (!acc[year]) acc[year] = { year, cash: 0, stock: 0 }
 
-				return acc
-			}, {})
+					acc[year].cash += dividend.cashDividend
+					acc[year].stock += dividend.stockDividend
 
-			const result = Object.values(summary).map(({ year, cash, stock }) => [
-				year,
-				parseFloat(cash.toFixed(2)),
-				parseFloat(stock.toFixed(2)),
-			])
-			setChartData(result)
+					return acc
+				}, {})
 
-			setIsLoading(false)
+				const result = Object.values(summary).map(({ year, cash, stock }) => [
+					year,
+					parseFloat(cash.toFixed(2)),
+					parseFloat(stock.toFixed(2)),
+				])
+				setChartData(result)
+
+				setIsLoading(false)
+			}
 		} catch (error) {
 			console.error('Error: ', error)
 		}
@@ -44,111 +46,113 @@ export default function DividendPolicy({ stockId, childOpen }) {
 
 	useEffect(() => {
 		fetchDividendPolicy()
-	}, [stockId, childOpen])
+	}, [stockId])
 
-	return !isLoading && childOpen ? (
-		<section className='w-full space-y-4 overflow-x-auto'>
-			<Chart
-				option={{
-					title: {
-						text: '歷年股利政策及除權息一覽表',
-						left: 'center',
-						top: '4%',
-					},
-					dataset: {
-						source: chartData,
-					},
-					xAxis: { type: 'category' },
-					yAxis: {
-						type: 'value',
-						name: '元',
-						alignTicks: true,
-						axisLabel: {
-							formatter: function (value) {
-								return value.toLocaleString()
+	return (
+		childOpen && (
+			<section className='w-full space-y-4 overflow-x-auto'>
+				<Chart
+					option={{
+						title: {
+							text: '歷年股利政策及除權息一覽表',
+							left: 'center',
+							top: '4%',
+						},
+						dataset: {
+							source: chartData,
+						},
+						xAxis: { type: 'category' },
+						yAxis: {
+							type: 'value',
+							name: '元',
+							alignTicks: true,
+							axisLabel: {
+								formatter: function (value) {
+									return value.toLocaleString()
+								},
 							},
 						},
-					},
-					series: [
-						{ type: 'bar', name: '現金股利' },
-						{ type: 'bar', name: '股票股利' },
-					],
-					tooltip: {
-						trigger: 'axis',
-						axisPointer: {
-							type: 'cross',
+						series: [
+							{ type: 'bar', name: '現金股利' },
+							{ type: 'bar', name: '股票股利' },
+						],
+						tooltip: {
+							trigger: 'axis',
+							axisPointer: {
+								type: 'cross',
+							},
+							valueFormatter: function (value) {
+								return value.toLocaleString() + '元'
+							},
 						},
-						valueFormatter: function (value) {
-							return value.toLocaleString() + '元'
+						grid: {
+							top: '15%',
+							left: '5%',
+							right: '4%',
+							height: '75%',
 						},
-					},
-					grid: {
-						top: '15%',
-						left: '5%',
-						right: '3%',
-						height: '72%',
-					},
-				}}
-				customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
-			/>
-			<Table size='medium'>
-				<TableBody>
-					<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
-						{[
-							'公告日',
-							'現金股利',
-							'股票股利',
-							'除息日',
-							'除權日',
-							'現金股利發放日',
-							'填息花費日數',
-							'股利發放形式',
-						].map((header) => (
-							<TableCell
-								key={header}
-								sx={{
-									width: '100%',
-									minWidth: header === '填息花費日數' ? '118px' : '108px',
-								}}
-								className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
-								key={header}
-							>
-								{header}
-							</TableCell>
-						))}
-					</TableRow>
-					{data.map((item) => (
-						<TableRow key={item.id}>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.announcedDate}
-							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.cashDividend}
-							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.stockDividend}
-							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.XDTradingDate}
-							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.XRTradingDate}
-							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.cashDividendPaidDate}
-							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.XDPriceRecoveryDays}
-							</TableCell>
-							<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
-								{item.payoutType}
-							</TableCell>
+					}}
+					customHeight='h-60 md:h-88 lg:h-[450px]'
+				/>
+				<Table size='medium'>
+					<TableBody>
+						<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
+							{[
+								'公告日',
+								'現金股利',
+								'股票股利',
+								'除息日',
+								'除權日',
+								'現金股利發放日',
+								'填息花費日數',
+								'股利發放形式',
+							].map((header) => (
+								<TableCell
+									sx={{
+										width: '100%',
+										minWidth:
+											header === '現金股利發放日' || header === '填息花費日數' || header === '股利發放形式'
+												? '132px'
+												: '108px',
+									}}
+									className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'
+									key={header}
+								>
+									{header}
+								</TableCell>
+							))}
 						</TableRow>
-					))}
-				</TableBody>
-			</Table>
-		</section>
-	) : (
-		<Loading />
+						{data.map((item) => (
+							<TableRow key={item.id}>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.announcedDate}
+								</TableCell>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.cashDividend}
+								</TableCell>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.stockDividend}
+								</TableCell>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.XDTradingDate}
+								</TableCell>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.XRTradingDate}
+								</TableCell>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.cashDividendPaidDate}
+								</TableCell>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.XDPriceRecoveryDays}
+								</TableCell>
+								<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>
+									{item.payoutType}
+								</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</section>
+		)
 	)
 }
