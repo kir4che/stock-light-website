@@ -61,6 +61,11 @@ export default function Light() {
 	}, [])
 
 	useEffect(() => {
+		setSelectedAmount(null)
+		setAmount(0)
+	}, [sponsorOpen])
+
+	useEffect(() => {
 		lightSucceed &&
 			setTimeout(() => {
 				router.push(`/light/resultDashboard?industry=${selectedIndustry}&id=${uuid}&date=${getCurrentDate()}`)
