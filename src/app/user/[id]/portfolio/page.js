@@ -70,9 +70,6 @@ export default function Portfolio() {
 
 			const data = await response.json()
 
-			console.log('get group response', response)
-			console.log('get group data', data)
-
 			if (data.success) setPortfolioData(generateUniqueIds(data.data))
 		} catch (error) {
 			console.error('Error: ', error)
@@ -99,6 +96,9 @@ export default function Portfolio() {
 				},
 			})
 			const data = await response.json()
+
+			console.log('get group response', response)
+			console.log('get group data', data)
 
 			if (data.success) fetchPortfolio()
 			else alert('新增投資組合失敗，請稍後再試！')
