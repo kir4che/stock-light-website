@@ -293,8 +293,8 @@ export default function Portfolio() {
 					</div>
 					<DataGrid
 						sx={{
-							pl: 2,
-							pr: 3,
+							pl: 1,
+							pr: 2,
 							pt: 0,
 							pb: 2,
 							'& .css-1iyq7zh-MuiDataGrid-columnHeaders, & .MuiDataGrid-withBorderColor': {
@@ -313,58 +313,13 @@ export default function Portfolio() {
 						}}
 						rows={rows}
 						columns={[
-							{ field: 'stock_id', headerName: '代號', flex: 1 },
-							{ field: 'stock_name', headerName: '股票', flex: 1 },
 							{
-								field: 'price',
-								headerName: '股價',
-								headerAlign: 'right',
-								align: 'right',
-								sortable: true,
-								flex: 1,
-								cellClassName: (params) => {
-									const changeValue = params.row.quote_change || 0
-									return changeValue > 0 ? 'text-stock_red' : changeValue < 0 ? 'text-stock_green' : ''
-								},
-							},
-							{
-								field: 'quote_change',
-								headerName: '漲跌',
-								headerAlign: 'right',
-								align: 'right',
-								sortable: true,
-								flex: 1,
-								cellClassName: (params) => {
-									const value = params.value || 0
-									return value > 0 ? 'text-stock_red' : value < 0 ? 'text-stock_green' : ''
-								},
-							},
-							{
-								field: 'quote_change_percent',
-								headerName: '漲跌幅 (%)',
-								headerAlign: 'right',
-								align: 'right',
-								sortable: true,
+								field: 'stock_id',
+								headerName: '股票代號 / 名稱',
 								flex: 1,
 								renderCell: (params) => {
 									const value = params.value || 0
-									if (value > 0) {
-										return (
-											<p className='flex items-center space-x-0.5 text-stock_red'>
-												<ArrowDropUpIcon color='error' />
-												<span>{`${value.toFixed(2)}%`}</span>
-											</p>
-										)
-									} else if (value < 0) {
-										return (
-											<p className='flex items-center space-x-0.5 text-stock_green'>
-												<ArrowDropDownIcon color='success' />
-												<span>{`${Math.abs(value.toFixed(2))}%`}</span>
-											</p>
-										)
-									} else {
-										return `${value.toFixed(2)}%`
-									}
+									return <p> {value + ' ' + stock100.find((stock) => stock.stock_id === value).name} </p>
 								},
 							},
 							{
@@ -399,12 +354,44 @@ export default function Portfolio() {
 								sortable: true,
 								flex: 1,
 							},
+							{
+								field: 'change',
+								headerName: '漲跌 (%)',
+								headerAlign: 'right',
+								align: 'right',
+								sortable: true,
+								flex: 1,
+								renderCell: (params) => {
+									const value = params.value || 0
+									if (value > 0) {
+										return (
+											<p className='flex items-center font-medium space-x-0.5 text-stock_red'>
+												<ArrowDropUpIcon color='error' />
+												<span>{value}</span>
+											</p>
+										)
+									} else if (value < 0) {
+										return (
+											<p className='flex items-center font-medium space-x-0.5 text-stock_green'>
+												<ArrowDropDownIcon color='success' />
+												<span>{Math.abs(value)}</span>
+											</p>
+										)
+									} else if (value === 0) {
+										;<p className='flex items-center font-medium space-x-0.5 text-zinc-800'>
+											<span>{value}</span>
+										</p>
+									} else {
+										return value
+									}
+								},
+							},
 						]}
 						onRowSelectionModelChange={(ids) => setRowIds(ids)}
 						className='bg-white border-none dark:bg-zinc-800 dark:text-zinc-200'
 						hideFooter
-						disableRowSelectionOnClick
 						disableColumnMenu
+						checkboxSelection
 					/>
 					{rowIds.length !== 0 ? (
 						<Button
@@ -421,6 +408,9 @@ export default function Portfolio() {
 					) : null}
 				</>
 			)}
+			<p className='mt-4 text-xs text-right text-white opacity-80'>
+				※ 如果您的投資組合尚未顯示，請回上一頁，重新點擊會員投資組合頁面查看。
+			</p>
 		</StarryBackground>
 	)
 }
