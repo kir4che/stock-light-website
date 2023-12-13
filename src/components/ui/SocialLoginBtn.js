@@ -12,9 +12,9 @@ export default function SocialLoginBtn() {
 	return (
 		<div>
 			<div className='w-full gap-2 text-sm flex-center text-zinc-300 dark:text-zinc-400'>
-				<div className='w-full h-px bg-zinc-300 dark:bg-zinc-400' />
+				<div className='w-full h-px bg-zinc-300 dark:bg-zinc-400/50' />
 				或
-				<div className='w-full h-px bg-zinc-300 dark:bg-zinc-400' />
+				<div className='w-full h-px bg-zinc-300 dark:bg-zinc-400/50' />
 			</div>
 			<div className='grid grid-cols-2 gap-4 mt-4 mb-8'>
 				{['google', 'facebook'].map((provider) => (

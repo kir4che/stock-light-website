@@ -4,8 +4,6 @@ import { getCurrentDate } from '@/utils/getCurrentDate'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Tab, Tabs } from '@mui/material'
-import Alert from '@mui/material/Alert'
-import Snackbar from '@mui/material/Snackbar'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 
@@ -15,7 +13,6 @@ import TodayLantern from '@/components/Light/TodayLantern'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
-import SubmitBtn from '@/components/ui/SubmitBtn'
 import stock100 from '@/data/stock100.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import fetchStockData from '@/utils/fetchStockData'
@@ -106,7 +103,10 @@ function ResultDashboard() {
 
 	return (
 		<StarryBackground className='pt-6 pb-10'>
-			<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='個股分析儀表板' />
+			<section className='flex-center-between'>
+				<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='個股分析儀表板' />
+				<p className='text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+			</section>
 			<PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
 			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} />
 			<div className='pb-10 bg-[#FAFDFF] rounded dark:bg-zinc-900/50'>
@@ -190,13 +190,6 @@ function ResultDashboard() {
 				</section>
 				<section className='px-4 sm:px-8 lg:px-10'>
 					{!isLoading ? <AnalysisTable stockId={resultStockId} /> : <Loading />}
-					<p className='flex justify-end mt-4 mb-10 text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
-					<SubmitBtn text='保存分析結果' handleSubmit={() => setResultSavedAlertOpen(true)} style='py-3' />
-					<Snackbar open={resultSavedAlertOpen} autoHideDuration={3000} onClose={() => setResultSavedAlertOpen(false)}>
-						<Alert onClose={() => setResultSavedAlertOpen(false)} severity='success' sx={{ width: '100%' }}>
-							保存成功！
-						</Alert>
-					</Snackbar>
 				</section>
 			</div>
 		</StarryBackground>
