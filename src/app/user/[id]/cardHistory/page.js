@@ -11,7 +11,7 @@ export default function CardHistory() {
 
 	return (
 		<StarryBackground className='pt-12 text-zinc-100'>
-			<Breadcrumbs prevPage='使用者頁面' curPage='我的小卡' />
+			<Breadcrumbs prevPage='會員管理' curPage='我的小卡' />
 			<section className='flex flex-row items-start justify-center min-h-full mt-6'>
 				<div className='gap-10 card-grid'>
 					{cardsData.map((card) => (

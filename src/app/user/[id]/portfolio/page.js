@@ -70,11 +70,10 @@ export default function Portfolio() {
 
 			const data = await response.json()
 
+			console.log('get group response', response)
 			console.log('get group data', data)
 
-			if (data.success) {
-				setPortfolioData(generateUniqueIds(data.data))
-			}
+			if (data.success) setPortfolioData(generateUniqueIds(data.data))
 		} catch (error) {
 			console.error('Error: ', error)
 		}
@@ -100,8 +99,6 @@ export default function Portfolio() {
 				},
 			})
 			const data = await response.json()
-
-			console.log('create group data', data)
 
 			if (data.success) fetchPortfolio()
 			else alert('新增投資組合失敗，請稍後再試！')
@@ -183,7 +180,7 @@ export default function Portfolio() {
 
 	return (
 		<StarryBackground className={'w-full pt-6 pb-12 sm:pt-10 sm:pb-20'}>
-			<Breadcrumbs prevPage='使用者頁面' curPage='會員投資組合' />
+			<Breadcrumbs prevPage='會員管理' curPage='會員投資組合' />
 			{/* 投資組合選單 */}
 			<Tabs
 				variant='scrollable'

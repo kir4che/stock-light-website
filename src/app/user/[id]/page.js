@@ -35,7 +35,7 @@ export default function User() {
 						<>
 							<hr className='mt-10' />
 							<div className='flex text-center'>
-								{renderBtn('會員自選股', 'portfolio')}
+								{renderBtn('會員投資組合', 'portfolio')}
 								<div className='w-0 border dark:border-zinc-500 border-zinc-200' />
 								{renderBtn('我的卡片', 'cardHistory')}
 								<div className='w-0 border dark:border-zinc-500 border-zinc-200' />

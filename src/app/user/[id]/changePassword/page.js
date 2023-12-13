@@ -66,7 +66,7 @@ export default function ChangePassword() {
 	return (
 		<StarryBackground className='pt-12 pb-9 sm:pt-20 sm:pb-16 text-zinc-100'>
 			<div className='w-full mx-auto sm:max-w-md lg:max-w-lg'>
-				<Breadcrumbs prevPage='使用者頁面' curPage='修改密碼' />
+				<Breadcrumbs prevPage='會員管理' curPage='修改密碼' />
 			</div>
 			<div className='w-full p-10 pb-12 mx-auto mb-8 sm:max-w-md lg:max-w-lg sm:px-12 bg-white/20 backdrop-blur-xl sm:rounded-xl dark:bg-zinc-900/50'>
 				<h2>修改密碼</h2>
