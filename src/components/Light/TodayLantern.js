@@ -13,7 +13,7 @@ export default function TodayLantern({ industry, open, handleDialog }) {
 			</DialogTitle>
 			<DialogContent className='flex-col overflow-x-scroll text-center flex-center-between h-80 dark:text-zinc-100 dark:bg-zinc-900'>
 				<div className='text-black flex-center'>
-					{['台積電'].map((stock, index) => (
+					{['台積電', '智邦'].map((stock, index) => (
 						<div key={index}>
 							<div className='mb-5 lantern lanterntag_container animate-none'>
 								<div className='laternlight' />
