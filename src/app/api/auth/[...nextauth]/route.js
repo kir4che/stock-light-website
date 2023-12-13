@@ -33,8 +33,6 @@ const handler = NextAuth({
 
 					const data = await response.json()
 
-					console.log('data', data)
-
 					const user = {
 						id: data.data.user_id,
 						name: data.data.name,
