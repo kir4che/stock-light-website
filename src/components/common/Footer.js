@@ -26,7 +26,7 @@ export default function Footer() {
 	return (
 		<footer className='pt-6 bg-white dark:bg-zinc-800'>
 			<div className='grid grid-cols-1 lg:grid-cols-2'>
-				<div className='max-w-sm mx-auto lg:mx-0 lg:max-w-none'>
+				<div className='max-w-sm mx-auto lg:mx-0 lg:max-w-none '>
 					<h4 className='flex-center sm:justify-start mb-2 sm:mb-4 space-x-1.5'>
 						<Image src='/assets/logo.png' width={32} height={32} alt='temple' />
 						<span>股市光明燈</span>
@@ -34,7 +34,7 @@ export default function Footer() {
 					<p className='text-sm font-light text-center sm:mb-20 sm:text-left'>帶給所有投資人新的希望</p>
 				</div>
 				<div className='text-center lg:gap-8 lg:flex lg:text-left'>
-					<div className='-mt-2 scale-50 md:-mt-10 lg:mt-0 candle_wrapper'>
+					<div className='-mt-2 scale-50 md:-mt-10 lg:mt-0 candle_wrapper -ml-12'>
 						<div className='candle_spark' />
 						<div className='candle_sparkling' />
 						<div className='candle' />
