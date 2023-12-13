@@ -1,7 +1,6 @@
 'use client'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { Button } from '@mui/material'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -13,16 +12,17 @@ export default function User() {
 	const router = useRouter()
 
 	useEffect(() => {
+		console.log('session', session)
 		if (status === 'unauthenticated' && session) router.push('/login')
 	}, [status, session])
 
-	const renderButton = (label, path) => (
-		<Button
+	const renderBtn = (label, path) => (
+		<button
 			onClick={() => router.push(`/user/${session.user.id}/${path}`)}
 			className='w-1/3 p-3 focus:outline-none text-zinc-100 hover:bg-zinc-900/10 hover:dark:bg-zinc-900/60'
 		>
 			{label}
-		</Button>
+		</button>
 	)
 
 	return (
@@ -35,11 +35,11 @@ export default function User() {
 						<>
 							<hr className='mt-10' />
 							<div className='flex text-center'>
-								{renderButton('會員自選股', 'portfolio')}
+								{renderBtn('會員自選股', 'portfolio')}
 								<div className='w-0 border dark:border-zinc-500 border-zinc-200' />
-								{renderButton('我的卡片', 'cardHistory')}
+								{renderBtn('我的卡片', 'cardHistory')}
 								<div className='w-0 border dark:border-zinc-500 border-zinc-200' />
-								{renderButton('修改密碼', 'changePassword')}
+								{renderBtn('修改密碼', 'changePassword')}
 							</div>
 						</>
 					)}
