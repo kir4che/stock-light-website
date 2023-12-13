@@ -9,6 +9,7 @@ import { Suspense, useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Light/AnalysisTable'
 import PrayerCard from '@/components/Light/PrayerCard'
+import RabBot from '@/components/Light/RabBot'
 import TodayLantern from '@/components/Light/TodayLantern'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
@@ -23,7 +24,6 @@ function ResultDashboard() {
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [laternOpen, setLaternOpen] = useState(false)
-	const [resultSavedAlertOpen, setResultSavedAlertOpen] = useState(false)
 
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 	const [resultStockId, setResultStockId] = useState(2330) // 暫時設定為台積電
@@ -105,11 +105,11 @@ function ResultDashboard() {
 		<StarryBackground className='pt-6 pb-10'>
 			<section className='flex-center-between'>
 				<Breadcrumbs prevPage='我要點燈' prevPageLink='/light' curPage='個股分析儀表板' />
-				<p className='text-xs opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
+				<p className='text-xs text-white opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 			</section>
 			<PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
 			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} />
-			<div className='pb-10 bg-[#FAFDFF] rounded dark:bg-zinc-900/50'>
+			<div className='pb-10 rounded bg-sky-50 dark:bg-zinc-900/50'>
 				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 tracking-wider sm:px-8 lg:px-10 bg-sky-100 dark:bg-zinc-800/60'>
 					<h3 className='space-x-2 flex-center'>
 						<sapn>本日光明燈</sapn>
@@ -192,6 +192,7 @@ function ResultDashboard() {
 					{!isLoading ? <AnalysisTable stockId={resultStockId} /> : <Loading />}
 				</section>
 			</div>
+			<RabBot />
 		</StarryBackground>
 	)
 }

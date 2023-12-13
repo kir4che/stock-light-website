@@ -40,6 +40,7 @@ module.exports = {
 					500: '#FFC300',
 				},
 				sky: {
+					50: '#FAFDFF',
 					300: '#85CFFF',
 					400: '#52BBFF',
 					500: '#3AADF8',

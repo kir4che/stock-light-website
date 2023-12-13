@@ -1,5 +1,4 @@
 import CloseIcon from '@mui/icons-material/Close'
-import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -1123,12 +1122,6 @@ export default function AnalysisTable({ stockId }) {
 					</div>
 				</section>
 			)}
-			{/* 聊天按鈕（🚩先不要開始製作） */}
-			<div className='fixed bottom-4 right-4'>
-				<button className='text-white rounded-full shadow-lg bg-amber-300 hover:bg-amber-400 w-14 h-14'>
-					<QuestionAnswerIcon />
-				</button>
-			</div>
 		</div>
 	)
 }
