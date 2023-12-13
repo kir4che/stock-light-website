@@ -12,6 +12,7 @@ export default function User() {
 	const router = useRouter()
 
 	useEffect(() => {
+		console.log('test session', session)
 		if (status === 'unauthenticated' && session) router.push('/login')
 	}, [status, session])
 
