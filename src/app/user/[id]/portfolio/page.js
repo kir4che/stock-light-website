@@ -3,14 +3,13 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Input, Tab, Tabs } from '@mui/material'
-import Autocomplete from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField'
 import { DataGrid } from '@mui/x-data-grid'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
+import StockSelect from '@/components/ui/StockSelect'
 import stock100 from '@/data/stock100.json'
 
 export default function Portfolio() {
@@ -273,16 +272,7 @@ export default function Portfolio() {
 			{portfolioData[currentPortfolioIndex] && (
 				<>
 					<div className='flex items-center justify-end mb-3 space-x-2 dark:text-zinc-800'>
-						<Autocomplete
-							options={stock100.map((stock) => `${stock.stock_id} ${stock.name}`)}
-							defaultValue={`${stock100[0].stock_id} ${stock100[0].name}`}
-							sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
-							size='small'
-							renderInput={(params) => <TextField {...params} />}
-							onChange={(e, newValue) => setNewStockId(parseInt(newValue))}
-							disableClearable
-							disablePortal
-						/>
+						<StockSelect setSelect={setNewStockId} />
 						<button
 							className='font-bold text-white rounded-full w-7 h-7 flex-center bg-sky-400 hover:bg-sky-500'
 							onClick={() => {

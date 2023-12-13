@@ -3,13 +3,12 @@
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Tab, Tabs } from '@mui/material'
-import Autocomplete from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField'
 import { useCallback, useEffect, useState } from 'react'
 
 import TabContent from '@/components/Analysis/TabContent'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
+import StockSelect from '@/components/ui/StockSelect'
 import stock100 from '@/data/stock100.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
@@ -54,16 +53,7 @@ export default function FundamentalAnalysis() {
 							{stockData ? convertDateTime(stockData.date[stockData.date.length - 1]) : getCurrentDate()} 更新
 						</p>
 					</div>
-					<Autocomplete
-						options={stock100.map((stock) => `${stock.stock_id} ${stock.name}`)}
-						defaultValue={`${stock100[0].stock_id} ${stock100[0].name}`}
-						sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
-						size='small'
-						renderInput={(params) => <TextField {...params} />}
-						onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
-						disableClearable
-						disablePortal
-					/>
+					<StockSelect setSelect={setSelectedStockId} />
 				</div>
 				{stockData ? (
 					<section className='flex items-baseline mb-4 space-x-1 tracking-wide'>

@@ -2,8 +2,6 @@
 
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import Autocomplete from '@mui/material/Autocomplete'
-import TextField from '@mui/material/TextField'
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 import { DataGrid } from '@mui/x-data-grid'
@@ -14,8 +12,10 @@ import Chart from '@/components/Chart/Chart'
 import { linearRegOption } from '@/components/Chart/options/linearRegOption'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
+import StockSelect from '@/components/ui/StockSelect'
 import stock100 from '@/data/stock100.json'
 import weatherList from '@/data/weatherList.json'
+import { useDarkMode } from '@/providers/DarkModeProvider'
 
 import { calculateR } from '@/utils/calculateR'
 
@@ -32,6 +32,8 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
 )
 
 export default function WeatherAnalysis() {
+	const { isDarkMode } = useDarkMode()
+
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [selectedTab, setSelectedTab] = useState(0)
@@ -117,16 +119,7 @@ export default function WeatherAnalysis() {
 								</HtmlTooltip>
 							</div>
 						)}
-						<Autocomplete
-							options={stock100.map((stock) => `${stock.stock_id} ${stock.name}`)}
-							defaultValue={`${stock100[0].stock_id} ${stock100[0].name}`}
-							sx={{ width: 150, bgcolor: 'background.paper', borderRadius: '0.25rem' }}
-							size='small'
-							renderInput={(params) => <TextField {...params} />}
-							onChange={(e, newValue) => setSelectedStockId(parseInt(newValue))}
-							disableClearable
-							disablePortal
-						/>
+						<StockSelect setSelect={setSelectedStockId} />
 					</section>
 					{!isLoading && chartData && weather && stockPrice ? (
 						<section className='flex flex-wrap items-start space-y-4'>

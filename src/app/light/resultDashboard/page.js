@@ -9,7 +9,7 @@ import Snackbar from '@mui/material/Snackbar'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 
-import AnalysisTable from '@/components/Analysis/AnalysisTable'
+import AnalysisTable from '@/components/Light/AnalysisTable'
 import PrayerCard from '@/components/Light/PrayerCard'
 import TodayLantern from '@/components/Light/TodayLantern'
 import Loading from '@/components/common/Loading'
