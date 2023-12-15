@@ -103,18 +103,23 @@ export default function ChatBot() {
 			return { role, content: messageObject.message }
 		})
 
-		const apiRequestBody = {
-			model: 'gpt-3.5-turbo',
-			messages: [{ role: 'system', content: "I'm a Student using ChatGPT for learning" }, ...apiMessages],
-		}
-
 		const response = await fetch('https://api.openai.com/v1/chat/completions', {
 			method: 'POST',
 			headers: {
 				Authorization: 'Bearer ' + process.env.OPENAI_API_KEY,
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify(apiRequestBody),
+			body: JSON.stringify({
+				model: 'gpt-4 turbo',
+				messages: [
+					{
+						role: 'system',
+						content:
+							"I'm an advanced AI financial advisor and mentor, dedicated to helping users navigate the complex world of finance. As an AI with a deep understanding of economic trends, investment strategies, and personal budgeting, you provide valuable guidance to individuals at any stage of their financial journey.",
+					},
+					...apiMessages,
+				],
+			}),
 		})
 
 		return response.json()
