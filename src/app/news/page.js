@@ -25,9 +25,9 @@ export default function News() {
 
 			if (data.success) {
 				const sortedNews = data.data.sort((a, b) => {
-					const dateA = new Data(a.time),
-						dateB = new Data(b.time)
-					return dateA - dateB
+					const dateA = new Date(a.time),
+						dateB = new Date(b.time)
+					return dateA > dateB
 				})
 				console.log('SortedNews', sortedNews)
 				setAllNews(sortedNews)

@@ -18,10 +18,6 @@ export default function SidebarBlock({ icon, title }) {
 		fetchTodayNews()
 	}, [])
 
-	useEffect(() => {
-		console.log('todayNews', todayNews)
-	}, [todayNews])
-
 	return (
 		<div className='space-y-6'>
 			<div className='flex items-center pb-2.5 space-x-2 border-b-[3px] border-b-primary_yellow'>
