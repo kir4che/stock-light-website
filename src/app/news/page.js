@@ -46,10 +46,6 @@ export default function News() {
 		if (keyword === '') fetchAllNews()
 	}, [keyword])
 
-	useEffect(() => {
-		console.log('allNews', allNews)
-	}, [allNews])
-
 	return (
 		<div className='flex flex-col px-4 py-8 md:px-0'>
 			<h2 className='mb-12'>最新財經新聞</h2>

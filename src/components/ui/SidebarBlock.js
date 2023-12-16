@@ -28,7 +28,7 @@ export default function SidebarBlock({ icon, title }) {
 				{todayNews &&
 					todayNews.slice(0, 5).map((news, index) => (
 						<li key={index}>
-							<Link href={news.link} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>
+							<Link href={news.link} target='_blank' className='underline hover:text-zinc-500 dark:hover:text-zinc-300'>
 								{news.title}
 							</Link>
 							<hr className='mt-3' />

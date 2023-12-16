@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { convertDateTime } from '@/utils/convertDateTime'
+
 export default function NewsPost({ news }) {
 	return (
 		news && (
@@ -20,18 +22,20 @@ export default function NewsPost({ news }) {
 					<Link href={news.link} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>
 						<h4>{news.title}</h4>
 					</Link>
-					<p className='text-xs text-zinc-500/80 dark:text-zinc-200/50'>
-						{news.source_icon && (
-							<Image
-								src={news.source_icon}
-								width={100}
-								height={100}
-								className='object-cover xs:max-h-20'
-								alt='news-icon'
-							/>
-						)}
-						{news.source_name}
-						{news.time}
+					<p className='space-x-2 text-xs flex-center text-zinc-500/80 dark:text-zinc-200/50'>
+						<span className='space-x-1 flex-center'>
+							{news.source_icon && (
+								<Image
+									src={news.source_icon}
+									width={100}
+									height={100}
+									className='object-cover xs:max-h-8'
+									alt='news-icon'
+								/>
+							)}
+							{news.source_name}
+						</span>
+						<span>{convertDateTime(news.time)}</span>
 					</p>
 				</div>
 			</article>
