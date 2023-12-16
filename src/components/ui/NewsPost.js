@@ -22,10 +22,10 @@ export default function NewsPost({ news }) {
 					<Link href={news.link} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>
 						<h4>{news.title}</h4>
 					</Link>
-					<p className='flex space-x-3 text-xs item-center text-zinc-500/80 dark:text-zinc-200/50'>
+					<p className='flex items-center space-x-3 text-xs text-zinc-500/80 dark:text-zinc-200/50'>
 						<span className='space-x-1 flex-center'>
 							{news.source_icon && (
-								<Image src={news.source_icon} width={100} height={100} className='object-cover h-8' alt='news-icon' />
+								<Image src={news.source_icon} width={100} height={100} className='object-contain h-6' alt='news-icon' />
 							)}
 							<span>{news.source_name}</span>
 						</span>
