@@ -18,18 +18,18 @@ export default function NewsPost({ news }) {
 						/>
 					)}
 				</div>
-				<div className='space-y-1.5'>
+				<div className='space-y-2'>
 					<Link href={news.link} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>
 						<h4>{news.title}</h4>
 					</Link>
-					<p className='flex items-center space-x-3 text-xs text-zinc-500/80 dark:text-zinc-200/50'>
+					<p className='flex items-center space-x-2 text-xs text-zinc-500/80 dark:text-zinc-200/50'>
 						<span className='space-x-1 flex-center'>
 							{news.source_icon && (
 								<Image
 									src={news.source_icon}
 									width={100}
 									height={100}
-									className='object-contain h-6 w-fit'
+									className='object-contain h-4 w-fit'
 									alt='news-icon'
 								/>
 							)}
