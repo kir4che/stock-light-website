@@ -22,14 +22,14 @@ export default function News() {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/news/all`, { method: 'GET' })
 			const data = await response.json()
-			console.log('AllNews', data)
 
 			if (data.success) {
 				const sortedNews = data.data.sort((a, b) => {
-					const dateA = parseInt(a.time),
-						dateB = parseInt(b.time)
+					const dateA = new Data(a.time),
+						dateB = new Data(b.time)
 					return dateA - dateB
 				})
+				console.log('SortedNews', sortedNews)
 				setAllNews(sortedNews)
 				setIsLoading(false)
 			}
@@ -46,6 +46,10 @@ export default function News() {
 	useEffect(() => {
 		if (keyword === '') fetchAllNews()
 	}, [keyword])
+
+	useEffect(() => {
+		console.log('AllNews', allNews)
+	}, [allNews])
 
 	return (
 		<div className='flex flex-col px-4 py-8 md:px-0'>
