@@ -29,7 +29,6 @@ export default function News() {
 						dateB = new Date(b.time)
 					return dateA > dateB
 				})
-				console.log('SortedNews', sortedNews)
 				setAllNews(sortedNews)
 				setIsLoading(false)
 			}
@@ -47,16 +46,12 @@ export default function News() {
 		if (keyword === '') fetchAllNews()
 	}, [keyword])
 
-	useEffect(() => {
-		console.log('AllNews', allNews)
-	}, [allNews])
-
 	return (
 		<div className='flex flex-col px-4 py-8 md:px-0'>
 			<h2 className='mb-12'>最新財經新聞</h2>
 			<div className='flex w-full md:gap-12 xl:gap-24'>
 				<section className='w-full space-y-5'>
-					{!isLoading ? allNews.map((news, index) => <NewsPost news={news} key={index} />) : <Loading />}
+					{!isLoading && allNews ? allNews.map((news, index) => <NewsPost news={news} key={index} />) : <Loading />}
 				</section>
 				<section className='hidden space-y-8 w-96 md:block'>
 					<Paper component='form' className='flex relative items-center pl-3 py-1.5'>
