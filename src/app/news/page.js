@@ -47,8 +47,8 @@ export default function News() {
 	}, [keyword])
 
 	useEffect(() => {
-		console.log(allNews)
-	}, [])
+		console.log('allNews', allNews)
+	}, [allNews])
 
 	return (
 		<div className='flex flex-col px-4 py-8 md:px-0'>
