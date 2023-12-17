@@ -1,6 +1,7 @@
 'use client'
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import Image from 'next/image'
 import OpenAI from 'openai'
 import { useEffect, useRef, useState } from 'react'
@@ -38,28 +39,22 @@ export default function ChatBot() {
 	]
 
 	const [selectedGod, setSelectedGod] = useState(0)
-	const [currentGodIndex, setCurrentGodIndex] = useState(0)
+	const [isSucced, setIsSucced] = useState(false)
+
 	const selectGod = () => {
 		const lastGodSelectTime = localStorage.getItem('lastGodSelectTime')
 		const currentTime = new Date().getTime()
 
 		if (lastGodSelectTime && currentTime - lastGodSelectTime < 24 * 60 * 60 * 1000) {
-			alert('You can only select a god once every 24 hours.')
+			alert('每 24 小時才能重新選擇一次喔！')
 			return
 		}
 
-		const intervalId = setInterval(() => {
-			setCurrentGodIndex((prevIndex) => (prevIndex + 1) % godList.length)
-		}, 100)
-
-		setTimeout(() => {
-			clearInterval(intervalId)
-			const randomGod = godList[Math.floor(Math.random() * godList.length)]
-			setSelectedGod(randomGod.id)
-
-			localStorage.setItem('selectedGod', randomGod.id)
-			localStorage.setItem('lastGodSelectTime', new Date().getTime())
-		}, Math.random() * (12000 - 5000 + 1) + 5000)
+		const randomGod = godList[Math.floor(Math.random() * godList.length)]
+		setSelectedGod(randomGod.id)
+		localStorage.setItem('selectedGod', randomGod.id)
+		localStorage.setItem('lastGodSelectTime', new Date().getTime())
+		setIsSucced(true)
 	}
 
 	const [threadId, setThreadId] = useState('')
@@ -126,6 +121,10 @@ export default function ChatBot() {
 	useEffect(() => {
 		const selectedGod = localStorage.getItem('selectedGod')
 		if (selectedGod) setSelectedGod(Number(selectedGod))
+		else {
+			setSelectedGod(0)
+			setIsSucced(false)
+		}
 
 		const initializeThread = async () => {
 			const emptyThread = await openai.beta.threads.create()
@@ -137,21 +136,20 @@ export default function ChatBot() {
 
 	return (
 		<StarryBackground className='h-screen pt-8 mx-auto lg:px-0'>
-			{!selectedGod ? (
+			{!selectedGod && !isSucced ? (
 				<div className='flex-col h-full flex-center'>
-					<div className='flex-wrap h-full mb-8 sm:mb-0 gap-x-8 flex-center'>
-						{godList.map((god, index) => (
-							<Image
-								src={god.imageUrl}
-								alt='god'
-								width={200}
-								height={200}
-								key={god.id}
-								style={{ opacity: index === currentGodIndex ? 0.85 : 0.2 }}
-							/>
+					<div className='flex-wrap h-full mb-8 opacity-50 sm:mb-0 gap-x-8 flex-center'>
+						{godList.map((god) => (
+							<Image src={god.imageUrl} alt='god' width={200} height={200} key={god.id} />
 						))}
 					</div>
-					<SubmitBtn text='隨機選擇神明' handleSubmit={() => selectGod()} style='mb-40 w-80 rounded-full' />
+					<SubmitBtn text='隨機選擇神明' handleSubmit={selectGod} style='mb-40 w-80 rounded-full' />
+					<Dialog open={isSucced} align='center' onClose={() => setIsSucced(false)}>
+						<DialogTitle>您選中的神明是</DialogTitle>
+						<DialogContent className='px-8'>
+							<Image src={godList[selectedGod].imageUrl} alt='god' width={200} height={200} />
+						</DialogContent>
+					</Dialog>
 				</div>
 			) : (
 				<div className='flex flex-col justify-between h-full'>
@@ -175,24 +173,24 @@ export default function ChatBot() {
 															ChatGPT
 														</span>
 													</p>
-													<p className='flex text-zinc-800 dark:text-white'>
+													<div className='flex text-zinc-800 dark:text-white'>
 														<div className='w-8 mr-2 min-w-[32px] h-8'>
 															<Image
-																src={godList[selectedGod - 1].avatar}
+																src={godList[selectedGod - 1]?.avatar}
 																width={100}
 																height={100}
 																alt='ask-god'
 																className='rounded-full'
 															/>
 														</div>
-														{message.content}
-													</p>
+														<p>{message.content}</p>
+													</div>
 												</>
 											)}
 											{message.role === 'user' && (
-												<div className='flex items-center justify-end gap-2'>
+												<div className='flex justify-end gap-2'>
 													<p className='text-white'>{message.content}</p>
-													<AccountCircleIcon className='text-white' />
+													<AccountCircleIcon className='text-3xl text-white' />
 												</div>
 											)}
 										</div>
