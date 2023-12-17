@@ -34,7 +34,9 @@ const nextConfig = {
 		OPENAI_API_KEY_RAG: process.env.OPENAI_API_KEY_RAG,
 	},
 	future: {
-		webpack5: true,
+		webpack5: {
+			verbose: true,
+		},
 	},
 }
 
