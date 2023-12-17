@@ -27,7 +27,7 @@ function ResultDashboard() {
 	const [laternOpen, setLaternOpen] = useState(false)
 
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-	const [resultStockInfo, setResultStockInfo] = useState([])
+	const [resultStockInfo, setResultStockInfo] = useState(null)
 	const [stockPrice, setStockPrice] = useState({
 		closePrice: [],
 		change: [],
@@ -37,11 +37,6 @@ function ResultDashboard() {
 		pe: 0,
 	})
 
-	const handleTabSelect = (e, index) => {
-		setSelectedTabIndex(index)
-		setResultStockInfo(resultStockInfo(index))
-	}
-
 	// 取得該產業符合因子的股票
 	const fetchStockByFactor = async () => {
 		setIsLoading(true)
@@ -50,19 +45,16 @@ function ResultDashboard() {
 				method: 'GET',
 			})
 			const data = await response.json()
-			console.log('data', data)
 
 			if (data.success) {
 				let stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
 				let filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
-				console.log('filteredData', filteredData)
 				let uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
 					filteredData.find((entry) => entry.stock_id === stock_id)
 				)
-				console.log('uniqueFilteredData', uniqueFilteredData)
-				setResultStockInfo(uniqueFilteredData)
+				setResultStockInfo(uniqueFilteredData.slice(0, 5))
 				setIsLoading(false)
 			}
 		} catch (error) {
@@ -93,7 +85,7 @@ function ResultDashboard() {
 		}
 
 		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
-	}, [resultStockInfo])
+	}, [selectedTabIndex])
 
 	return (
 		<StarryBackground className='pt-6 pb-10'>
@@ -102,7 +94,12 @@ function ResultDashboard() {
 				<p className='text-xs text-white opacity-80'>※ 所有結果皆來自歷史數據所反映</p>
 			</section>
 			<PrayerCard industry={industry} handleNextDialog={() => setLaternOpen(!laternOpen)} />
-			<TodayLantern industry={industry} open={laternOpen} handleDialog={() => setLaternOpen(!laternOpen)} />
+			<TodayLantern
+				industry={industry}
+				resultStock={resultStockInfo && resultStockInfo.map((item) => item.stock_id)}
+				open={laternOpen}
+				handleDialog={() => setLaternOpen(!laternOpen)}
+			/>
 			<div className='pb-10 rounded bg-sky-50 dark:bg-zinc-900/50'>
 				<section className='flex items-baseline justify-between w-full px-4 pt-4 pb-3 tracking-wider sm:px-8 lg:px-10 bg-sky-100 dark:bg-zinc-800/60'>
 					<h3 className='space-x-2 flex-center'>
@@ -117,19 +114,20 @@ function ResultDashboard() {
 					variant='scrollable'
 					value={selectedTabIndex}
 					className='mb-4 rounded bg-sky-100 dark:bg-zinc-800/60'
-					onChange={handleTabSelect}
+					onChange={(e, index) => setSelectedTabIndex(index)}
 				>
-					{resultStockInfo.map((id, index) => (
-						<Tab
-							label={stock100.find((stock) => stock.stock_id === id)?.name || null}
-							className={`${
-								selectedTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
-							} hover:bg-sky-300/10 `}
-							key={index}
-						/>
-					))}
+					{resultStockInfo &&
+						resultStockInfo.map((item, index) => (
+							<Tab
+								label={stock100.find((stock) => stock.stock_id === item.stock_id)?.name || null}
+								className={`${
+									selectedTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
+								} hover:bg-sky-300/10 `}
+								key={index}
+							/>
+						))}
 				</Tabs>
-				{resultStockInfo[selectedTabIndex] && (
+				{resultStockInfo && (
 					<section className='px-4 mb-4 sm:px-8 lg:px-10'>
 						<h4 className='inline-flex items-baseline px-2 mb-2 space-x-2 rounded-lg dark:text-zinc-800 bg-primary_yellow'>
 							<span>
@@ -137,7 +135,7 @@ function ResultDashboard() {
 							</span>
 							<span className='text-lg font-light tracking-widest'>{resultStockInfo[selectedTabIndex].stock_id}</span>
 						</h4>
-						<div className='flex items-end justify-between'>
+						<div className='flex flex-col gap-2 sm:flex-row sm:gap-0 sm:items-end sm:justify-between'>
 							{stockPrice ? (
 								<div className='flex items-baseline space-x-1 tracking-wide'>
 									<p
@@ -171,22 +169,31 @@ function ResultDashboard() {
 									</div>
 								</div>
 							) : null}
-							{stockPePb && (
-								<div className='flex space-x-5'>
-									<div className='flex flex-col items-center'>
-										<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pb}</h4>
-										<p className='text-xs text-zinc-500 dark:text-zinc-300'>本益比</p>
-									</div>
-									<div className='flex flex-col items-center'>
-										<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pe}</h4>
-										<p className='text-xs text-zinc-500 dark:text-zinc-300'>本淨比</p>
-									</div>
+							<div className='flex space-x-5'>
+								<div className='flex flex-col items-center'>
+									<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pb || '－'}</h4>
+									<p className='text-xs text-zinc-500 dark:text-zinc-300'>本益比</p>
 								</div>
-							)}
+								<div className='flex flex-col items-center'>
+									<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pe || '－'}</h4>
+									<p className='text-xs text-zinc-500 dark:text-zinc-300'>本淨比</p>
+								</div>
+								<div className='flex flex-col items-center'>
+									<h4 className='font-extrabold text-zinc-800 dark:text-white'>
+										{resultStockInfo[selectedTabIndex].EPS || '－'}
+									</h4>
+									<p className='text-xs text-zinc-500 dark:text-zinc-300'>EPS</p>
+								</div>
+								<div className='flex flex-col items-center'>
+									<h4 className='font-extrabold text-zinc-800 dark:text-white'>
+										{resultStockInfo[selectedTabIndex].ROE || '－'}
+									</h4>
+									<p className='text-xs text-zinc-500 dark:text-zinc-300'>ROE</p>
+								</div>
+							</div>
 						</div>
 					</section>
 				)}
-
 				<section className='px-4 sm:px-8 lg:px-10'>
 					{!isLoading && resultStockInfo[selectedTabIndex] ? (
 						<AnalysisTable stockId={resultStockInfo[selectedTabIndex].stock_id} />

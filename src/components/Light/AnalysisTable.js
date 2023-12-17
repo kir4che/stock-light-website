@@ -322,7 +322,11 @@ export default function AnalysisTable({ stockId }) {
 				)}
 				{/* 相關新聞 */}
 				{newsData && (
-					<section className='p-4 space-y-2 overflow-y-auto bg-white rounded-lg shadow sm:w-1/3 sm:h-full h-80 dark:bg-zinc-900/60'>
+					<section
+						className={`p-4 space-y-2 overflow-y-auto bg-white rounded-lg shadow sm:h-full h-80 dark:bg-zinc-900/60 ${
+							sentimentData.length !== 0 ? 'sm:w-1/3' : 'sm:w-2/3'
+						}`}
+					>
 						<h4 className='flex items-center'>相關新聞</h4>
 						<ul className='flex flex-col pl-4 leading-4 list-disc gap-y-1'>
 							{newsData.map((news, index) => (
