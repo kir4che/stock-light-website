@@ -21,12 +21,13 @@ import fetchStockPePb from '@/utils/fetchStockPePb'
 
 function ResultDashboard() {
 	const industry = useSearchParams().get('industry')
+	const factor = useSearchParams().get('factor')
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [laternOpen, setLaternOpen] = useState(false)
 
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
-	const [resultStockId, setResultStockId] = useState(2330) // 暫時設定為台積電
+	const [resultStockInfo, setResultStockInfo] = useState([])
 	const [stockPrice, setStockPrice] = useState({
 		closePrice: [],
 		change: [],
@@ -38,11 +39,43 @@ function ResultDashboard() {
 
 	const handleTabSelect = (e, index) => {
 		setSelectedTabIndex(index)
-		setResultStockId(index === 0 ? 2330 : 2345) // 暫時
+		setResultStockInfo(resultStockInfo(index))
+	}
+
+	// 取得該產業符合因子的股票
+	const fetchStockByFactor = async () => {
+		setIsLoading(true)
+		try {
+			const response = await fetch(`${process.env.DB_URL}/api/stock/picking/${factor}`, {
+				method: 'GET',
+			})
+			const data = await response.json()
+			console.log('data', data)
+
+			if (data.success) {
+				let stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
+				let filteredData = data.data.filter(function (entry) {
+					return stockByIndustry.includes(entry.stock_id)
+				})
+				console.log('filteredData', filteredData)
+				let uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
+					filteredData.find((entry) => entry.stock_id === stock_id)
+				)
+				console.log('uniqueFilteredData', uniqueFilteredData)
+				setResultStockInfo(uniqueFilteredData)
+				setIsLoading(false)
+			}
+		} catch (error) {
+			console.error('Error: ', error)
+		}
 	}
 
 	useEffect(() => {
-		// 透過 resultStockId 取得該股票的所有資料
+		fetchStockByFactor()
+	}, [])
+
+	useEffect(() => {
+		// 透過 resultStockInfo 取得該股票的所有資料
 		const fetchData = async (stockId) => {
 			const pePbData = await fetchStockPePb({ stockId, setIsLoading })
 			setStockPePb({
@@ -59,47 +92,8 @@ function ResultDashboard() {
 			})
 		}
 
-		fetchData(resultStockId)
-	}, [resultStockId])
-
-	// 需要針對該產業別的所有個股進行分析，並挑選出來五檔。
-	// const getStocksByIndustry = async () => {
-	// 	setIsLoading(true)
-
-	// 	try {
-	// 		const response = await fetch(`${process.env.DB_URL}/api/user/all/industry/stock`, {
-	// 			method: 'GET',
-	// 			headers: {
-	// 				'Content-Type': 'application/json',
-	// 				Authorization: token,
-	// 			},
-	// 		})
-	// 		const data = await response.json()
-	// 		const stocks = data.data.filter((stock) => stock.industry === industry)[0].data // 該產業底下所有個股
-	// 		console.log(industry, stocks)
-
-	// 		// 從 stocks 中隨機挑選 5 隻股票（🚩測試用）
-	// 		const randomStocks = []
-	// 		const copyStockArray = [...stocks]
-
-	// 		for (let i = 0; i < 5; i++) {
-	// 			const randomIndex = Math.floor(Math.random() * copyStockArray.length)
-	// 			const resultStockId = copyStockArray[randomIndex].stock_id
-	// 			randomStocks.push(resultStockId)
-	// 		}
-
-	// 		setResultStock(randomStocks)
-	// 		console.log('randomStocks', randomStocks)
-
-	// 		if (data.success) setIsLoading(false)
-	// 	} catch (error) {
-	// 		console.error('Error: ', error)
-	// 	}
-	// }
-
-	// useEffect(() => {
-	// 	getStocksByIndustry()
-	// }, [industry])
+		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
+	}, [resultStockInfo])
 
 	return (
 		<StarryBackground className='pt-6 pb-10'>
@@ -125,9 +119,9 @@ function ResultDashboard() {
 					className='mb-4 rounded bg-sky-100 dark:bg-zinc-800/60'
 					onChange={handleTabSelect}
 				>
-					{['台積電', '智邦'].map((label, index) => (
+					{resultStockInfo.map((id, index) => (
 						<Tab
-							label={label}
+							label={stock100.find((stock) => stock.stock_id === id)?.name || null}
 							className={`${
 								selectedTabIndex === index ? 'dark:text-secondary_blue bg-secondary_blue/10' : 'dark:text-zinc-100'
 							} hover:bg-sky-300/10 `}
@@ -135,61 +129,70 @@ function ResultDashboard() {
 						/>
 					))}
 				</Tabs>
-				<section className='px-4 mb-4 sm:px-8 lg:px-10'>
-					<h4 className='inline-flex items-baseline px-2 mb-2 space-x-2 rounded-lg dark:text-zinc-800 bg-primary_yellow'>
-						<span>{stock100.find((stock) => stock.stock_id === resultStockId)?.name || null}</span>
-						<span className='text-lg font-light tracking-widest'>{resultStockId}</span>
-					</h4>
-					<div className='flex items-end justify-between'>
-						{stockPrice ? (
-							<div className='flex items-baseline space-x-1 tracking-wide'>
-								<p
-									className={`text-4xl font-bold ${
-										stockPrice.change[0] > 0 ? 'text-stock_red' : stockPrice.change[0] < 0 ? 'text-stock_green' : ''
-									} `}
-								>
-									{parseFloat(stockPrice.closePrice[0]).toFixed(2)}
-								</p>
-								<div
-									className={`flex items-baseline text-xl font-medium space-x-1 ${
-										stockPrice.change[0] > 0 ? 'text-stock_red' : stockPrice.change[0] < 0 ? 'text-stock_green' : ''
-									}`}
-								>
-									<p>
-										<span>
-											{stockPrice.change[0] > 0 ? (
-												<ArrowDropUpIcon />
-											) : stockPrice.change[0] < 0 ? (
-												<ArrowDropDownIcon />
-											) : (
-												''
-											)}
-										</span>
-										<span>{Math.abs(stockPrice.change[0]).toFixed(2)}</span>
+				{resultStockInfo[selectedTabIndex] && (
+					<section className='px-4 mb-4 sm:px-8 lg:px-10'>
+						<h4 className='inline-flex items-baseline px-2 mb-2 space-x-2 rounded-lg dark:text-zinc-800 bg-primary_yellow'>
+							<span>
+								{stock100.find((stock) => stock.stock_id === resultStockInfo[selectedTabIndex].stock_id)?.name || null}
+							</span>
+							<span className='text-lg font-light tracking-widest'>{resultStockInfo[selectedTabIndex].stock_id}</span>
+						</h4>
+						<div className='flex items-end justify-between'>
+							{stockPrice ? (
+								<div className='flex items-baseline space-x-1 tracking-wide'>
+									<p
+										className={`text-4xl font-bold ${
+											stockPrice.change[0] > 0 ? 'text-stock_red' : stockPrice.change[0] < 0 ? 'text-stock_green' : ''
+										} `}
+									>
+										{parseFloat(stockPrice.closePrice[0]).toFixed(2)}
 									</p>
-									<p>
-										({calculatePriceChange(stockPrice.closePrice[1], stockPrice.closePrice[0]).toFixed(2)}
-										%)
-									</p>
+									<div
+										className={`flex items-baseline text-xl font-medium space-x-1 ${
+											stockPrice.change[0] > 0 ? 'text-stock_red' : stockPrice.change[0] < 0 ? 'text-stock_green' : ''
+										}`}
+									>
+										<p>
+											<span>
+												{stockPrice.change[0] > 0 ? (
+													<ArrowDropUpIcon />
+												) : stockPrice.change[0] < 0 ? (
+													<ArrowDropDownIcon />
+												) : (
+													''
+												)}
+											</span>
+											<span>{Math.abs(stockPrice.change[0]).toFixed(2)}</span>
+										</p>
+										<p>
+											({calculatePriceChange(stockPrice.closePrice[1], stockPrice.closePrice[0]).toFixed(2)}
+											%)
+										</p>
+									</div>
 								</div>
-							</div>
-						) : null}
-						{stockPePb && (
-							<div className='flex space-x-5'>
-								<div className='flex flex-col items-center'>
-									<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pb}</h4>
-									<p className='text-xs text-zinc-500 dark:text-zinc-300'>本益比</p>
+							) : null}
+							{stockPePb && (
+								<div className='flex space-x-5'>
+									<div className='flex flex-col items-center'>
+										<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pb}</h4>
+										<p className='text-xs text-zinc-500 dark:text-zinc-300'>本益比</p>
+									</div>
+									<div className='flex flex-col items-center'>
+										<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pe}</h4>
+										<p className='text-xs text-zinc-500 dark:text-zinc-300'>本淨比</p>
+									</div>
 								</div>
-								<div className='flex flex-col items-center'>
-									<h4 className='font-extrabold text-zinc-800 dark:text-white'>{stockPePb.pe}</h4>
-									<p className='text-xs text-zinc-500 dark:text-zinc-300'>本淨比</p>
-								</div>
-							</div>
-						)}
-					</div>
-				</section>
+							)}
+						</div>
+					</section>
+				)}
+
 				<section className='px-4 sm:px-8 lg:px-10'>
-					{!isLoading ? <AnalysisTable stockId={resultStockId} /> : <Loading />}
+					{!isLoading && resultStockInfo[selectedTabIndex] ? (
+						<AnalysisTable stockId={resultStockInfo[selectedTabIndex].stock_id} />
+					) : (
+						<Loading />
+					)}
 				</section>
 			</div>
 			<RabBot />

@@ -24,8 +24,9 @@ import { getCurrentDate } from '@/utils/getCurrentDate'
 
 export default function Checkout() {
 	const { status } = useSession()
-	const industry = useSearchParams().get('industry')
 	const router = useRouter()
+	const industry = useSearchParams().get('industry')
+	const factor = useSearchParams().get('factor')
 	const uuid = uuidv4()
 
 	const [activeBtnIndex, setActiveBtnIndex] = useState(1)
@@ -107,7 +108,7 @@ export default function Checkout() {
 	useEffect(() => {
 		lightSucceed &&
 			setTimeout(() => {
-				router.push(`/light/resultDashboard?industry=${industry}&id=${uuid}&date=${getCurrentDate()}`)
+				router.push(`/light/resultDashboard?industry=${industry}&factor=${factor}&id=${uuid}&date=${getCurrentDate()}`)
 			}, 3000)
 	}, [lightSucceed])
 

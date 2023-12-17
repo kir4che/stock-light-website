@@ -47,7 +47,7 @@ export default function Light() {
 		else if (selectedAmount !== null && amount === 0) setAmount(selectedAmount)
 
 		setSponsorOpen(false)
-		router.push(`/light/checkout?industry=${selectedIndustry}`)
+		router.push(`/light/checkout?industry=${selectedIndustry}&factor=${selectedFactor}`)
 	}
 
 	// Step 3-2: 不贊助香油錢
@@ -68,7 +68,9 @@ export default function Light() {
 	useEffect(() => {
 		lightSucceed &&
 			setTimeout(() => {
-				router.push(`/light/resultDashboard?industry=${selectedIndustry}&id=${uuid}&date=${getCurrentDate()}`)
+				router.push(
+					`/light/resultDashboard?industry=${selectedIndustry}&factor=${selectedFactor}&id=${uuid}&date=${getCurrentDate()}`
+				)
 			}, 3000)
 	}, [lightSucceed])
 
@@ -289,7 +291,7 @@ export default function Light() {
 						</button>
 					</LanternLayout>
 					{/* 選股 */}
-					<Dialog open={factorOpen} maxWidth='sm' align='center' onClose={() => setFactorOpen(false)} fullWidth>
+					<Dialog open={factorOpen} maxWidth='xs' align='center' onClose={() => setFactorOpen(false)} fullWidth>
 						<CloseIcon
 							className='absolute cursor-pointer top-3 right-3 dark:text-zinc-100 opacity-80 hover:opacity-60'
 							onClick={() => setFactorOpen(false)}
@@ -298,29 +300,35 @@ export default function Light() {
 							選股條件
 						</DialogTitle>
 						<DialogContent className='pt-4 dark:bg-zinc-800 dark:text-zinc-100'>
-							<ul className='flex flex-col divide-y divide-zinc-400/80'>
-								<li className='flex-row py-4 flex-center-between'>
-									<p className='font-medium dark:text-white'>巴菲特選股</p>
-									<p className='text-xs text-gray-600 dark:text-gray-200'>ROE ＞ 10</p>
-									<button
-										type='submit'
-										className='px-3 py-1 text-sm text-right rounded-full text-zinc-800 bg-primary_yellow hover:bg-amber-300'
-										onClick={handleFactorSelect}
-									>
-										選擇此條件
-									</button>
-								</li>
-								<li className='flex-row py-4 flex-center-between'>
-									<p className='font-medium dark:text-white'>巴菲特選股</p>
-									<p className='text-xs text-gray-600 dark:text-gray-200'>ROE ＞ 10</p>
-									<button
-										type='submit'
-										className='px-3 py-1 text-sm text-right rounded-full text-zinc-800 bg-primary_yellow hover:bg-amber-300'
-										onClick={handleFactorSelect}
-									>
-										選擇此條件
-									</button>
-								</li>
+							<ul className='flex flex-col px-4 divide-y divide-zinc-400/80'>
+								{['負債比率 < 30%', 'ROE > 15%', '自由現金流 > 0', '流動比率 > 2', 'EPS > 0'].map((factor) => (
+									<li className='flex-row py-4 flex-center-between'>
+										<p className='font-medium dark:text-white'>{factor}</p>
+										<p className='text-xs text-gray-600 dark:text-gray-200'></p>
+										<button
+											type='submit'
+											className='px-3 py-1 text-sm text-right rounded-full text-zinc-800 bg-primary_yellow hover:bg-amber-300'
+											onClick={() =>
+												handleFactorSelect(() => {
+													switch (factor) {
+														case '負債比率 < 30%':
+															return 'debtRatio'
+														case 'ROE > 15%':
+															return 'Roe'
+														case '自由現金流 > 0':
+															return 'freeCashFlow'
+														case '流動比率 > 2':
+															return 'currentRatio'
+														case 'EPS > 0':
+															return 'Eps'
+													}
+												})
+											}
+										>
+											選擇此條件
+										</button>
+									</li>
+								))}
 							</ul>
 						</DialogContent>
 					</Dialog>
