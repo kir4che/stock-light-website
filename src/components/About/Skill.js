@@ -7,16 +7,16 @@ export default function Skill() {
 			category: '後端',
 			skills: [
 				{
-					icon: 'https://img.icons8.com/color/28/python--v1.png',
-					name: 'Python',
+					icon: 'https://img.icons8.com/fluency/48/node-js.png',
+					name: 'Node.js',
 				},
 				{
-					icon: 'https://img.icons8.com/external-tal-revivo-fresh-tal-revivo/28/external-django-a-high-level-python-web-framework-that-encourages-rapid-development-logo-fresh-tal-revivo.png',
-					name: 'Django',
+					icon: 'https://img.icons8.com/material-outlined/24/mysql-logo.png',
+					name: 'MySQL',
 				},
 				{
-					icon: 'https://img.icons8.com/color/24/mongodb.png',
-					name: 'NoSQL',
+					icon: 'https://img.icons8.com/color/48/chatgpt.png',
+					name: 'GPT-4',
 				},
 			],
 		},
@@ -58,11 +58,11 @@ export default function Skill() {
 			skills: [
 				{
 					icon: '',
-					name: '敘述統計',
+					name: '情緒分析',
 				},
 				{
 					icon: '',
-					name: '卡方檢定',
+					name: '相關性分析',
 				},
 				{
 					icon: '',
