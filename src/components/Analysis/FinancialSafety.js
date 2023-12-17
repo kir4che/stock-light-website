@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
 import { fetchAssetStatement, fetchCashFlowStatement, fetchLiabilitiesEquity } from '@/utils/fetchStockFS'
-import { DataRow, DateRow } from '@/utils/renderTableRow'
+import { renderDataRow, renderDateRow } from '@/utils/renderTableRow'
 
 export default function FinancialSafety({ stockId, childOpen }) {
 	const [isLoading, setIsLoading] = useState(false)
@@ -101,8 +101,8 @@ export default function FinancialSafety({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{DateRow(dates, selectedChart === 0 ? '105px' : '175px')}
-									{DataRow(
+									{renderDateRow(dates, selectedChart === 0 ? '105px' : '175px')}
+									{renderDataRow(
 										selectedChart === 0 ? '負債比' : '長期資金佔固定資產比',
 										selectedChart === 0 ? debtRatio : longTermLiabilitiesRatio
 									)}
@@ -121,9 +121,9 @@ export default function FinancialSafety({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{DateRow(dates)}
-								{DataRow('流動比率', currentQuickRatio[0])}
-								{DataRow('速動比率', currentQuickRatio[1])}
+								{renderDateRow(dates)}
+								{renderDataRow('流動比率', currentQuickRatio[0])}
+								{renderDataRow('速動比率', currentQuickRatio[1])}
 							</TableBody>
 						</Table>
 					</div>
@@ -138,8 +138,8 @@ export default function FinancialSafety({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{DateRow(dates, '118px')}
-								{DataRow('利息保障倍數', interestCoverageRatio)}
+								{renderDateRow(dates, '118px')}
+								{renderDataRow('利息保障倍數', interestCoverageRatio)}
 							</TableBody>
 						</Table>
 					</div>
@@ -159,9 +159,9 @@ export default function FinancialSafety({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{DateRow(dates, '175px')}
-								{DataRow('營業現金對流動負債比', operatingCashFlowRatio[0])}
-								{DataRow('營業現金對負債比', operatingCashFlowRatio[1])}
+								{renderDateRow(dates, '175px')}
+								{renderDataRow('營業現金對流動負債比', operatingCashFlowRatio[0])}
+								{renderDataRow('營業現金對負債比', operatingCashFlowRatio[1])}
 							</TableBody>
 						</Table>
 					</div>
@@ -181,8 +181,8 @@ export default function FinancialSafety({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{DateRow(dates, '175px')}
-								{DataRow('營業現金對稅後淨利比', operatingCashFlowToNetIncomeRatio)}
+								{renderDateRow(dates, '175px')}
+								{renderDataRow('營業現金對稅後淨利比', operatingCashFlowToNetIncomeRatio)}
 							</TableBody>
 						</Table>
 					</div>
@@ -197,8 +197,8 @@ export default function FinancialSafety({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{DateRow(dates, '132px')}
-								{DataRow('盈餘再投資比率', reinvestmentRate)}
+								{renderDateRow(dates, '132px')}
+								{renderDataRow('盈餘再投資比率', reinvestmentRate)}
 							</TableBody>
 						</Table>
 					</div>

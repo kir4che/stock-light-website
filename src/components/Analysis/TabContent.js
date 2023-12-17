@@ -51,7 +51,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 		setTechAnalDataZoomRange([0, 100])
 	}, [tabIndex])
 
-	const ZoomBtn = (text, days, zoomPercent) => (
+	const renderZoomButton = (text, days, zoomPercent) => (
 		<button
 			className='py-1 rounded-md min-w-[110px] w-1/7 hover:bg-secondary_blue/10'
 			onClick={() => handleZoomBtnClick([zoomPercent, 100])}
@@ -81,7 +81,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 		</button>
 	)
 
-	const TechAnalZoomBtn = (text, zoomPercent) => (
+	const renderTechAnalZoomButton = (text, zoomPercent) => (
 		<button
 			className='p-2 hover:rounded-full hover:bg-primary_yellow/30'
 			onClick={() => handleTechAnalZoomBtnClick([zoomPercent, 100])}
@@ -90,7 +90,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 		</button>
 	)
 
-	const TechAnalChart = () => {
+	const renderTechAnalChart = () => {
 		switch (selectedMenu) {
 			case '布林':
 				return candlestickOptionByBoll(
@@ -122,7 +122,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 		}
 	}
 
-	const SubChart = () => {
+	const renderSubChart = () => {
 		switch (subchart) {
 			case 'MACD':
 				return <Chart option={macdOption(date, closePrice, techAnalDataZoomRange, handleTechAnalDataZoomChange)} />
@@ -202,13 +202,13 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 					</section>
 					{/* 日期區間 */}
 					<section className='pt-3 pb-2 overflow-x-auto rounded flex-center-between'>
-						{ZoomBtn('5D', 5, 99.7)}
-						{ZoomBtn('1M', 30, 98)}
-						{ZoomBtn('3M', 90, 94.5)}
-						{ZoomBtn('6M', 180, 88)}
-						{ZoomBtn('1Y', 365, 78)}
-						{ZoomBtn('3Y', 1095, 31.5)}
-						{ZoomBtn('5Y', 1825, 0)}
+						{renderZoomButton('5D', 5, 99.7)}
+						{renderZoomButton('1M', 30, 98)}
+						{renderZoomButton('3M', 90, 94.5)}
+						{renderZoomButton('6M', 180, 88)}
+						{renderZoomButton('1Y', 365, 78)}
+						{renderZoomButton('3Y', 1095, 31.5)}
+						{renderZoomButton('5Y', 1825, 0)}
 					</section>
 				</>
 			)
@@ -234,25 +234,25 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						</section>
 						{/* 日期區間 */}
 						<section className='flex items-center justify-end text-xs font-light tracking-widest xs:text-sm xs:space-x-1'>
-							{TechAnalZoomBtn('5D', 99.7)}
+							{renderTechAnalZoomButton('5D', 99.7)}
 							<span>｜</span>
-							{TechAnalZoomBtn('1M', 98)}
+							{renderTechAnalZoomButton('1M', 98)}
 							<span>｜</span>
-							{TechAnalZoomBtn('3M', 94.5)}
+							{renderTechAnalZoomButton('3M', 94.5)}
 							<span>｜</span>
-							{TechAnalZoomBtn('6M', 88)}
+							{renderTechAnalZoomButton('6M', 88)}
 							<span>｜</span>
-							{TechAnalZoomBtn('1Y', 78)}
+							{renderTechAnalZoomButton('1Y', 78)}
 							<span>｜</span>
-							{TechAnalZoomBtn('3Y', 31.5)}
+							{renderTechAnalZoomButton('3Y', 31.5)}
 							<span>｜</span>
-							{TechAnalZoomBtn('5Y', 0)}
+							{renderTechAnalZoomButton('5Y', 0)}
 						</section>
 					</div>
 					{/* K線圖 */}
-					<Chart option={TechAnalChart()} customHeight='h-72 md:h-80 xl:h-[450px]' />
+					<Chart option={renderTechAnalChart()} customHeight='h-72 md:h-80 xl:h-[450px]' />
 					{/* 副圖表 */}
-					{SubChart()}
+					{renderSubChart()}
 					{/* 技術指標說明 */}
 					{selectedMenu === '' ? (
 						<div className='mt-6 mb-12 space-y-2'>

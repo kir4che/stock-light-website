@@ -9,7 +9,7 @@ import { Suspense, useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Light/AnalysisTable'
 import PrayerCard from '@/components/Light/PrayerCard'
-import RagBot from '@/components/Light/RagBot'
+import RabBot from '@/components/Light/RabBot'
 import TodayLantern from '@/components/Light/TodayLantern'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
@@ -85,7 +85,11 @@ function ResultDashboard() {
 
 	useEffect(() => {
 		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
-	}, [resultStockInfo, selectedTabIndex])
+	}, [resultStockInfo])
+
+	useEffect(() => {
+		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
+	}, [selectedTabIndex])
 
 	return (
 		<StarryBackground className='pt-6 pb-10'>
@@ -200,9 +204,9 @@ function ResultDashboard() {
 					) : (
 						<Loading />
 					)}
-					<RagBot />
 				</section>
 			</div>
+			<RabBot />
 		</StarryBackground>
 	)
 }

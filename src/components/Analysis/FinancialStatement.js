@@ -12,7 +12,7 @@ import {
 	fetchIncomeStatement,
 	fetchLiabilitiesEquity,
 } from '@/utils/fetchStockFS'
-import { DataRow, DateRow } from '@/utils/renderTableRow'
+import { renderDataRow, renderDateRow } from '@/utils/renderTableRow'
 
 export default function FinancialStatement({ stockId, childOpen }) {
 	const [isLoading, setIsLoading] = useState(true)
@@ -241,8 +241,8 @@ export default function FinancialStatement({ stockId, childOpen }) {
 								<div className='overflow-x-auto'>
 									<Table size='medium'>
 										<TableBody>
-											{DateRow(dates)}
-											{DataRow('營業收入', revenue)}
+											{renderDateRow(dates)}
+											{renderDataRow('營業收入', revenue)}
 										</TableBody>
 									</Table>
 								</div>
@@ -301,13 +301,13 @@ export default function FinancialStatement({ stockId, childOpen }) {
 								<div className='overflow-x-auto'>
 									<Table>
 										<TableBody>
-											{DateRow(dates)}
+											{renderDateRow(dates)}
 											{selectedChart === 0 ? (
-												DataRow('單季EPS', eps)
+												renderDataRow('單季EPS', eps)
 											) : (
 												<>
-													{DataRow('近四季EPS', epsT4Q[0])}
-													{DataRow('近四季平均EPS', epsT4Q[1])}
+													{renderDataRow('近四季EPS', epsT4Q[0])}
+													{renderDataRow('近四季平均EPS', epsT4Q[1])}
 												</>
 											)}
 										</TableBody>
@@ -343,8 +343,8 @@ export default function FinancialStatement({ stockId, childOpen }) {
 							<div className='overflow-x-auto'>
 								<Table>
 									<TableBody>
-										{DateRow(dates)}
-										{DataRow('每股淨值', nav)}
+										{renderDateRow(dates)}
+										{renderDataRow('每股淨值', nav)}
 									</TableBody>
 								</Table>
 							</div>
@@ -375,17 +375,17 @@ export default function FinancialStatement({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{DateRow(dates, '132px')}
-								{income[0] && DataRow('營業收入', income[0])}
-								{income[1] && DataRow('毛利', income[1])}
-								{opex[0] && DataRow('銷售費用', opex[0])}
-								{opex[1] && DataRow('管理費用', opex[1])}
-								{opex[2] && DataRow('研發費用', opex[2])}
-								{opex[3] && DataRow('營業費用', opex[3])}
-								{income[2] && DataRow('營業利益', income[2])}
-								{income[3] && DataRow('稅前淨利', income[3])}
-								{income[4] && DataRow('稅後淨利', income[4])}
-								{income[5] && DataRow('母公司業主淨利', income[5])}
+								{renderDateRow(dates, '132px')}
+								{income[0] && renderDataRow('營業收入', income[0])}
+								{income[1] && renderDataRow('毛利', income[1])}
+								{opex[0] && renderDataRow('銷售費用', opex[0])}
+								{opex[1] && renderDataRow('管理費用', opex[1])}
+								{opex[2] && renderDataRow('研發費用', opex[2])}
+								{opex[3] && renderDataRow('營業費用', opex[3])}
+								{income[2] && renderDataRow('營業利益', income[2])}
+								{income[3] && renderDataRow('稅前淨利', income[3])}
+								{income[4] && renderDataRow('稅後淨利', income[4])}
+								{income[5] && renderDataRow('母公司業主淨利', income[5])}
 							</TableBody>
 						</Table>
 					</div>
@@ -433,19 +433,19 @@ export default function FinancialStatement({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{DateRow(dates, '132px')}
-									{currentAsset[0] && DataRow('現金及約當現金', currentAsset[0])}
-									{currentAsset[1] && DataRow('短期投資', currentAsset[1])}
-									{currentAsset[2] && DataRow('應收帳款及票據', currentAsset[2])}
-									{currentAsset[3] && DataRow('存貨', currentAsset[3])}
-									{otherCurrentAsset && DataRow('其餘流動資產', otherCurrentAsset)}
-									{DataRow('流動資產', currentAsset[4])}
+									{renderDateRow(dates, '132px')}
+									{currentAsset[0] && renderDataRow('現金及約當現金', currentAsset[0])}
+									{currentAsset[1] && renderDataRow('短期投資', currentAsset[1])}
+									{currentAsset[2] && renderDataRow('應收帳款及票據', currentAsset[2])}
+									{currentAsset[3] && renderDataRow('存貨', currentAsset[3])}
+									{otherCurrentAsset && renderDataRow('其餘流動資產', otherCurrentAsset)}
+									{renderDataRow('流動資產', currentAsset[4])}
 									{selectedChart === 0 && (
 										<>
-											{asset[1] && DataRow('長期投資', asset[1])}
-											{asset[2] && DataRow('固定資產', asset[2])}
-											{otherAsset && DataRow('其餘資產', otherAsset)}
-											{asset[3] && DataRow('總資產', asset[3])}
+											{asset[1] && renderDataRow('長期投資', asset[1])}
+											{asset[2] && renderDataRow('固定資產', asset[2])}
+											{otherAsset && renderDataRow('其餘資產', otherAsset)}
+											{asset[3] && renderDataRow('總資產', asset[3])}
 										</>
 									)}
 								</TableBody>
@@ -506,28 +506,28 @@ export default function FinancialStatement({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{DateRow(dates, '132px')}
+									{renderDateRow(dates, '132px')}
 									{selectedChart === 0 || selectedChart === 1 ? (
 										<>
-											{liability[0] && DataRow('短期借款', liability[0])}
-											{liability[1] && DataRow('應付短期票券', liability[1])}
-											{liability[2] && DataRow('應付帳款及票據', liability[2])}
-											{liability[3] && DataRow('預收款項', liability[3])}
-											{liability[4] && DataRow('一年內到期長期負債', liability[4])}
-											{otherCurrentLiability && DataRow('其餘流動負債', otherCurrentLiability)}
-											{liabilityEquity[0] && DataRow('流動負債', liabilityEquity[0])}
-											{liabilityEquity[1] && DataRow('長期負債', liabilityEquity[1])}
-											{otherLiability && DataRow('其餘負債', otherLiability)}
-											{liabilityEquity[2] && DataRow('總負債', liabilityEquity[2])}
+											{liability[0] && renderDataRow('短期借款', liability[0])}
+											{liability[1] && renderDataRow('應付短期票券', liability[1])}
+											{liability[2] && renderDataRow('應付帳款及票據', liability[2])}
+											{liability[3] && renderDataRow('預收款項', liability[3])}
+											{liability[4] && renderDataRow('一年內到期長期負債', liability[4])}
+											{otherCurrentLiability && renderDataRow('其餘流動負債', otherCurrentLiability)}
+											{liabilityEquity[0] && renderDataRow('流動負債', liabilityEquity[0])}
+											{liabilityEquity[1] && renderDataRow('長期負債', liabilityEquity[1])}
+											{otherLiability && renderDataRow('其餘負債', otherLiability)}
+											{liabilityEquity[2] && renderDataRow('總負債', liabilityEquity[2])}
 										</>
 									) : null}
 									{selectedChart === 2 && (
 										<>
-											{equity[0] && DataRow('普通股股本', equity[0])}
-											{equity[1] && DataRow('保留盈餘', equity[1])}
+											{equity[0] && renderDataRow('普通股股本', equity[0])}
+											{equity[1] && renderDataRow('保留盈餘', equity[1])}
 										</>
 									)}
-									{selectedChart === 0 || selectedChart === 2 ? equity[2] && DataRow('淨值', equity[2]) : null}
+									{selectedChart === 0 || selectedChart === 2 ? equity[2] && renderDataRow('淨值', equity[2]) : null}
 								</TableBody>
 							</Table>
 						</div>
@@ -576,25 +576,25 @@ export default function FinancialStatement({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{DateRow(dates, '148px')}
+									{renderDateRow(dates, '148px')}
 									{selectedChart === 0 ? (
 										<>
-											{depreciation && DataRow('折舊', depreciation)}
-											{amortization && DataRow('攤銷', amortization)}
-											{cashFlow[0] && DataRow('營業現金流', cashFlow[0])}
-											{cashFlow[1] && DataRow('投資現金流', cashFlow[1])}
-											{cashFlow[2] && DataRow('融資現金流', cashFlow[2])}
-											{capex && DataRow('資本支出', capex)}
-											{cashFlow[3] && DataRow('自由現金流', cashFlow[3])}
-											{cashFlow[4] && DataRow('淨現金流', cashFlow[4])}
+											{depreciation && renderDataRow('折舊', depreciation)}
+											{amortization && renderDataRow('攤銷', amortization)}
+											{cashFlow[0] && renderDataRow('營業現金流', cashFlow[0])}
+											{cashFlow[1] && renderDataRow('投資現金流', cashFlow[1])}
+											{cashFlow[2] && renderDataRow('融資現金流', cashFlow[2])}
+											{capex && renderDataRow('資本支出', capex)}
+											{cashFlow[3] && renderDataRow('自由現金流', cashFlow[3])}
+											{cashFlow[4] && renderDataRow('淨現金流', cashFlow[4])}
 										</>
 									) : (
 										<>
-											{cashFlowsByStock[0] && DataRow('每股營業現金流入', cashFlowsByStock[0])}
-											{cashFlowsByStock[1] && DataRow('每股投資現金流出', cashFlowsByStock[1])}
-											{cashFlowsByStock[2] && DataRow('每股融資現金流入', cashFlowsByStock[2])}
-											{cashFlowsByStock[3] && DataRow('每股自由現金流入', cashFlowsByStock[3])}
-											{cashFlowsByStock[4] && DataRow('每股淨現金流入', cashFlowsByStock[4])}
+											{cashFlowsByStock[0] && renderDataRow('每股營業現金流入', cashFlowsByStock[0])}
+											{cashFlowsByStock[1] && renderDataRow('每股投資現金流出', cashFlowsByStock[1])}
+											{cashFlowsByStock[2] && renderDataRow('每股融資現金流入', cashFlowsByStock[2])}
+											{cashFlowsByStock[3] && renderDataRow('每股自由現金流入', cashFlowsByStock[3])}
+											{cashFlowsByStock[4] && renderDataRow('每股淨現金流入', cashFlowsByStock[4])}
 										</>
 									)}
 								</TableBody>
