@@ -1,5 +1,6 @@
 'use client'
 
+import ragData from '@/data/ragData.json'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
@@ -8,9 +9,9 @@ import { useEffect, useRef, useState } from 'react'
 
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
 
-export default function RabBot() {
+export default function RagBot({ stockId }) {
 	const openai = new OpenAI({
-		apiKey: process.env.OPENAI_API_KEY,
+		apiKey: process.env.OPENAI_API_KEY_RAG,
 		dangerouslyAllowBrowser: true,
 	})
 
@@ -24,12 +25,6 @@ export default function RabBot() {
 	])
 	const [isBotTyping, setIsBotTyping] = useState(false)
 	const inputRef = useRef(null)
-
-	const [value, setValue] = useState(0)
-
-	const handleChange = (event, newValue) => {
-		setValue(newValue)
-	}
 
 	const handleSendRequest = async (content) => {
 		setIsBotTyping(true)
@@ -52,7 +47,7 @@ export default function RabBot() {
 
 		// 取得助理
 		const run = await openai.beta.threads.runs.create(threadId, {
-			assistant_id: 'asst_x81xRgXUZTHTFLfOLta3DENs',
+			assistant_id: 'asst_OGuQSf27UksHzjjkEE5tkJCw',
 		})
 
 		// 創建 response
@@ -101,7 +96,7 @@ export default function RabBot() {
 				}`}
 			>
 				{/* 對話框 */}
-				<div className='min-h-[240px] h-full p-4 overflow-y-auto'>
+				<div className='min-h-[240px] max-h-[420px] h-full p-4 overflow-y-auto'>
 					{chatHistory.map((message, index) => (
 						<div key={index} className='inline-block w-full'>
 							<div
@@ -141,7 +136,6 @@ export default function RabBot() {
 				</div>
 				{/* 快捷按鈕 */}
 				<Tabs
-					value={value}
 					sx={{
 						'& .MuiTabs-indicator': {
 							backgroundColor: 'rgba(255, 255, 255, 0)',
@@ -161,12 +155,24 @@ export default function RabBot() {
 						},
 					}}
 					className='mb-2'
-					onChange={handleChange}
 					variant='scrollable'
 					scrollButtons='auto'
 				>
-					<Tab label='總結公司最近一季的營收和利潤表現' className='mr-2 hover:bg-white/60' />
-					<Tab label='整理為 JSON 格式' className='mr-2 hover:bg-white/60' />
+					{ragData.map((rag, index) => (
+						<Tab
+							label={rag.title}
+							className='mr-2 hover:bg-white/60'
+							onClick={() =>
+								// handleSendRequest(
+								// 	`目前分析的股票為：${stock100.find((stock) => stock.stock_id === stockId)?.name || ''}，${
+								// 		rag.content
+								// 	}`
+								// )
+								handleSendRequest(rag.content)
+							}
+							key={index}
+						/>
+					))}
 				</Tabs>
 				{/* 詢問輸入框 */}
 				<div className='p-4 bg-white border-t-2 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-600'>

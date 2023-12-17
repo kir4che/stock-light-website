@@ -1124,7 +1124,7 @@ export default function AnalysisTable({ stockId }) {
 				)}
 				{/* 估值模型 */}
 				{valuationData[stockId] ? (
-					<TableContainer className='flex flex-col justify-between'>
+					<TableContainer >
 						<Table>
 							<TableHead className='bg-secondary_blue'>
 								<TableRow className='dark:border-zinc-600'>
