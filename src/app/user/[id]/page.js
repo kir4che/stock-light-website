@@ -16,7 +16,7 @@ export default function User() {
 		if (status === 'unauthenticated' && session) router.push('/login')
 	}, [status, session])
 
-	const renderBtn = (label, path) => (
+	const UserBtn = (label, path) => (
 		<button
 			onClick={() => router.push(`/user/${session.user.id}/${path}`)}
 			className='w-1/3 p-3 focus:outline-none text-zinc-100 hover:bg-zinc-900/10 hover:dark:bg-zinc-900/60'
@@ -35,11 +35,11 @@ export default function User() {
 						<>
 							<hr className='mt-10' />
 							<div className='flex text-center'>
-								{renderBtn('會員投資組合', 'portfolio')}
+								{UserBtn('會員投資組合', 'portfolio')}
 								<div className='w-0 border dark:border-zinc-500 border-zinc-200' />
-								{renderBtn('我的卡片', 'cardHistory')}
+								{UserBtn('我的卡片', 'cardHistory')}
 								<div className='w-0 border dark:border-zinc-500 border-zinc-200' />
-								{renderBtn('修改密碼', 'changePassword')}
+								{UserBtn('修改密碼', 'changePassword')}
 							</div>
 						</>
 					)}

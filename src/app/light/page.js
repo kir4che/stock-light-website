@@ -301,8 +301,8 @@ export default function Light() {
 						</DialogTitle>
 						<DialogContent className='pt-4 dark:bg-zinc-800 dark:text-zinc-100'>
 							<ul className='flex flex-col px-4 divide-y divide-zinc-400/80'>
-								{['負債比率 < 30%', 'ROE > 15%', '自由現金流 > 0', '流動比率 > 2', 'EPS > 0'].map((factor) => (
-									<li className='flex-row py-4 flex-center-between'>
+								{['負債比率 < 30%', 'ROE > 15%', '自由現金流 > 0', '流動比率 > 2', 'EPS > 0'].map((factor, index) => (
+									<li className='flex-row py-4 flex-center-between' key={index}>
 										<p className='font-medium dark:text-white'>{factor}</p>
 										<p className='text-xs text-gray-600 dark:text-gray-200'></p>
 										<button
@@ -354,8 +354,8 @@ export default function Light() {
 						</DialogTitle>
 						<DialogContent className='flex-col pt-4 flex-center-between dark:bg-zinc-800 dark:text-zinc-100'>
 							<ul className='gap-6 flex-center'>
-								{[30, 50, 100].map((amount) => (
-									<li className='flex-row py-4 flex-center-between'>
+								{[30, 50, 100].map((amount, index) => (
+									<li className='flex-row py-4 flex-center-between' key={index}>
 										<button
 											type='button'
 											className={`px-7 py-5 sm:py-9 font-medium border shadow rounded-md text-zinc-800 ${

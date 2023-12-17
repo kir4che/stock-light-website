@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Chart from '@/components/Chart/Chart'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
 import { fetchIncomeStatement } from '@/utils/fetchStockFS'
-import { renderDataRow, renderDateRow } from '@/utils/renderTableRow'
+import { DataRow, DateRow } from '@/utils/renderTableRow'
 
 export default function CompanyGrowth({ stockId, childOpen }) {
 	const [isLoading, setIsLoading] = useState(false)
@@ -76,13 +76,13 @@ export default function CompanyGrowth({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{renderDateRow(dates, '150px')}
+									{DateRow(dates, '150px')}
 									{selectedChart === 0
 										? ['單季', '近四季'].map(
-												(label, index) => epsYOYs[index] && renderDataRow(`${label}EPS年增率`, epsYOYs[index])
+												(label, index) => epsYOYs[index] && DataRow(`${label}EPS年增率`, epsYOYs[index])
 										  )
 										: ['單季', '近四季'].map(
-												(label, index) => epsQOQs[index] && renderDataRow(`${label}EPS季增率`, epsQOQs[index])
+												(label, index) => epsQOQs[index] && DataRow(`${label}EPS季增率`, epsQOQs[index])
 										  )}
 								</TableBody>
 							</Table>

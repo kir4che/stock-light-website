@@ -1,6 +1,6 @@
 import { TableCell, TableRow } from '@mui/material'
 
-const renderDateRow = (dates, minWidth = '105px') => (
+const DateRow = (dates, minWidth = '105px') => (
 	<TableRow className='bg-secondary_blue/20 dark:bg-deep_blue'>
 		<TableCell
 			sx={{
@@ -27,7 +27,7 @@ const renderDateRow = (dates, minWidth = '105px') => (
 	</TableRow>
 )
 
-const renderDataRow = (title, data) => (
+const DataRow = (title, data) => (
 	<TableRow className='dark:bg-zinc-900/30'>
 		<TableCell className='dark:text-zinc-100 border-zinc-200 dark:border-zinc-600'>{title}</TableCell>
 		{data.toReversed().map((item, index) => (
@@ -38,4 +38,4 @@ const renderDataRow = (title, data) => (
 	</TableRow>
 )
 
-export { renderDataRow, renderDateRow }
+export { DataRow, DateRow }

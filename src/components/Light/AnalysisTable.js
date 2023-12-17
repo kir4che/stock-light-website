@@ -105,7 +105,7 @@ export default function AnalysisTable({ stockId }) {
 		fetchSentimentData()
 	}, [stockId])
 
-	const renderRatio = (text, ratio) => (
+	const RatioCard = (text, ratio) => (
 		<p className='flex flex-col text-center whitespace-nowrap'>
 			<span className='font-light opacity-80'>{text}</span>
 			<span className='text-2xl text-secondary_blue'>{ratio} </span>
@@ -144,52 +144,52 @@ export default function AnalysisTable({ stockId }) {
 						<div className='flex justify-start w-full gap-6 px-4 py-3 overflow-x-auto bg-white rounded-lg shadow dark:bg-zinc-900/60'>
 							{selectedRatio === 0 ? (
 								<>
-									{renderRatio('負債比率', liabilityEquityStatement[liabilityEquityStatement.length - 1].debtRatio)}
-									{renderRatio(
+									{RatioCard('負債比率', liabilityEquityStatement[liabilityEquityStatement.length - 1].debtRatio)}
+									{RatioCard(
 										'長期資金佔固定資產比率',
 										assetStatement[assetStatement.length - 1].longTermLiabilitiesRatio
 									)}
 								</>
 							) : selectedRatio === 1 ? (
 								<>
-									{renderRatio('流動比率', assetStatement[assetStatement.length - 1].currentRatio)}
-									{renderRatio('速動比率', assetStatement[assetStatement.length - 1].quickRatio)}
-									{renderRatio(
+									{RatioCard('流動比率', assetStatement[assetStatement.length - 1].currentRatio)}
+									{RatioCard('速動比率', assetStatement[assetStatement.length - 1].quickRatio)}
+									{RatioCard(
 										'現金對流動負債比率',
 										cashFlowStatement[cashFlowStatement.length - 1].operatingCashFlowToCurrentLiabilitiesRatio
 									)}
-									{renderRatio(
+									{RatioCard(
 										'現金對負債比率',
 										cashFlowStatement[cashFlowStatement.length - 1].operatingCashFlowToLiabilitiesRatio
 									)}
-									{renderRatio('利息保障倍數', cashFlowStatement[cashFlowStatement.length - 1].interestCoverageRatio)}
+									{RatioCard('利息保障倍數', cashFlowStatement[cashFlowStatement.length - 1].interestCoverageRatio)}
 								</>
 							) : selectedRatio === 2 ? (
 								<>
-									{renderRatio(
+									{RatioCard(
 										'應收帳款週轉率',
 										assetStatement[assetStatement.length - 1].accountsAndNotesReceivableTurnoverRatio
 									)}
-									{renderRatio(
+									{RatioCard(
 										'平均收現天數',
 										Math.round(
 											365 /
 												parseFloat(assetStatement[assetStatement.length - 1].accountsAndNotesReceivableTurnoverRatio)
 										)
 									)}
-									{renderRatio('存貨週轉率', assetStatement[assetStatement.length - 1].inventoryTurnoverRatio)}
-									{renderRatio(
+									{RatioCard('存貨週轉率', assetStatement[assetStatement.length - 1].inventoryTurnoverRatio)}
+									{RatioCard(
 										'平均銷貨天數',
 										Math.round(365 / parseFloat(assetStatement[assetStatement.length - 1].inventoryTurnoverRatio))
 									)}
-									{renderRatio('固定資產週轉率', assetStatement[assetStatement.length - 1].fixedAssetsTurnoverRatio)}
-									{renderRatio('總資產週轉率', assetStatement[assetStatement.length - 1].assetsTurnoverRatio)}
+									{RatioCard('固定資產週轉率', assetStatement[assetStatement.length - 1].fixedAssetsTurnoverRatio)}
+									{RatioCard('總資產週轉率', assetStatement[assetStatement.length - 1].assetsTurnoverRatio)}
 								</>
 							) : selectedRatio === 3 ? (
 								<>
-									{renderRatio('資產報酬率', assetStatement[assetStatement.length - 1].roa)}
-									{renderRatio('股東權益報酬率', liabilityEquityStatement[liabilityEquityStatement.length - 1].roe)}
-									{renderRatio(
+									{RatioCard('資產報酬率', assetStatement[assetStatement.length - 1].roa)}
+									{RatioCard('股東權益報酬率', liabilityEquityStatement[liabilityEquityStatement.length - 1].roe)}
+									{RatioCard(
 										'財務槓桿指數',
 										(
 											Math.round(
@@ -199,8 +199,8 @@ export default function AnalysisTable({ stockId }) {
 											) / 100
 										).toFixed(2)
 									)}
-									{renderRatio('淨利率', incomeStatement[incomeStatement.length - 1].netIncomeMargin)}
-									{renderRatio('每股盈餘', incomeStatement[incomeStatement.length - 1].eps)}
+									{RatioCard('淨利率', incomeStatement[incomeStatement.length - 1].netIncomeMargin)}
+									{RatioCard('每股盈餘', incomeStatement[incomeStatement.length - 1].eps)}
 								</>
 							) : null}
 						</div>

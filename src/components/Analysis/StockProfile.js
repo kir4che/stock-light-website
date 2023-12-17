@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material'
+import { Table, TableBody, TableCell, TableContainer } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 import Loading from '@/components/common/Loading'
@@ -28,7 +28,7 @@ export default function StockProfile({ stockId }) {
 		fetchStockProfile(stockId)
 	}, [stockId])
 
-	const renderTableRow = (label, value) => {
+	const TableRow = (label, value) => {
 		return (
 			<TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
 				<TableCell
@@ -53,17 +53,17 @@ export default function StockProfile({ stockId }) {
 					<TableContainer className='dark:bg-zinc-800 md:items-start md:gap-12 md:flex'>
 						<Table className='md:max-w-sm'>
 							<TableBody>
-								{renderTableRow('成立時間', profile.established_time || '')}
-								{renderTableRow('執行長', profile.ceo || '')}
-								{renderTableRow('市值', profile.market_value || '')}
-								{renderTableRow('股利收益率', profile.dividend_rate || '')}
+								{TableRow('成立時間', profile.established_time || '')}
+								{TableRow('執行長', profile.ceo || '')}
+								{TableRow('市值', profile.market_value || '')}
+								{TableRow('股利收益率', profile.dividend_rate || '')}
 							</TableBody>
 						</Table>
 						<Table className='md:max-w-sm'>
 							<TableBody>
-								{renderTableRow('公司地址', profile.headquater || '')}
-								{renderTableRow('公司網站', profile.website || '')}
-								{renderTableRow('員工人數', profile.staff_number || '')}
+								{TableRow('公司地址', profile.headquater || '')}
+								{TableRow('公司網站', profile.website || '')}
+								{TableRow('員工人數', profile.staff_number || '')}
 							</TableBody>
 						</Table>
 					</TableContainer>

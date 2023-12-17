@@ -5,7 +5,7 @@ import Chart from '@/components/Chart/Chart'
 import { barAndLineOption } from '@/components/Chart/options/barAndLineOption'
 import { multiLineOption } from '@/components/Chart/options/multiLineOption'
 import { fetchAssetStatement, fetchIncomeStatement, fetchLiabilitiesEquity } from '@/utils/fetchStockFS'
-import { renderDataRow, renderDateRow } from '@/utils/renderTableRow'
+import { DataRow, DateRow } from '@/utils/renderTableRow'
 
 export default function Profitability({ stockId, childOpen }) {
 	const [isLoading, setIsLoading] = useState(false)
@@ -136,16 +136,16 @@ export default function Profitability({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{renderDateRow(dates, selectedChart === 0 ? '105px' : '160px')}
+									{DateRow(dates, selectedChart === 0 ? '105px' : '160px')}
 									{selectedChart === 0 ? (
 										<>
-											{profitRatio[0] && renderDataRow('毛利率', profitRatio[0])}
-											{profitRatio[1] && renderDataRow('營業利益率', profitRatio[1])}
-											{profitRatio[2] && renderDataRow('稅前淨利率', profitRatio[2])}
-											{profitRatio[3] && renderDataRow('稅後淨利率', profitRatio[3])}
+											{profitRatio[0] && DataRow('毛利率', profitRatio[0])}
+											{profitRatio[1] && DataRow('營業利益率', profitRatio[1])}
+											{profitRatio[2] && DataRow('稅前淨利率', profitRatio[2])}
+											{profitRatio[3] && DataRow('稅後淨利率', profitRatio[3])}
 										</>
 									) : (
-										taxToProfitRatio && renderDataRow('所得稅佔稅前淨利比', taxToProfitRatio)
+										taxToProfitRatio && DataRow('所得稅佔稅前淨利比', taxToProfitRatio)
 									)}
 								</TableBody>
 							</Table>
@@ -167,11 +167,11 @@ export default function Profitability({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{renderDateRow(dates)}
-								{opexRatio[0] && renderDataRow('營業費用率', opexRatio[0])}
-								{opexRatio[1] && renderDataRow('銷售費用率', opexRatio[1])}
-								{opexRatio[2] && renderDataRow('管理費用率', opexRatio[2])}
-								{opexRatio[3] && renderDataRow('研發費用率', opexRatio[3])}
+								{DateRow(dates)}
+								{opexRatio[0] && DataRow('營業費用率', opexRatio[0])}
+								{opexRatio[1] && DataRow('銷售費用率', opexRatio[1])}
+								{opexRatio[2] && DataRow('管理費用率', opexRatio[2])}
+								{opexRatio[3] && DataRow('研發費用率', opexRatio[3])}
 							</TableBody>
 						</Table>
 					</div>
@@ -186,8 +186,8 @@ export default function Profitability({ stockId, childOpen }) {
 					<div className='overflow-x-auto'>
 						<Table>
 							<TableBody>
-								{renderDateRow(dates, '150px')}
-								{nonOpexToProfit && renderDataRow('業外佔税前淨利比', nonOpexToProfit)}
+								{DateRow(dates, '150px')}
+								{nonOpexToProfit && DataRow('業外佔税前淨利比', nonOpexToProfit)}
 							</TableBody>
 						</Table>
 					</div>
@@ -223,16 +223,16 @@ export default function Profitability({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{renderDateRow(dates)}
+									{DateRow(dates)}
 									{selectedChart === 0 ? (
 										<>
-											{roe && renderDataRow('ROE', roe)}
-											{roa && renderDataRow('ROA', roa)}
+											{roe && DataRow('ROE', roe)}
+											{roa && DataRow('ROA', roa)}
 										</>
 									) : (
 										<>
-											{roeT4Q && renderDataRow('ROE', roeT4Q)}
-											{roaT4Q && renderDataRow('ROA', roaT4Q)}
+											{roeT4Q && DataRow('ROE', roeT4Q)}
+											{roaT4Q && DataRow('ROA', roaT4Q)}
 										</>
 									)}
 								</TableBody>
@@ -284,17 +284,17 @@ export default function Profitability({ stockId, childOpen }) {
 						<div className='overflow-x-auto'>
 							<Table>
 								<TableBody>
-									{renderDateRow(dates, '118px')}
+									{DateRow(dates, '118px')}
 									{selectedChart === 0
-										? opTurnover[0] && renderDataRow('應收帳款週轉', opTurnover[0])
+										? opTurnover[0] && DataRow('應收帳款週轉', opTurnover[0])
 										: selectedChart === 1
-										? faTurnover[0] && renderDataRow('固定資產', faTurnover[0])
-										: assetTurnover[0] && renderDataRow('總資產', assetTurnover[0])}
+										? faTurnover[0] && DataRow('固定資產', faTurnover[0])
+										: assetTurnover[0] && DataRow('總資產', assetTurnover[0])}
 									{selectedChart === 0
-										? opTurnover[1] && renderDataRow('存貨週轉', opTurnover[1])
+										? opTurnover[1] && DataRow('存貨週轉', opTurnover[1])
 										: selectedChart === 1
-										? faTurnover[1] && renderDataRow('固定資產週轉', faTurnover[1])
-										: assetTurnover[1] && renderDataRow('總資產週轉', assetTurnover[1])}
+										? faTurnover[1] && DataRow('固定資產週轉', faTurnover[1])
+										: assetTurnover[1] && DataRow('總資產週轉', assetTurnover[1])}
 								</TableBody>
 							</Table>
 						</div>
