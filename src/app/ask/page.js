@@ -18,6 +18,7 @@ export default function ChatBot() {
 
 	const [selectedGod, setSelectedGod] = useState(null)
 	const [isOpened, setIsOpened] = useState(false)
+	const [isSucced, setIsSucced] = useState(false)
 
 	const selectGod = () => {
 		const lastGodSelectTime = localStorage.getItem('lastGodSelectTime')
@@ -29,6 +30,8 @@ export default function ChatBot() {
 		}
 
 		const randomGodIndex = Math.floor(Math.random() * godList.length)
+		localStorage.setItem('selectedGod', randomGodIndex)
+		localStorage.setItem('lastGodSelectTime', currentTime)
 		setSelectedGod(randomGodIndex)
 		setIsOpened(true)
 	}
@@ -98,23 +101,23 @@ export default function ChatBot() {
 
 	useEffect(() => {
 		const selectedGod = localStorage.getItem('selectedGod')
-		if (selectedGod) setSelectedGod(Number(selectedGod))
-		else setSelectedGod(0)
+		if (selectedGod) {
+			setSelectedGod(Number(selectedGod))
+			setIsSucced(true)
+		}
 	}, [])
 
 	useEffect(() => {
 		if (isOpened) {
 			setTimeout(() => {
-				localStorage.setItem('selectedGod', selectedGod)
-				localStorage.setItem('lastGodSelectTime', new Date().getTime())
-				window.location.reload()
+				setIsSucced(true)
 			}, 3000)
 		}
 	}, [isOpened])
 
 	return (
 		<StarryBackground className='h-screen pt-8 mx-auto lg:px-0'>
-			{!localStorage.getItem('selectedGod') ? (
+			{!isSucced ? (
 				<div className='flex-col h-full flex-center'>
 					<div className='flex-wrap h-full mb-8 opacity-50 sm:mb-0 gap-x-8 flex-center'>
 						{[1, 2, 3, 4].map((index) => (
