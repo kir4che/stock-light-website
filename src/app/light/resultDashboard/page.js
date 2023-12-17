@@ -10,7 +10,6 @@ import { Suspense, useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Light/AnalysisTable'
 import PrayerCard from '@/components/Light/PrayerCard'
-import RagBot from '@/components/Light/RagBot'
 import TodayLantern from '@/components/Light/TodayLantern'
 import Loading from '@/components/common/Loading'
 import StarryBackground from '@/components/common/StarryBackground'
@@ -204,7 +203,7 @@ function ResultDashboard() {
 					{!isLoading && resultStockInfo[selectedTabIndex] ? (
 						<>
 							<AnalysisTable stockId={resultStockInfo[selectedTabIndex].stock_id} />
-							<RagBot stockId={resultStockInfo[selectedTabIndex].stock_id || 0} />
+							{/* <RagBot stockId={resultStockInfo[selectedTabIndex].stock_id || 0} /> */}
 						</>
 					) : (
 						<Loading />
