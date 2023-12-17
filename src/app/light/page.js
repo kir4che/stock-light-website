@@ -358,7 +358,7 @@ export default function Light() {
 									<li className='flex-row py-4 flex-center-between'>
 										<button
 											type='button'
-											className={`px-7 py-9 font-medium border shadow rounded-md text-zinc-800 ${
+											className={`px-7 py-5 sm:py-9 font-medium border shadow rounded-md text-zinc-800 ${
 												selectedAmount === amount
 													? 'bg-primary_yellow border-primary_yellow hover:bg-amber-300'
 													: 'bg-white hover:bg-zinc-50'
@@ -373,7 +373,7 @@ export default function Light() {
 									</li>
 								))}
 							</ul>
-							<div className='w-3/4 mb-10 text-left'>
+							<div className='w-full mb-10 text-left xs:w-3/4'>
 								<div className='w-full gap-2 my-4 text-sm flex-center text-zinc-300 dark:text-zinc-400'>
 									<div className='w-full h-px bg-zinc-300 dark:bg-zinc-400/50' />
 									或
