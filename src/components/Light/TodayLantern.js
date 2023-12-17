@@ -14,7 +14,7 @@ export default function TodayLantern({ industry, resultStock, open, handleDialog
 				</span>
 			</DialogTitle>
 			<DialogContent className='flex-col text-center flex-center-between sm:h-80 dark:text-zinc-100 dark:bg-zinc-900'>
-				<div className='grid grid-cols-2 gap-4 mb-4 sm:gap-6 sm:mb-0 sm:grid-cols-5'>
+				<div className='grid grid-cols-2 gap-4 mb-4 place-content-center sm:gap-6 sm:mb-0 sm:grid-cols-5'>
 					{resultStock &&
 						resultStock.map((stock, index) => (
 							<div key={index}>

@@ -62,28 +62,32 @@ function ResultDashboard() {
 		}
 	}
 
+	// 取得股票資料
+	const fetchData = async (stockId) => {
+		const pePbData = await fetchStockPePb({ stockId, setIsLoading })
+		setStockPePb({
+			pb: pePbData.p_b_ratio,
+			pe: pePbData.p_e_ratio,
+		})
+		const stockData = await fetchStockData({ stockId, setIsLoading })
+		setStockPrice({
+			closePrice: [
+				stockData.closePrice[stockData.closePrice.length - 1],
+				stockData.closePrice[stockData.closePrice.length - 2],
+			],
+			change: [stockData.change[stockData.change.length - 1], stockData.change[stockData.change.length - 2]],
+		})
+	}
+
 	useEffect(() => {
 		fetchStockByFactor()
 	}, [])
 
 	useEffect(() => {
-		// 透過 resultStockInfo 取得該股票的所有資料
-		const fetchData = async (stockId) => {
-			const pePbData = await fetchStockPePb({ stockId, setIsLoading })
-			setStockPePb({
-				pb: pePbData.p_b_ratio || 0,
-				pe: pePbData.p_e_ratio || 0,
-			})
-			const stockData = await fetchStockData({ stockId, setIsLoading })
-			setStockPrice({
-				closePrice: [
-					stockData.closePrice[stockData.closePrice.length - 1],
-					stockData.closePrice[stockData.closePrice.length - 2],
-				],
-				change: [stockData.change[stockData.change.length - 1], stockData.change[stockData.change.length - 2]],
-			})
-		}
+		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
+	}, [resultStockInfo])
 
+	useEffect(() => {
 		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
 	}, [selectedTabIndex])
 
@@ -180,7 +184,7 @@ function ResultDashboard() {
 								</div>
 								<div className='flex flex-col items-center'>
 									<h4 className='font-extrabold text-zinc-800 dark:text-white'>
-										{resultStockInfo[selectedTabIndex].EPS || '－'}
+										{resultStockInfo[selectedTabIndex].eps || '－'}
 									</h4>
 									<p className='text-xs text-zinc-500 dark:text-zinc-300'>EPS</p>
 								</div>
