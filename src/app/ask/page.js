@@ -18,7 +18,6 @@ export default function ChatBot() {
 
 	const [selectedGod, setSelectedGod] = useState(null)
 	const [isOpened, setIsOpened] = useState(false)
-	const [isSucced, setIsSucced] = useState(false)
 
 	const selectGod = () => {
 		const lastGodSelectTime = localStorage.getItem('lastGodSelectTime')
@@ -31,8 +30,6 @@ export default function ChatBot() {
 
 		const randomGodIndex = Math.floor(Math.random() * godList.length)
 		setSelectedGod(randomGodIndex)
-		localStorage.setItem('selectedGod', randomGodIndex)
-		localStorage.setItem('lastGodSelectTime', new Date().getTime())
 		setIsOpened(true)
 	}
 
@@ -108,25 +105,27 @@ export default function ChatBot() {
 	useEffect(() => {
 		if (isOpened) {
 			setTimeout(() => {
-				setIsSucced(true)
+				localStorage.setItem('selectedGod', selectedGod)
+				localStorage.setItem('lastGodSelectTime', new Date().getTime())
+				window.location.reload()
 			}, 3000)
 		}
 	}, [isOpened])
 
 	return (
 		<StarryBackground className='h-screen pt-8 mx-auto lg:px-0'>
-			{!isSucced ? (
+			{!localStorage.getItem('selectedGod') ? (
 				<div className='flex-col h-full flex-center'>
 					<div className='flex-wrap h-full mb-8 opacity-50 sm:mb-0 gap-x-8 flex-center'>
-						{godList.map((god, index) => (
-							<Image src={god.imageUrl} alt='god' width={200} height={200} key={index} />
+						{[1, 2, 3, 4].map((index) => (
+							<Image src={`/assets/gods/god-${index}.jpg`} alt='god' width={200} height={200} key={index} />
 						))}
 					</div>
 					<SubmitBtn text='隨機選擇神明' handleSubmit={selectGod} style='mb-40 w-80 rounded-full' />
 					<Dialog open={isOpened} align='center'>
 						<DialogTitle>您選中的神明是</DialogTitle>
 						<DialogContent className='px-8 space-y-1'>
-							<Image src={selectedGod && godList[selectedGod].imageUrl} alt='god' width={200} height={200} />
+							<Image src={`/assets/gods/god-${selectedGod + 1}.jpg`} alt='god' width={200} height={200} />
 							<p>將在 3 秒後進入股市 AI...</p>
 						</DialogContent>
 					</Dialog>
@@ -156,7 +155,7 @@ export default function ChatBot() {
 													<div className='flex text-zinc-800 dark:text-white'>
 														<div className='w-8 mr-2 min-w-[32px] h-8'>
 															<Image
-																src={godList[selectedGod]?.avatar}
+																src={`/assets/gods/god-${selectedGod + 1}-avatar.png`}
 																width={100}
 																height={100}
 																alt='ask-god'
