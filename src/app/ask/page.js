@@ -1,11 +1,11 @@
 'use client'
 
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
-
 import StarryBackground from '@/components/common/StarryBackground'
 import SubmitBtn from '@/components/ui/SubmitBtn'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import Image from 'next/image'
+import OpenAI from 'openai'
+import { useEffect, useRef, useState } from 'react'
 
 export default function ChatBot() {
 	const godList = [
@@ -33,7 +33,6 @@ export default function ChatBot() {
 
 	const [selectedGod, setSelectedGod] = useState(0)
 	const [currentGodIndex, setCurrentGodIndex] = useState(0)
-
 	const selectGod = () => {
 		const lastGodSelectTime = localStorage.getItem('lastGodSelectTime')
 		const currentTime = new Date().getTime()
@@ -57,72 +56,71 @@ export default function ChatBot() {
 		}, Math.random() * (12000 - 5000 + 1) + 5000)
 	}
 
-	const [messages, setMessages] = useState([
+	const [chatHistory, setChatHistory] = useState([
 		{
-			message: '您好！我是股市 AI，請問有什麼可以幫助您的嗎？',
-			sentTime: 'just now',
-			sender: 'bot',
+			role: 'assitant',
+			content: '您好！我是股市 AI，請問有什麼可以幫助您的嗎？',
 		},
 	])
 	const [isBotTyping, setIsBotTyping] = useState(false)
 	const inputRef = useRef(null)
 
-	const handleSendRequest = async (message) => {
-		const newMessage = {
-			message,
-			direction: 'outgoing',
-			sender: 'user',
-		}
+	const handleSendRequest = async (content) => {
+		if (!content) return
 
-		setMessages((prevMessages) => [...prevMessages, newMessage])
-		setIsBotTyping(true)
+		setChatHistory((prevHistory) => [
+			...prevHistory,
+			{
+				role: 'user',
+				content: content,
+			},
+		])
 
 		inputRef.current.value = ''
 		inputRef.current.focus()
 
+		setIsBotTyping(true)
+
 		try {
-			const response = await processMessageToChatGPT([...messages, newMessage])
-			const content = response.choices[0]?.message?.content
-			if (content) {
-				const chatGPTResponse = {
-					message: content,
-					sender: 'bot',
-				}
-				setMessages((prevMessages) => [...prevMessages, chatGPTResponse])
-			}
-		} catch (error) {
-			console.error('Error processing message:', error)
-		} finally {
-			setIsBotTyping(false)
-		}
-	}
+			const openai = new OpenAI({
+				apiKey: process.env.OPENAI_API_KEY,
+				dangerouslyAllowBrowser: true,
+			})
 
-	async function processMessageToChatGPT(chatMessages) {
-		const apiMessages = chatMessages.map((messageObject) => {
-			const role = messageObject.sender === 'bot' ? 'assistant' : 'user'
-			return { role, content: messageObject.message }
-		})
-
-		const response = await fetch('https://api.openai.com/v1/chat/completions', {
-			method: 'POST',
-			headers: {
-				Authorization: 'Bearer ' + process.env.OPENAI_API_KEY,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				model: 'gpt-4 turbo',
+			const response = await openai.chat.completions.create({
+				model: 'gpt-4',
 				messages: [
 					{
 						role: 'system',
 						content:
-							"I'm an advanced AI financial advisor and mentor, dedicated to helping users navigate the complex world of finance. As an AI with a deep understanding of economic trends, investment strategies, and personal budgeting, you provide valuable guidance to individuals at any stage of their financial journey.",
+							"I'm an advanced AI financial advisor and mentor, dedicated to helping users navigate the complex world of finance. As an AI with a deep understanding of economic trends, investment strategies, and personal budgeting, you provide valuable guidance to individuals at any stage of their financial journey. And answer any of my questions in traditional Chinese, your answer is limited to 256 characters.",
 					},
-					...apiMessages,
+					{
+						role: 'user',
+						content: content,
+					},
 				],
-			}),
-		})
+				temperature: 1,
+				max_tokens: 256,
+				top_p: 1,
+				frequency_penalty: 0,
+				presence_penalty: 0,
+			})
 
-		return response.json()
+			const botResponse = response.choices[0].message.content
+
+			setChatHistory((prevHistory) => [
+				...prevHistory,
+				{
+					role: 'assitant',
+					content: botResponse,
+				},
+			])
+		} catch (error) {
+			console.error('Error communicating with OpenAI:', error)
+		} finally {
+			setIsBotTyping(false)
+		}
 	}
 
 	useEffect(() => {
@@ -154,44 +152,45 @@ export default function ChatBot() {
 					<div className='flex flex-col justify-between h-full max-h-[calc(100vh-180px)]'>
 						{/* 對話框 */}
 						<div className='px-10 py-4 overflow-y-auto md:px-16 lg:px-24 xl:px-48'>
-							{messages.map((message, index) => (
-								<div key={index} className='w-full'>
-									<div
-										className={`p-4 pb-3 space-y-2 mb-4 shadow-md rounded-lg ${
-											message.sender === 'bot' ? 'bg-white dark:bg-zinc-900/50' : 'bg-sky-500'
-										}`}
-									>
-										{message.sender === 'bot' && (
-											<>
-												<p className='space-x-2 text-xs'>
-													<span className='font-medium'>股市 AI</span>
-													<span className='px-2 py-0.5 border-secondary_blue text-secondary_blue bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'>
-														ChatGPT
-													</span>
-												</p>
-												<div className='flex items-center justify-start gap-2'>
-													<div className='w-8 h-8'>
-														<Image
-															src={godList[selectedGod - 1].avatar}
-															width={400}
-															height={400}
-															alt='ask-god'
-															className='rounded-full'
-														/>
+							{chatHistory &&
+								chatHistory.map((message, index) => (
+									<div className='w-full' key={index}>
+										<div
+											className={`p-4 pb-3 space-y-2 mb-4 shadow-md rounded-lg ${
+												message.role === 'assitant' ? 'bg-white dark:bg-zinc-900/50' : 'bg-sky-500'
+											}`}
+										>
+											{message.role === 'assitant' && (
+												<>
+													<p className='space-x-2 text-xs'>
+														<span className='font-medium'>股市 AI</span>
+														<span className='px-2 py-0.5 border-secondary_blue text-secondary_blue bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'>
+															ChatGPT
+														</span>
+													</p>
+													<div className='flex items-center justify-start gap-2'>
+														<div className='block w-8 min-w-[32px] h-8'>
+															<Image
+																src={godList[selectedGod - 1].avatar}
+																width={100}
+																height={100}
+																alt='ask-god'
+																className='rounded-full'
+															/>
+														</div>
+														<p className='text-zinc-800 dark:text-white'>{message.content}</p>
 													</div>
-													<p className='text-zinc-800 dark:text-white'>{message.message}</p>
+												</>
+											)}
+											{message.role === 'user' && (
+												<div className='flex items-center justify-end gap-2'>
+													<p className='text-white'>{message.content}</p>
+													<AccountCircleIcon className='text-white' />
 												</div>
-											</>
-										)}
-										{message.sender === 'user' && (
-											<div className='flex items-center justify-start gap-2'>
-												<AccountCircleIcon className='text-white' />
-												<p className='text-white'>{message.message}</p>
-											</div>
-										)}
+											)}
+										</div>
 									</div>
-								</div>
-							))}
+								))}
 							{isBotTyping && (
 								<div className='flex justify-start'>
 									<div className='flex items-center px-10 py-3.5 mb-2 bg-white rounded-lg dark:bg-zinc-900/50'>
@@ -208,13 +207,10 @@ export default function ChatBot() {
 									placeholder='詢問任何問題...'
 									autoComplete='off'
 									autoFocus={true}
-									onKeyDown={(event) =>
-										event.key === 'Enter' && !isBotTyping && handleSendRequest(inputRef.current.value)
-									}
 									className='w-full py-2 pl-5 pr-16 border-2 rounded-full bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-100 placeholder-zinc-600 dark:placeholder-zinc-400 text-md focus:outline-none focus:placeholder-zinc-400 dark:focus:placeholder-zinc-600 focus:border-sky-500 dark:focus:border-sky-500'
 									ref={inputRef}
 								/>
-								<div className='absolute inset-y-0 items-center hidden right-2 sm:flex'>
+								<div className='absolute inset-y-0 flex items-center right-2'>
 									<button
 										type='button'
 										disabled={isBotTyping}
@@ -223,7 +219,7 @@ export default function ChatBot() {
 												? 'bg-gray-500 cursor-not-allowed'
 												: 'bg-secondary_blue/80 dark:bg-secondary_blue hover:bg-sky-500'
 										}`}
-										onClick={() => !isBotTyping && handleSendRequest(inputRef.current.value)}
+										onClick={() => !isBotTyping && inputRef.current.value && handleSendRequest(inputRef.current.value)}
 									/>
 								</div>
 							</div>
