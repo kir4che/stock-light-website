@@ -28,7 +28,7 @@
     "eslint-config-next": "13.4.13",
     "finmath": "^2.0.1",
     "kdj": "^1.0.5",
-    "next": "14.0.3",
+    "next": "13.4.8",
     "next-auth": "^4.24.5",
     "next-themes": "^0.2.1",
     "openai": "^4.23.0",
