@@ -16,7 +16,8 @@ export default function ChatBot() {
 		dangerouslyAllowBrowser: true,
 	})
 
-	const [selectedGod, setSelectedGod] = useState(0)
+	const [selectedGod, setSelectedGod] = useState(null)
+	const [isOpened, setIsOpened] = useState(false)
 	const [isSucced, setIsSucced] = useState(false)
 
 	const selectGod = () => {
@@ -28,11 +29,11 @@ export default function ChatBot() {
 			return
 		}
 
-		const randomGod = godList[Math.floor(Math.random() * godList.length)]
-		setSelectedGod(randomGod.id)
-		localStorage.setItem('selectedGod', randomGod.id)
+		const randomGodIndex = Math.floor(Math.random() * godList.length)
+		setSelectedGod(randomGodIndex)
+		localStorage.setItem('selectedGod', randomGodIndex)
 		localStorage.setItem('lastGodSelectTime', new Date().getTime())
-		setIsSucced(true)
+		setIsOpened(true)
 	}
 
 	const [chatHistory, setChatHistory] = useState([
@@ -101,26 +102,32 @@ export default function ChatBot() {
 	useEffect(() => {
 		const selectedGod = localStorage.getItem('selectedGod')
 		if (selectedGod) setSelectedGod(Number(selectedGod))
-		else {
-			setSelectedGod(0)
-			setIsSucced(false)
-		}
+		else setSelectedGod(0)
 	}, [])
+
+	useEffect(() => {
+		if (isOpened) {
+			setTimeout(() => {
+				setIsSucced(true)
+			}, 3000)
+		}
+	}, [isOpened])
 
 	return (
 		<StarryBackground className='h-screen pt-8 mx-auto lg:px-0'>
-			{!selectedGod && !isSucced ? (
+			{!isSucced ? (
 				<div className='flex-col h-full flex-center'>
 					<div className='flex-wrap h-full mb-8 opacity-50 sm:mb-0 gap-x-8 flex-center'>
-						{godList.map((god) => (
-							<Image src={god.imageUrl} alt='god' width={200} height={200} key={god.id} />
+						{godList.map((god, index) => (
+							<Image src={god.imageUrl} alt='god' width={200} height={200} key={index} />
 						))}
 					</div>
 					<SubmitBtn text='隨機選擇神明' handleSubmit={selectGod} style='mb-40 w-80 rounded-full' />
-					<Dialog open={isSucced} align='center' onClose={() => setIsSucced(false)}>
+					<Dialog open={isOpened} align='center'>
 						<DialogTitle>您選中的神明是</DialogTitle>
-						<DialogContent className='px-8'>
-							<Image src={godList[selectedGod].imageUrl} alt='god' width={200} height={200} />
+						<DialogContent className='px-8 space-y-1'>
+							<Image src={selectedGod && godList[selectedGod].imageUrl} alt='god' width={200} height={200} />
+							<p>將在 3 秒後進入股市 AI...</p>
 						</DialogContent>
 					</Dialog>
 				</div>
@@ -149,7 +156,7 @@ export default function ChatBot() {
 													<div className='flex text-zinc-800 dark:text-white'>
 														<div className='w-8 mr-2 min-w-[32px] h-8'>
 															<Image
-																src={godList[selectedGod - 1]?.avatar}
+																src={godList[selectedGod]?.avatar}
 																width={100}
 																height={100}
 																alt='ask-god'
