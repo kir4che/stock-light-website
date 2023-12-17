@@ -66,7 +66,6 @@ export default function RagBot() {
 			.pop()
 
 		if (lastMessage) {
-			console.log(lastMessage.content[0]['text'].value)
 			setChatHistory((prevHistory) => [
 				...prevHistory,
 				{
