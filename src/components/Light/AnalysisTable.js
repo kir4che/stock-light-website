@@ -1,3 +1,5 @@
+'use client'
+
 import valuationData from '@/data/valuationData.json'
 import CloseIcon from '@mui/icons-material/Close'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
@@ -1124,7 +1126,7 @@ export default function AnalysisTable({ stockId }) {
 				)}
 				{/* 估值模型 */}
 				{valuationData[stockId] ? (
-					<TableContainer >
+					<TableContainer>
 						<Table>
 							<TableHead className='bg-secondary_blue'>
 								<TableRow className='dark:border-zinc-600'>
