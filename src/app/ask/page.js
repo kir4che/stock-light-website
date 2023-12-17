@@ -126,7 +126,7 @@ export default function ChatBot() {
 						<DialogTitle>您選中的神明是</DialogTitle>
 						<DialogContent className='px-8 space-y-1'>
 							<Image src={`/assets/gods/god-${selectedGod + 1}.jpg`} alt='god' width={200} height={200} />
-							<p>將在 3 秒後進入股市 AI...</p>
+							<p>將在 3 秒後進入股市 AI 聊天室...</p>
 						</DialogContent>
 					</Dialog>
 				</div>
