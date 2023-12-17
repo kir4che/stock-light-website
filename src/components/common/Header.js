@@ -51,10 +51,10 @@ export default function Header() {
 						)
 					} else {
 						return (
-							<Link href={`/${page.url}`} key={page.url}>
+							<button onClick={() => router.push(`/${page.url}`)} key={page.url}>
 								<span>{page.name}</span>
 								<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
-							</Link>
+							</button>
 						)
 					}
 				})}

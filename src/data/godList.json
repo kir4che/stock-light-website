@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "imageUrl": "/assets/gods/god-1.jpg",
+    "avatar": "/assets/gods/god-1-avatar.png"
+  },
+  {
+    "id": 2,
+    "imageUrl": "/assets/gods/god-2.jpg",
+    "avatar": "/assets/gods/god-2-avatar.png"
+  },
+  {
+    "id": 3,
+    "imageUrl": "/assets/gods/god-3.jpg",
+    "avatar": "/assets/gods/god-3-avatar.png"
+  },
+  {
+    "id": 4,
+    "imageUrl": "/assets/gods/god-4.jpg",
+    "avatar": "/assets/gods/god-4-avatar.png"
+  }
+]

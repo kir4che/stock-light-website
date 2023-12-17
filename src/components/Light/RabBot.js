@@ -1,5 +1,11 @@
+import ragData from '@/data/ragData.json'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+//import OpenAI from 'openai'
+//import { useEffect, useRef, useState } from 'react'
+
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
-import { useRef, useState } from 'react'
 
 export default function RabBot() {
 	const [isOpen, setIsOpen] = useState(false)
@@ -48,12 +54,83 @@ export default function RabBot() {
 
 	return (
 		<>
-			{/* 對話框 */}
 			<div
-				className={`fixed overflow-y-auto bg-white rounded-lg shadow bottom-4 right-20 w-96 transition-opacity duration-300 ease-in ${
+				className={`fixed overflow-y-auto bg-primary_yellow rounded-lg shadow bottom-4 right-20 w-96 transition-opacity duration-300 ease-in ${
 					isOpen ? 'opacity-100' : 'opacity-0'
 				}`}
 			>
+				{/* 對話框 */}
+				<div className='min-h-[240px] max-h-[420px] h-full p-4 overflow-y-auto'>
+					{chatHistory.map((message, index) => (
+						<div key={index} className='inline-block w-full'>
+							<div
+								className={`p-3 mb-1 space-y-2 bg-white rounded-lg shadow-md dark:bg-zinc-800 ${
+									message.role === 'assitant' ? 'float-left' : 'float-right'
+								}`}
+							>
+								{message.role === 'assitant' && (
+									<>
+										<p className='space-x-2 text-xs'>
+											<span className='font-medium'>股市 AI</span>
+											<span className='px-2 py-0.5 border-secondary_blue text-secondary_blue bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'>
+												ChatGPT
+											</span>
+										</p>
+										<div className='flex items-center justify-start gap-2'>
+											<p className='text-sm leading-6 text-zinc-800 dark:text-white'>{message.content}</p>
+										</div>
+									</>
+								)}
+								{message.role === 'user' && (
+									<div className='flex items-center justify-end gap-2'>
+										<p className='text-sm leading-6 text-zinc-800 dark:text-white'>{message.content}</p>
+										<AccountCircleIcon className='dark:text-amber-200 text-amber-400' />
+									</div>
+								)}
+							</div>
+						</div>
+					))}
+					{isBotTyping && (
+						<div className='flex justify-start'>
+							<div className='flex items-center px-10 py-3.5 mb-2 bg-white rounded-lg dark:bg-zinc-900/50'>
+								<div className='dot-flashing' />
+							</div>
+						</div>
+					)}
+				</div>
+				{/* 快捷按鈕 */}
+				<Tabs
+					sx={{
+						'& .MuiTabs-indicator': {
+							backgroundColor: 'rgba(255, 255, 255, 0)',
+						},
+						'& .MuiTab-root': {
+							color: '#27272a',
+							fontWeight: '400',
+							fontSize: '0.75rem',
+							textAlign: 'left',
+							backgroundColor: 'rgba(255, 255, 255, 0.3)',
+							border: '1px solid #27272a',
+							borderRadius: '0.2rem',
+							'&.Mui-selected': {
+								color: '#27272a',
+								backgroundColor: 'rgba(255, 255, 255, 0.6)',
+							},
+						},
+					}}
+					className='mb-2'
+					variant='scrollable'
+					scrollButtons='auto'
+				>
+					{ragData.map((rag, index) => (
+						<Tab
+							label={rag.title}
+							className='mr-2 hover:bg-white/60'
+							onClick={() => handleSendRequest(rag.content)}
+							key={index}
+						/>
+					))}
+				</Tabs>
 				{/* 詢問輸入框 */}
 				<div className='p-4 bg-white border-t-2 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-600'>
 					<div className='relative flex'>
@@ -62,8 +139,7 @@ export default function RabBot() {
 							placeholder='詢問任何問題...'
 							autoComplete='off'
 							autoFocus={true}
-							onKeyDown={(event) => event.key === 'Enter' && !isBotTyping && handleSendRequest(inputRef.current.value)}
-							className='w-full py-2.5 pl-4 pr-16 text-sm border-2 rounded-full bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-100 placeholder-zinc-600 dark:placeholder-zinc-400 text-md focus:outline-none focus:placeholder-zinc-400 dark:focus:placeholder-zinc-600 focus:border-sky-500 dark:focus:border-sky-500'
+							className='w-full py-2 pl-5 pr-16 border-2 rounded-full bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-100 placeholder-zinc-600 dark:placeholder-zinc-400 text-md focus:outline-none focus:placeholder-zinc-400 dark:focus:placeholder-zinc-600 focus:border-amber-200 dark:focus:border-amber-200'
 							ref={inputRef}
 						/>
 						<div className='absolute inset-y-0 items-center hidden right-2 sm:flex'>
@@ -73,13 +149,13 @@ export default function RabBot() {
 								className={`inline-flex w-7 h-7 transition duration-200 ease-in-out rounded-full ${
 									isBotTyping ? 'bg-gray-500 cursor-not-allowed' : 'bg-amber-300 hover:bg-amber-400'
 								}`}
-								onClick={() => !isBotTyping && handleSendRequest(inputRef.current.value)}
+								onClick={() => !isBotTyping && inputRef.current.value && handleSendRequest(inputRef.current.value)}
 							/>
 						</div>
 					</div>
 				</div>
 			</div>
-			{/* 聊天按鈕 */}
+			{/* 聊天視窗按鈕 */}
 			<button
 				className='fixed rounded-full shadow-xl cursor-pointer bg-amber-400 onhover:bg-amber-500 flex-center w-14 h-14 bottom-4 right-4'
 				onClick={() => setIsOpen(!isOpen)}

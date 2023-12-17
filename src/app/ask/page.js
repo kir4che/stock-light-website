@@ -8,35 +8,13 @@ import { useEffect, useRef, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 import SubmitBtn from '@/components/ui/SubmitBtn'
+import godList from '@/data/godList.json'
 
 export default function ChatBot() {
 	const openai = new OpenAI({
 		apiKey: process.env.OPENAI_API_KEY,
 		dangerouslyAllowBrowser: true,
 	})
-
-	const godList = [
-		{
-			id: 1,
-			imageUrl: '/assets/gods/god-1.jpg',
-			avatar: '/assets/gods/god-1-avatar.png',
-		},
-		{
-			id: 2,
-			imageUrl: '/assets/gods/god-2.jpg',
-			avatar: '/assets/gods/god-2-avatar.png',
-		},
-		{
-			id: 3,
-			imageUrl: '/assets/gods/god-3.jpg',
-			avatar: '/assets/gods/god-3-avatar.png',
-		},
-		{
-			id: 4,
-			imageUrl: '/assets/gods/god-4.jpg',
-			avatar: '/assets/gods/god-4-avatar.png',
-		},
-	]
 
 	const [selectedGod, setSelectedGod] = useState(0)
 	const [isSucced, setIsSucced] = useState(false)
@@ -57,7 +35,6 @@ export default function ChatBot() {
 		setIsSucced(true)
 	}
 
-	const [threadId, setThreadId] = useState('')
 	const [chatHistory, setChatHistory] = useState([
 		{
 			role: 'assitant',
@@ -80,6 +57,9 @@ export default function ChatBot() {
 			},
 		])
 
+		const emptyThread = await openai.beta.threads.create()
+		const threadId = emptyThread.id
+
 		// 傳送訊息給 OpenAI
 		await openai.beta.threads.messages.create(threadId, {
 			role: 'user',
@@ -87,7 +67,7 @@ export default function ChatBot() {
 		})
 
 		// 取得助理
-		const run = await openai.beta.threads.runs.create(threadId, {
+		const run = await openai.beta.threads.runs.create(emptyThread.id, {
 			assistant_id: 'asst_x81xRgXUZTHTFLfOLta3DENs',
 		})
 
@@ -125,13 +105,6 @@ export default function ChatBot() {
 			setSelectedGod(0)
 			setIsSucced(false)
 		}
-
-		const initializeThread = async () => {
-			const emptyThread = await openai.beta.threads.create()
-			setThreadId(emptyThread.id)
-		}
-
-		initializeThread()
 	}, [])
 
 	return (
