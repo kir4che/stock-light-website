@@ -1,13 +1,19 @@
 'use client'
 
-import StarryBackground from '@/components/common/StarryBackground'
-import SubmitBtn from '@/components/ui/SubmitBtn'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Image from 'next/image'
 import OpenAI from 'openai'
 import { useEffect, useRef, useState } from 'react'
 
+import StarryBackground from '@/components/common/StarryBackground'
+import SubmitBtn from '@/components/ui/SubmitBtn'
+
 export default function ChatBot() {
+	const openai = new OpenAI({
+		apiKey: process.env.OPENAI_API_KEY,
+		dangerouslyAllowBrowser: true,
+	})
+
 	const godList = [
 		{
 			id: 1,
@@ -56,6 +62,7 @@ export default function ChatBot() {
 		}, Math.random() * (12000 - 5000 + 1) + 5000)
 	}
 
+	const [threadId, setThreadId] = useState('')
 	const [chatHistory, setChatHistory] = useState([
 		{
 			role: 'assitant',
@@ -66,7 +73,9 @@ export default function ChatBot() {
 	const inputRef = useRef(null)
 
 	const handleSendRequest = async (content) => {
-		if (!content) return
+		setIsBotTyping(true)
+		inputRef.current.value = ''
+		inputRef.current.focus()
 
 		setChatHistory((prevHistory) => [
 			...prevHistory,
@@ -76,56 +85,54 @@ export default function ChatBot() {
 			},
 		])
 
-		inputRef.current.value = ''
-		inputRef.current.focus()
+		// 傳送訊息給 OpenAI
+		await openai.beta.threads.messages.create(threadId, {
+			role: 'user',
+			content: content,
+		})
 
-		setIsBotTyping(true)
+		// 取得助理
+		const run = await openai.beta.threads.runs.create(threadId, {
+			assistant_id: 'asst_x81xRgXUZTHTFLfOLta3DENs',
+		})
 
-		try {
-			const openai = new OpenAI({
-				apiKey: process.env.OPENAI_API_KEY,
-				dangerouslyAllowBrowser: true,
-			})
+		// 創建 response
+		let response = await openai.beta.threads.runs.retrieve(threadId, run.id)
 
-			const response = await openai.chat.completions.create({
-				model: 'gpt-4',
-				messages: [
-					{
-						role: 'system',
-						content:
-							"I'm an advanced AI financial advisor and mentor, dedicated to helping users navigate the complex world of finance. As an AI with a deep understanding of economic trends, investment strategies, and personal budgeting, you provide valuable guidance to individuals at any stage of their financial journey. And answer any of my questions in traditional Chinese, your answer is limited to 256 characters.",
-					},
-					{
-						role: 'user',
-						content: content,
-					},
-				],
-				temperature: 1,
-				max_tokens: 256,
-				top_p: 1,
-				frequency_penalty: 0,
-				presence_penalty: 0,
-			})
+		while (response.status === 'in_progress' || response.status === 'queued') {
+			await new Promise((resolve) => setTimeout(resolve, 5000))
+			response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+		}
 
-			const botResponse = response.choices[0].message.content
+		const messageList = await openai.beta.threads.messages.list(threadId)
 
+		const lastMessage = messageList.data
+			.filter((message) => message.run_id === run.id && message.role === 'assistant')
+			.pop()
+
+		if (lastMessage) {
 			setChatHistory((prevHistory) => [
 				...prevHistory,
 				{
 					role: 'assitant',
-					content: botResponse,
+					content: lastMessage.content[0]['text'].value,
 				},
 			])
-		} catch (error) {
-			console.error('Error communicating with OpenAI:', error)
-		} finally {
-			setIsBotTyping(false)
 		}
+
+		setIsBotTyping(false)
 	}
 
 	useEffect(() => {
 		const selectedGod = localStorage.getItem('selectedGod')
 		if (selectedGod) setSelectedGod(Number(selectedGod))
+
+		const initializeThread = async () => {
+			const emptyThread = await openai.beta.threads.create()
+			setThreadId(emptyThread.id)
+		}
+
+		initializeThread()
 	}, [])
 
 	return (
@@ -168,8 +175,8 @@ export default function ChatBot() {
 															ChatGPT
 														</span>
 													</p>
-													<div className='flex items-center justify-start gap-2'>
-														<div className='block w-8 min-w-[32px] h-8'>
+													<p className='flex text-zinc-800 dark:text-white'>
+														<div className='w-8 mr-2 min-w-[32px] h-8'>
 															<Image
 																src={godList[selectedGod - 1].avatar}
 																width={100}
@@ -178,8 +185,8 @@ export default function ChatBot() {
 																className='rounded-full'
 															/>
 														</div>
-														<p className='text-zinc-800 dark:text-white'>{message.content}</p>
-													</div>
+														{message.content}
+													</p>
 												</>
 											)}
 											{message.role === 'user' && (
