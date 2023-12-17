@@ -5,7 +5,6 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Tab, Tabs } from '@mui/material'
 import { useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/router'
 import { Suspense, useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Light/AnalysisTable'
@@ -20,7 +19,6 @@ import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
 function ResultDashboard() {
-	const router = useRouter()
 	const industry = useSearchParams().get('industry')
 	const factor = useSearchParams().get('factor')
 
