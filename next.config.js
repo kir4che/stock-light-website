@@ -33,11 +33,6 @@ const nextConfig = {
 		OPENAI_API_KEY: process.env.OPENAI_API_KEY,
 		OPENAI_API_KEY_RAG: process.env.OPENAI_API_KEY_RAG,
 	},
-	future: {
-		webpack5: {
-			verbose: true,
-		},
-	},
 }
 
 module.exports = nextConfig
