@@ -17,7 +17,7 @@ const nextConfig = {
 			'encrypted-tbn2.gstatic.com',
 			'encrypted-tbn1.gstatic.com',
 			'encrypted-tbn0.gstatic.com',
-		], // 添加你的圖片來源主機名
+		],
 	},
 	env: {
 		DB_URL: process.env.DB_URL,
