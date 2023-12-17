@@ -1,5 +1,3 @@
-'use client'
-
 import valuationData from '@/data/valuationData.json'
 import CloseIcon from '@mui/icons-material/Close'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
