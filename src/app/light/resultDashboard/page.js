@@ -82,13 +82,6 @@ function ResultDashboard() {
 	}
 
 	useEffect(() => {
-		router.onError = (err) => {
-			const pattern = /Loading chunk (\d)+ failed/g
-			const isChunkLoadFailed = err.message.match(pattern)
-			const targetPath = router.history.pending.fullPath
-			if (isChunkLoadFailed) router.replace(targetPath)
-		}
-
 		fetchStockByFactor()
 	}, [])
 

@@ -162,14 +162,7 @@ export default function RagBot({ stockId }) {
 						<Tab
 							label={rag.title}
 							className='mr-2 hover:bg-white/60'
-							onClick={() =>
-								// handleSendRequest(
-								// 	`目前分析的股票為：${stock100.find((stock) => stock.stock_id === stockId)?.name || ''}，${
-								// 		rag.content
-								// 	}`
-								// )
-								handleSendRequest(rag.content)
-							}
+							onClick={() => handleSendRequest(rag.content)}
 							key={index}
 						/>
 					))}
