@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
 
-export default function RagBot({ stockId }) {
+export default function RagBot() {
 	const openai = new OpenAI({
 		apiKey: process.env.OPENAI_API_KEY_RAG,
 		dangerouslyAllowBrowser: true,
