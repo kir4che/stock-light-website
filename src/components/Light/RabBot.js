@@ -1,56 +1,86 @@
+'use client'
+
 import ragData from '@/data/ragData.json'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-//import OpenAI from 'openai'
-//import { useEffect, useRef, useState } from 'react'
+import OpenAI from 'openai'
+import { useRef, useState } from 'react'
 
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer'
 
-export default function RabBot() {
-	const [isOpen, setIsOpen] = useState(false)
+export default function RagBot() {
+	const openai = new OpenAI({
+		apiKey: process.env.OPENAI_API_KEY_RAG,
+		dangerouslyAllowBrowser: true,
+	})
 
-	const [messages, setMessages] = useState([
+	const [isOpen, setIsOpen] = useState(false)
+	const [chatHistory, setChatHistory] = useState([
 		{
-			message: '您好！我是股市 AI，請問有什麼可以幫助您的嗎？',
-			sentTime: 'just now',
-			sender: 'bot',
+			role: 'assitant',
+			content: '您好！我是股市 AI，請問有什麼可以幫助您的嗎？',
 		},
 	])
 	const [isBotTyping, setIsBotTyping] = useState(false)
 	const inputRef = useRef(null)
 
-	const handleSendRequest = async (message) => {
-		const newMessage = {
-			message,
-			direction: 'outgoing',
-			sender: 'user',
-		}
-
-		setMessages((prevMessages) => [...prevMessages, newMessage])
+	const handleSendRequest = async (content) => {
 		setIsBotTyping(true)
-
 		inputRef.current.value = ''
 		inputRef.current.focus()
 
-		try {
-			const response = await processMessageToChatGPT([...messages, newMessage])
-			const content = response.choices[0]?.message?.content
-			if (content) {
-				const chatGPTResponse = {
-					message: content,
-					sender: 'bot',
-				}
-				setMessages((prevMessages) => [...prevMessages, chatGPTResponse])
-			}
-		} catch (error) {
-			console.error('Error processing message:', error)
-		} finally {
-			setIsBotTyping(false)
-		}
-	}
+		setChatHistory((prevHistory) => [
+			...prevHistory,
+			{
+				role: 'user',
+				content: content,
+			},
+		])
 
-	async function processMessageToChatGPT(chatMessages) {}
+		const emptyThread = await openai.beta.threads.create()
+		const threadId = emptyThread.id
+
+		// 傳送訊息給 OpenAI
+		await openai.beta.threads.messages.create(threadId, {
+			role: 'user',
+			content: content,
+		})
+
+		// 取得助理
+		const run = await openai.beta.threads.runs.create(threadId, {
+			assistant_id: 'asst_OGuQSf27UksHzjjkEE5tkJCw',
+		})
+
+		// 創建 response
+		let response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+
+		while (response.status === 'in_progress' || response.status === 'queued') {
+			console.log('waiting...')
+			await new Promise((resolve) => setTimeout(resolve, 5000))
+			response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+		}
+
+		const messageList = await openai.beta.threads.messages.list(threadId)
+
+		console.log(messageList)
+
+		const lastMessage = messageList.data
+			.filter((message) => message.run_id === run.id && message.role === 'assistant')
+			.pop()
+
+		if (lastMessage) {
+			setChatHistory((prevHistory) => [
+				...prevHistory,
+				{
+					role: 'assitant',
+					content: lastMessage.content[0]['text'].value,
+				},
+			])
+		}
+
+		setIsBotTyping(false)
+	}
 
 	return (
 		<>
@@ -82,9 +112,9 @@ export default function RabBot() {
 									</>
 								)}
 								{message.role === 'user' && (
-									<div className='flex items-center justify-end gap-2'>
+									<div className='flex justify-end gap-2'>
 										<p className='text-sm leading-6 text-zinc-800 dark:text-white'>{message.content}</p>
-										<AccountCircleIcon className='dark:text-amber-200 text-amber-400' />
+										<AccountCircleIcon className='text-3xl dark:text-amber-200 text-amber-400' />
 									</div>
 								)}
 							</div>
