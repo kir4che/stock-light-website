@@ -1124,8 +1124,8 @@ export default function AnalysisTable({ stockId }) {
 				)}
 				{/* 估值模型 */}
 				{valuationData[stockId] ? (
-					<TableContainer className='shadow'>
-						<Table>
+					<TableContainer>
+						<Table className='shadow'>
 							<TableHead className='bg-secondary_blue'>
 								<TableRow className='dark:border-zinc-600'>
 									<TableCell className='dark:border-zinc-600' />

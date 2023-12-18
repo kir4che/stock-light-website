@@ -2,8 +2,8 @@ import { getCurrentDate } from '@/utils/getCurrentDate'
 import { Dialog, DialogContent } from '@mui/material'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
+import Collapse from '@mui/material/Collapse'
 import Slide from '@mui/material/Slide'
-import Snackbar from '@mui/material/Snackbar'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { forwardRef, useEffect, useState } from 'react'
@@ -27,23 +27,50 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 		'https://imgur.com/qieOxKe.png',
 	]
 
+	const [selectedCardLink, setSelectedCardLink] = useState('')
+
 	const [envelopeOpen, setEnvelopeOpen] = useState(true)
 	const [cardOpen, setCardOpen] = useState(false)
 	const [savedAlertOpen, setSavedAlertOpen] = useState(false)
 
 	const handleEnvelopeDialog = () => setEnvelopeOpen(!envelopeOpen)
 	const handleCardDialog = () => setCardOpen(!cardOpen)
-	const handleCardSave = () => setSavedAlertOpen(true) // 🚩 後端：需要把祈福小卡存給使用者
 
 	const getRandomCard = () => {
-		const randomIndex = Math.floor(Math.random() * cardList.length)
+		const currentDate = new Date().toLocaleDateString()
+		let lastAccessDate = localStorage.getItem('lastAccessDate') || ''
+
+		const randomIndex =
+			lastAccessDate !== currentDate
+				? (localStorage.setItem('lastAccessDate', currentDate), Math.floor(Math.random() * cardList.length))
+				: localStorage.getItem('lastRandomIndex') || 0
+
+		localStorage.setItem('lastRandomIndex', randomIndex)
 		return cardList[randomIndex]
 	}
 
-	const [selectedCard, setSelectedCard] = useState(getRandomCard())
+	const handleCardSave = async () => {
+		const response = await fetch(`${process.env.DB_URL}/api/user/insert/card`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				image_link: selectedCardLink,
+				type: industry,
+			}),
+		})
+
+		const data = await response.json()
+		if (data.success) setSavedAlertOpen(true)
+
+		setTimeout(() => {
+			setSavedAlertOpen(false)
+		}, 1000)
+	}
 
 	useEffect(() => {
-		setSelectedCard(getRandomCard())
+		setSelectedCardLink(getRandomCard())
 	}, [industry])
 
 	return (
@@ -96,7 +123,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 			{/* 祈福小卡 */}
 			<Dialog open={cardOpen} maxWidth='md' align='center'>
 				<DialogContent className='dark:bg-zinc-900'>
-					{selectedCard && <Image src={selectedCard} width={680} height={360} alt='pray-card' />}
+					{selectedCardLink && <Image src={selectedCardLink} width={680} height={360} alt='pray-card' />}
 					<Button
 						size='large'
 						onClick={handleCardSave}
@@ -104,11 +131,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 					>
 						保存您的祈福小卡
 					</Button>
-					<Snackbar cardOpen={savedAlertOpen} autoHideDuration={3000} onClose={() => setSavedAlertOpen(false)}>
-						<Alert onClose={() => setSavedAlertOpen(false)} severity='success' sx={{ width: '100%' }}>
-							保存成功！
-						</Alert>
-					</Snackbar>
+
 					<SubmitBtn
 						text='查看本日光明燈'
 						handleSubmit={() => {
@@ -118,6 +141,9 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 						style='mt-3 py-2.5'
 					/>
 				</DialogContent>
+				<Collapse in={savedAlertOpen} className='absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 '>
+					<Alert>保存成功！</Alert>
+				</Collapse>
 			</Dialog>
 		</>
 	)

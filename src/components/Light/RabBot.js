@@ -15,6 +15,7 @@ export default function RagBot() {
 		dangerouslyAllowBrowser: true,
 	})
 
+	const [value, setValue] = useState(false)
 	const [isOpen, setIsOpen] = useState(false)
 	const [chatHistory, setChatHistory] = useState([
 		{
@@ -134,6 +135,7 @@ export default function RagBot() {
 				</div>
 				{/* 快捷按鈕 */}
 				<Tabs
+					value={value}
 					sx={{
 						'& .MuiTabs-indicator': {
 							backgroundColor: 'rgba(255, 255, 255, 0)',
