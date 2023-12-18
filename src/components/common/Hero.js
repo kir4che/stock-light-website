@@ -13,11 +13,19 @@ export default function Hero() {
 	const { data: session } = useSession()
 	const router = useRouter()
 
+	const handleScrollDown = () => {
+		const screenHeight = window.innerHeight
+		window.scrollBy({
+			top: screenHeight - 72,
+			behavior: 'smooth',
+		})
+	}
+
 	return (
-		<div className='max-h-[calc(100vh - 76px)] h-min'>
+		<div className='max-h-[calc(100vh - 76px)] h-screen'>
 			<Marquee />
 			<div className='flex flex-col-reverse'>
-				<div className='mt-8 space-x-5 z-50 max-[590px]:mb-8 sm:mb-2 sm:mt-10 md:mb-4 flex-center'>
+				<div className='mt-8 space-x-5 z-30 max-[590px]:mb-8 sm:mb-2 sm:mt-10 md:mb-4 flex-center'>
 					<button
 						className='px-6 py-2 text-sm tracking-wide rounded-full bg-secondary_blue hover:bg-sky-500 text-zinc-100'
 						onClick={() => router.push(session ? '/light' : '/login')}
@@ -48,15 +56,15 @@ export default function Hero() {
 					</div>
 				</div>
 			</div>
-			<div className="relative z-0 h-[36vw] sm:h-[40vw] md:h-[32vw] border-b-2 dark:border-zinc-900 lg:h-80 bg-[url('https://imgur.com/TUd42OT.jpg')] dark:bg-[url('https://imgur.com/eUbTc8f.jpg')] bg-no-repeat lg:bg-cover bg-center">
+			<div className="relative z-0 h-[36vw] sm:h-[42vw] md:h-[32vw] border-b-2 dark:border-zinc-900 lg:h-80 bg-[url('https://imgur.com/TUd42OT.jpg')] dark:bg-[url('https://imgur.com/eUbTc8f.jpg')] bg-no-repeat lg:bg-cover bg-center">
 				<Image
 					src='/assets/home/temple-outside.svg'
 					width={1000}
 					height={1000}
-					className='relative bottom-[18vw] sm:bottom-[12.5vw] lg:bottom-40 mx-auto w-[74vw] sm:w-[72vw] md:w-[60vw] lg:w-[660px]'
+					className='relative bottom-[11.5vw] lg:bottom-40 mx-auto w-[65vw] sm:w-[74vw] md:w-[60vw] lg:w-[660px]'
 					alt='temple-outside'
 				/>
-				<LanternLayout otherStyle={'hidden md:block absolute top-0'}>
+				<LanternLayout otherStyle='hidden md:block absolute top-0'>
 					<div className='scale-75 -rotate-6'>
 						<Lantern position={'-right-[20vw] -top-[15vw] xl:-right-[30vw] xl:-top-[10vw]'} />
 					</div>
@@ -68,11 +76,11 @@ export default function Hero() {
 					</div>
 				</LanternLayout>
 			</div>
-			<div className='mt-6 text-sm font-light leading-loose text-center'>
-				<p>
-					了解更多
+			<div className='relative z-30 mt-6 text-center'>
+				<button type='button' className='hover:underline' onClick={handleScrollDown}>
+					<span className='text-sm font-light leading-loose'>了解更多</span>
 					<ExpandMoreIcon />
-				</p>
+				</button>
 			</div>
 		</div>
 	)
