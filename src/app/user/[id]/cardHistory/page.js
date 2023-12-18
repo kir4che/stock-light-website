@@ -48,7 +48,7 @@ export default function CardHistory() {
 									<Image src={card.image_link} width={640} height={320} alt='card' />
 								</div>
 								<div className='absolute top-0 left-0 p-2'>
-									<p className='text-sm uppercase'>{card.create_date}</p>
+									<p className='text-sm uppercase'>{new Date(card.create_date).toISOString().split('T')[0]}</p>
 									<h3 className='card__category'>{card.type}</h3>
 								</div>
 							</Link>
