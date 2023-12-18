@@ -71,12 +71,16 @@ export default function RagBot() {
 				.filter((message) => message.run_id === run.id && message.role === 'assistant')
 				.pop()
 
+			const lastMessageContent = lastMessage.content[0]['text'].value
+				.replace(/(?:\d+†source|\d+†來源|\【.*?\】)/g, '')
+				.replace(/\n/g, '<br/>')
+
 			if (lastMessage) {
 				setChatHistory((prevHistory) => [
 					...prevHistory,
 					{
 						role: 'assitant',
-						content: lastMessage.content[0]['text'].value,
+						content: lastMessageContent,
 					},
 				])
 			}
@@ -90,16 +94,16 @@ export default function RagBot() {
 	return (
 		<>
 			<div
-				className={`fixed overflow-y-auto bg-primary_yellow rounded-lg shadow bottom-4 right-20 w-96 transition-opacity duration-300 ease-in ${
+				className={`fixed overflow-y-auto bg-primary_yellow rounded-lg border dark:border-zinc-600 shadow bottom-4 right-20 w-96 transition-opacity duration-300 ease-in ${
 					isOpen ? 'opacity-100' : 'opacity-0'
 				}`}
 			>
 				{/* 對話框 */}
-				<div className='min-h-[240px] max-h-[450px] h-full p-4 overflow-y-auto'>
+				<div className='min-h-[240px] max-h-[360px] h-full p-4 overflow-y-auto'>
 					{chatHistory.map((message, index) => (
 						<div key={index} className='inline-block w-full'>
 							<div
-								className={`p-3 mb-1 space-y-2 bg-white rounded-lg shadow-md dark:bg-zinc-800 ${
+								className={`p-3 mb-1 space-y-2 w-80 bg-white rounded-lg shadow-md dark:bg-zinc-800 ${
 									message.role === 'assitant' ? 'float-left' : 'float-right'
 								}`}
 							>
@@ -112,7 +116,10 @@ export default function RagBot() {
 											</span>
 										</p>
 										<div className='flex items-center justify-start gap-2'>
-											<p className='text-sm leading-6 text-zinc-800 dark:text-white'>{message.content}</p>
+											<p
+												dangerouslySetInnerHTML={{ __html: message.content }}
+												className='text-sm leading-6 text-zinc-800 dark:text-white'
+											/>
 										</div>
 									</>
 								)}
@@ -137,6 +144,9 @@ export default function RagBot() {
 				<Tabs
 					value={value}
 					sx={{
+						'& .MuiTabs-flexContainer': {
+							gap: '0.875rem',
+						},
 						'& .MuiTabs-indicator': {
 							backgroundColor: 'rgba(255, 255, 255, 0)',
 						},
@@ -161,8 +171,9 @@ export default function RagBot() {
 					{ragData.map((rag, index) => (
 						<Tab
 							label={rag.title}
-							className='mr-2 hover:bg-white/60'
+							className='hover:bg-white/60'
 							onClick={() => handleSendRequest(rag.content)}
+							disabled={isBotTyping}
 							key={index}
 						/>
 					))}
