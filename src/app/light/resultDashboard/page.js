@@ -47,7 +47,6 @@ function ResultDashboard() {
 				method: 'GET',
 			})
 			const data = await response.json()
-
 			if (data.success) {
 				let stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
 				console.log('stockByIndustry', stockByIndustry)
