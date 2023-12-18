@@ -36,6 +36,7 @@ export default function Light() {
 
 	// Step 2: 選擇選股條件，並確認該產業別是否有符合條件的股票
 	const handleFactorSelect = async (factor) => {
+		console.log(factor)
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/picking/${factor}`, {
 				method: 'GET',
@@ -45,7 +46,6 @@ export default function Light() {
 			console.log(data)
 			if (data.success) {
 				const stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
-
 				const filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
