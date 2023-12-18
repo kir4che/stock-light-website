@@ -5,6 +5,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Tab, Tabs } from '@mui/material'
 import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 import { Suspense, useEffect, useState } from 'react'
 
 import AnalysisTable from '@/components/Light/AnalysisTable'
@@ -20,6 +21,7 @@ import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
 function ResultDashboard() {
+	const router = useRouter()
 	const industry = useSearchParams().get('industry')
 	const factor = useSearchParams().get('factor')
 
@@ -56,7 +58,10 @@ function ResultDashboard() {
 				let uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
 					filteredData.find((entry) => entry.stock_id === stock_id)
 				)
-				console.log('uniqueFilteredData', uniqueFilteredData)
+				if (filteredData.length <= 0) {
+					alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
+					router.back()
+				}
 				setResultStockInfo(uniqueFilteredData)
 				setIsLoading(false)
 			}

@@ -64,6 +64,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 		})
 
 		const data = await response.json()
+		console.log('保存小卡測試: ', data)
 		if (data.success) setSavedAlertOpen(true)
 
 		setTimeout(() => {

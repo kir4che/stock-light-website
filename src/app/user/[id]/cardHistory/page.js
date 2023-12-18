@@ -24,7 +24,7 @@ export default function CardHistory() {
 			})
 
 			const data = await response.json()
-			console.log(data)
+			console.log('取得小卡測試: ', data)
 			if (data.success) setCards(data.data)
 		} catch (error) {
 			console.error('Error: ', error)
