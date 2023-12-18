@@ -1,4 +1,3 @@
-import valuationData from '@/data/valuationData.json'
 import CloseIcon from '@mui/icons-material/Close'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import Table from '@mui/material/Table'
@@ -13,6 +12,7 @@ import { useEffect, useState } from 'react'
 
 import Chart from '@/components/Chart/Chart'
 import Loading from '@/components/common/Loading'
+import valuationData from '@/data/valuationData.json'
 import fetchEReport from '@/utils/fetchEReport'
 import {
 	fetchAssetStatement,
@@ -1138,14 +1138,13 @@ export default function AnalysisTable({ stockId }) {
 								</TableRow>
 							</TableHead>
 							<TableBody className='dark:bg-zinc-800'>
-								{Object.keys(valuationData[stockId]).map((key) => (
-									<renderValuationRow
-										key={key}
-										label={key}
-										range={valuationData[stockId][key]['Range']}
-										selected={valuationData[stockId][key]['Selected']}
-									/>
-								))}
+								{Object.keys(valuationData[stockId]).map((key) =>
+									renderValuationRow({
+										label: valuationData[stockId][key].label,
+										range: valuationData[stockId][key].range,
+										selected: valuationData[stockId][key].selected,
+									})
+								)}
 							</TableBody>
 						</Table>
 					</TableContainer>
