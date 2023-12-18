@@ -36,7 +36,6 @@ export default function Light() {
 
 	// Step 2: 選擇選股條件，並確認該產業別是否有符合條件的股票
 	const handleFactorSelect = async (factor) => {
-		console.log('selectedIndustry', selectedIndustry)
 		if (factor === null) throw new Error('factor is null!')
 
 		try {
@@ -53,6 +52,7 @@ export default function Light() {
 				const filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
+				console.log('filteredData', filteredData)
 
 				if (filteredData.length <= 0) alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
 				else {
