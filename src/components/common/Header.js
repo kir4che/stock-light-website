@@ -29,7 +29,7 @@ export default function Header() {
 				<Image src='/assets/logo.png' width={32} height={32} alt='logo' />
 				<h4>股市光明燈</h4>
 			</Link>
-			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 md:flex lg:space-x-8'>
+			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 min-[830px]:flex lg:space-x-8'>
 				{pageList.map((page) => {
 					if (page.childPages.length > 0) {
 						return (
