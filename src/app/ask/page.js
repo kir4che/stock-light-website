@@ -58,45 +58,49 @@ export default function ChatBot() {
 			},
 		])
 
-		const emptyThread = await openai.beta.threads.create()
-		const threadId = emptyThread.id
+		try {
+			const emptyThread = await openai.beta.threads.create()
+			const threadId = emptyThread.id
 
-		// 傳送訊息給 OpenAI
-		await openai.beta.threads.messages.create(threadId, {
-			role: 'user',
-			content: content,
-		})
+			// 傳送訊息給 OpenAI
+			await openai.beta.threads.messages.create(threadId, {
+				role: 'user',
+				content: content,
+			})
 
-		// 取得助理
-		const run = await openai.beta.threads.runs.create(emptyThread.id, {
-			assistant_id: 'asst_x81xRgXUZTHTFLfOLta3DENs',
-		})
+			// 取得助理
+			const run = await openai.beta.threads.runs.create(emptyThread.id, {
+				assistant_id: 'asst_x81xRgXUZTHTFLfOLta3DENs',
+			})
 
-		// 創建 response
-		let response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+			// 創建 response
+			let response = await openai.beta.threads.runs.retrieve(threadId, run.id)
 
-		while (response.status === 'in_progress' || response.status === 'queued') {
-			await new Promise((resolve) => setTimeout(resolve, 5000))
-			response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+			while (response.status === 'in_progress' || response.status === 'queued') {
+				await new Promise((resolve) => setTimeout(resolve, 5000))
+				response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+			}
+
+			const messageList = await openai.beta.threads.messages.list(threadId)
+
+			const lastMessage = messageList.data
+				.filter((message) => message.run_id === run.id && message.role === 'assistant')
+				.pop()
+
+			if (lastMessage) {
+				setChatHistory((prevHistory) => [
+					...prevHistory,
+					{
+						role: 'assitant',
+						content: lastMessage.content[0]['text'].value,
+					},
+				])
+			}
+		} catch (error) {
+			console.error('Error: ', error)
+		} finally {
+			setIsBotTyping(false)
 		}
-
-		const messageList = await openai.beta.threads.messages.list(threadId)
-
-		const lastMessage = messageList.data
-			.filter((message) => message.run_id === run.id && message.role === 'assistant')
-			.pop()
-
-		if (lastMessage) {
-			setChatHistory((prevHistory) => [
-				...prevHistory,
-				{
-					role: 'assitant',
-					content: lastMessage.content[0]['text'].value,
-				},
-			])
-		}
-
-		setIsBotTyping(false)
 	}
 
 	useEffect(() => {

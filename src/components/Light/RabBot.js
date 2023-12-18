@@ -38,48 +38,52 @@ export default function RagBot() {
 			},
 		])
 
-		const emptyThread = await openai.beta.threads.create()
-		const threadId = emptyThread.id
+		try {
+			const emptyThread = await openai.beta.threads.create()
+			const threadId = emptyThread.id
 
-		// 傳送訊息給 OpenAI
-		await openai.beta.threads.messages.create(threadId, {
-			role: 'user',
-			content: content,
-		})
+			// 傳送訊息給 OpenAI
+			await openai.beta.threads.messages.create(threadId, {
+				role: 'user',
+				content: content,
+			})
 
-		// 取得助理
-		const run = await openai.beta.threads.runs.create(threadId, {
-			assistant_id: 'asst_OGuQSf27UksHzjjkEE5tkJCw',
-		})
+			// 取得助理
+			const run = await openai.beta.threads.runs.create(threadId, {
+				assistant_id: 'asst_OGuQSf27UksHzjjkEE5tkJCw',
+			})
 
-		// 創建 response
-		let response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+			// 創建 response
+			let response = await openai.beta.threads.runs.retrieve(threadId, run.id)
 
-		while (response.status === 'in_progress' || response.status === 'queued') {
-			console.log('waiting...')
-			await new Promise((resolve) => setTimeout(resolve, 5000))
-			response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+			while (response.status === 'in_progress' || response.status === 'queued') {
+				console.log('waiting...')
+				await new Promise((resolve) => setTimeout(resolve, 5000))
+				response = await openai.beta.threads.runs.retrieve(threadId, run.id)
+			}
+
+			const messageList = await openai.beta.threads.messages.list(threadId)
+
+			console.log(messageList)
+
+			const lastMessage = messageList.data
+				.filter((message) => message.run_id === run.id && message.role === 'assistant')
+				.pop()
+
+			if (lastMessage) {
+				setChatHistory((prevHistory) => [
+					...prevHistory,
+					{
+						role: 'assitant',
+						content: lastMessage.content[0]['text'].value,
+					},
+				])
+			}
+		} catch (error) {
+			console.error('Error: ', error)
+		} finally {
+			setIsBotTyping(false)
 		}
-
-		const messageList = await openai.beta.threads.messages.list(threadId)
-
-		console.log(messageList)
-
-		const lastMessage = messageList.data
-			.filter((message) => message.run_id === run.id && message.role === 'assistant')
-			.pop()
-
-		if (lastMessage) {
-			setChatHistory((prevHistory) => [
-				...prevHistory,
-				{
-					role: 'assitant',
-					content: lastMessage.content[0]['text'].value,
-				},
-			])
-		}
-
-		setIsBotTyping(false)
 	}
 
 	return (
@@ -90,7 +94,7 @@ export default function RagBot() {
 				}`}
 			>
 				{/* 對話框 */}
-				<div className='min-h-[240px] max-h-[420px] h-full p-4 overflow-y-auto'>
+				<div className='min-h-[240px] max-h-[450px] h-full p-4 overflow-y-auto'>
 					{chatHistory.map((message, index) => (
 						<div key={index} className='inline-block w-full'>
 							<div
