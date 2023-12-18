@@ -693,7 +693,7 @@ export default function AnalysisTable({ stockId }) {
 									grid: {
 										top: '10%',
 										left: '4%',
-										right: '6%',
+										right: '7%',
 										height: '70%',
 									},
 									toolbox: {
