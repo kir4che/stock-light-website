@@ -42,20 +42,23 @@ export default function Light() {
 			})
 
 			const data = await response.json()
+			console.log(data)
 			if (data.success) {
 				const stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
 
-				let filteredData = data.data.filter(function (entry) {
+				const filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
+
+				console.log(filteredData)
 
 				if (filteredData.length <= 0) {
 					setFactorOpen(false)
 					alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
 				} else {
+					setSelectedFactor(factor)
 					setFactorOpen(false)
 					setSponsorOpen(true)
-					setSelectedFactor(factor)
 				}
 			}
 		} catch (error) {
