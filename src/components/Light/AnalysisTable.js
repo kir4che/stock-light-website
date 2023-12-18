@@ -1138,13 +1138,50 @@ export default function AnalysisTable({ stockId }) {
 								</TableRow>
 							</TableHead>
 							<TableBody className='dark:bg-zinc-800'>
-								{Object.keys(valuationData[stockId]).map((key) =>
-									renderValuationRow({
-										label: valuationData[stockId][key].label,
-										range: valuationData[stockId][key].range,
-										selected: valuationData[stockId][key].selected,
-									})
-								)}
+								<TableRow>
+									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
+										WACC / Discount Rate
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['WACC / Discount Rate']['Range']}
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['WACC / Discount Rate']['Selected']}
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
+										Long-term Growth Rate
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['Long-term Growth Rate']['Range']}
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['Long-term Growth Rate']['Selected']}
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
+										Fair Price
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['Fair Price']['Range']}
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['Fair Price']['Selected']}
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
+										Upside
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['Upside']['Range']}
+									</TableCell>
+									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+										{valuationData[stockId]['Upside']['Selected']}
+									</TableCell>
+								</TableRow>
 							</TableBody>
 						</Table>
 					</TableContainer>
@@ -1176,17 +1213,3 @@ export default function AnalysisTable({ stockId }) {
 		</div>
 	)
 }
-
-const renderValuationRow = ({ label, range, selected }) => (
-	<TableRow>
-		<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
-			{label}
-		</TableCell>
-		<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
-			{range}
-		</TableCell>
-		<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
-			{selected}
-		</TableCell>
-	</TableRow>
-)
