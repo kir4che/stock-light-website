@@ -37,6 +37,7 @@ export default function Light() {
 	const handleFactorSelect = (factor) => {
 		setSelectedFactor(factor)
 		console.log(fetchStockByFactor(factor))
+
 		if (fetchStockByFactor(factor)) {
 			setFactorOpen(false)
 			setSponsorOpen(true)
