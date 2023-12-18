@@ -42,7 +42,7 @@ export default function CardHistory() {
 				{cards.length > 0 ? (
 					cards.map((card) => (
 						<div className='gap-10 card-grid'>
-							<a href={card.image_link} download={true} className='relative list-none card'>
+							<a href={`${card.image_link}.jpg`} target='_blank' download className='relative list-none card'>
 								<div className='card__background'>
 									<Image src={card.image_link} width={640} height={320} alt='card' />
 								</div>
