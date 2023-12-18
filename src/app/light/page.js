@@ -36,6 +36,7 @@ export default function Light() {
 	// Step 2: 選擇選股條件
 	const handleFactorSelect = (factor) => {
 		setSelectedFactor(factor)
+		console.log(fetchStockByFactor(factor))
 		if (fetchStockByFactor(factor)) {
 			setFactorOpen(false)
 			setSponsorOpen(true)
