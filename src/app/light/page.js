@@ -36,7 +36,8 @@ export default function Light() {
 
 	// Step 2: 選擇選股條件，並確認該產業別是否有符合條件的股票
 	const handleFactorSelect = async (factor) => {
-		console.log(factor)
+		if (factor === null) throw new Error('factor is null!')
+
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/picking/${factor}`, {
 				method: 'GET',
@@ -335,20 +336,19 @@ export default function Light() {
 											type='submit'
 											className='px-3 py-1 text-sm text-right rounded-full text-zinc-800 bg-primary_yellow hover:bg-amber-300'
 											onClick={() =>
-												handleFactorSelect(() => {
-													switch (factor) {
-														case '負債比率 < 30%':
-															return 'debtRatio'
-														case 'ROE > 15%':
-															return 'Roe'
-														case '自由現金流 > 0':
-															return 'freeCashFlow'
-														case '流動比率 > 2':
-															return 'currentRatio'
-														case 'EPS > 0':
-															return 'Eps'
-													}
-												})
+												handleFactorSelect(
+													factor === '負債比率 < 30%'
+														? 'debtRatio'
+														: factor === 'ROE > 15%'
+														? 'Roe'
+														: factor === '自由現金流 > 0'
+														? 'freeCashFlow'
+														: factor === '流動比率 > 2'
+														? 'currentRatio'
+														: factor === 'EPS > 0'
+														? 'EPS'
+														: null
+												)
 											}
 										>
 											選擇此條件
