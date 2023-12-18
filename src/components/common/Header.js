@@ -34,10 +34,10 @@ export default function Header() {
 					if (page.childPages.length > 0) {
 						return (
 							<div key={page.url}>
-								<p className='cursor-pointer' onClick={handleClick}>
+								<button type='button' className='flex flex-col' onClick={handleClick}>
 									<span>{page.name}</span>
 									<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
-								</p>
+								</button>
 								<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
 									{page.childPages.map((childPage) => {
 										return (
@@ -51,7 +51,12 @@ export default function Header() {
 						)
 					} else {
 						return (
-							<button onClick={() => router.push(`/${page.url}`)} key={page.url}>
+							<button
+								type='button'
+								className='flex flex-col'
+								onClick={() => router.push(`/${page.url}`)}
+								key={page.url}
+							>
 								<span>{page.name}</span>
 								<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
 							</button>
