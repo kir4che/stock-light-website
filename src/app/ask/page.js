@@ -1,4 +1,5 @@
 'use client'
+
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
 import Image from 'next/image'
