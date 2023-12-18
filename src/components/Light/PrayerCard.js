@@ -12,6 +12,7 @@ import SubmitBtn from '@/components/ui/SubmitBtn'
 
 export default function PrayerCard({ industry, handleNextDialog }) {
 	const { data: session } = useSession()
+	const token = session?.token
 
 	// 目前有 10 張祈福小卡
 	const cardList = [
@@ -54,6 +55,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
+				Authorization: token,
 			},
 			body: JSON.stringify({
 				image_link: selectedCardLink,

@@ -51,10 +51,12 @@ function ResultDashboard() {
 				let filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
+				console.log('stockByIndustry', filteredData)
 				let uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
 					filteredData.find((entry) => entry.stock_id === stock_id)
 				)
-				setResultStockInfo(uniqueFilteredData.slice(0, 5))
+				console.log('uniqueFilteredData', uniqueFilteredData)
+				setResultStockInfo(uniqueFilteredData)
 				setIsLoading(false)
 			}
 		} catch (error) {

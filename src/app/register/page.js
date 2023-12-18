@@ -44,6 +44,7 @@ export default function Register() {
 			else alert(data.errorMessage.includes('Error') ? data.errorMessage : '註冊失敗，請重新註冊！')
 		} catch (error) {
 			console.error('Error: ', error)
+			alert('註冊失敗，請重新註冊！')
 		}
 	}
 

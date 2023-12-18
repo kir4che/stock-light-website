@@ -1,5 +1,6 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -7,12 +8,19 @@ import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 
 export default function CardHistory() {
+	const { data: session } = useSession()
+	const token = session?.token
+
 	const [cards, setCards] = useState([])
 
 	const fetchCards = async () => {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/user/all/cards`, {
 				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: token,
+				},
 			})
 
 			const data = await response.json()
