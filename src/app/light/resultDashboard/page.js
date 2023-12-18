@@ -20,9 +20,6 @@ import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
 function ResultDashboard() {
-	// const { data: session } = useSession()
-	// const token = session?.accessToken
-
 	const router = useRouter()
 	const industry = useSearchParams().get('industry')
 	const factor = useSearchParams().get('factor')
@@ -31,7 +28,6 @@ function ResultDashboard() {
 	const [laternOpen, setLaternOpen] = useState(false)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 
-	// const [stock100, setStock100] = useState([])
 	const [resultStockInfo, setResultStockInfo] = useState(null)
 	const [stockPrice, setStockPrice] = useState({
 		closePrice: [],
@@ -41,19 +37,6 @@ function ResultDashboard() {
 		pb: 0,
 		pe: 0,
 	})
-
-	// const fetchStockByIndustry = async () => {
-	// 	const response = await fetch(`${process.env.DB_URL}/api/user/all/industry/stock`, {
-	// 		method: 'GET',
-	// 		headers: {
-	// 			'Content-Type': 'application/json',
-	// 			Authorization: token,
-	// 		},
-	// 	})
-	// 	const data = await response.json()
-	// 	const stockByIndustry = data.data.filter((item) => item.industry === industry).map((item) => item.stock_id)
-	// 	if (data.success) setStock100(stockByIndustry)
-	// }
 
 	// 取得該產業符合因子的股票
 	const fetchStockByFactor = async () => {
