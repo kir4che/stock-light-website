@@ -34,14 +34,18 @@ export default function Light() {
 	}
 
 	// Step 2: 選擇選股條件
-	const handleFactorSelect = (factor) => {
-		setSelectedFactor(factor)
-		console.log(fetchStockByFactor(factor))
+	const handleFactorSelect = async (factor) => {
+		try {
+			const isStockAvailable = await fetchStockByFactor(factor)
 
-		if (fetchStockByFactor(factor)) {
-			setFactorOpen(false)
-			setSponsorOpen(true)
-		} else setFactorOpen(false)
+			if (isStockAvailable) {
+				setFactorOpen(false)
+				setSponsorOpen(true)
+				setSelectedFactor(factor)
+			} else setFactorOpen(false)
+		} catch (error) {
+			console.error('Error:', error)
+		}
 	}
 
 	// Step 3: 確認該產業別是否有符合條件的股票
@@ -52,7 +56,6 @@ export default function Light() {
 			})
 
 			const data = await response.json()
-			console.log('data', data)
 			if (data.success) {
 				const stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
 
