@@ -16,6 +16,7 @@ export default function CardHistory() {
 			})
 
 			const data = await response.json()
+			console.log(data)
 			if (data.success) setCards(data.data)
 		} catch (error) {
 			console.error('Error: ', error)
