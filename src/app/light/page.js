@@ -36,11 +36,38 @@ export default function Light() {
 	// Step 2: 選擇選股條件
 	const handleFactorSelect = (factor) => {
 		setSelectedFactor(factor)
-		setFactorOpen(false)
-		setSponsorOpen(true)
+		if (fetchStockByFactor(factor)) {
+			setFactorOpen(false)
+			setSponsorOpen(true)
+		} else setFactorOpen(false)
 	}
 
-	// Step 3-1: 贊助香油錢
+	// Step 3: 確認該產業別是否有符合條件的股票
+	const fetchStockByFactor = async (factor) => {
+		try {
+			const response = await fetch(`${process.env.DB_URL}/api/stock/picking/${factor}`, {
+				method: 'GET',
+			})
+
+			const data = await response.json()
+			console.log('data', data)
+			if (data.success) {
+				const stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
+
+				let filteredData = data.data.filter(function (entry) {
+					return stockByIndustry.includes(entry.stock_id)
+				})
+				if (filteredData.length <= 0) {
+					alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
+					return false
+				} else return true
+			}
+		} catch (error) {
+			console.error('Error: ', error)
+		}
+	}
+
+	// Step 4-1: 贊助香油錢
 	const handleSponsor = () => {
 		if (selectedAmount === null && amount === 0) return alert('請選擇或輸入香油錢金額！')
 		else if (selectedAmount === null && isNaN(Number(amount))) return alert('香油錢金額請輸入數字！')
@@ -50,7 +77,7 @@ export default function Light() {
 		router.push(`/light/checkout?industry=${selectedIndustry}&factor=${selectedFactor}`)
 	}
 
-	// Step 3-2: 不贊助香油錢
+	// Step 4-2: 不贊助香油錢
 	const handleLightUp = () => {
 		setSponsorOpen(false)
 		setLightSucceed(true)

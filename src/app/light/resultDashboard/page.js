@@ -58,10 +58,6 @@ function ResultDashboard() {
 				let uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
 					filteredData.find((entry) => entry.stock_id === stock_id)
 				)
-				if (filteredData.length <= 0) {
-					alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
-					router.back()
-				}
 				setResultStockInfo(uniqueFilteredData)
 				setIsLoading(false)
 			}
