@@ -32,8 +32,8 @@ export default function CardHistory() {
 	}
 
 	useEffect(() => {
-		fetchCards()
-	}, [])
+		token && fetchCards()
+	}, [token])
 
 	return (
 		<StarryBackground className='w-full px-4 pt-6 lg:pt-12 md:px-8 text-zinc-100'>

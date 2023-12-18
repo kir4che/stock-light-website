@@ -34,8 +34,8 @@ export default function Portfolio() {
 
 	useEffect(() => {
 		setTabIndex(0)
-		fetchPortfolio()
-	}, [])
+		token && fetchPortfolio()
+	}, [token])
 
 	useEffect(() => {
 		if (portfolioData[currentPortfolioIndex]) setRows(portfolioData[currentPortfolioIndex].data)

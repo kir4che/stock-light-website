@@ -74,7 +74,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 
 	useEffect(() => {
 		setSelectedCardLink(getRandomCard())
-	}, [industry])
+	}, [])
 
 	return (
 		<>
