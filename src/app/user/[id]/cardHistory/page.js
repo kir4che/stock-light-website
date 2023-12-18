@@ -2,7 +2,6 @@
 
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
@@ -43,7 +42,7 @@ export default function CardHistory() {
 				{cards.length > 0 ? (
 					cards.map((card) => (
 						<div className='gap-10 card-grid'>
-							<Link href={card.image_link} className='relative list-none card' key={card.card_id}>
+							<a href={card.image_link} download={true} className='relative list-none card'>
 								<div className='card__background'>
 									<Image src={card.image_link} width={640} height={320} alt='card' />
 								</div>
@@ -51,7 +50,7 @@ export default function CardHistory() {
 									<p className='text-sm uppercase'>{new Date(card.create_date).toISOString().split('T')[0]}</p>
 									<h3 className='card__category'>{card.type}</h3>
 								</div>
-							</Link>
+							</a>
 						</div>
 					))
 				) : (
