@@ -1,5 +1,12 @@
+import valuationData from '@/data/valuationData.json'
 import CloseIcon from '@mui/icons-material/Close'
 import { Dialog, DialogContent, DialogTitle } from '@mui/material'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -98,7 +105,7 @@ export default function AnalysisTable({ stockId }) {
 		fetchSentimentData()
 	}, [stockId])
 
-	const renderRatio = (text, ratio) => (
+	const RatioCard = (text, ratio) => (
 		<p className='flex flex-col text-center whitespace-nowrap'>
 			<span className='font-light opacity-80'>{text}</span>
 			<span className='text-2xl text-secondary_blue'>{ratio} </span>
@@ -137,52 +144,52 @@ export default function AnalysisTable({ stockId }) {
 						<div className='flex justify-start w-full gap-6 px-4 py-3 overflow-x-auto bg-white rounded-lg shadow dark:bg-zinc-900/60'>
 							{selectedRatio === 0 ? (
 								<>
-									{renderRatio('負債比率', liabilityEquityStatement[liabilityEquityStatement.length - 1].debtRatio)}
-									{renderRatio(
+									{RatioCard('負債比率', liabilityEquityStatement[liabilityEquityStatement.length - 1].debtRatio)}
+									{RatioCard(
 										'長期資金佔固定資產比率',
 										assetStatement[assetStatement.length - 1].longTermLiabilitiesRatio
 									)}
 								</>
 							) : selectedRatio === 1 ? (
 								<>
-									{renderRatio('流動比率', assetStatement[assetStatement.length - 1].currentRatio)}
-									{renderRatio('速動比率', assetStatement[assetStatement.length - 1].quickRatio)}
-									{renderRatio(
+									{RatioCard('流動比率', assetStatement[assetStatement.length - 1].currentRatio)}
+									{RatioCard('速動比率', assetStatement[assetStatement.length - 1].quickRatio)}
+									{RatioCard(
 										'現金對流動負債比率',
 										cashFlowStatement[cashFlowStatement.length - 1].operatingCashFlowToCurrentLiabilitiesRatio
 									)}
-									{renderRatio(
+									{RatioCard(
 										'現金對負債比率',
 										cashFlowStatement[cashFlowStatement.length - 1].operatingCashFlowToLiabilitiesRatio
 									)}
-									{renderRatio('利息保障倍數', cashFlowStatement[cashFlowStatement.length - 1].interestCoverageRatio)}
+									{RatioCard('利息保障倍數', cashFlowStatement[cashFlowStatement.length - 1].interestCoverageRatio)}
 								</>
 							) : selectedRatio === 2 ? (
 								<>
-									{renderRatio(
+									{RatioCard(
 										'應收帳款週轉率',
 										assetStatement[assetStatement.length - 1].accountsAndNotesReceivableTurnoverRatio
 									)}
-									{renderRatio(
+									{RatioCard(
 										'平均收現天數',
 										Math.round(
 											365 /
 												parseFloat(assetStatement[assetStatement.length - 1].accountsAndNotesReceivableTurnoverRatio)
 										)
 									)}
-									{renderRatio('存貨週轉率', assetStatement[assetStatement.length - 1].inventoryTurnoverRatio)}
-									{renderRatio(
+									{RatioCard('存貨週轉率', assetStatement[assetStatement.length - 1].inventoryTurnoverRatio)}
+									{RatioCard(
 										'平均銷貨天數',
 										Math.round(365 / parseFloat(assetStatement[assetStatement.length - 1].inventoryTurnoverRatio))
 									)}
-									{renderRatio('固定資產週轉率', assetStatement[assetStatement.length - 1].fixedAssetsTurnoverRatio)}
-									{renderRatio('總資產週轉率', assetStatement[assetStatement.length - 1].assetsTurnoverRatio)}
+									{RatioCard('固定資產週轉率', assetStatement[assetStatement.length - 1].fixedAssetsTurnoverRatio)}
+									{RatioCard('總資產週轉率', assetStatement[assetStatement.length - 1].assetsTurnoverRatio)}
 								</>
 							) : selectedRatio === 3 ? (
 								<>
-									{renderRatio('資產報酬率', assetStatement[assetStatement.length - 1].roa)}
-									{renderRatio('股東權益報酬率', liabilityEquityStatement[liabilityEquityStatement.length - 1].roe)}
-									{renderRatio(
+									{RatioCard('資產報酬率', assetStatement[assetStatement.length - 1].roa)}
+									{RatioCard('股東權益報酬率', liabilityEquityStatement[liabilityEquityStatement.length - 1].roe)}
+									{RatioCard(
 										'財務槓桿指數',
 										(
 											Math.round(
@@ -192,8 +199,8 @@ export default function AnalysisTable({ stockId }) {
 											) / 100
 										).toFixed(2)
 									)}
-									{renderRatio('淨利率', incomeStatement[incomeStatement.length - 1].netIncomeMargin)}
-									{renderRatio('每股盈餘', incomeStatement[incomeStatement.length - 1].eps)}
+									{RatioCard('淨利率', incomeStatement[incomeStatement.length - 1].netIncomeMargin)}
+									{RatioCard('每股盈餘', incomeStatement[incomeStatement.length - 1].eps)}
 								</>
 							) : null}
 						</div>
@@ -1010,103 +1017,144 @@ export default function AnalysisTable({ stockId }) {
 					)}
 				</section>
 			)}
-			{/* 資產負債 */}
-			{assetStatement && liabilityEquityStatement && incomeStatement && cashFlowStatement && (
-				<div className='space-y-4'>
-					{assetStatement[assetStatement.length - 1] && (
-						<div className='px-4 py-3 bg-white rounded-lg shadow sm:w-72 dark:bg-zinc-900/60'>
-							<h5 className='px-1.5 mb-1 dark:text-zinc-800 py-0.5 flex-center-between bg-amber-200'>
-								<span>總資產</span>
-								<span className='text-base font-semibold'>
-									{parseInt(assetStatement[assetStatement.length - 1].assets).toLocaleString()}
-								</span>
-							</h5>
-							<p className='font-light opacity-80'>流動資產</p>
-							<div className='pl-2 border-l-4 flex-center-between border-primary_yellow'>
-								<div className='space-y-1'>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{parseInt(assetStatement[assetStatement.length - 1].cashAndCashEquivalents).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>現金及約當現金</span>
-									</p>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{parseInt(assetStatement[assetStatement.length - 1].shortTermInvestment).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>短期投資</span>
-									</p>
-								</div>
-								<div className='space-y-1'>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{parseInt(assetStatement[assetStatement.length - 1].accountsAndNotesReceivable).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>應收帳款及票據</span>
-									</p>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{parseInt(assetStatement[assetStatement.length - 1].inventories).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>存貨</span>
-									</p>
-								</div>
-							</div>
-						</div>
-					)}
-					{liabilityEquityStatement[liabilityEquityStatement.length - 1] && (
-						<div className='px-4 py-3 bg-white rounded-lg shadow sm:w-72 dark:bg-zinc-900/60'>
-							<h5 className='px-1.5 mb-1 dark:text-zinc-800 py-0.5 flex-center-between bg-red-300'>
-								<span>總負債</span>
-								<span className='text-base font-semibold'>
-									{parseInt(liabilityEquityStatement[liabilityEquityStatement.length - 1].liabilities).toLocaleString()}
-								</span>
-							</h5>
-							<p className='font-light opacity-80'>流動負債</p>
-							<div className='flex justify-between pl-2 border-l-4 border-red-400'>
-								<div className='space-y-1'>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{parseInt(
-												liabilityEquityStatement[liabilityEquityStatement.length - 1].shortTermBorrowings
-											).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>短期借款</span>
-									</p>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{(
-												parseInt(
-													liabilityEquityStatement[liabilityEquityStatement.length - 1].accountsAndNotesPayable
-												) + parseInt(liabilityEquityStatement[liabilityEquityStatement.length - 1].shortTermBorrowings)
-											).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>應付帳款及票據</span>
-									</p>
-								</div>
-								<div className='space-y-1'>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{parseInt(
-												liabilityEquityStatement[liabilityEquityStatement.length - 1].advanceReceipts
-											).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>預收款項</span>
-									</p>
-									<p className='flex flex-col text-sm leading-4'>
-										<span className='font-medium'>
-											{parseInt(
-												liabilityEquityStatement[liabilityEquityStatement.length - 1].longTermLiabilitiesCurrentPortion
-											).toLocaleString()}
-										</span>
-										<span className='text-xs font-light opacity-60'>一年內到期長期負債</span>
-									</p>
+			{/* 資產負債、估值 */}
+			<div className='flex justify-between gap-8'>
+				{/* 總資產、總負債 */}
+				{assetStatement && liabilityEquityStatement && incomeStatement && cashFlowStatement && (
+					<div className='space-y-2'>
+						{assetStatement[assetStatement.length - 1] && (
+							<div className='px-4 py-3 bg-white rounded-lg shadow sm:w-72 dark:bg-zinc-900/60'>
+								<h5 className='px-1.5 mb-1 dark:text-zinc-800 py-0.5 flex-center-between bg-amber-200'>
+									<span>總資產</span>
+									<span className='text-base font-semibold'>
+										{parseInt(assetStatement[assetStatement.length - 1].assets).toLocaleString()}
+									</span>
+								</h5>
+								<p className='font-light opacity-80'>流動資產</p>
+								<div className='pl-2 border-l-4 flex-center-between border-primary_yellow'>
+									<div className='space-y-1'>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{parseInt(assetStatement[assetStatement.length - 1].cashAndCashEquivalents).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>現金及約當現金</span>
+										</p>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{parseInt(assetStatement[assetStatement.length - 1].shortTermInvestment).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>短期投資</span>
+										</p>
+									</div>
+									<div className='space-y-1'>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{parseInt(
+													assetStatement[assetStatement.length - 1].accountsAndNotesReceivable
+												).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>應收帳款及票據</span>
+										</p>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{parseInt(assetStatement[assetStatement.length - 1].inventories).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>存貨</span>
+										</p>
+									</div>
 								</div>
 							</div>
-						</div>
-					)}
-				</div>
-			)}
+						)}
+						{liabilityEquityStatement[liabilityEquityStatement.length - 1] && (
+							<div className='px-4 py-3 bg-white rounded-lg shadow sm:w-72 dark:bg-zinc-900/60'>
+								<h5 className='px-1.5 mb-1 dark:text-zinc-800 py-0.5 flex-center-between bg-red-300'>
+									<span>總負債</span>
+									<span className='text-base font-semibold'>
+										{parseInt(
+											liabilityEquityStatement[liabilityEquityStatement.length - 1].liabilities
+										).toLocaleString()}
+									</span>
+								</h5>
+								<p className='font-light opacity-80'>流動負債</p>
+								<div className='flex justify-between pl-2 border-l-4 border-red-400'>
+									<div className='space-y-1'>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{parseInt(
+													liabilityEquityStatement[liabilityEquityStatement.length - 1].shortTermBorrowings
+												).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>短期借款</span>
+										</p>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{(
+													parseInt(
+														liabilityEquityStatement[liabilityEquityStatement.length - 1].accountsAndNotesPayable
+													) +
+													parseInt(liabilityEquityStatement[liabilityEquityStatement.length - 1].shortTermBorrowings)
+												).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>應付帳款及票據</span>
+										</p>
+									</div>
+									<div className='space-y-1'>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{parseInt(
+													liabilityEquityStatement[liabilityEquityStatement.length - 1].advanceReceipts
+												).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>預收款項</span>
+										</p>
+										<p className='flex flex-col text-sm leading-4'>
+											<span className='font-medium'>
+												{parseInt(
+													liabilityEquityStatement[liabilityEquityStatement.length - 1]
+														.longTermLiabilitiesCurrentPortion
+												).toLocaleString()}
+											</span>
+											<span className='text-xs font-light opacity-60'>一年內到期長期負債</span>
+										</p>
+									</div>
+								</div>
+							</div>
+						)}
+					</div>
+				)}
+				{/* 估值模型 */}
+				{valuationData[stockId] ? (
+					<TableContainer>
+						<Table>
+							<TableHead className='bg-secondary_blue'>
+								<TableRow className='dark:border-zinc-600'>
+									<TableCell className='dark:border-zinc-600' />
+									<TableCell align='right' className='text-white dark:border-zinc-600'>
+										Range
+									</TableCell>
+									<TableCell align='right' className='text-white dark:border-zinc-600'>
+										Selected
+									</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody className='dark:bg-zinc-800'>
+								{Object.keys(valuationData[stockId]).map((key) => (
+									<renderValuationRow
+										key={key}
+										label={key}
+										range={valuationData[stockId][key]['Range']}
+										selected={valuationData[stockId][key]['Selected']}
+									/>
+								))}
+							</TableBody>
+						</Table>
+					</TableContainer>
+				) : (
+					<div className='w-full flex-center'>
+						<h4>暫無估值模型數據...</h4>
+					</div>
+				)}
+			</div>
 			{/* 歷年財務報表 */}
 			{eReport && (
 				<section className='p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
@@ -1129,3 +1177,17 @@ export default function AnalysisTable({ stockId }) {
 		</div>
 	)
 }
+
+const renderValuationRow = ({ label, range, selected }) => (
+	<TableRow>
+		<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
+			{label}
+		</TableCell>
+		<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+			{range}
+		</TableCell>
+		<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
+			{selected}
+		</TableCell>
+	</TableRow>
+)

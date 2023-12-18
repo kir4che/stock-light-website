@@ -85,11 +85,7 @@ function ResultDashboard() {
 
 	useEffect(() => {
 		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
-	}, [resultStockInfo])
-
-	useEffect(() => {
-		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
-	}, [selectedTabIndex])
+	}, [resultStockInfo, selectedTabIndex])
 
 	return (
 		<StarryBackground className='pt-6 pb-10'>

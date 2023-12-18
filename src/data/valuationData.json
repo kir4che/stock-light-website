@@ -1,0 +1,74 @@
+{
+  "2330": {
+    "WACC / Discount Rate": {
+      "Range": "8.5% - 11.3%",
+      "Selected": "9.9%"
+    },
+    "Long-term Growth Rate": {
+      "Range": "1.0% - 3.0%",
+      "Selected": "2.0%"
+    },
+    "Fair Price": {
+      "Range": "416.6 - 738.3",
+      "Selected": "527.86"
+    },
+    "Upside": {
+      "Range": "-28.8% - 26.2%",
+      "Selected": "-9.8%"
+    }
+  },
+  "2345": {
+    "WACC / Discount Rate": {
+      "Range": "5.9% - 8.0%",
+      "Selected": "7.0%"
+    },
+    "Long-term Growth Rate": {
+      "Range": "2.5% - 4.5%",
+      "Selected": "3.5%"
+    },
+    "Fair Price": {
+      "Range": "317.56 - 1,119.87",
+      "Selected": "482.72"
+    },
+    "Upside": {
+      "Range": "-37.2% - 121.3%",
+      "Selected": "-4.6%"
+    }
+  },
+  "1802": {
+    "WACC / Discount Rate": {
+      "Range": "4.9% - 8.7%",
+      "Selected": "6.8%"
+    },
+    "Long-term Growth Rate": {
+      "Range": "2.5% - 4.5%",
+      "Selected": "3.5%"
+    },
+    "Fair Price": {
+      "Range": "(1.11) - 61.72",
+      "Selected": "3.11"
+    },
+    "Upside": {
+      "Range": "-105.8% - 224.0%",
+      "Selected": "-83.7%"
+    }
+  },
+  "2103": {
+    "WACC / Discount Rate": {
+      "Range": "4.3% - 5.7%",
+      "Selected": "5.0%"
+    },
+    "Long-term Growth Rate": {
+      "Range": "0.5% - 1.5%",
+      "Selected": "1.0%"
+    },
+    "Fair Price": {
+      "Range": "24.87 - 48.66",
+      "Selected": "33.18"
+    },
+    "Upside": {
+      "Range": "1.5% - 98.6%",
+      "Selected": "35.4%"
+    }
+  }
+}

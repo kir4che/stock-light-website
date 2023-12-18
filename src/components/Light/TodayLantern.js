@@ -13,15 +13,15 @@ export default function TodayLantern({ industry, resultStock, open, handleDialog
 					{industry}
 				</span>
 			</DialogTitle>
-			<DialogContent className='flex-col text-center flex-center-between sm:h-80 dark:text-zinc-100 dark:bg-zinc-900'>
-				<div className='grid grid-cols-2 gap-4 mb-4 place-content-center sm:gap-6 sm:mb-0 sm:grid-cols-5'>
+			<DialogContent className='flex-col text-center flex-center-between dark:text-zinc-100 dark:bg-zinc-900'>
+				<div className='grid grid-cols-2 gap-6 mb-10 sm:flex sm:gap-8 '>
 					{resultStock &&
 						resultStock.map((stock, index) => (
-							<div key={index}>
+							<div className='space-y-2' key={index}>
 								<Image src='/assets/lantern.png' width={120} height={120} alt='lantern' />
-								<h3 className='mt-3 font-semibold tracking-widest dark:text-white'>
+								<h4 className='font-semibold tracking-widest dark:text-white'>
 									{stock100.find((stock100) => stock100.stock_id === stock)?.name}
-								</h3>
+								</h4>
 							</div>
 						))}
 				</div>
