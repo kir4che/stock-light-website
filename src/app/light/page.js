@@ -37,6 +37,7 @@ export default function Light() {
 	const handleFactorSelect = async (factor) => {
 		try {
 			const isStockAvailable = await fetchStockByFactor(factor)
+			console.log(isStockAvailable)
 
 			if (isStockAvailable) {
 				setFactorOpen(false)
