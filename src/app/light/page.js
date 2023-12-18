@@ -49,6 +49,7 @@ export default function Light() {
 				const stockByIndustry = stock100
 					.filter((stock) => stock.industry === selectedIndustry)
 					.map((stock) => stock.stock_id)
+				console.log('stockByIndustry', stockByIndustry)
 				const filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
