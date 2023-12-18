@@ -99,7 +99,7 @@ export default function RagBot() {
 				}`}
 			>
 				{/* 對話框 */}
-				<div className='min-h-[240px] max-h-[360px] h-full p-4 overflow-y-auto'>
+				<div className='min-h-[240px] max-h-[420px] h-full p-4 overflow-y-auto'>
 					{chatHistory.map((message, index) => (
 						<div key={index} className='inline-block w-full'>
 							<div

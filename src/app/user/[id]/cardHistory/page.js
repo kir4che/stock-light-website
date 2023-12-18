@@ -2,6 +2,7 @@
 
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'

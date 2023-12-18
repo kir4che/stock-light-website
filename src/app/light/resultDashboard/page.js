@@ -48,13 +48,10 @@ function ResultDashboard() {
 			const data = await response.json()
 			if (data.success) {
 				const stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
-				console.log('stockByIndustry', stockByIndustry)
-
-				let filteredData = data.data.filter(function (entry) {
+				const filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
-				console.log('filteredData', filteredData)
-				let uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
+				const uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
 					filteredData.find((entry) => entry.stock_id === stock_id)
 				)
 				setResultStockInfo(uniqueFilteredData)

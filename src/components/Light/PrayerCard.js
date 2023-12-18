@@ -127,14 +127,15 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 			<Dialog open={cardOpen} maxWidth='md' align='center'>
 				<DialogContent className='dark:bg-zinc-900'>
 					{selectedCardLink && <Image src={selectedCardLink} width={680} height={360} alt='pray-card' />}
-					<Button
-						size='large'
-						onClick={handleCardSave}
-						className='mt-4 mb-2 px-10 py-2.5 font-bold tracking-wider rounded-full text-zinc-800 bg-primary_yellow'
-					>
-						保存您的祈福小卡
-					</Button>
-
+					{session.provider !== 'facebook' && session.provider !== 'google' && (
+						<Button
+							size='large'
+							onClick={handleCardSave}
+							className='mt-4 mb-2 px-10 py-2.5 font-bold tracking-wider rounded-full text-zinc-800 bg-primary_yellow'
+						>
+							保存您的祈福小卡
+						</Button>
+					)}
 					<SubmitBtn
 						text='查看本日光明燈'
 						handleSubmit={() => {
