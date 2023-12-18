@@ -30,20 +30,24 @@ export default function CardHistory() {
 	return (
 		<StarryBackground className='w-full px-4 pt-6 lg:pt-12 md:px-8 text-zinc-100'>
 			<Breadcrumbs prevPage='會員管理' curPage='我的小卡' />
-			<section className='flex flex-row items-start justify-center min-h-full mt-6'>
-				<div className='gap-10 card-grid'>
-					{cards.map((card) => (
-						<Link href={card.image_link} className='relative list-none card' key={card.card_id}>
-							<div className='card__background'>
-								<Image src={card.image_link} width={640} height={320} alt='card' />
-							</div>
-							<div className='absolute top-0 left-0 p-2'>
-								<p className='text-sm uppercase'>{card.create_date}</p>
-								<h3 className='card__category'>{card.type}</h3>
-							</div>
-						</Link>
-					))}
-				</div>
+			<section className='flex flex-row items-start min-h-full mt-6'>
+				{cards.length > 0 ? (
+					cards.map((card) => (
+						<div className='gap-10 card-grid'>
+							<Link href={card.image_link} className='relative list-none card' key={card.card_id}>
+								<div className='card__background'>
+									<Image src={card.image_link} width={640} height={320} alt='card' />
+								</div>
+								<div className='absolute top-0 left-0 p-2'>
+									<p className='text-sm uppercase'>{card.create_date}</p>
+									<h3 className='card__category'>{card.type}</h3>
+								</div>
+							</Link>
+						</div>
+					))
+				) : (
+					<p>暫無小卡，快到點燈系統保存一張吧！</p>
+				)}
 			</section>
 		</StarryBackground>
 	)
