@@ -46,7 +46,9 @@ export default function Light() {
 			const data = await response.json()
 			console.log(data)
 			if (data.success) {
-				const stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
+				const stockByIndustry = stock100
+					.filter((stock) => stock.industry === selectedIndustry)
+					.map((stock) => stock.stock_id)
 				const filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
