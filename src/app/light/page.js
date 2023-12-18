@@ -12,6 +12,7 @@ import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 import SubmitBtn from '@/components/ui/SubmitBtn'
+import stock100 from '@/data/stock100.json'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 
 export default function Light() {
