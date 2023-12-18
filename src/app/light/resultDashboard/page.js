@@ -46,6 +46,7 @@ function ResultDashboard() {
 			const response = await fetch(`${process.env.DB_URL}/api/stock/picking/${factor}`, {
 				method: 'GET',
 			})
+
 			const data = await response.json()
 			if (data.success) {
 				let stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
