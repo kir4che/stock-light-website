@@ -178,7 +178,7 @@ export default function Portfolio() {
 	}
 
 	return (
-		<StarryBackground className={'w-full pt-6 pb-12 sm:pt-10 sm:pb-20'}>
+		<StarryBackground className='w-full px-4 pt-6 pb-12 md:px-8 lg:px-20 xl:px-32 sm:pt-10 sm:pb-20'>
 			<Breadcrumbs prevPage='會員管理' curPage='會員投資組合' />
 			{/* 投資組合選單 */}
 			<Tabs
