@@ -51,24 +51,32 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 	}
 
 	const handleCardSave = async () => {
-		const response = await fetch(`${process.env.DB_URL}/api/user/insert/card`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: token,
-			},
-			body: JSON.stringify({
-				image_link: selectedCardLink,
-				type: industry,
-			}),
-		})
+		const currentDate = new Date().toLocaleDateString()
+		const lastSaveDate = localStorage.getItem('lastSaveCardDate')
 
-		const data = await response.json()
-		if (data.success) setSavedAlertOpen(true)
+		if (lastSaveDate !== currentDate) {
+			const response = await fetch(`${process.env.DB_URL}/api/user/insert/card`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: token,
+				},
+				body: JSON.stringify({
+					image_link: selectedCardLink,
+					type: industry,
+				}),
+			})
 
-		setTimeout(() => {
-			setSavedAlertOpen(false)
-		}, 1000)
+			const data = await response.json()
+			if (data.success) {
+				setSavedAlertOpen(true)
+				localStorage.setItem('lastSaveCardDate', currentDate)
+			}
+
+			setTimeout(() => {
+				setSavedAlertOpen(false)
+			}, 1000)
+		} else alert('每 24 小時才能保存一次小卡喔！')
 	}
 
 	useEffect(() => {
