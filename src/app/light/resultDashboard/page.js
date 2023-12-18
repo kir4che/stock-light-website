@@ -50,11 +50,11 @@ function ResultDashboard() {
 
 			if (data.success) {
 				let stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
-				console.log('stockByIndustry: ', stockByIndustry)
+				console.log('stockByIndustry', stockByIndustry)
 				let filteredData = data.data.filter(function (entry) {
 					return stockByIndustry.includes(entry.stock_id)
 				})
-				console.log('filteredData: ', filteredData)
+				console.log('filteredData', filteredData)
 				let uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
 					filteredData.find((entry) => entry.stock_id === stock_id)
 				)
