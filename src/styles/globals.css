@@ -344,12 +344,11 @@
 
 /* 蠟燭動畫 */
 .candle_wrapper {
-	@apply relative w-48 h-40 mx-auto;
+	@apply relative w-full h-40;
 }
 
 .candle {
-	@apply absolute bottom-0 left-0 right-0 m-auto top-16 h-44 bg-zinc-200;
-	width: 60px;
+	@apply absolute bottom-0 left-0 right-0 m-auto w-14 top-16 h-44 bg-zinc-200;
 	border-radius: 6px;
 }
 

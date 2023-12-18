@@ -34,7 +34,7 @@ export default function Footer() {
 					<p className='text-sm font-light text-center sm:mb-20 sm:text-left'>帶給所有投資人新的希望</p>
 				</div>
 				<div className='text-center lg:gap-8 lg:flex lg:text-left'>
-					<div className='-mt-2 scale-50 md:-mt-10 lg:mt-0 candle_wrapper -ml-12'>
+					<div className='-mt-2 scale-50 sm:-mt-20 lg:mt-0 candle_wrapper'>
 						<div className='candle_spark' />
 						<div className='candle_sparkling' />
 						<div className='candle' />
