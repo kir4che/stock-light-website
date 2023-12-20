@@ -6,15 +6,9 @@ const fetchStockData = async ({ stockId, setIsLoading }) => {
 	try {
 		const response = await fetch(`${process.env.DB_URL}/api/stock/all/info?stock_id=${stockId}`, {
 			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
 		})
-		console.log('test stock response', response)
+
 		const data = await response.json()
-
-		console.log('test stock data', data)
-
 		if (data.success) {
 			const dates = data.data.map((stock) => convertDateTime(stock.date).split(' ')[0])
 			const closingPrices = data.data.map((stock) => stock.closing_price)
