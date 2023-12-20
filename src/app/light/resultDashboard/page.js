@@ -54,6 +54,7 @@ function ResultDashboard() {
 				closePrice: price.closePrice,
 				change: price.change,
 			})
+
 			let pePb = await fetchStockPePb({ stockId, setIsLoading })
 			setStockPePb({
 				pb: pePb.p_b_ratio,
