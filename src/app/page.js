@@ -43,7 +43,7 @@ export default function Home() {
 							並從公開氣象局、政府公開資料平台抓取可用於分析的資料集
 						</>
 					}
-					imgSrc='/assets/home/stock-3.png'
+					imgSrc='/assets/home/stock-4.jpg'
 				/>
 				<article className='relative mt-20 mb-48 text-center'>
 					<div data-aos='fade-down' data-aos-duration='800' data-aos-once='true' className='z-10'>
