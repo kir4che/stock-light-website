@@ -16,6 +16,7 @@ import StarryBackground from '@/components/common/StarryBackground'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import stock100 from '@/data/stock100.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
+import fetchStockByFactor from '@/utils/fetchStockByFactor'
 import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
@@ -38,56 +39,28 @@ function ResultDashboard() {
 	})
 
 	// 取得該產業符合因子的股票
-	const fetchStockByFactor = async () => {
-		setIsLoading(true)
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/stock/picking/${factor}`, {
-				method: 'GET',
-			})
-
-			const data = await response.json()
-			if (data.success) {
-				const stockByIndustry = stock100.filter((stock) => stock.industry === industry).map((stock) => stock.stock_id)
-				const filteredData = data.data.filter(function (entry) {
-					return stockByIndustry.includes(entry.stock_id)
-				})
-				const uniqueFilteredData = Array.from(new Set(filteredData.map((entry) => entry.stock_id))).map((stock_id) =>
-					filteredData.find((entry) => entry.stock_id === stock_id)
-				)
-				setResultStockInfo(uniqueFilteredData)
-				setIsLoading(false)
-			}
-		} catch (error) {
-			console.error('Error: ', error)
-		}
-	}
-
-	// 取得股票資料
-	const fetchData = async (stockId) => {
-		const pePbData = await fetchStockPePb({ stockId, setIsLoading })
-		setStockPePb({
-			pb: pePbData.p_b_ratio,
-			pe: pePbData.p_e_ratio,
-		})
-		const stockData = await fetchStockData({ stockId, setIsLoading })
-		setStockPrice({
-			closePrice: [
-				stockData.closePrice[stockData.closePrice.length - 1],
-				stockData.closePrice[stockData.closePrice.length - 2],
-			],
-			change: [stockData.change[stockData.change.length - 1], stockData.change[stockData.change.length - 2]],
-		})
-	}
-
-	// useEffect(() => {
-	// 	token && fetchStockByIndustry()
-	// }, [token])
-
 	useEffect(() => {
-		fetchStockByFactor()
+		const fetchData = async (factor, industry) =>
+			setResultStockInfo(await fetchStockByFactor({ factor, industry, setIsLoading }))
+		fetchData(factor, industry)
 	}, [])
 
+	// 取得股票價格、PE/PB
 	useEffect(() => {
+		const fetchData = async (stockId) => {
+			let price = await fetchStockData({ stockId, setIsLoading })
+
+			setStockPrice({
+				closePrice: price.closePrice,
+				change: price.change,
+			})
+			let pePb = await fetchStockPePb({ stockId, setIsLoading })
+			setStockPePb({
+				pb: pePb.p_b_ratio,
+				pe: pePb.p_e_ratio,
+			})
+		}
+
 		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
 	}, [resultStockInfo, selectedTabIndex])
 

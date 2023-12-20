@@ -56,7 +56,7 @@
 }
 
 .team-card {
-	@apply w-full xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
+	@apply w-full xl:h-72 xl:w-[22%] lg:w-[36%] md:w-[45%] sm:w-[42%];
 }
 
 .team-card_content {
@@ -64,7 +64,7 @@
 }
 
 .team-card_img {
-	@apply object-cover object-center w-full h-64;
+	@apply object-cover object-center w-full xl:h-full h-72;
 }
 
 .team-card:hover .team-card_img,
@@ -73,7 +73,7 @@
 }
 
 .team-card:hover .team-card_back {
-	@apply block h-40 leading-relaxed duration-75;
+	@apply block h-full text-xs leading-5 duration-75;
 	animation: fade-in-left 0.6s cubic-bezier(0.39, 0.575, 0.565, 1) both;
 }
 

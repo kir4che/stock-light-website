@@ -12,7 +12,7 @@ import StarryBackground from '@/components/common/StarryBackground'
 import InputField from '@/components/ui/InputField'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 import SubmitBtn from '@/components/ui/SubmitBtn'
-import stock100 from '@/data/stock100.json'
+import fetchStockByFactor from '@/utils/fetchStockByFactor'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 
 export default function Light() {
@@ -20,6 +20,7 @@ export default function Light() {
 	const router = useRouter()
 	const uuid = uuidv4()
 
+	const [isLoading, setIsLoading] = useState(true)
 	const [selectedIndustry, setSelectedIndustry] = useState('')
 	const [factorOpen, setFactorOpen] = useState(false) // 選股視窗開關
 	const [selectedFactor, setSelectedFactor] = useState('') // 選股條件
@@ -35,34 +36,16 @@ export default function Light() {
 	}
 
 	// Step 2: 選擇選股條件，並確認該產業別是否有符合條件的股票
-	const handleFactorSelect = async (factor) => {
-		if (factor === null) throw new Error('factor is null!')
-
-		try {
-			const response = await fetch(`${process.env.DB_URL}/api/stock/picking/${factor}`, {
-				method: 'GET',
-			})
-
-			const data = await response.json()
-			if (data.success) {
-				const stockByIndustry = stock100
-					.filter((stock) => stock.industry === selectedIndustry)
-					.map((stock) => stock.stock_id)
-				console.log('stockByIndustry', stockByIndustry)
-				const filteredData = data.data.filter(function (entry) {
-					return stockByIndustry.includes(entry.stock_id)
-				})
-				console.log('filteredData', filteredData)
-
-				if (filteredData.length <= 0) alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
-				else {
-					setSelectedFactor(factor)
-					setFactorOpen(false)
-					setSponsorOpen(true)
-				}
+	const handleFactorSelect = async (factor, industry) => {
+		const stockIdByIndustry = (await fetchStockByFactor(factor, industry, setIsLoading)).map((entry) => entry.stock_id)
+		if (!isLoading && stockIdByIndustry) {
+			if (stockIdByIndustry.length <= 0) {
+				alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
+			} else {
+				setSelectedFactor(factor)
+				setFactorOpen(false)
+				setSponsorOpen(true)
 			}
-		} catch (error) {
-			console.error('Error:', error)
 		}
 	}
 
@@ -346,7 +329,8 @@ export default function Light() {
 														? 'currentRatio'
 														: factor === 'EPS > 0'
 														? 'EPS'
-														: null
+														: null,
+													selectedIndustry
 												)
 											}
 										>

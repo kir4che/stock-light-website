@@ -4,21 +4,19 @@ const fetchStockData = async ({ stockId, setIsLoading }) => {
 	setIsLoading(true)
 
 	try {
-		const response = await fetch(`${process.env.DB_URL}/api/stock/all/info`, { method: 'GET' })
-		let data = await response.json()
+		const response = await fetch(`${process.env.DB_URL}/api/stock/all/info/${stockId}`, { method: 'GET' })
+		const data = await response.json()
+
+		console.log(data)
 
 		if (data.success) {
-			const filteredData = data.data
-				.filter((stock) => stock.stock_id === stockId)
-				.sort((a, b) => new Date(a.date) - new Date(b.date))
-
-			const dates = filteredData.map((stock) => convertDateTime(stock.date).split(' ')[0])
-			const closingPrices = filteredData.map((stock) => stock.closing_price)
-			const openingPrices = filteredData.map((stock) => stock.opening_price)
-			const highestPrices = filteredData.map((stock) => stock.highest_price)
-			const lowestPrices = filteredData.map((stock) => stock.lowest_price)
-			const changes = filteredData.map((stock) => stock.change)
-			const volumes = filteredData.map((stock) => stock.trade_volume)
+			const dates = data.data.map((stock) => convertDateTime(stock.date).split(' ')[0])
+			const closingPrices = data.data.map((stock) => stock.closing_price)
+			const openingPrices = data.data.map((stock) => stock.opening_price)
+			const highestPrices = data.data.map((stock) => stock.highest_price)
+			const lowestPrices = data.data.map((stock) => stock.lowest_price)
+			const changes = data.data.map((stock) => stock.change)
+			const volumes = data.data.map((stock) => stock.trade_volume)
 
 			setIsLoading(false)
 

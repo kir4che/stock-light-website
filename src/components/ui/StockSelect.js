@@ -16,6 +16,9 @@ const StockSelect = ({ setSelect }) => {
 				bgcolor: isDarkMode ? '#18181b' : 'background.paper',
 				borderRadius: '0.25rem',
 				WebkitTextFillColor: isDarkMode ? '#f4f4f5' : '#27272a',
+				'& .MuiAutocomplete-popupIndicator': {
+					color: isDarkMode ? '#f4f4f5' : '#27272a',
+				},
 			}}
 			size='small'
 			renderInput={(params) => <TextField {...params} />}

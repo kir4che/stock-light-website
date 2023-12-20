@@ -55,7 +55,7 @@ export default function TaiexChart() {
 				</p>
 			</div>
 			{closeIndex ? (
-				<section className='flex items-baseline mb-4 space-x-1 tracking-wide'>
+				<section className='items-baseline mb-4 tracking-wide xs:space-x-1 xs:flex'>
 					<p
 						className={`text-4xl font-bold ${
 							closeIndex[closeIndex.length - 1] - closeIndex[closeIndex.length - 2] > 0

@@ -134,7 +134,7 @@ export default function PrayerCard({ industry, handleNextDialog }) {
 			<Dialog open={cardOpen} maxWidth='md' align='center'>
 				<DialogContent className='dark:bg-zinc-900'>
 					{selectedCardLink && <Image src={selectedCardLink} width={680} height={360} alt='pray-card' />}
-					{session.provider !== 'facebook' && session.provider !== 'google' && (
+					{session?.provider !== 'facebook' && session?.provider !== 'google' && (
 						<Button
 							size='large'
 							onClick={handleCardSave}
