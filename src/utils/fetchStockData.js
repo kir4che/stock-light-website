@@ -4,12 +4,11 @@ const fetchStockData = async ({ stockId, setIsLoading }) => {
 	setIsLoading(true)
 
 	try {
-		const response = await fetch(`${process.env.DB_URL}/api/stock/all/info`, {
+		const response = await fetch(`${process.env.DB_URL}/api/stock/all/info?stock_id=${stockId}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({ stock_id: stockId }),
 		})
 		console.log('test stock response', response)
 		const data = await response.json()
