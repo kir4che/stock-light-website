@@ -96,7 +96,7 @@ export default function FinancialSafety({ stockId, childOpen }) {
 								selectedChart === 0 ? ['負債比'] : ['長期資金佔固定資產比'],
 								selectedChart === 0 ? [debtRatio] : [longTermLiabilitiesRatio]
 							)}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>
@@ -116,7 +116,7 @@ export default function FinancialSafety({ stockId, childOpen }) {
 				<section className='space-y-4'>
 					<Chart
 						option={multiLineOption('流動比率及速動比率', dates, ['流動比率', '速動比率'], currentQuickRatio)}
-						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+						customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
 						<Table>
@@ -133,7 +133,7 @@ export default function FinancialSafety({ stockId, childOpen }) {
 				<section className='space-y-4'>
 					<Chart
 						option={multiLineOption('利息保障倍數', dates, ['利息保障倍數'], [interestCoverageRatio])}
-						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+						customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
 						<Table>
@@ -154,7 +154,7 @@ export default function FinancialSafety({ stockId, childOpen }) {
 							['營業現金對流動負債比', '營業現金對負債比'],
 							operatingCashFlowRatio
 						)}
-						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+						customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
 						<Table>
@@ -176,7 +176,7 @@ export default function FinancialSafety({ stockId, childOpen }) {
 							['營業現金對稅後淨利比'],
 							[operatingCashFlowToNetIncomeRatio]
 						)}
-						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+						customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
 						<Table>
@@ -192,7 +192,7 @@ export default function FinancialSafety({ stockId, childOpen }) {
 				<section className='space-y-4'>
 					<Chart
 						option={multiLineOption('盈餘再投資比率', dates, ['盈再率'], [reinvestmentRate])}
-						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+						customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
 						<Table>

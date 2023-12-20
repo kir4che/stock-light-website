@@ -1,7 +1,7 @@
 import { useDarkMode } from '@/providers/DarkModeProvider'
 import ReactEcharts from 'echarts-for-react'
 
-export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
+export default function Chart({ option, customHeight = 'h-88 xl:h-[540px] rounded shadow-md' }) {
 	const { isDarkMode } = useDarkMode()
 
 	const darkTheme = {
@@ -19,6 +19,7 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 			textStyle: {
 				color: '#fff',
 			},
+			type: 'scroll',
 		},
 		textStyle: {
 			color: '#ECF0F2',
@@ -135,7 +136,6 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 			},
 		},
 	}
-
 	const lightTheme = {
 		color: ['#4992ff', '#fddd60', '#ff6e76', '#05c091', '#ff8a45', '#8d48e3', '#dd79ff'],
 		backgroundColor: '#fff',
@@ -186,8 +186,7 @@ export default function Chart({ option, customHeight = 'h-88 xl:h-[540px]' }) {
 
 	return (
 		<ReactEcharts
-			id='echart'
-			className={`border rounded shadow-md dark:border-zinc-800 ${customHeight} pl-2 md:pl-0`}
+			className={`border dark:border-zinc-800 ${customHeight} pl-2 md:pl-0`}
 			option={option}
 			theme={isDarkMode ? darkTheme : lightTheme}
 			style={{

@@ -10,9 +10,10 @@ export function candlestickOptionByMA(
 ) {
 	const option = {
 		legend: {
-			bottom: '1%',
+			bottom: '3.6%',
 			left: 'center',
 			data: ['5MA', '10MA', '20MA', '60MA', '120MA', '240MA'],
+			type: 'scroll',
 		},
 		xAxis: [
 			{
@@ -192,10 +193,10 @@ export function candlestickOptionByMA(
 				top: '6%',
 				left: '4.75%',
 				right: '3%',
-				height: '60%',
+				height: '56%',
 			},
 			{
-				top: '72%',
+				top: '68%',
 				left: '4.5%',
 				right: '3%',
 				height: '18%',
@@ -235,9 +236,10 @@ export function candlestickOptionByEMA(
 ) {
 	const option = {
 		legend: {
-			bottom: '1%',
+			bottom: '3.6%',
 			left: 'center',
 			data: ['5EMA', '10EMA', '20EMA', '60EMA', '120EMA', '240EMA'],
+			type: 'scroll',
 		},
 		xAxis: [
 			{
@@ -417,10 +419,10 @@ export function candlestickOptionByEMA(
 				top: '6%',
 				left: '4.75%',
 				right: '3%',
-				height: '60%',
+				height: '56%',
 			},
 			{
-				top: '72%',
+				top: '68%',
 				left: '4.5%',
 				right: '3%',
 				height: '18%',
@@ -460,9 +462,10 @@ export function candlestickOptionByBoll(
 ) {
 	const option = {
 		legend: {
-			bottom: '1%',
+			bottom: '3.6%',
 			left: 'center',
 			data: ['上', '20MA', '下'],
+			type: 'scroll',
 		},
 		xAxis: [
 			{
@@ -618,10 +621,10 @@ export function candlestickOptionByBoll(
 				top: '6%',
 				left: '4.75%',
 				right: '3%',
-				height: '60%',
+				height: '56%',
 			},
 			{
-				top: '72%',
+				top: '68%',
 				left: '4.5%',
 				right: '3%',
 				height: '18%',

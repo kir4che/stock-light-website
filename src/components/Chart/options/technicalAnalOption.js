@@ -13,6 +13,7 @@ export function macdOption(dateData, closePriceData, dataZoomRange, handleDataZo
 			bottom: '2%',
 			left: 'center',
 			data: ['MACD', 'DIF', 'D-M'],
+			type: 'scroll',
 		},
 		xAxis: [
 			{
@@ -104,6 +105,7 @@ export function kdOption(dateData, closePriceData, lowPriceData, highPriceData, 
 			bottom: '2%',
 			left: 'center',
 			data: ['K', 'D'],
+			type: 'scroll',
 		},
 		xAxis: [
 			{
@@ -170,6 +172,7 @@ export function rsiOption(dateData, changeData, dataZoomRange, handleDataZoomCha
 			bottom: '2%',
 			left: 'center',
 			data: ['RSI5', 'RSI10'],
+			type: 'scroll',
 		},
 		xAxis: [
 			{
@@ -304,6 +307,7 @@ export function biasOption(dateData, closePriceData, dataZoomRange, handleDataZo
 			bottom: '2%',
 			left: 'center',
 			data: ['BIAS10', 'BIAS20', 'B10-B20'],
+			type: 'scroll',
 		},
 		xAxis: [
 			{

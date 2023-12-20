@@ -70,5 +70,23 @@
       "Range": "1.5% - 98.6%",
       "Selected": "35.4%"
     }
+  },
+  "3034": {
+    "WACC / Discount Rate": {
+      "Range": "6.8% - 9.4%",
+      "Selected": "8.1%"
+    },
+    "Long-term Growth Rate": {
+      "Range": "0.5% - 1.5%",
+      "Selected": "1.0%"
+    },
+    "Fair Price": {
+      "Range": "609.23 - 939.52",
+      "Selected": "732.90"
+    },
+    "Upside": {
+      "Range": "19.5% - 84.2%",
+      "Selected": "43.7%"
+    }
   }
 }

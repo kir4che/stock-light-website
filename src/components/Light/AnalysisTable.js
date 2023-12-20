@@ -113,14 +113,14 @@ export default function AnalysisTable({ stockId }) {
 	)
 
 	return (
-		<div className='flex flex-col gap-4'>
+		<div className='flex flex-col gap-6'>
 			{/* 財報比率 */}
 			{assetStatement[assetStatement.length - 1] &&
 				liabilityEquityStatement[liabilityEquityStatement.length - 1] &&
 				incomeStatement[incomeStatement.length - 1] &&
 				cashFlowStatement[cashFlowStatement.length - 1] && (
 					<section className='flex flex-col space-y-2'>
-						<div className='space-y-2 sm:space-y-0 sm:gap-4 sm:flex'>
+						<div className='space-y-2 sm:space-y-0 sm:gap-2 sm:flex'>
 							<h4>
 								{assetStatement[assetStatement.length - 1].year} Q{assetStatement[assetStatement.length - 1].quarter}{' '}
 								財務比率
@@ -128,7 +128,7 @@ export default function AnalysisTable({ stockId }) {
 							<section className='mb-2 space-x-1 text-sm'>
 								{['財務結構', '償債能力', '經營能力', '獲利能力'].map((item, index) => (
 									<button
-										className={`px-4 py-1 dark:border-zinc-500 border rounded-full ${
+										className={`px-3 py-1 dark:border-zinc-500 border rounded-full ${
 											selectedRatio === index
 												? 'bg-amber-200 dark:bg-amber-200 dark:text-zinc-800 border-none hover:bg-amber-300/80'
 												: 'hover:bg-zinc-100/50 bg-white dark:bg-zinc-800 dark:hover:bg-zinc-900/60'
@@ -354,15 +354,16 @@ export default function AnalysisTable({ stockId }) {
 			</div>
 			{/* 損益表 */}
 			{incomeStatement && (
-				<>
+				<div>
 					<h4 className='flex items-center mb-2 font-medium sm:-mt-6'>損益表</h4>
 					{/* 營收、毛利... */}
-					<section className='mb-4 space-y-4 sm:space-y-0 sm:gap-4 lg:gap-6 sm:flex'>
+					<section className='mb-6 space-y-4 md:space-y-0 md:gap-4 lg:gap-6 md:flex'>
 						<Chart
 							option={{
 								legend: {
 									data: ['營業收入', '營業成本', '毛利率'],
-									top: '2%',
+									bottom: '1%',
+									type: 'scroll',
 								},
 								xAxis: [
 									{
@@ -435,26 +436,30 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '16%',
-									left: '12%',
-									right: '8%',
-									height: '70%',
-								},
-								toolbox: {
-									feature: {
-										saveAsImage: { show: true },
-									},
-									top: '1.5%',
-									right: '0.5%',
+									top: '15%',
+									left:
+										window.innerWidth > 1024
+											? '14%'
+											: window.innerWidth > 614 && window.innerWidth < 800
+											? '9%'
+											: window.innerWidth > 520
+											? '10%'
+											: window.innerWidth > 450
+											? '12%'
+											: '14%',
+									right:
+										window.innerWidth > 1024 ? '7%' : window.innerWidth > 614 && window.innerWidth < 800 ? '6%' : '8%',
+									height: window.innerWidth > 1024 ? '66%' : '62%',
 								},
 							}}
-							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
+							customHeight='h-64 bg-white border-none lg:h-72 rounded-lg'
 						/>
 						<Chart
 							option={{
 								legend: {
 									data: ['毛利', '營業費用', '淨利率'],
-									top: '2%',
+									bottom: '1%',
+									type: 'scroll',
 								},
 								xAxis: [
 									{
@@ -527,20 +532,23 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '16%',
-									left: '12%',
-									right: '8%',
-									height: '70%',
-								},
-								toolbox: {
-									feature: {
-										saveAsImage: { show: true },
-									},
-									top: '1.5%',
-									right: '0.5%',
+									top: '15%',
+									left:
+										window.innerWidth > 1024
+											? '14%'
+											: window.innerWidth > 614 && window.innerWidth < 800
+											? '9%'
+											: window.innerWidth > 520
+											? '10%'
+											: window.innerWidth > 450
+											? '12%'
+											: '14%',
+									right:
+										window.innerWidth > 1024 ? '7%' : window.innerWidth > 614 && window.innerWidth < 800 ? '6%' : '8%',
+									height: window.innerWidth > 1024 ? '66%' : '62%',
 								},
 							}}
-							customHeight='h-64 sm:h-56 bg-white border-none md:h-60 lg:h-80 rounded-lg'
+							customHeight='h-64 bg-white border-none lg:h-72 rounded-lg'
 						/>
 					</section>
 					<div className='flex-col w-full gap-2 xl:gap-0 flex-center-between xl:flex-row'>
@@ -549,7 +557,7 @@ export default function AnalysisTable({ stockId }) {
 							<section className='flex self-start justify-between gap-1.5 w-full overflow-x-auto xl:flex-col'>
 								{['毛利率', '營業費用率', '稅前淨利率', '稅後淨利率'].map((margin) => (
 									<div
-										className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[240px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'
+										className='px-4 pb-1 space-y-2 bg-white rounded-lg shadow min-w-[258px] xl:w-[16.4rem] flex-center-between dark:bg-zinc-900/60'
 										key={margin}
 									>
 										<p className='mr-3 font-light opacity-80'>{margin}</p>
@@ -619,13 +627,14 @@ export default function AnalysisTable({ stockId }) {
 							</section>
 						)}
 						{/* EPS */}
-						<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow xl:min-w-[75%] dark:bg-zinc-900/60'>
+						<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow xl:min-w-[74%] dark:bg-zinc-900/60'>
 							<h4 className='flex items-center font-medium'>每股盈餘 (EPS)</h4>
 							<Chart
 								option={{
 									legend: {
 										data: ['EPS', 'EPS季增率', 'EPS年增率'],
 										bottom: '0',
+										type: 'scroll',
 									},
 									xAxis: [
 										{
@@ -691,30 +700,43 @@ export default function AnalysisTable({ stockId }) {
 										},
 									},
 									grid: {
-										top: '10%',
-										left: '4%',
-										right: '7%',
-										height: '70%',
-									},
-									toolbox: {
-										feature: {
-											saveAsImage: { show: true },
-										},
-										top: '1.5%',
-										right: '0.5%',
+										top: window.innerWidth > 1024 ? '10%' : '12%',
+										left:
+											window.innerWidth > 768
+												? '4%'
+												: window.innerWidth > 520
+												? '6%'
+												: window.innerWidth > 414
+												? '7%'
+												: window.innerWidth > 375
+												? '7.5%'
+												: '9%',
+										right:
+											window.innerWidth > 1024
+												? '5%'
+												: window.innerWidth > 768
+												? '6%'
+												: window.innerWidth > 520
+												? '8%'
+												: window.innerWidth > 414
+												? '10%'
+												: window.innerWidth > 375
+												? '11.5%'
+												: '9%',
+										height: window.innerWidth > 1024 ? '72%' : window.innerWidth > 520 ? '70%' : '68%',
 									},
 								}}
-								customHeight='h-64 sm:h-56 border-none shadow-none md:h-60 lg:h-80'
+								customHeight='h-72 sm:h-80 border-none shadow-none lg:h-88'
 							/>
 						</section>
 					</div>
-				</>
+				</div>
 			)}
 			{/* 杜邦分析：ROE、ROA */}
 			{incomeStatement && assetStatement && liabilityEquityStatement && (
 				<section className='w-full p-4 space-y-2 bg-white rounded-lg shadow dark:bg-zinc-900/60'>
-					<div className='flex-center-between'>
-						<h4 className='flex items-center font-medium'>
+					<div className='space-y-1.5 sm:space-y-0 sm:flex sm:justify-between sm:items-center'>
+						<h4>
 							{selectedChart === 0
 								? 'ROA / ROE'
 								: selectedChart === 1
@@ -762,6 +784,7 @@ export default function AnalysisTable({ stockId }) {
 								legend: {
 									data: ['總資產', '股東權益', '稅後淨利', 'ROE', 'ROA'],
 									bottom: '0',
+									type: 'scroll',
 								},
 								xAxis: [
 									{
@@ -852,20 +875,42 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: '14%',
-									left: '8%',
-									right: '4%',
-									height: '68%',
+									top: window.innerWidth > 1024 ? '15%' : window.innerWidth > 576 ? '19%' : '20%',
+									left:
+										window.innerWidth > 1024
+											? '7%'
+											: window.innerWidth > 768
+											? '9%'
+											: window.innerWidth > 576
+											? '10%'
+											: window.innerWidth > 480
+											? '13%'
+											: window.innerWidth > 414
+											? '15%'
+											: '17%',
+									right:
+										window.innerWidth > 768
+											? '4%'
+											: window.innerWidth > 576
+											? '5%'
+											: window.innerWidth > 480
+											? '6%'
+											: window.innerWidth > 414
+											? '7%'
+											: '8%',
+									height: window.innerWidth > 1024 ? '69%' : window.innerWidth > 768 ? '65%' : '61%',
 								},
 								toolbox: {
 									feature: {
+										magicType: { show: true, type: ['line', 'bar'] },
+										restore: { show: true },
 										saveAsImage: { show: true },
 									},
-									top: '1.5%',
+									top: '-2%',
 									right: '0.5%',
 								},
 							}}
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
+							customHeight='h-72 sm:h-80 border-none shadow-none lg:h-88'
 						/>
 					) : selectedChart === 1 ? (
 						<Chart
@@ -873,6 +918,7 @@ export default function AnalysisTable({ stockId }) {
 								legend: {
 									data: ['稅後淨利率', '總資產週轉率', '權益乘數', 'ROE'],
 									bottom: '0',
+									type: 'scroll',
 								},
 								xAxis: [
 									{
@@ -944,9 +990,27 @@ export default function AnalysisTable({ stockId }) {
 								},
 								grid: {
 									top: '14%',
-									left: '5%',
-									right: '5%',
-									height: '68%',
+									left:
+										window.innerWidth > 1024
+											? '3%'
+											: window.innerWidth > 520
+											? '5%'
+											: window.innerWidth > 414
+											? '6%'
+											: window.innerWidth > 375
+											? '7%'
+											: '9%',
+									right:
+										window.innerWidth > 1024
+											? '3%'
+											: window.innerWidth > 520
+											? '5%'
+											: window.innerWidth > 430
+											? '6%'
+											: window.innerWidth > 375
+											? '7%'
+											: '9%',
+									height: window.innerWidth > 1024 ? '69%' : '65%',
 								},
 								toolbox: {
 									feature: {
@@ -954,7 +1018,7 @@ export default function AnalysisTable({ stockId }) {
 										restore: { show: true },
 										saveAsImage: { show: true },
 									},
-									top: '1.5%',
+									top: '-2%',
 									right: '0.5%',
 								},
 							}}
@@ -996,9 +1060,9 @@ export default function AnalysisTable({ stockId }) {
 								},
 								grid: {
 									top: '14%',
-									left: '4%',
-									right: '3%',
-									height: '72%',
+									left: window.innerWidth > 1024 ? '4%' : window.innerWidth > 520 ? '6%' : '9.6%',
+									right: window.innerWidth > 1024 ? '1%' : '2%',
+									height: '75%',
 								},
 								toolbox: {
 									feature: {
@@ -1006,19 +1070,17 @@ export default function AnalysisTable({ stockId }) {
 										restore: { show: true },
 										saveAsImage: { show: true },
 									},
-									top: '1.5%',
+									top: '-2%',
 									right: '0.5%',
 								},
 							}}
-							customHeight='h-64 border-none shadow-none md:h-80 lg:h-88'
+							customHeight='h-72 sm:h-80 border-none shadow-none lg:h-88'
 						/>
-					) : (
-						''
-					)}
+					) : null}
 				</section>
 			)}
 			{/* 資產負債、估值 */}
-			<div className='flex justify-between gap-8'>
+			<div className='flex flex-col justify-between gap-8 sm:flex-row'>
 				{/* 總資產、總負債 */}
 				{assetStatement && liabilityEquityStatement && incomeStatement && cashFlowStatement && (
 					<div className='space-y-2'>
@@ -1125,22 +1187,22 @@ export default function AnalysisTable({ stockId }) {
 				{/* 估值模型 */}
 				{valuationData[stockId] ? (
 					<TableContainer>
-						<Table className='shadow'>
+						<Table className='border shadow dark:border-zinc-700'>
 							<TableHead className='bg-secondary_blue'>
 								<TableRow className='dark:border-zinc-600'>
 									<TableCell className='dark:border-zinc-600' />
 									<TableCell align='right' className='text-white dark:border-zinc-600'>
-										Range
+										範圍
 									</TableCell>
 									<TableCell align='right' className='text-white dark:border-zinc-600'>
-										Selected
+										選擇
 									</TableCell>
 								</TableRow>
 							</TableHead>
 							<TableBody className='dark:bg-zinc-800'>
 								<TableRow>
 									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
-										WACC / Discount Rate
+										WACC / 折現率
 									</TableCell>
 									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
 										{valuationData[stockId]['WACC / Discount Rate']['Range']}
@@ -1151,7 +1213,7 @@ export default function AnalysisTable({ stockId }) {
 								</TableRow>
 								<TableRow>
 									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
-										Long-term Growth Rate
+										長期增長率
 									</TableCell>
 									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
 										{valuationData[stockId]['Long-term Growth Rate']['Range']}
@@ -1162,7 +1224,7 @@ export default function AnalysisTable({ stockId }) {
 								</TableRow>
 								<TableRow>
 									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
-										Fair Price
+										公平價格
 									</TableCell>
 									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
 										{valuationData[stockId]['Fair Price']['Range']}
@@ -1173,7 +1235,7 @@ export default function AnalysisTable({ stockId }) {
 								</TableRow>
 								<TableRow>
 									<TableCell component='th' scope='row' className='dark:text-zinc-100 dark:border-zinc-600'>
-										Upside
+										上漲空間
 									</TableCell>
 									<TableCell align='right' className='dark:text-zinc-100 dark:border-zinc-600'>
 										{valuationData[stockId]['Upside']['Range']}

@@ -125,7 +125,7 @@ export default function WeatherAnalysis() {
 						<section className='flex flex-wrap items-start space-y-4'>
 							<Chart
 								option={linearRegOption(stockName, weatherType, weather, stockPrice)}
-								customHeight='h-72 md:h-[450px] xl:h-[560px]'
+								customHeight='h-88 md:h-[450px] xl:h-[560px]'
 							/>
 							<DataGrid
 								sx={{ height: 120, pl: 0, pr: 0.1, pt: 0, pb: 1 }}

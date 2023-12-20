@@ -54,18 +54,11 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 				encode: { label: 2, tooltip: 1 },
 			},
 		],
-		toolbox: {
-			feature: {
-				saveAsImage: { show: true },
-			},
-			top: '1.5%',
-			right: '0.5%',
-		},
 		grid: {
-			top: '15%',
-			left: '5%',
-			right: '6%',
-			height: '75%',
+			top: window.innerWidth > 768 ? '15%' : window.innerWidth > 576 ? '18%' : '24%',
+			left: window.innerWidth > 576 ? '5%' : '8%',
+			right: window.innerWidth > 768 ? '7%' : window.innerWidth > 576 ? '9%' : '14%',
+			height: window.innerWidth > 768 ? '76%' : window.innerWidth > 576 ? '72%' : '66%',
 		},
 	}
 

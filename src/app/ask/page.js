@@ -39,7 +39,7 @@ export default function ChatBot() {
 	const [chatHistory, setChatHistory] = useState([
 		{
 			role: 'assitant',
-			content: '您好！我是股市 AI，請問有什麼可以幫助您的嗎？',
+			content: '您好！我是諮詢股神，請問有什麼可以幫助您的嗎？',
 		},
 	])
 	const [isBotTyping, setIsBotTyping] = useState(false)
@@ -133,13 +133,13 @@ export default function ChatBot() {
 						<DialogTitle>您選中的神明是</DialogTitle>
 						<DialogContent className='px-8 space-y-1'>
 							<Image src={`/assets/gods/god-${selectedGod + 1}.jpg`} alt='god' width={200} height={200} />
-							<p>將在 3 秒後進入股市 AI 聊天室...</p>
+							<p>將在 3 秒後進入諮詢股神 聊天室...</p>
 						</DialogContent>
 					</Dialog>
 				</div>
 			) : (
 				<div className='flex flex-col justify-between h-full'>
-					<h2 className='text-center text-white'>股市 AI</h2>
+					<h2 className='text-center text-white'>諮詢股神</h2>
 					<div className='flex flex-col justify-between h-full max-h-[calc(100vh-180px)]'>
 						{/* 對話框 */}
 						<div className='px-10 py-4 overflow-y-auto md:px-16 lg:px-24 xl:px-48'>
@@ -154,7 +154,7 @@ export default function ChatBot() {
 											{message.role === 'assitant' && (
 												<>
 													<p className='space-x-2 text-xs'>
-														<span className='font-medium'>股市 AI</span>
+														<span className='font-medium'>諮詢股神</span>
 														<span className='px-2 py-0.5 border-secondary_blue text-secondary_blue bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'>
 															ChatGPT
 														</span>
@@ -198,7 +198,7 @@ export default function ChatBot() {
 									placeholder='詢問任何問題...'
 									autoComplete='off'
 									autoFocus={true}
-									className='w-full py-2 pl-5 pr-16 border-2 rounded-full bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-100 placeholder-zinc-600 dark:placeholder-zinc-400 text-md focus:outline-none focus:placeholder-zinc-400 dark:focus:placeholder-zinc-600 focus:border-sky-500 dark:focus:border-sky-500'
+									className='w-full py-2 pl-5 border-2 rounded-full bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-100 placeholder-zinc-600 dark:placeholder-zinc-400 text-md focus:outline-none focus:placeholder-zinc-400 dark:focus:placeholder-zinc-600 focus:border-sky-500 dark:focus:border-sky-500'
 									ref={inputRef}
 								/>
 								<div className='absolute inset-y-0 flex items-center right-2'>

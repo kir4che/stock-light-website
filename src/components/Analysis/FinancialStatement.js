@@ -236,7 +236,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 											},
 										},
 									})}
-									customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+									customHeight='h-80 sm:h-88 lg:h-[420px] xl:h-[520px]'
 								/>
 								<div className='overflow-x-auto'>
 									<Table size='medium'>
@@ -296,7 +296,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 											},
 										}
 									)}
-									customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+									customHeight='h-80 sm:h-88 lg:h-[420px] xl:h-[520px]'
 								/>
 								<div className='overflow-x-auto'>
 									<Table>
@@ -328,7 +328,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 					return (
 						<section className='space-y-4'>
 							<Chart
-								option={groupedBarOption('每股盈餘(EPS)', [['季度', 'Q1', 'Q2', 'Q3', 'Q4'], ...navByYear], {
+								option={groupedBarOption('每股淨值', [['季度', 'Q1', 'Q2', 'Q3', 'Q4'], ...navByYear], {
 									type: 'value',
 									name: '元',
 									alignTicks: true,
@@ -338,7 +338,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 										},
 									},
 								})}
-								customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+								customHeight='h-80 sm:h-88 lg:h-[420px] xl:h-[520px]'
 							/>
 							<div className='overflow-x-auto'>
 								<Table>
@@ -370,7 +370,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 								},
 							}
 						)}
-						customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+						customHeight='h-80 sm:h-88 lg:h-[420px] xl:h-[520px]'
 					/>
 					<div className='overflow-x-auto'>
 						<Table>
@@ -428,7 +428,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 									},
 								}
 							)}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>
@@ -501,7 +501,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 									},
 								}
 							)}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>
@@ -571,7 +571,7 @@ export default function FinancialStatement({ stockId, childOpen }) {
 									},
 								}
 							)}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-80 sm:h-88 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>

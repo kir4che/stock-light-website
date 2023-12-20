@@ -131,7 +131,7 @@ export default function Profitability({ stockId, childOpen }) {
 								selectedChart === 0 ? ['毛利率', '營業利益率', '稅前淨利率', '稅後淨利率'] : ['所得稅佔稅前淨利比'],
 								selectedChart === 0 ? profitRatio : [taxToProfitRatio]
 							)}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>
@@ -218,7 +218,7 @@ export default function Profitability({ stockId, childOpen }) {
 								['ROE', 'ROA'],
 								selectedChart === 0 ? [roe, roa] : [roeT4Q, roaT4Q]
 							)}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>
@@ -279,7 +279,7 @@ export default function Profitability({ stockId, childOpen }) {
 											selectedChart === 1 ? faTurnover : assetTurnover
 									  )
 							}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>

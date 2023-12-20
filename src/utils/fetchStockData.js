@@ -20,21 +20,6 @@ const fetchStockData = async ({ stockId, setIsLoading }) => {
 
 			setIsLoading(false)
 
-			console.log({
-				date: dates,
-				price: highestPrices.map((_, index) => [
-					closingPrices[index],
-					openingPrices[index],
-					lowestPrices[index],
-					highestPrices[index],
-				]),
-				closePrice: closingPrices,
-				highPrice: highestPrices,
-				lowPrice: lowestPrices,
-				change: changes,
-				volume: volumes,
-			})
-
 			return {
 				date: dates,
 				price: highestPrices.map((_, index) => [

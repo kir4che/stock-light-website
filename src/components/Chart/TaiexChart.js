@@ -152,9 +152,9 @@ export default function TaiexChart() {
 						},
 						grid: {
 							top: '8%',
-							left: '7%',
+							left: window.innerWidth > 768 ? '7%' : window.innerWidth > 576 ? '12%' : '14%',
 							right: '4%',
-							height: '82%',
+							height: window.innerWidth > 768 ? '82%' : '78%',
 						},
 					}}
 					customHeight='h-72 md:h-[400px] xl:h-[520px]'

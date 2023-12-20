@@ -27,6 +27,7 @@ export function barAndLineOption(text, date, dataName, data) {
 		legend: {
 			data: dataName,
 			bottom: '3%',
+			type: 'scroll',
 		},
 		xAxis: {
 			type: 'category',
@@ -68,13 +69,26 @@ export function barAndLineOption(text, date, dataName, data) {
 			},
 		},
 		grid: {
-			top: '15%',
-			left: '8%',
-			right: '12%',
-			height: '67%',
+			top: window.innerWidth > 1024 ? '14%' : window.innerWidth > 576 ? '18%' : '20%',
+			left:
+				window.innerWidth > 1024
+					? '8%'
+					: window.innerWidth > 768
+					? '10%'
+					: window.innerWidth > 576
+					? '12%'
+					: window.innerWidth > 480
+					? '14%'
+					: window.innerWidth > 414
+					? '18%'
+					: '22%',
+			right: window.innerWidth > 576 ? '3%' : '4%',
+			height: window.innerWidth > 1024 ? '76%' : window.innerWidth > 768 ? '70%' : '68%',
 		},
 		toolbox: {
 			feature: {
+				magicType: { show: window.innerWidth > 576, type: ['line', 'bar'] },
+				restore: { show: window.innerWidth > 576 },
 				saveAsImage: { show: true },
 			},
 			top: '1.5%',

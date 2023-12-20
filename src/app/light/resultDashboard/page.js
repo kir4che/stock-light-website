@@ -49,10 +49,9 @@ function ResultDashboard() {
 	useEffect(() => {
 		const fetchData = async (stockId) => {
 			let price = await fetchStockData({ stockId, setIsLoading })
-			console.log('price', price)
 			setStockPrice({
-				closePrice: price.closePrice,
-				change: price.change,
+				closePrice: [price.closePrice[price.closePrice.length - 1], price.closePrice[price.closePrice.length - 2]],
+				change: [price.change[price.change.length - 1], price.change[price.change.length - 2]],
 			})
 			let pePb = await fetchStockPePb({ stockId, setIsLoading })
 			setStockPePb({
@@ -179,7 +178,12 @@ function ResultDashboard() {
 					)}
 				</section>
 			</div>
-			<RagBot />
+			{resultStockInfo && (
+				<RagBot
+					stockId={resultStockInfo[selectedTabIndex].stock_id}
+					stockName={stock100.find((stock) => stock.stock_id === resultStockInfo[selectedTabIndex].stock_id)?.name}
+				/>
+			)}
 		</StarryBackground>
 	)
 }

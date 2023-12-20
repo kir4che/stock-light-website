@@ -71,7 +71,7 @@ export default function CompanyGrowth({ stockId, childOpen }) {
 								selectedChart === 0 ? ['單季EPS年增率', '近四季EPS年增率'] : ['單季EPS季增率', '近四季EPS季增率'],
 								selectedChart === 0 ? epsYOYs : epsQOQs
 							)}
-							customHeight='h-60 md:h-88 lg:h-[420px] xl:h-[520px]'
+							customHeight='h-72 sm:h-80 lg:h-[420px] xl:h-[520px]'
 						/>
 						<div className='overflow-x-auto'>
 							<Table>

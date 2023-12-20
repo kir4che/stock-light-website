@@ -32,6 +32,7 @@ const nextConfig = {
 		EMAIL_TEMPLATE_ID: process.env.EMAIL_TEMPLATE_ID,
 		OPENAI_API_KEY: process.env.OPENAI_API_KEY,
 		OPENAI_API_KEY_RAG: process.env.OPENAI_API_KEY_RAG,
+		OPENAI_ASSISTANT_ID: process.env.OPENAI_ASSISTANT_ID,
 	},
 }
 

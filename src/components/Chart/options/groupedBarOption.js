@@ -29,15 +29,38 @@ export function groupedBarOption(text, data, unit = { type: 'value' }) {
 			},
 		},
 		grid: {
-			top: '15%',
-			left: '8%',
-			right: '3%',
-			height: '75%',
+			top: window.innerWidth > 1024 ? '14%' : window.innerWidth > 576 ? '18%' : '20%',
+			left:
+				unit.name === '千元'
+					? window.innerWidth > 1024
+						? '8%'
+						: window.innerWidth > 768
+						? '10%'
+						: window.innerWidth > 576
+						? '12%'
+						: window.innerWidth > 480
+						? '14%'
+						: window.innerWidth > 414
+						? '18%'
+						: '22%'
+					: window.innerWidth > 1024
+					? '5%'
+					: window.innerWidth > 768
+					? '6%'
+					: window.innerWidth > 576
+					? '8%'
+					: window.innerWidth > 480
+					? '10%'
+					: window.innerWidth > 414
+					? '12%'
+					: '14%',
+			right: window.innerWidth > 576 ? '3%' : '4%',
+			height: window.innerWidth > 1024 ? '76%' : window.innerWidth > 768 ? '70%' : '68%',
 		},
 		toolbox: {
 			feature: {
-				magicType: { show: true, type: ['line', 'bar'] },
-				restore: { show: true },
+				magicType: { show: window.innerWidth > 576, type: ['line', 'bar'] },
+				restore: { show: window.innerWidth > 576 },
 				saveAsImage: { show: true },
 			},
 			top: '1.5%',

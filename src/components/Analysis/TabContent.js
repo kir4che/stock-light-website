@@ -250,7 +250,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						</section>
 					</div>
 					{/* K線圖 */}
-					<Chart option={renderTechAnalChart()} customHeight='h-72 md:h-80 xl:h-[450px]' />
+					<Chart option={renderTechAnalChart()} customHeight='h-96 md:h-[450px] xl:h-[580px]' />
 					{/* 副圖表 */}
 					{renderSubChart()}
 					{/* 技術指標說明 */}

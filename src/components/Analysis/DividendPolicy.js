@@ -86,13 +86,13 @@ export default function DividendPolicy({ stockId, childOpen }) {
 							},
 						},
 						grid: {
-							top: '15%',
-							left: '5%',
-							right: '4%',
-							height: '75%',
+							top: window.innerWidth > 768 ? '18%' : window.innerWidth > 576 ? '24%' : '26%',
+							left: window.innerWidth > 768 ? '4%' : window.innerWidth > 576 ? '6%' : '7.2%',
+							right: window.innerWidth > 768 ? '4%' : window.innerWidth > 576 ? '4%' : '5%',
+							height: window.innerWidth > 768 ? '70%' : '62%',
 						},
 					}}
-					customHeight='h-60 md:h-88 lg:h-[450px]'
+					customHeight='h-72 md:h-88 lg:h-[450px]'
 				/>
 				<Table size='medium'>
 					<TableBody>

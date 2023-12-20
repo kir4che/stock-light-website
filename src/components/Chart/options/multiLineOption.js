@@ -44,6 +44,7 @@ export function multiLineOption(
 		legend: {
 			data: dataName,
 			bottom: '3%',
+			type: 'scroll',
 		},
 		xAxis: {
 			type: 'category',
@@ -70,15 +71,39 @@ export function multiLineOption(
 			},
 		},
 		grid: {
-			top: '15%',
-			left: '8%',
-			right: '3%',
-			height: '67%',
+			top: window.innerWidth > 1024 ? '14%' : window.innerWidth > 576 ? '16%' : '18%',
+			left:
+				unit.name === '千元'
+					? window.innerWidth > 1024
+						? '7%'
+						: window.innerWidth > 768
+						? '10%'
+						: window.innerWidth > 576
+						? '12%'
+						: window.innerWidth > 480
+						? '16%'
+						: window.innerWidth > 414
+						? '19%'
+						: '24%'
+					: window.innerWidth > 1024
+					? '5%'
+					: window.innerWidth > 768
+					? '6%'
+					: window.innerWidth > 576
+					? '8%'
+					: window.innerWidth > 480
+					? '10%'
+					: window.innerWidth > 414
+					? '12%'
+					: '14%',
+			right: window.innerWidth > 576 ? '3%' : '4%',
+			height:
+				window.innerWidth > 1024 ? '70%' : window.innerWidth > 768 ? '64%' : window.innerWidth > 414 ? '60%' : '58%',
 		},
 		toolbox: {
 			feature: {
-				magicType: { show: true, type: ['line', 'bar'] },
-				restore: { show: true },
+				magicType: { show: window.innerWidth > 576, type: ['line', 'bar'] },
+				restore: { show: window.innerWidth > 576 },
 				saveAsImage: { show: true },
 			},
 			top: '1.5%',
