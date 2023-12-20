@@ -37,7 +37,8 @@ export default function Light() {
 
 	// Step 2: 選擇選股條件，並確認該產業別是否有符合條件的股票
 	const handleFactorSelect = async (factor, industry) => {
-		const stockIdByIndustry = (await fetchStockByFactor(factor, industry, setIsLoading)).map((entry) => entry.stock_id)
+		const stockIdByIndustry = await fetchStockByFactor({ factor, industry, setIsLoading })
+
 		if (!isLoading && stockIdByIndustry) {
 			if (stockIdByIndustry.length <= 0) {
 				alert('該產業別目前沒有符合條件的股票，請重新選擇條件或產業別！')
