@@ -7,7 +7,7 @@ const fetchStockData = async ({ stockId, setIsLoading }) => {
 		const response = await fetch(`${process.env.DB_URL}/api/stock/all/info/${stockId}`, { method: 'GET' })
 		const data = await response.json()
 
-		console.log(data)
+		console.log('test stock data', data)
 
 		if (data.success) {
 			const dates = data.data.map((stock) => convertDateTime(stock.date).split(' ')[0])
@@ -19,6 +19,21 @@ const fetchStockData = async ({ stockId, setIsLoading }) => {
 			const volumes = data.data.map((stock) => stock.trade_volume)
 
 			setIsLoading(false)
+
+			console.log({
+				date: dates,
+				price: highestPrices.map((_, index) => [
+					closingPrices[index],
+					openingPrices[index],
+					lowestPrices[index],
+					highestPrices[index],
+				]),
+				closePrice: closingPrices,
+				highPrice: highestPrices,
+				lowPrice: lowestPrices,
+				change: changes,
+				volume: volumes,
+			})
 
 			return {
 				date: dates,

@@ -49,7 +49,7 @@ function ResultDashboard() {
 	useEffect(() => {
 		const fetchData = async (stockId) => {
 			let price = await fetchStockData({ stockId, setIsLoading })
-
+			console.log('price', price)
 			setStockPrice({
 				closePrice: price.closePrice,
 				change: price.change,
