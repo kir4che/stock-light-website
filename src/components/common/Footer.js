@@ -33,7 +33,7 @@ export default function Footer() {
 					</h4>
 					<p className='text-sm font-light text-center sm:mb-20 sm:text-left'>帶給所有投資人新的希望</p>
 				</div>
-				<div className='text-center lg:gap-8 lg:flex lg:text-left'>
+				<div className='w-full text-center lg:gap-10 lg:flex lg:text-left'>
 					<div className='-mt-2 scale-50 sm:-mt-20 lg:mt-0 candle_wrapper'>
 						<div className='candle_spark' />
 						<div className='candle_sparkling' />
@@ -41,9 +41,9 @@ export default function Footer() {
 						<div className='candle_wax' />
 						<div className='candle_wax-bot' />
 					</div>
-					<div className='lg:ml-8 lg:w-96'>
+					<div className='min-w-fit lg:w-96'>
 						<p className='hidden font-medium lg:block'>頁尾導航</p>
-						<ul className='space-x-4 lg:space-x-0 lg:mt-4 lg:grid lg:grid-cols-2 lg:gap-y-4'>
+						<ul className='space-x-4 lg:space-x-0 lg:gap-2 lg:mt-4 lg:inline-grid lg:grid-cols-2 lg:gap-y-4'>
 							{pageList.map((link, index) => (
 								<Link className='text-sm font-thin hover:underline' href={link.url} key={index}>
 									{link.name}
@@ -51,7 +51,7 @@ export default function Footer() {
 							))}
 						</ul>
 					</div>
-					<div className='w-full'>
+					<div className='min-w-fit'>
 						<p className='hidden font-medium lg:block'>聯絡方式</p>
 						<ul className='flex-wrap gap-4 mt-4 lg:gap-0 lg:space-y-3 flex-center lg:block'>
 							{contactInfo.map((info, index) => (

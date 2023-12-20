@@ -58,7 +58,7 @@ export default function Home() {
 						</p>
 					</div>
 					<button
-						className='px-10 py-1.5 mt-8 tracking-wide rounded-full bg-primary_yellow text-zinc-800 hover:bg-amber-300'
+						className='px-12 py-1.5 mt-8 tracking-wide rounded-full bg-primary_yellow text-zinc-800 hover:bg-amber-300'
 						onClick={() => router.push('/light')}
 					>
 						我要點燈！
@@ -69,21 +69,21 @@ export default function Home() {
 							width={120}
 							height={120}
 							alt='lantern-1'
-							className='absolute left-12 -top-80'
+							className='absolute left-4 lg:left-12 xl:left-20 -top-80'
 						/>
 						<Image
 							src='/assets/lantern.png'
 							width={100}
 							height={100}
 							alt='lantern-2'
-							className='absolute -top-14 left-72'
+							className='absolute -top-14 left-40 lg:left-72 xl:left-80'
 						/>
 						<Image
 							src='/assets/lantern.png'
 							width={100}
 							height={100}
 							alt='lantern-3'
-							className='absolute -top-80 right-40'
+							className='absolute -top-80 right-24 lg:right-40 xl:right-72'
 						/>
 					</div>
 				</article>

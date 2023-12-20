@@ -13,7 +13,7 @@ import '@/styles/globals.css'
 
 export default function RootLayout({ children, params: { session, ...params } }) {
 	const pathname = usePathname()
-	const excludedPaths = /(\/analysis|\/light|\/user|\/ask|\/feedback|\/register|\/login)/
+	const excludedPaths = /(\/analysis|\/light|\/pray|\/user|\/ask|\/feedback|\/register|\/login)/
 	const isExcludedPage = excludedPaths.test(pathname)
 
 	useEffect(() => {

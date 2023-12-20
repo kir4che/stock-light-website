@@ -19,6 +19,11 @@
     ]
   },
   {
+    "name": "祈福版",
+    "url": "pray",
+    "childPages": []
+  },
+  {
     "name": "諮詢股神",
     "url": "ask",
     "childPages": []
@@ -31,11 +36,6 @@
   {
     "name": "意見回饋",
     "url": "feedback",
-    "childPages": []
-  },
-  {
-    "name": "版本資訊",
-    "url": "version",
     "childPages": []
   }
 ]
