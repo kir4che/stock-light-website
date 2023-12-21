@@ -48,8 +48,6 @@ export default function PrayBoard() {
 			})
 
 			const data = await response.json()
-			console.log('test light data: ', data)
-
 			if (data.success) setLightData(data.data)
 		} catch (error) {
 			console.error('Error: ', error)
@@ -73,8 +71,6 @@ export default function PrayBoard() {
 	// 點燈
 	const handlePray = async () => {
 		if (name === '') alert('請輸入姓名！')
-		else if (gender === '') alert('請選擇性別！')
-		else if (birthday === '') alert('請選擇生日！')
 		else if (message === '') alert('請輸入祈福語！')
 
 		try {
