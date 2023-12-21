@@ -24,12 +24,12 @@ export default function Header() {
 	const handleClose = () => setAnchorEl(null)
 
 	return (
-		<div className='fixed left-0 z-50 w-full px-4 py-1 bg-white sm:px-6 md:px-10 lg:px-16 dark:bg-zinc-800 flex-center-between md:py-4'>
+		<div className='fixed left-0 z-50 w-full h-20 px-4 bg-white sm:px-6 md:px-10 lg:px-16 dark:bg-zinc-800 flex-center-between'>
 			<Link href='/' className='flex items-center space-x-1.5'>
 				<Image src='/assets/logo.png' width={32} height={32} alt='logo' />
 				<h4>股市光明燈</h4>
 			</Link>
-			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 min-[830px]:flex lg:space-x-8'>
+			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 min-[852px]:flex lg:space-x-8'>
 				{pageList.map((page) => {
 					if (page.childPages.length > 0) {
 						return (
@@ -78,7 +78,7 @@ export default function Header() {
 				{session ? (
 					<UserMenu session={session} />
 				) : (
-					<button className='items-center hidden md:flex' onClick={() => router.push('/login')}>
+					<button className='items-center hidden pl-1 md:flex' onClick={() => router.push('/login')}>
 						<span>登入</span>
 						<LoginIcon sx={{ ml: 0.3 }} fontSize='small' />
 					</button>
