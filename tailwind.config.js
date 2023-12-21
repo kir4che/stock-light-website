@@ -46,6 +46,7 @@ module.exports = {
 					500: '#3AADF8',
 				},
 				zinc: {
+					700: '#2E2E33',
 					800: '#202024',
 				},
 				primary_yellow: '#FFDE6B',

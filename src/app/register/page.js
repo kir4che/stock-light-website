@@ -94,9 +94,11 @@ export default function Register() {
 				<PrivacyAndTerms />
 			</div>
 			<Dialog open={isSucceed} align='center' onClose={() => setIsSucceed(false)}>
-				<DialogTitle>註冊成功</DialogTitle>
-				<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />
-				<DialogContent>將在 3 秒後跳轉至登入頁面...</DialogContent>
+				<DialogTitle className='dark:text-zinc-100 dark:bg-zinc-800'>註冊成功</DialogTitle>
+				<DialogContent className='dark:text-zinc-100 dark:bg-zinc-800'>
+					<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />
+					<p>將在 3 秒後跳轉至登入頁面...</p>
+				</DialogContent>
 			</Dialog>
 		</StarryBackground>
 	)

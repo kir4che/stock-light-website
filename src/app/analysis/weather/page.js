@@ -15,7 +15,6 @@ import StarryBackground from '@/components/common/StarryBackground'
 import StockSelect from '@/components/ui/StockSelect'
 import stock100 from '@/data/stock100.json'
 import weatherList from '@/data/weatherList.json'
-import { useDarkMode } from '@/providers/DarkModeProvider'
 
 import { calculateR } from '@/utils/calculateR'
 
@@ -32,8 +31,6 @@ const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} clas
 )
 
 export default function WeatherAnalysis() {
-	const { isDarkMode } = useDarkMode()
-
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [selectedTab, setSelectedTab] = useState(0)

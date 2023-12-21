@@ -7,18 +7,11 @@ import {
 	DialogContent,
 	DialogTitle,
 	FormControl,
-	FormControlLabel,
 	FormLabel,
 	Popover,
-	Radio,
-	RadioGroup,
 	TextField,
 	Tooltip,
 } from '@mui/material'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import { DateField } from '@mui/x-date-pickers/DateField'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
 import dayjs from 'dayjs'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -43,11 +36,9 @@ export default function PrayBoard() {
 	const [selectedStockId, setSelectStockId] = useState(1101)
 	const [formData, setFormData] = useState({
 		name: '',
-		gender: '',
-		birthday: '',
 		message: '',
 	})
-	const { name, gender, birthday, message } = formData
+	const { name, message } = formData
 
 	// 取得點燈資訊
 	const fetchLight = async () => {
@@ -214,7 +205,7 @@ export default function PrayBoard() {
 				>
 					<p>{selectedLightData.name}：</p>
 					<div className='gap-1.5 mb-2 flex-center'>
-						<p className='px-2 text-xs h-7 flex-center space-x-1 border-red-500 text-red-500 bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'>
+						<p className='px-2 text-xs h-7 flex-center space-x-1 border-red-500 text-red-500 bg-white border-[1.25px] rounded-full'>
 							<span>{stock100.find((stock) => stock.stock_id === selectedLightData.stock_id).name}</span>
 							<span>{selectedLightData.stock_id}</span>
 						</p>
@@ -256,62 +247,27 @@ export default function PrayBoard() {
 			</Tooltip>
 			{/* 點燈填單 */}
 			<Dialog open={isFormOpen} maxWidth='xs' fullWidth>
-				<DialogTitle className='mb-2 space-y-1'>
+				<DialogTitle className='space-y-1 dark:text-zinc-100 dark:bg-zinc-700'>
 					<h2 className='tracking-wide'>光明燈</h2>
 					<hr className='border-2 w-28 border-primary_yellow' />
 					<p className='pt-2 text-base font-normal'>祈求投資之路順利、財源滾滾</p>
 				</DialogTitle>
-				<DialogContent className='flex flex-col h-96'>
+				<DialogContent className='flex flex-col dark:bg-zinc-700'>
 					<FormControl>
-						<FormLabel className='mb-2 text-zinc-800'>姓名</FormLabel>
+						<FormLabel className='mb-2 dark:text-zinc-100 text-zinc-800'>姓名</FormLabel>
 						<TextField
 							type='name'
 							value={name}
+							className='rounded dark:bg-zinc-900'
 							onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+							inputProps={{ maxLength: 10, className: 'dark:text-zinc-100' }}
 							size='small'
 							required
 						/>
-						<FormLabel className='mt-4 text-zinc-800'>性別</FormLabel>
-						<RadioGroup
-							value={gender}
-							onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-							sx={{
-								'& .MuiSvgIcon-root': {
-									width: 24,
-									height: 24,
-									mr: -0.5,
-									color: '#dc2626',
-								},
-								'& .Mui-checked': {
-									color: '#dc2626',
-								},
-								'& .MuiRadio-root:hover': {
-									backgroundColor: 'transparent',
-								},
-							}}
-							className='flex-row'
-						>
-							<FormControlLabel value='男性' control={<Radio />} label='男性' />
-							<FormControlLabel value='女性' control={<Radio />} label='女性' />
-							<FormControlLabel value='其他' control={<Radio />} label='其他' />
-						</RadioGroup>
-						<FormLabel className='mt-2 text-zinc-800'>國曆生辰</FormLabel>
-						<LocalizationProvider dateAdapter={AdapterDayjs}>
-							<DemoContainer components={['DatePicker']}>
-								<DateField
-									value={birthday}
-									format='YYYY / MM / DD'
-									onChange={(birthday) =>
-										setFormData({ ...formData, birthday: dayjs(birthday.$d).format('YYYY/MM/DD') })
-									}
-									slotProps={{ textField: { size: 'small' } }}
-									className='text-zinc-800'
-								/>
-							</DemoContainer>
-						</LocalizationProvider>
-						<FormLabel className='mt-5 mb-2 text-zinc-800'>您要祈福的股票</FormLabel>
+
+						<FormLabel className='mt-5 mb-2 dark:text-zinc-100 text-zinc-800'>您要祈福的股票</FormLabel>
 						<StockSelect setSelect={setSelectStockId} />
-						<FormLabel className='mt-5 mb-2 text-zinc-800'>祈福語</FormLabel>
+						<FormLabel className='mt-5 mb-2 dark:text-zinc-100 text-zinc-800'>祈福語</FormLabel>
 						<TextField
 							type='name'
 							value={message}
@@ -319,30 +275,31 @@ export default function PrayBoard() {
 							size='small'
 							multiline
 							rows={5}
-							inputProps={{ maxLength: 100 }}
-							helperText={<p className='-ml-4 text-xs'>最多 100 字</p>}
+							className='rounded dark:bg-zinc-900'
+							inputProps={{ maxLength: 100, className: 'dark:text-zinc-100' }}
 						/>
+						<p className='mt-1.5 text-xs dark:text-zinc-300'>最多 100 字</p>
 					</FormControl>
 				</DialogContent>
-				<DialogActions>
+				<DialogActions className='dark:bg-zinc-700'>
 					<Button
 						sx={{
-							color: '#dc2626',
 							'&:hover': {
 								backgroundColor: 'transparent',
 							},
 						}}
+						className='text-zinc-800 dark:text-zinc-100'
 						onClick={() => setIsFormOpen(false)}
 					>
 						取消
 					</Button>
 					<Button
 						sx={{
-							color: '#dc2626',
 							'&:hover': {
 								backgroundColor: 'transparent',
 							},
 						}}
+						className='text-zinc-800 dark:text-zinc-100'
 						onClick={handlePray}
 					>
 						送出祈福
@@ -351,9 +308,11 @@ export default function PrayBoard() {
 			</Dialog>
 			{/* 祈福成功通知 */}
 			<Dialog open={isSucceed} align='center' onClose={() => setIsSucceed(false)}>
-				<DialogTitle>祈福成功</DialogTitle>
-				<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />
-				<DialogContent>即將為您點亮一盞光明燈</DialogContent>
+				<DialogTitle className='dark:text-zinc-100 dark:bg-zinc-800'>祈福成功</DialogTitle>
+				<DialogContent className='dark:text-zinc-100 dark:bg-zinc-800'>
+					<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto mb-5' />
+					<p>即將為您點亮一盞光明燈</p>
+				</DialogContent>
 			</Dialog>
 		</StarryBackground>
 	)

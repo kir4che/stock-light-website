@@ -11,10 +11,8 @@ import SubmitBtn from '@/components/ui/SubmitBtn'
 
 export default function Feedback() {
 	const form = useRef()
-
 	const [formData, setFormData] = useState({ email: '', title: '', content: '' })
 	const { email, title, content } = formData
-
 	const [isSucceed, setIsSucceed] = useState(false)
 
 	const updateFormData = (key, value) => {
@@ -81,9 +79,11 @@ export default function Feedback() {
 				<SubmitBtn text='送出' handleSubmit={handleSend} style='mt-9' />
 			</form>
 			<Dialog open={isSucceed} align='center' onClose={() => setIsSucceed(false)}>
-				<DialogTitle>成功送出</DialogTitle>
-				<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto' />
-				<DialogContent> 您的回饋已送出，我們會盡快回覆您！</DialogContent>
+				<DialogTitle className='dark:text-zinc-100 dark:bg-zinc-800'>成功送出</DialogTitle>
+				<DialogContent className='dark:text-zinc-100 dark:bg-zinc-800'>
+					<Image src='/assets/success-symbol.svg' width={96} height={96} alt='success' className='block mx-auto mb-5' />
+					<p>您的回饋已送出，我們會盡快回覆您！</p>
+				</DialogContent>
 			</Dialog>
 		</StarryBackground>
 	)
