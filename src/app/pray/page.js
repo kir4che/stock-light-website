@@ -1,17 +1,20 @@
 'use client'
 
-import { FormControl } from '@mui/material'
-import Button from '@mui/material/Button'
-import Dialog from '@mui/material/Dialog'
-import DialogActions from '@mui/material/DialogActions'
-import DialogContent from '@mui/material/DialogContent'
-import DialogTitle from '@mui/material/DialogTitle'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import FormLabel from '@mui/material/FormLabel'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
-import TextField from '@mui/material/TextField'
-import Tooltip from '@mui/material/Tooltip'
+import {
+	Button,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	Popover,
+	Radio,
+	RadioGroup,
+	TextField,
+	Tooltip,
+} from '@mui/material'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateField } from '@mui/x-date-pickers/DateField'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
@@ -25,12 +28,16 @@ import { useEffect, useState } from 'react'
 import StarryBackground from '@/components/common/StarryBackground'
 import { Lantern, LanternLayout } from '@/components/ui/Lantern'
 import StockSelect from '@/components/ui/StockSelect'
+import stock100 from '@/data/stock100.json'
 
 export default function PrayBoard() {
 	const { data: session, status } = useSession()
 	const token = session?.token
 	const router = useRouter()
 
+	const [lightData, setLightData] = useState([])
+	const [anchorEl, setAnchorEl] = useState(null)
+	const [selectedLightData, setSelectedLightData] = useState(null)
 	const [isFormOpen, setIsFormOpen] = useState(false)
 	const [isSucceed, setIsSucceed] = useState(false)
 	const [selectedStockId, setSelectStockId] = useState(1101)
@@ -42,6 +49,7 @@ export default function PrayBoard() {
 	})
 	const { name, gender, birthday, message } = formData
 
+	// 取得點燈資訊
 	const fetchLight = async () => {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/user/all/light`, {
@@ -51,16 +59,19 @@ export default function PrayBoard() {
 			const data = await response.json()
 			console.log('test light data: ', data)
 
-			if (data.data.success) {
-				setIsFormOpen(false)
-				setIsSucceed(true)
-				setTimeout(() => setIsSucceed(false), 3000)
-			}
+			if (data.success) setLightData(data.data)
 		} catch (error) {
 			console.error('Error: ', error)
 		}
 	}
 
+	// 查看點燈資訊
+	const handleLightData = (e, light) => {
+		setSelectedLightData(light)
+		setAnchorEl(anchorEl ? null : e.currentTarget)
+	}
+
+	// 開啟點燈填單
 	const handleOpenForm = () => {
 		if (status === 'unauthenticated') {
 			alert('點燈請先登入！')
@@ -68,6 +79,7 @@ export default function PrayBoard() {
 		} else setIsFormOpen(true)
 	}
 
+	// 點燈
 	const handlePray = async () => {
 		if (name === '') alert('請輸入姓名！')
 		else if (gender === '') alert('請選擇性別！')
@@ -87,12 +99,9 @@ export default function PrayBoard() {
 					message,
 				}),
 			})
-			console.log('test pray response: ', response)
 
 			const data = await response.json()
-			console.log('test pray data: ', data)
-
-			if (data.data.success) {
+			if (data.success) {
 				setIsFormOpen(false)
 				setFormData({
 					name: '',
@@ -111,60 +120,108 @@ export default function PrayBoard() {
 		}
 	}
 
+	const renderLanternsForLayout = (lightData) => {
+		const lanterns = []
+		for (let i = 0; i < 10 - lightData.length; i++) lanterns.push(<Lantern position='' isLighted={false} key={i} />)
+		return lanterns
+	}
+
 	useEffect(() => {
 		fetchLight()
 	}, [])
 
-	useEffect(() => {
-		console.log('token: ', token)
-	}, [token])
-
 	return (
 		<StarryBackground className='flex-col h-screen pt-5 pb-12 flex-center-between'>
+			{/* 目前先設定可以放 30 盞燈 */}
 			<div className='w-full space-y-6 overflow-x-auto'>
 				<LanternLayout
 					isLighted={false}
 					otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'
 				>
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
+					{lightData.slice(0, 10).map((light, index) => (
+						<button type='button' onClick={(e) => handleLightData(e, light)} onMouseLeave={() => setAnchorEl(null)}>
+							<Lantern
+								position=''
+								label=''
+								isLighted={true}
+								otherStyle='justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
+								key={index}
+							/>
+						</button>
+					))}
+					{renderLanternsForLayout(lightData.slice(0, 10))}
 				</LanternLayout>
 				<LanternLayout
 					isLighted={false}
-					otherStyle='justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
+					otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'
 				>
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
+					{lightData.slice(10, 20).map((light, index) => (
+						<button type='button' onClick={(e) => handleLightData(e, light)}>
+							<Lantern
+								position=''
+								label=''
+								isLighted={true}
+								otherStyle='justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
+								key={index}
+							/>
+						</button>
+					))}
+					{renderLanternsForLayout(lightData.slice(10, 20))}
 				</LanternLayout>
 				<LanternLayout
 					isLighted={false}
-					otherStyle='justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
+					otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'
 				>
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
-					<Lantern position='' label='' isLighted={false} />
+					{lightData.slice(20, 30).map((light, index) => (
+						<button type='button' onClick={(e) => handleLightData(e, light)}>
+							<Lantern
+								position=''
+								label=''
+								isLighted={true}
+								otherStyle='justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
+								key={index}
+							/>
+						</button>
+					))}
+					{renderLanternsForLayout(lightData.slice(20, 30))}
 				</LanternLayout>
 			</div>
+			{selectedLightData && (
+				<Popover
+					open={Boolean(anchorEl)}
+					anchorEl={anchorEl}
+					sx={{
+						pointerEvents: 'none',
+						'& .MuiPopover-paper': {
+							borderRadius: '8px',
+							boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.25)',
+							fontSize: '0.875rem',
+							padding: '0.5rem 0.875rem 1rem',
+							width: 'fit-content',
+							marginTop: '-0.5rem',
+						},
+					}}
+					anchorOrigin={{
+						vertical: 'bottom',
+						horizontal: 'center',
+					}}
+					transformOrigin={{
+						vertical: 'top',
+						horizontal: 'center',
+					}}
+					onClose={() => setAnchorEl(null)}
+					disableRestoreFocus
+				>
+					<p>{selectedLightData.name}：</p>
+					<div className='gap-1.5 flex-center'>
+						<p className='px-2 text-xs h-7 flex-center space-x-1 border-red-500 text-red-500 bg-white dark:bg-zinc-800 border-[1.25px] rounded-full'>
+							<span>{stock100.find((stock) => stock.stock_id === selectedLightData.stock_id).name}</span>
+							<span>{selectedLightData.stock_id}</span>
+						</p>
+						<p>{selectedLightData.message}</p>
+					</div>
+				</Popover>
+			)}
 			<Tooltip
 				disableHoverListener={status !== 'unauthenticated'}
 				title='點燈前請先移至右上方登入！'
