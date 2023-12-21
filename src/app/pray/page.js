@@ -49,14 +49,12 @@ export default function PrayBoard() {
 			})
 
 			const data = await response.json()
-			console.log('data: ', data)
+			console.log('test light data: ', data)
 
 			if (data.data.success) {
 				setIsFormOpen(false)
 				setIsSucceed(true)
 				setTimeout(() => setIsSucceed(false), 3000)
-			} else {
-				alert('抱歉，請稍候再試！')
 			}
 		} catch (error) {
 			console.error('Error: ', error)
@@ -89,9 +87,10 @@ export default function PrayBoard() {
 					message,
 				}),
 			})
+			console.log('test pray response: ', response)
 
 			const data = await response.json()
-			console.log('data: ', data)
+			console.log('test pray data: ', data)
 
 			if (data.data.success) {
 				setIsFormOpen(false)
@@ -115,6 +114,10 @@ export default function PrayBoard() {
 	useEffect(() => {
 		fetchLight()
 	}, [])
+
+	useEffect(() => {
+		console.log('token: ', token)
+	}, [token])
 
 	return (
 		<StarryBackground className='flex-col h-screen pt-5 pb-12 flex-center-between'>
