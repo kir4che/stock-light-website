@@ -35,96 +35,7 @@ export default function PrayBoard() {
 	const token = session?.token
 	const router = useRouter()
 
-	const [lightData, setLightData] = useState([
-		{
-			user_id: 2,
-			name: 'aaron',
-			message: '快拉 上漲一下',
-			stock_id: 2330,
-			company_name: '台灣積體電路製造股份有限公司',
-			create_date: '2023-12-20T13:52:53.000Z',
-		},
-		{
-			user_id: 4,
-			name: 'molly',
-			message: '發發發',
-			stock_id: 1722,
-			company_name: '台灣肥料股份有限公司',
-			create_date: '2023-12-21T11:23:09.000Z',
-		},
-		{
-			user_id: 6,
-			name: 'john',
-			message: '股神降臨',
-			stock_id: 3008,
-			company_name: '大立光電股份有限公司',
-			create_date: '2023-12-22T14:35:18.000Z',
-		},
-		{
-			user_id: 8,
-			name: 'emily',
-			message: '加油！',
-			stock_id: 2317,
-			company_name: '鴻海精密工業股份有限公司',
-			create_date: '2023-12-23T09:45:30.000Z',
-		},
-		{
-			user_id: 10,
-			name: 'david',
-			message: '穩定獲利',
-			stock_id: 2454,
-			company_name: '聯發科技股份有限公司',
-			create_date: '2023-12-24T12:15:42.000Z',
-		},
-		{
-			user_id: 12,
-			name: 'susan',
-			message: '風雨不動搖',
-			stock_id: 2337,
-			company_name: '旺宏電子股份有限公司',
-			create_date: '2023-12-25T17:08:55.000Z',
-		},
-		{
-			user_id: 14,
-			name: 'peter',
-			message: '買進低點',
-			stock_id: 2412,
-			company_name: '中華電信股份有限公司',
-			create_date: '2023-12-26T20:30:12.000Z',
-		},
-		{
-			user_id: 16,
-			name: 'linda',
-			message: '不怕風暴',
-			stock_id: 6505,
-			company_name: '台塑石化股份有限公司',
-			create_date: '2023-12-27T08:10:25.000Z',
-		},
-		{
-			user_id: 18,
-			name: 'kevin',
-			message: '持續增值',
-			stock_id: 2451,
-			company_name: '創見資訊股份有限公司',
-			create_date: '2023-12-28T14:55:36.000Z',
-		},
-		{
-			user_id: 20,
-			name: 'olivia',
-			message: '勇往直前',
-			stock_id: 3008,
-			company_name: '奇力新股份有限公司',
-			create_date: '2023-12-29T10:20:48.000Z',
-		},
-		{
-			user_id: 2,
-			name: 'aaron',
-			message: '快拉 上漲一下',
-			stock_id: 2330,
-			company_name: '奇力新股份有限公司',
-			create_date: '2023-12-29T10:20:48.000Z',
-		},
-	])
+	const [lightData, setLightData] = useState([])
 	const [anchorEl, setAnchorEl] = useState(null)
 	const [selectedLightData, setSelectedLightData] = useState(null)
 	const [isFormOpen, setIsFormOpen] = useState(false)
@@ -228,11 +139,7 @@ export default function PrayBoard() {
 					otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'
 				>
 					{lightData.slice(0, 10).map((light, index) => (
-						<button
-							type='button'
-							onClick={(e) => handleLightData(e, light)}
-							// onMouseLeave={() => setAnchorEl(null)}
-						>
+						<button type='button' onClick={(e) => handleLightData(e, light)} onMouseLeave={() => setAnchorEl(null)}>
 							<Lantern
 								position=''
 								label=''
@@ -284,7 +191,7 @@ export default function PrayBoard() {
 					open={Boolean(anchorEl)}
 					anchorEl={anchorEl}
 					sx={{
-						// pointerEvents: 'none',
+						pointerEvents: 'none',
 						'& .MuiPopover-paper': {
 							borderRadius: '8px',
 							boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.25)',
