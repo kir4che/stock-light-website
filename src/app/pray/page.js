@@ -15,7 +15,6 @@ import {
 import dayjs from 'dayjs'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
@@ -26,7 +25,6 @@ import stock100 from '@/data/stock100.json'
 export default function PrayBoard() {
 	const { data: session, status } = useSession()
 	const token = session?.token
-	const router = useRouter()
 
 	const [lightData, setLightData] = useState([])
 	const [anchorEl, setAnchorEl] = useState(null)
@@ -97,7 +95,8 @@ export default function PrayBoard() {
 					message: '',
 				})
 				setIsSucceed(true)
-				setTimeout(() => setIsSucceed(false), 3000)
+				setTimeout(() => setIsSucceed(false), 1500)
+				window.location.reload()
 			}
 		} catch (error) {
 			console.error('Error: ', error)
