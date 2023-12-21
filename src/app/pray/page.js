@@ -62,10 +62,10 @@ export default function PrayBoard() {
 
 	// 開啟點燈填單
 	const handleOpenForm = () => {
-		if (status === 'unauthenticated') {
-			alert('點燈請先登入！')
-			router.push('/login')
-		} else setIsFormOpen(true)
+		if (status === 'unauthenticated') alert('點燈請先登入！')
+		else if (session?.provider === 'facebook' || session?.provider === 'google')
+			alert('抱歉，目前暫不提供社交登入的會員使用祈福功能！')
+		else setIsFormOpen(true)
 	}
 
 	// 點燈
@@ -98,8 +98,6 @@ export default function PrayBoard() {
 				})
 				setIsSucceed(true)
 				setTimeout(() => setIsSucceed(false), 3000)
-			} else {
-				alert('抱歉，請稍候再試！')
 			}
 		} catch (error) {
 			console.error('Error: ', error)
@@ -213,8 +211,10 @@ export default function PrayBoard() {
 				</Popover>
 			)}
 			<Tooltip
-				disableHoverListener={status !== 'unauthenticated'}
-				title='點燈前請先移至右上方登入！'
+				disableHoverListener={
+					status !== 'unauthenticated' && session?.provider !== 'facebook' && session?.provider !== 'google'
+				}
+				title='點燈前請先移至右上方登入，且目前暫不提供社交登入的會員使用祈福功能！'
 				placement='top-start'
 				// 無法直接用 sx
 				componentsProps={{
@@ -225,8 +225,8 @@ export default function PrayBoard() {
 							border: '1px solid #40B4FF',
 							borderRadius: '8px',
 							fontSize: '0.8rem',
-							margin: '0 0 0 8rem',
-							py: '0.125rem',
+							margin: '0 0 0 7rem',
+							lineHeight: '1.25rem',
 						},
 					},
 					arrow: {
