@@ -66,13 +66,13 @@ export default function Hero() {
 				/>
 				<LanternLayout otherStyle='hidden md:block absolute top-0'>
 					<div className='scale-75 -rotate-6'>
-						<Lantern position={'-right-[20vw] -top-[15vw] xl:-right-[30vw] xl:-top-[10vw]'} />
+						<Lantern position='absolute -right-[20vw] -top-[15vw] xl:-right-[30vw] xl:-top-[10vw]' />
 					</div>
 					<div className='scale-90 rotate-3'>
-						<Lantern position={'left-[80vw] xl:left-[72vw] -top-[8vw]'} />
+						<Lantern position='absolute left-[80vw] xl:left-[72vw] -top-[8vw]' />
 					</div>
 					<div className='scale-50 -rotate-2'>
-						<Lantern position={'-right-[50vw] xl:-right-[58vw] -top-[4vw]'} />
+						<Lantern position='absolute -right-[50vw] xl:-right-[58vw] -top-[4vw]' />
 					</div>
 				</LanternLayout>
 			</div>

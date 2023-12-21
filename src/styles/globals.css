@@ -488,3 +488,14 @@
 		@apply bg-secondary_blue/20;
 	}
 }
+
+/* 祈福版 */
+.boxshadow {
+	box-shadow: 0 0 5px#FFDE6B, 0 0 30px#ffe589, 0 0 50px#FFCD19, 0 0 100px;
+}
+.pray-btn {
+	@apply px-12 py-2 font-medium tracking-widest uppercase border-2 rounded text-deep_blue border-primary_yellow hover:border-amber-300 bg-primary_yellow;
+}
+.pray-btn:hover {
+	@apply bg-amber-300 boxshadow;
+}
