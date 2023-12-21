@@ -75,7 +75,7 @@ export default function PrayBoard() {
 		else if (message === '') alert('請輸入祈福語！')
 
 		try {
-			const response = await fetch(`${process.env.DB_URL}/api/user/create/card`, {
+			const response = await fetch(`${process.env.DB_URL}/api/user/create/light`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
