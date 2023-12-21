@@ -172,6 +172,7 @@ export default function PrayBoard() {
 					{renderLanternsForLayout(lightData.slice(20, 30))}
 				</LanternLayout>
 			</div>
+			{/* 祈福內容 */}
 			{selectedLightData && (
 				<Popover
 					open={Boolean(anchorEl)}
@@ -211,6 +212,7 @@ export default function PrayBoard() {
 					</p>
 				</Popover>
 			)}
+			{/* 提示登入 */}
 			<Tooltip
 				disableHoverListener={
 					status !== 'unauthenticated' && session?.provider !== 'facebook' && session?.provider !== 'google'
