@@ -95,7 +95,10 @@ export default function PrayBoard() {
 					message: '',
 				})
 				setIsSucceed(true)
-				setTimeout(() => setIsSucceed(false), 1500)
+				setTimeout(() => {
+					fetchLight()
+					setIsSucceed(false)
+				}, 1500)
 			}
 		} catch (error) {
 			console.error('Error: ', error)
@@ -110,8 +113,8 @@ export default function PrayBoard() {
 	}
 
 	useEffect(() => {
-		isSucceed && fetchLight()
-	}, [isSucceed])
+		fetchLight()
+	}, [])
 
 	return (
 		<StarryBackground className='flex-col h-screen pt-5 pb-12 flex-center-between'>
