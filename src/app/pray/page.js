@@ -15,7 +15,6 @@ import {
 import dayjs from 'dayjs'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
@@ -24,7 +23,6 @@ import StockSelect from '@/components/ui/StockSelect'
 import stock100 from '@/data/stock100.json'
 
 export default function PrayBoard() {
-	const router = useRouter()
 	const { data: session, status } = useSession()
 	const token = session?.token
 
@@ -98,7 +96,6 @@ export default function PrayBoard() {
 				})
 				setIsSucceed(true)
 				setTimeout(() => setIsSucceed(false), 1500)
-				router.refresh()
 			}
 		} catch (error) {
 			console.error('Error: ', error)
@@ -113,8 +110,8 @@ export default function PrayBoard() {
 	}
 
 	useEffect(() => {
-		fetchLight()
-	}, [])
+		isSucceed && fetchLight()
+	}, [isSucceed])
 
 	return (
 		<StarryBackground className='flex-col h-screen pt-5 pb-12 flex-center-between'>
