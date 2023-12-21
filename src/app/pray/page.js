@@ -98,7 +98,7 @@ export default function PrayBoard() {
 				})
 				setIsSucceed(true)
 				setTimeout(() => setIsSucceed(false), 1500)
-				router.reload()
+				router.refresh()
 			}
 		} catch (error) {
 			console.error('Error: ', error)
