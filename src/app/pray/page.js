@@ -32,6 +32,54 @@ const fakeDate = [
 		create_date: '2023-12-22T14:35:18.000Z',
 	},
 	{
+		user_id: 6,
+		name: 'john',
+		message: '股神降臨',
+		stock_id: 3008,
+		company_name: '大立光電股份有限公司',
+		create_date: '2023-12-22T14:35:18.000Z',
+	},
+	{
+		user_id: 8,
+		name: 'emily',
+		message: '加油！',
+		stock_id: 2317,
+		company_name: '鴻海精密工業股份有限公司',
+		create_date: '2023-12-23T09:45:30.000Z',
+	},
+	{
+		user_id: 10,
+		name: 'david',
+		message: '穩定獲利',
+		stock_id: 2454,
+		company_name: '聯發科技股份有限公司',
+		create_date: '2023-12-24T12:15:42.000Z',
+	},
+	{
+		user_id: 6,
+		name: 'john',
+		message: '股神降臨',
+		stock_id: 3008,
+		company_name: '大立光電股份有限公司',
+		create_date: '2023-12-22T14:35:18.000Z',
+	},
+	{
+		user_id: 8,
+		name: 'emily',
+		message: '加油！',
+		stock_id: 2317,
+		company_name: '鴻海精密工業股份有限公司',
+		create_date: '2023-12-23T09:45:30.000Z',
+	},
+	{
+		user_id: 10,
+		name: 'david',
+		message: '穩定獲利',
+		stock_id: 2454,
+		company_name: '聯發科技股份有限公司',
+		create_date: '2023-12-24T12:15:42.000Z',
+	},
+	{
 		user_id: 8,
 		name: 'emily',
 		message: '加油！',
@@ -135,9 +183,14 @@ export default function PrayBoard() {
 		}
 	}
 
-	const renderLanternsForLayout = (lightData) => {
+	const renderLanternsForLayout = (lightData, topOffset) => {
 		const lanterns = []
-		for (let i = 0; i < 10 - lightData.length; i++) lanterns.push(<Lantern position='' isLighted={false} key={i} />)
+
+		for (let i = 0; i < 10 - lightData.length; i++) {
+			lanterns.push(
+				<Lantern position={`relative top-${topOffset * Math.floor(Math.random() * 4 + 1)}`} isLighted={false} key={i} />
+			)
+		}
 		return lanterns
 	}
 
@@ -147,7 +200,7 @@ export default function PrayBoard() {
 	}, [])
 
 	return (
-		<StarryBackground className={`flex-col h-screen flex-center-between ${isTempleAnimated ? '' : 'pt-5 pb-12'}`}>
+		<StarryBackground className={`flex-col h-screen flex-center-between ${isTempleAnimated ? '' : 'py-8'}`}>
 			{isTempleAnimated && (
 				<div className='z-30 door'>
 					<Image
@@ -167,7 +220,7 @@ export default function PrayBoard() {
 				</div>
 			)}
 			{/* 目前先設定可以放 30 盞燈 */}
-			<div className='w-full space-y-6 overflow-x-auto'>
+			<div className='w-full pb-10 space-y-6 overflow-x-auto'>
 				<LanternLayout otherStyle='flex-center justify-start -space-x-12'>
 					{lightData.slice(0, 10).map((light, index) => (
 						<button
@@ -177,31 +230,52 @@ export default function PrayBoard() {
 							onMouseLeave={() => setAnchorEl(null)}
 						>
 							<Lantern
-								position=''
+								position={`relative top-${Math.floor(Math.random() * 8 + 1) * 2}`}
 								isLighted={true}
 								otherStyle='z-0 justify-start flex-center -space-x-12'
 								key={index}
 							/>
-							<p className='relative z-10 px-2 -mt-6 -mb-1 text-sm bg-red-600 w-fit'>{light.name}</p>
+							<p className='relative z-10 px-2 -mt-6 -mb-1 text-sm text-zinc-100 bg-zinc-800/50 w-fit'>{light.name}</p>
 						</button>
 					))}
-					{renderLanternsForLayout(lightData.slice(0, 10))}
+					{renderLanternsForLayout(
+						lightData.slice(0, 10),
+						Math.floor(Math.random() * (Math.floor(Math.random() * 20 + 1) + 1))
+					)}
 				</LanternLayout>
 				<LanternLayout otherStyle='flex-center justify-start -space-x-12'>
 					{lightData.slice(10, 20).map((light, index) => (
 						<button type='button' onClick={(e) => handleLightData(e, light)}>
-							<Lantern position='' isLighted={true} otherStyle='justify-start flex-center -space-x-12' key={index} />
+							<Lantern
+								position={`relative top-${Math.floor(Math.random() * 8 + 1) * 2}`}
+								isLighted={true}
+								otherStyle='justify-start flex-center -space-x-12'
+								key={index}
+							/>
+							<p className='relative z-10 px-2 -mt-6 -mb-1 text-sm text-zinc-100 bg-zinc-800/50 w-fit'>{light.name}</p>
 						</button>
 					))}
-					{renderLanternsForLayout(lightData.slice(10, 20))}
+					{renderLanternsForLayout(
+						lightData.slice(10, 20),
+						Math.floor(Math.random() * (Math.floor(Math.random() * 20 + 1) + 1))
+					)}
 				</LanternLayout>
 				<LanternLayout otherStyle='flex-center justify-start -space-x-12'>
 					{lightData.slice(20, 30).map((light, index) => (
 						<button type='button' onClick={(e) => handleLightData(e, light)}>
-							<Lantern position='' isLighted={true} otherStyle='justify-start flex-center -space-x-12' key={index} />
+							<Lantern
+								position={`relative top-${Math.floor(Math.random() * 8 + 1) * 2}`}
+								isLighted={true}
+								otherStyle='justify-start flex-center -space-x-12'
+								key={index}
+							/>
+							<p className='relative z-10 px-2 -mt-6 -mb-1 text-sm text-zinc-100 bg-zinc-800/50 w-fit'>{light.name}</p>
 						</button>
 					))}
-					{renderLanternsForLayout(lightData.slice(20, 30))}
+					{renderLanternsForLayout(
+						lightData.slice(20, 30),
+						Math.floor(Math.random() * (Math.floor(Math.random() * 20 + 1) + 1))
+					)}
 				</LanternLayout>
 			</div>
 			{/* 祈福內容 */}
