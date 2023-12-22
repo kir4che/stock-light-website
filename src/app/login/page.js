@@ -56,7 +56,7 @@ export default function Login() {
 					<span>還沒有帳號嗎？</span>
 					<Tooltip
 						title='誠心建議註冊本網站帳號，以便體驗更多功能！'
-						placement='right'
+						placement={window.innerWidth < 500 ? 'top-start' : 'right'}
 						open={isTipOpen}
 						onOpen={() => setIsTipOpen(true)}
 						onClose={() => setIsTipOpen(false)}
