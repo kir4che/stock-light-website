@@ -175,7 +175,7 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 							option={stockPriceOption(date, price, closePrice, volume, dataZoomRange, handleDataZoomChange)}
 							customHeight='h-72 md:h-80 xl:h-[450px]'
 						/>
-						<section className='flex flex-col w-full mt-3 space-y-2 xs:items-center xs:space-y-0 xs:space-x-2 xs:flex-row md:items-stretch md:mt-0 md:space-x-0 md:space-y-2 md:mb-2 md:w-48 md:flex-col'>
+						<section className='grid grid-cols-3 w-full mt-3 space-y-2 xs:items-center xs:space-y-4 xs:space-x-0 xs:flex-row md:items-stretch md:mt-0 md:space-x-0 md:space-y-2 md:mb-2 md:w-48 md:flex-col'>
 							<button className='px-3 py-1 space-x-2 leading-6 rounded-md text-zinc-100 bg-sky-500'>
 								<span className='text-sm font-light xs:text-base'>成交量</span>
 								<span className='text-base font-semibold xs:text-lg'>
