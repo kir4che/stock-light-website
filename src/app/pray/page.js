@@ -141,10 +141,7 @@ export default function PrayBoard() {
 			)}
 			{/* 目前先設定可以放 30 盞燈 */}
 			<div className='w-full space-y-6 overflow-x-auto'>
-				<LanternLayout
-					isLighted={false}
-					otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'
-				>
+				<LanternLayout otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'>
 					{lightData.slice(0, 10).map((light, index) => (
 						<button
 							type='button'
@@ -154,7 +151,6 @@ export default function PrayBoard() {
 						>
 							<Lantern
 								position=''
-								label=''
 								isLighted={true}
 								otherStyle='z-0 justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
 								key={index}
@@ -164,15 +160,11 @@ export default function PrayBoard() {
 					))}
 					{renderLanternsForLayout(lightData.slice(0, 10))}
 				</LanternLayout>
-				<LanternLayout
-					isLighted={false}
-					otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'
-				>
+				<LanternLayout otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'>
 					{lightData.slice(10, 20).map((light, index) => (
 						<button type='button' onClick={(e) => handleLightData(e, light)}>
 							<Lantern
 								position=''
-								label=''
 								isLighted={true}
 								otherStyle='justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
 								key={index}
@@ -181,15 +173,11 @@ export default function PrayBoard() {
 					))}
 					{renderLanternsForLayout(lightData.slice(10, 20))}
 				</LanternLayout>
-				<LanternLayout
-					isLighted={false}
-					otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'
-				>
+				<LanternLayout otherStyle='flex-center justify-start -space-x-12 w-fit border-b-[10px] border-stone-800'>
 					{lightData.slice(20, 30).map((light, index) => (
 						<button type='button' onClick={(e) => handleLightData(e, light)}>
 							<Lantern
 								position=''
-								label=''
 								isLighted={true}
 								otherStyle='justify-start flex-center -space-x-12 w-fit border-b-[10px] border-stone-800'
 								key={index}

@@ -20,6 +20,6 @@ export function Lantern({ position = 'absolute', label = '', isLighted = true, i
 	)
 }
 
-export function LanternLayout({ isLighted = true, otherStyle = '', children }) {
-	return <div className={`${isLighted ? 'lantern-float' : ''} ${otherStyle}`}>{children}</div>
+export function LanternLayout({ otherStyle = '', children }) {
+	return <div className={`lantern-float ${otherStyle}`}>{children}</div>
 }
