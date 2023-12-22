@@ -8,7 +8,7 @@ const DarkModeToggle = () => {
 	const { toggleDarkMode } = useDarkMode()
 
 	return (
-		<button className='hover:opacity-90' onClick={toggleDarkMode}>
+		<button className='hover:opacity-90 900:ml-2 ' onClick={toggleDarkMode}>
 			<div className='hidden dark:block'>
 				<WbSunnyIcon className='dark:text-white' />
 			</div>

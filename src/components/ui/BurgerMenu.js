@@ -14,7 +14,7 @@ export default function BurgerMenu({ pageList, userData }) {
 	}
 
 	return (
-		<Toolbar className='flex px-2 min-[852px]:hidden'>
+		<Toolbar className='flex px-2 900:hidden'>
 			<MenuIcon className='cursor-pointer dark:text-white' onClick={toggleDrawer(true)} />
 			<Drawer anchor='right' open={open}>
 				<Box sx={{ width: 240, height: '100%', pl: 1 }} className='dark:bg-zinc-800 dark:text-zinc-100'>
