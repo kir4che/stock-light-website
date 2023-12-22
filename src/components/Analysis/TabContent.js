@@ -202,13 +202,13 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 					</section>
 					{/* 日期區間 */}
 					<section className='pt-3 pb-2 overflow-x-auto rounded flex-center-between'>
-						{renderZoomButton('5D', 5, 99.7)}
-						{renderZoomButton('1M', 30, 98)}
-						{renderZoomButton('3M', 90, 94.5)}
-						{renderZoomButton('6M', 180, 88)}
-						{renderZoomButton('1Y', 365, 78)}
-						{renderZoomButton('3Y', 1095, 31.5)}
-						{renderZoomButton('5Y', 1825, 0)}
+						{renderZoomButton('5D', 5, 99)}
+						{renderZoomButton('1M', 30, 98.2)}
+						{renderZoomButton('3M', 90, 93.7)}
+						{renderZoomButton('6M', 180, 87.4)}
+						{renderZoomButton('1Y', 365, 73.8)}
+						{renderZoomButton('3Y', 1095, 23)}
+						{renderZoomButton('All', 1825, 0)}
 					</section>
 				</>
 			)
@@ -234,19 +234,19 @@ export default function TabContent({ stockId, tabIndex, stockData, stockPePb }) 
 						</section>
 						{/* 日期區間 */}
 						<section className='flex items-center justify-end text-xs font-light tracking-widest xs:text-sm xs:space-x-1'>
-							{renderTechAnalZoomButton('5D', 99.7)}
+							{renderTechAnalZoomButton('5D', 99)}
 							<span>｜</span>
-							{renderTechAnalZoomButton('1M', 98)}
+							{renderTechAnalZoomButton('1M', 98.2)}
 							<span>｜</span>
-							{renderTechAnalZoomButton('3M', 94.5)}
+							{renderTechAnalZoomButton('3M', 93.7)}
 							<span>｜</span>
-							{renderTechAnalZoomButton('6M', 88)}
+							{renderTechAnalZoomButton('6M', 87.4)}
 							<span>｜</span>
-							{renderTechAnalZoomButton('1Y', 78)}
+							{renderTechAnalZoomButton('1Y', 73.8)}
 							<span>｜</span>
-							{renderTechAnalZoomButton('3Y', 31.5)}
+							{renderTechAnalZoomButton('3Y', 23)}
 							<span>｜</span>
-							{renderTechAnalZoomButton('5Y', 0)}
+							{renderTechAnalZoomButton('All', 0)}
 						</section>
 					</div>
 					{/* K線圖 */}
