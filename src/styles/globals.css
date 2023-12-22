@@ -499,3 +499,147 @@
 .pray-btn:hover {
 	@apply bg-amber-300 boxshadow;
 }
+
+.door .leftDoor {
+	-webkit-animation: leftDoor 5s 1;
+	-moz-animation: leftDoor 5s 1;
+	-o-animation: leftDoor 5s 1;
+	animation: leftDoor 10s 1;
+	-webkit-transform-origin: 0% 40%;
+	-moz-transform-origin: 0% 40%;
+	-o-transform-origin: 0% 40%;
+	transform-origin: 0% 40%;
+	animation-delay: 2s;
+}
+
+.door .rightDoor {
+	-webkit-animation: rightDoor 5s 1;
+	-moz-animation: rightDoor 5s 1;
+	-o-animation: rightDoor 5s 1;
+	animation: rightDoor 10s 1;
+	-webkit-transform-origin: 100% 40%;
+	-moz-transform-origin: 100% 40%;
+	-o-transform-origin: 100% 40%;
+	transform-origin: 100% 40%;
+	animation-delay: 2s;
+}
+
+@-webkit-keyframes leftDoor {
+	0%,
+	60%,
+	100% {
+		-webkit-transform-origin: 0% 40%;
+	}
+	0% {
+		-webkit-transform: perspective(0) rotateY(0);
+	}
+	60% {
+		-webkit-transform: perspective(300px) rotateY(35deg);
+	}
+	100% {
+		-webkit-transform: perspective(600px) rotateY(70deg);
+	}
+}
+
+@-moz-keyframes leftDoor {
+	0%,
+	100% {
+		-moz-transform-origin: 0% 40%;
+	}
+	from {
+		-moz-transform: perspective(0) rotateY(0);
+	}
+	to {
+		-moz-transform: perspective(600px) rotateY(70deg);
+	}
+}
+
+@-o-keyframes leftDoor {
+	0%,
+	100% {
+		-o-transform-origin: 0% 40%;
+	}
+	from {
+		-o-transform: perspective(0) rotateY(0);
+	}
+	to {
+		-o-transform: perspective(600px) rotateY(70deg);
+	}
+}
+
+@keyframes leftDoor {
+	0%,
+	60%,
+	100% {
+		transform-origin: 0% 40%;
+	}
+	0% {
+		transform: perspective(0) rotateY(0);
+	}
+	60% {
+		transform: perspective(300px) rotateY(35deg);
+	}
+	100% {
+		transform: perspective(600px) rotateY(70deg);
+	}
+}
+
+@-webkit-keyframes rightDoor {
+	0%,
+	60%,
+	100% {
+		-webkit-transform-origin: 100% 40%;
+	}
+	0% {
+		-webkit-transform: perspective(0) rotateY(0);
+	}
+	60% {
+		-webkit-transform: perspective(300px) rotateY(-35deg);
+	}
+	100% {
+		-webkit-transform: perspective(600px) rotateY(-70deg);
+	}
+}
+
+@-moz-keyframes rightDoor {
+	0%,
+	100% {
+		-moz-transform-origin: 100% 40%;
+	}
+	from {
+		-moz-transform: perspective(0) rotateY(0);
+	}
+	to {
+		-moz-transform: perspective(600px) rotateY(-70deg);
+	}
+}
+
+@-o-keyframes rightDoor {
+	0%,
+	100% {
+		-o-transform-origin: 100% 40%;
+	}
+	from {
+		-o-transform: perspective(0) rotateY(0);
+	}
+	to {
+		-o-transform: perspective(600px) rotateY(-70deg);
+	}
+}
+
+@keyframes rightDoor {
+	0%,
+	60%,
+	100% {
+		transform-origin: 100% 40%;
+	}
+	0% {
+		transform: perspective(0) rotateY(0);
+	}
+	60% {
+		transform: perspective(300px) rotateY(-35deg);
+	}
+	100% {
+		transform: perspective(600px) rotateY(-70deg);
+	}
+}
