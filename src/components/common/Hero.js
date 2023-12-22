@@ -25,7 +25,7 @@ export default function Hero() {
 		<div className='max-h-[calc(100vh - 72px)] h-screen'>
 			<Marquee />
 			<div className='flex flex-col-reverse'>
-				<div className='z-30 mt-10 mb-6 space-x-5 xs:mb-8 min-[520px]:mt-4 min-[520px]:mb-0 sm:mt-10 md:mt-5 md:mb-6 flex-center'>
+				<div className='z-30 -mt-2 -mb-8 tall:mt-10 tall:mb-4 space-x-5 xs:mb-8 min-[520px]:mt-4 min-[520px]:mb-0 sm:mt-10 md:mt-5 md:mb-6 flex-center'>
 					<button
 						className='px-6 py-1 tracking-wide rounded-full bg-secondary_blue hover:bg-sky-500 text-zinc-100'
 						onClick={() => router.push(session ? '/light' : '/login')}
