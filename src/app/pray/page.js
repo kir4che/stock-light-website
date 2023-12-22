@@ -116,7 +116,7 @@ export default function PrayBoard() {
 
 	useEffect(() => {
 		fetchLight()
-		// setTimeout(() => setIsTempleAnimated(false), 3000)
+		setTimeout(() => setIsTempleAnimated(false), 3000)
 	}, [])
 
 	return (

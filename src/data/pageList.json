@@ -37,5 +37,10 @@
     "name": "意見回饋",
     "url": "feedback",
     "childPages": []
+  },
+  {
+    "name": "版本資訊",
+    "url": "version",
+    "childPages": []
   }
 ]
