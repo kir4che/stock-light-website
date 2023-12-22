@@ -57,7 +57,7 @@ export default function Register() {
 	}, [isSucceed])
 
 	return (
-		<StarryBackground className='flex-col pt-10 pb-12 flex-center'>
+		<StarryBackground className='flex-col flex-center'>
 			<div className='px-5 py-8 bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-10 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2 xl:w-2/5'>
 				<h3 className='text-zinc-100'>註冊股市光明燈</h3>
 				<p className='mt-4 mb-8 space-x-1 text-sm text-zinc-100 opacity-80'>
@@ -93,6 +93,7 @@ export default function Register() {
 				<SubmitBtn text='註冊' handleSubmit={handleRegister} style='mt-5 mb-10' />
 				<PrivacyAndTerms />
 			</div>
+			{/* 註冊成功消息 */}
 			<Dialog open={isSucceed} align='center' onClose={() => setIsSucceed(false)}>
 				<DialogTitle className='dark:text-zinc-100 dark:bg-zinc-800'>註冊成功</DialogTitle>
 				<DialogContent className='dark:text-zinc-100 dark:bg-zinc-800'>

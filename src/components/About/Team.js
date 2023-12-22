@@ -34,8 +34,8 @@ const members = [
 export default function Team() {
 	return (
 		<section className='pb-24'>
-			<h2 className='mb-5 text-center'>開發團隊</h2>
-			<p className='mb-10 text-sm leading-6 text-center'>
+			<h2 className='mb-4 text-center'>開發團隊</h2>
+			<p className='mb-10 text-sm leading-6 text-center opacity-80'>
 				一群由臺北科技大學資訊與財金管理系的學生所組成的團隊
 				<br />
 				希望能夠藉由搜集台灣股市的歷史數據，分析各種可能性！

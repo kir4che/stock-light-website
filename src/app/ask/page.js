@@ -39,7 +39,7 @@ export default function ChatBot() {
 	const [chatHistory, setChatHistory] = useState([
 		{
 			role: 'assitant',
-			content: '您好！我是諮詢股神，請問有什麼可以幫助您的嗎？',
+			content: '您好！我是您的專屬股神，請問有什麼可以幫助您的嗎？',
 		},
 	])
 	const [isBotTyping, setIsBotTyping] = useState(false)

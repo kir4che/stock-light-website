@@ -29,14 +29,14 @@ export default function Header() {
 				<Image src='/assets/logo.png' width={32} height={32} alt='logo' />
 				<h4>股市光明燈</h4>
 			</Link>
-			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 min-[852px]:flex lg:space-x-8'>
+			<nav className='hidden ml-6 mr-auto space-x-3 leading-5 lg:ml-8 lg:pt-1 min-[852px]:flex min-[1052px]:space-x-8'>
 				{pageList.map((page) => {
 					if (page.childPages.length > 0) {
 						return (
 							<div key={page.url}>
 								<button type='button' className='flex flex-col' onClick={handleClick}>
 									<span>{page.name}</span>
-									<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
+									<span className='hidden text-sm capitalize min-[1052px]:block'>{page.url}</span>
 								</button>
 								<Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
 									{page.childPages.map((childPage) => {
@@ -58,7 +58,7 @@ export default function Header() {
 								key={page.url}
 							>
 								<span>{page.name}</span>
-								<span className='hidden text-sm capitalize lg:block'>{page.url}</span>
+								<span className='hidden text-sm capitalize min-[1052px]:block'>{page.url}</span>
 							</button>
 						)
 					}

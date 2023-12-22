@@ -12,13 +12,13 @@ const fetchStockData = async ({ stockId, setIsLoading }) => {
 		if (data.success) {
 			let stockData = data.data.reverse()
 
-			const dates = stockData((stock) => convertDateTime(stock.date).split(' ')[0])
-			const closingPrices = stockData((stock) => stock.closing_price)
-			const openingPrices = stockData((stock) => stock.opening_price)
-			const highestPrices = stockData((stock) => stock.highest_price)
-			const lowestPrices = stockData((stock) => stock.lowest_price)
-			const changes = stockData((stock) => stock.change)
-			const volumes = stockData((stock) => stock.trade_volume)
+			const dates = stockData.map((stock) => convertDateTime(stock.date).split(' ')[0])
+			const closingPrices = stockData.map((stock) => stock.closing_price)
+			const openingPrices = stockData.map((stock) => stock.opening_price)
+			const highestPrices = stockData.map((stock) => stock.highest_price)
+			const lowestPrices = stockData.map((stock) => stock.lowest_price)
+			const changes = stockData.map((stock) => stock.change)
+			const volumes = stockData.map((stock) => stock.trade_volume)
 
 			setIsLoading(false)
 

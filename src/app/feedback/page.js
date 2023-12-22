@@ -1,7 +1,7 @@
 'use client'
 
 import emailjs from '@emailjs/browser'
-import { Dialog, DialogContent, DialogTitle, Input, InputLabel } from '@mui/material'
+import { Dialog, DialogContent, DialogTitle, InputLabel, TextField } from '@mui/material'
 import Image from 'next/image'
 import { useRef, useState } from 'react'
 
@@ -42,14 +42,14 @@ export default function Feedback() {
 	}
 
 	return (
-		<StarryBackground className='pt-12 pb-20 mx-auto lg:px-0'>
-			<h2 className='mb-5 text-center text-zinc-100'>意見回饋</h2>
-			<p className='mb-6 text-xl font-light text-center text-zinc-100 opacity-60'>
+		<StarryBackground className='flex-col flex-center'>
+			<h2 className='mb-4 text-center text-zinc-100'>意見回饋</h2>
+			<p className='mb-6 text-lg font-light text-center text-zinc-100 opacity-70'>
 				如果您有任何建議或問題，歡迎寄信給我們！
 			</p>
 			<form
 				ref={form}
-				className='w-full px-10 py-10 mx-auto bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-12 lg:px-16 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2'
+				className='w-full px-10 pt-8 pb-10 mx-auto bg-white/10 backdrop-blur-xl dark:bg-zinc-900/50 sm:px-12 lg:px-16 sm:rounded-xl sm:w-3/4 md:w-4/6 lg:w-1/2'
 			>
 				<InputField
 					label='電子郵件'
@@ -65,17 +65,19 @@ export default function Feedback() {
 					placeholder='輸入您的標題'
 					onChange={(e) => updateFormData('title', e.target.value)}
 				/>
-				<InputLabel className='mt-4 text-sm text-zinc-100 '>內容</InputLabel>
-				<Input
+				<InputLabel className='mb-2 text-sm text-zinc-100'>內容</InputLabel>
+				<TextField
 					type='text'
 					name='content'
-					multiline
-					minRows={8}
-					fullWidth
 					onChange={(e) => updateFormData('content', e.target.value)}
-					className='p-2.5 mt-2 rounded bg-zinc-100'
-					required
+					size='small'
+					multiline
+					rows={8}
+					fullWidth
+					className='rounded bg-zinc-100'
+					inputProps={{ maxLength: 200 }}
 				/>
+				<p className='mt-1.5 text-xs dark:text-zinc-300'>最多 200 字</p>
 				<SubmitBtn text='送出' handleSubmit={handleSend} style='mt-9' />
 			</form>
 			<Dialog open={isSucceed} align='center' onClose={() => setIsSucceed(false)}>
