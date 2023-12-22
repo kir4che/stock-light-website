@@ -28,7 +28,7 @@ export default function PrayBoard() {
 
 	const [isTempleAnimated, setIsTempleAnimated] = useState(true)
 
-	const [lightData, setLightData] = useState(fakeDate)
+	const [lightData, setLightData] = useState([])
 	const [anchorEl, setAnchorEl] = useState(null)
 	const [selectedLightData, setSelectedLightData] = useState(null)
 	const [isFormOpen, setIsFormOpen] = useState(false)
