@@ -15,7 +15,6 @@ import SubmitBtn from '@/components/ui/SubmitBtn'
 import fetchStockByFactor from '@/utils/fetchStockByFactor'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 
-
 export default function Light() {
 	const { status } = useSession()
 	const router = useRouter()
@@ -86,7 +85,7 @@ export default function Light() {
 	}, [lightSucceed])
 
 	return (
-		<StarryBackground className='h-screen pt-16'>
+		<StarryBackground className='min-h-screen pt-16'>
 			{lightSucceed ? (
 				<div className='glowing-circle-container'>
 					<div className='glowing-circle' />
@@ -95,6 +94,8 @@ export default function Light() {
 				<>
 					<DropMenu handleSelect={handleSelectIndustry} />
 					<LanternLayout>
+						<div className='bg-[url("https://imgur.com/SbL5TKB.png")] bg-no-repeat bg-center bg-contain w-[40vw] h-full min-h-screen mx-auto' />
+
 						<button type='button' onClick={() => handleSelectIndustry('光電業')}>
 							<Lantern
 								position='absolute -top-2 -left-16'
@@ -137,15 +138,7 @@ export default function Light() {
 								isHovered={selectedIndustry === '半導體業' ? true : false}
 							/>
 						</button>
-
 						{/* --------- */}
-						<div className='flex justify-center items-center '>
-							<img src="/assets/gods/god-5.png" alt='god' width={300} height={300}
-								className='rounded-xl shadow-inner overflow-hidden' />
-							<div className='h-96 w-96 blur-2xl absolute'></div>
-						</div>
-						{/* --------- */}
-
 						<button type='button' onClick={() => handleSelectIndustry('居家生活')}>
 							<Lantern
 								position='absolute top-4 left-52'
@@ -197,7 +190,7 @@ export default function Light() {
 						</button>
 						<button type='button' onClick={() => handleSelectIndustry('汽車工業')}>
 							<Lantern
-								position='absolute top-[525px] left-[360px]'
+								position='absolute top-[640px] left-[360px]'
 								label='汽車股'
 								isHovered={selectedIndustry === '汽車工業' ? true : false}
 							/>
@@ -289,7 +282,7 @@ export default function Light() {
 						</button>
 						<button type='button' onClick={() => handleSelectIndustry('電子通路業')}>
 							<Lantern
-								position='absolute right-[680px] top-30 scale-[.7]'
+								position='absolute right-[680px] -top-4 scale-[.7]'
 								label='電子通路股'
 								isHovered={selectedIndustry === '電子通路業' ? true : false}
 							/>
@@ -332,14 +325,14 @@ export default function Light() {
 													factor === '負債比率 < 30%'
 														? 'debtRatio'
 														: factor === 'ROE > 15%'
-															? 'Roe'
-															: factor === '自由現金流 > 0'
-																? 'freeCashFlow'
-																: factor === '流動比率 > 2'
-																	? 'currentRatio'
-																	: factor === 'EPS > 0'
-																		? 'EPS'
-																		: null,
+														? 'Roe'
+														: factor === '自由現金流 > 0'
+														? 'freeCashFlow'
+														: factor === '流動比率 > 2'
+														? 'currentRatio'
+														: factor === 'EPS > 0'
+														? 'EPS'
+														: null,
 													selectedIndustry
 												)
 											}
@@ -377,10 +370,11 @@ export default function Light() {
 									<li className='w-full py-2'>
 										<button
 											type='button'
-											className={`w-full sm:w-28 sm:py-8 font-medium border shadow rounded-md text-zinc-800 ${selectedAmount === amount
-												? 'bg-primary_yellow border-primary_yellow hover:bg-amber-300'
-												: 'bg-white hover:bg-zinc-50'
-												}`}
+											className={`w-full sm:w-28 sm:py-8 font-medium border shadow rounded-md text-zinc-800 ${
+												selectedAmount === amount
+													? 'bg-primary_yellow border-primary_yellow hover:bg-amber-300'
+													: 'bg-white hover:bg-zinc-50'
+											}`}
 											onClick={() => {
 												if (selectedAmount === amount) setSelectedAmount(null)
 												else setSelectedAmount(amount)
