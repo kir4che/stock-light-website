@@ -18,7 +18,7 @@ export default function TodayLantern({ industry, resultStock, open, handleDialog
 					{resultStock &&
 						resultStock.map((stock, index) => (
 							<div className='space-y-2' key={index}>
-								<Image src='/assets/lantern.png' width={120} height={120} alt='lantern' />
+								<Image src='/assets/light/lantern.png' width={120} height={120} alt='lantern' />
 								<h4 className='font-semibold tracking-widest dark:text-white'>
 									{stock100.find((stock100) => stock100.stock_id === stock)?.name}
 								</h4>

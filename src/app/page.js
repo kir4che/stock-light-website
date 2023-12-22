@@ -65,21 +65,21 @@ export default function Home() {
 					</button>
 					<div className='relative hidden md:block'>
 						<Image
-							src='/assets/lantern.png'
+							src='/assets/light/lantern.png'
 							width={120}
 							height={120}
 							alt='lantern-1'
 							className='absolute left-4 lg:left-12 xl:left-20 -top-80'
 						/>
 						<Image
-							src='/assets/lantern.png'
+							src='/assets/light/lantern.png'
 							width={100}
 							height={100}
 							alt='lantern-2'
 							className='absolute -top-14 left-40 lg:left-72 xl:left-80'
 						/>
 						<Image
-							src='/assets/lantern.png'
+							src='/assets/light/lantern.png'
 							width={100}
 							height={100}
 							alt='lantern-3'
