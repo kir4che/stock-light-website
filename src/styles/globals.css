@@ -509,7 +509,7 @@
 	-moz-transform-origin: 0% 40%;
 	-o-transform-origin: 0% 40%;
 	transform-origin: 0% 40%;
-	animation-delay: 2s;
+	animation-delay: 3s;
 }
 
 .door .rightDoor {
@@ -521,7 +521,7 @@
 	-moz-transform-origin: 100% 40%;
 	-o-transform-origin: 100% 40%;
 	transform-origin: 100% 40%;
-	animation-delay: 2s;
+	animation-delay: 3s;
 }
 
 @-webkit-keyframes leftDoor {
