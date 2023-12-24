@@ -76,7 +76,7 @@ export default function RagBot({ stockId, stockName }) {
 				let response = await openai.beta.threads.runs.retrieve(threadId, run.id)
 
 				while (response.status === 'in_progress' || response.status === 'queued') {
-					console.log('waiting...')
+					// console.log('waiting...')
 					await new Promise((resolve) => setTimeout(resolve, 5000))
 					response = await openai.beta.threads.runs.retrieve(threadId, run.id)
 				}
@@ -110,16 +110,16 @@ export default function RagBot({ stockId, stockName }) {
 	return (
 		<>
 			<div
-				className={`fixed overflow-y-auto bg-primary_yellow rounded-lg border dark:border-zinc-600 shadow bottom-20 min-[465px]:bottom-4 right-4 min-[465px]:right-20 w-11/12 min-[465px]:w-96 transition-opacity duration-300 ease-in ${
+				className={`fixed overflow-y-auto bg-primary_yellow rounded-lg border dark:border-zinc-600 shadow bottom-20 465:bottom-4 right-4 465:right-20 w-11/12 465:w-100 transition-opacity duration-300 ease-in ${
 					isOpen ? 'opacity-100' : 'opacity-0'
 				}`}
 			>
 				{/* 對話框 */}
-				<div className='min-h-[240px] max-h-[420px] h-full p-4 overflow-y-auto'>
+				<div className='p-4 overflow-y-auto h-60 xs:h-80'>
 					{chatHistory.map((message, index) => (
 						<div className='inline-block w-full'>
 							<div
-								className={`p-3 w-fit mb-1 max-w-[90%] space-y-2 bg-white rounded-lg shadow-md dark:bg-zinc-800 ${
+								className={`p-3 w-fit mb-1 space-y-2 bg-white rounded-lg shadow-md dark:bg-zinc-800 ${
 									message.role === 'assitant' ? 'float-left' : 'float-right'
 								}`}
 								key={index}

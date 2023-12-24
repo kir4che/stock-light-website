@@ -96,9 +96,6 @@ export default function Portfolio() {
 			})
 			const data = await response.json()
 
-			console.log('create group response', response)
-			console.log('create group data', data)
-
 			if (data.success) fetchPortfolio()
 			else alert('新增投資組合失敗，請稍後再試！')
 		} catch (error) {
@@ -148,9 +145,7 @@ export default function Portfolio() {
 
 		if (isDeleteStock) {
 			let stocksToDelete = rows.filter((row) => rowIds.includes(row.id)).map((row) => row.stock_id)
-			console.log('stocksToDelete', stocksToDelete)
 			newStockIdArray = newStockIdArray.filter((id) => !stocksToDelete.includes(id))
-			console.log('newStockIdArray', newStockIdArray)
 			setIsDeleteStock(false)
 		}
 

@@ -17,6 +17,7 @@ module.exports = {
 		extend: {
 			screens: {
 				xs: '400px',
+				465: '465px',
 				md: '800px',
 				900: '900px',
 				1080: '1080px',
@@ -25,6 +26,7 @@ module.exports = {
 			width: {
 				25: '6.25rem',
 				'1/7': '14.286%',
+				100: '25rem',
 			},
 			height: {
 				screen: 'calc(100vh - 76px)',
