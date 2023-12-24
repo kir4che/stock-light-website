@@ -5,8 +5,8 @@ const members = [
 		id: 1,
 		name: '葉柏賢',
 		content: '後端、資料庫設計、天氣分析',
-		img: '/assets/members/109AB0712.jpg',
-		desc: 'Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.',
+		img: '/assets/members/虎鯨助理.png',
+		desc: '作為股市光明燈網站專題的後端特助，我一直致力於保持專業標準的高度和穩定性。在我的角色中，我深知對團隊和項目的責任重大。雖然偶爾會有些放鬆，但我始終確保所有工作都能在截止時間前順利完成。我的一個引以為傲的成就是在工作期間成功開發了100個API，這不僅是對我的專業技術的肯定，也是我不斷學習和創新能力的證明。我喜歡自稱為\" I\'m API master\"，這不僅是一個標籤，更是對自己能力的自信表達。這些API的開發，不僅提升了我們網站的效能，也增強了用戶體驗。總的來說，我覺得自己是一位既負責又能在壓力下表現出色的專業人士。我對自己在技術上的成就感到自豪，並且對於未來的挑戰抱有積極的態度。',
 	},
 	{
 		id: 2,
