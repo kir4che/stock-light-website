@@ -1,11 +1,3 @@
-## 網站說明
-
-若需登入，請先使用測試帳號。
-
-email: test@gmail.com
-
-password: 12345
-
 ## Getting Started
 
 First, run the development server:
