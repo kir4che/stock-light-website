@@ -95,7 +95,6 @@ export default function Light() {
 					<DropMenu handleSelect={handleSelectIndustry} />
 					<LanternLayout>
 						<div className='bg-[url("https://imgur.com/SbL5TKB.png")] bg-no-repeat bg-center bg-contain w-[40vw] h-full min-h-screen mx-auto' />
-
 						<button type='button' onClick={() => handleSelectIndustry('光電業')}>
 							<Lantern
 								position='absolute -top-2 -left-16'

@@ -108,24 +108,13 @@ export default function PrayBoard() {
 		}
 	}
 
-	const renderLanternsForLayout = (lightData, topOffset) => {
-		const lanterns = []
-
-		for (let i = 0; i < 10 - lightData.length; i++) {
-			lanterns.push(
-				<Lantern position={`relative top-${topOffset * Math.floor(Math.random() * 4 + 1)}`} isLighted={false} key={i} />
-			)
-		}
-		return lanterns
-	}
-
 	useEffect(() => {
 		fetchLight()
 		setTimeout(() => setIsTempleAnimated(false), 3000)
 	}, [])
 
 	return (
-		<StarryBackground className={`flex-col h-screen flex-center-between ${isTempleAnimated ? '' : 'py-8'}`}>
+		<StarryBackground className='flex-col h-screen flex-center-between'>
 			{isTempleAnimated && (
 				<div className='z-30 door'>
 					<Image
@@ -145,64 +134,372 @@ export default function PrayBoard() {
 				</div>
 			)}
 			{/* 目前先設定可以放 30 盞燈 */}
-			<div className='w-full pb-10 space-y-6 overflow-x-auto'>
-				<LanternLayout otherStyle='flex-center justify-start -space-x-12'>
-					{lightData.slice(0, 10).map((light, index) => (
-						<button
-							type='button'
-							className='flex-col flex-center'
-							onClick={(e) => handleLightData(e, light)}
-							onMouseLeave={() => setAnchorEl(null)}
-						>
-							<Lantern
-								position={`relative top-${Math.floor(Math.random() * 8 + 1) * 2}`}
-								isLighted={true}
-								otherStyle='z-0 justify-start flex-center -space-x-12'
-								key={index}
-							/>
-							<p className='relative z-10 px-2 -mt-6 -mb-1 text-sm text-zinc-100 bg-zinc-800/50 w-fit'>{light.name}</p>
-						</button>
-					))}
-					{renderLanternsForLayout(
-						lightData.slice(0, 10),
-						Math.floor(Math.random() * (Math.floor(Math.random() * 20 + 1) + 1))
-					)}
-				</LanternLayout>
-				<LanternLayout otherStyle='flex-center justify-start -space-x-12'>
-					{lightData.slice(10, 20).map((light, index) => (
-						<button type='button' onClick={(e) => handleLightData(e, light)}>
-							<Lantern
-								position={`relative top-${Math.floor(Math.random() * 8 + 1) * 2}`}
-								isLighted={true}
-								otherStyle='justify-start flex-center -space-x-12'
-								key={index}
-							/>
-							<p className='relative z-10 px-2 -mt-6 -mb-1 text-sm text-zinc-100 bg-zinc-800/50 w-fit'>{light.name}</p>
-						</button>
-					))}
-					{renderLanternsForLayout(
-						lightData.slice(10, 20),
-						Math.floor(Math.random() * (Math.floor(Math.random() * 20 + 1) + 1))
-					)}
-				</LanternLayout>
-				<LanternLayout otherStyle='flex-center justify-start -space-x-12'>
-					{lightData.slice(20, 30).map((light, index) => (
-						<button type='button' onClick={(e) => handleLightData(e, light)}>
-							<Lantern
-								position={`relative top-${Math.floor(Math.random() * 8 + 1) * 2}`}
-								isLighted={true}
-								otherStyle='justify-start flex-center -space-x-12'
-								key={index}
-							/>
-							<p className='relative z-10 px-2 -mt-6 -mb-1 text-sm text-zinc-100 bg-zinc-800/50 w-fit'>{light.name}</p>
-						</button>
-					))}
-					{renderLanternsForLayout(
-						lightData.slice(20, 30),
-						Math.floor(Math.random() * (Math.floor(Math.random() * 20 + 1) + 1))
-					)}
-				</LanternLayout>
-			</div>
+			<LanternLayout otherStyle={`${isTempleAnimated ? 'absolute' : ''} pt-8`}>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute -top-10 left-10'
+						label={lightData[0]?.name}
+						isHovered={lightData[0] !== undefined}
+						isLighted={lightData[0] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute -top-12 right-48'
+						label={lightData[1]?.name}
+						isHovered={lightData[1] !== undefined}
+						isLighted={lightData[1] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-32 left-6'
+						label={lightData[2]?.name}
+						isHovered={lightData[2] !== undefined}
+						isLighted={lightData[2] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-72 -left-12'
+						label={lightData[3]?.name}
+						isHovered={lightData[3] !== undefined}
+						isLighted={lightData[3] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-64 left-40'
+						label={lightData[4]?.name}
+						isHovered={lightData[4] !== undefined}
+						isLighted={lightData[4] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-[400px] left-24'
+						label={lightData[5]?.name}
+						isHovered={lightData[5] !== undefined}
+						isLighted={lightData[5] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-8 left-48'
+						label={lightData[6]?.name}
+						isHovered={lightData[6] !== undefined}
+						isLighted={lightData[6] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute -top-6 left-88'
+						label={lightData[7]?.name}
+						isHovered={lightData[7] !== undefined}
+						isLighted={lightData[7] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-52 left-80'
+						label={lightData[8]?.name}
+						isHovered={lightData[8] !== undefined}
+						isLighted={lightData[8] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-[480px] left-72'
+						label={lightData[9]?.name}
+						isHovered={lightData[9] !== undefined}
+						isLighted={lightData[9] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute -top-4 right-[500px]'
+						label={lightData[10]?.name}
+						isHovered={lightData[10] !== undefined}
+						isLighted={lightData[10] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-20 left-[500px]'
+						label={lightData[11]?.name}
+						isHovered={lightData[11] !== undefined}
+						isLighted={lightData[11] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-72 left-[500px]'
+						label={lightData[12]?.name}
+						isHovered={lightData[12] !== undefined}
+						isLighted={lightData[12] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute top-[450px] left-[450px]'
+						label={lightData[13]?.name}
+						isHovered={lightData[13] !== undefined}
+						isLighted={lightData[13] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-4 -top-4'
+						label={lightData[14]?.name}
+						isHovered={lightData[14] !== undefined}
+						isLighted={lightData[14] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute -right-10 top-36'
+						label={lightData[15]?.name}
+						isHovered={lightData[15] !== undefined}
+						isLighted={lightData[15] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-0 top-96'
+						label={lightData[16]?.name}
+						isHovered={lightData[16] !== undefined}
+						isLighted={lightData[16] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-28 top-[480px]'
+						label={lightData[17]?.name}
+						isHovered={lightData[17] !== undefined}
+						isLighted={lightData[17] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-24 top-44'
+						label={lightData[18]?.name}
+						isHovered={lightData[18] !== undefined}
+						isLighted={lightData[18] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-40 top-88'
+						label={lightData[19]?.name}
+						isHovered={lightData[19] !== undefined}
+						isLighted={lightData[19] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-64 top-[500px]'
+						label={lightData[20]?.name}
+						isHovered={lightData[20] !== undefined}
+						isLighted={lightData[20] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-60 top-32'
+						label={lightData[21]?.name}
+						isHovered={lightData[21] !== undefined}
+						isLighted={lightData[21] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-96 top-10'
+						label={lightData[22]?.name}
+						isHovered={lightData[22] !== undefined}
+						isLighted={lightData[22] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-88 top-64'
+						label={lightData[23]?.name}
+						isHovered={lightData[23] !== undefined}
+						isLighted={lightData[23] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-[385px] top-[420px]'
+						label={lightData[24]?.name}
+						isHovered={lightData[24] !== undefined}
+						isLighted={lightData[24] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-[480px] top-48'
+						label={lightData[25]?.name}
+						isHovered={lightData[25] !== undefined}
+						isLighted={lightData[25] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-[520px] top-80'
+						label={lightData[26]?.name}
+						isHovered={lightData[26] !== undefined}
+						isLighted={lightData[26] !== undefined}
+					/>
+				</button>
+				<button
+					type='button'
+					className='relative'
+					onClick={(e) => handleLightData(e, light)}
+					onMouseLeave={() => setAnchorEl(null)}
+				>
+					<Lantern
+						position='absolute right-[525px] top-[500px]'
+						label={lightData[28]?.name}
+						isHovered={lightData[28] !== undefined}
+						isLighted={lightData[28] !== undefined}
+					/>
+				</button>
+			</LanternLayout>
 			{/* 祈福內容 */}
 			{selectedLightData && (
 				<Popover
@@ -272,7 +569,7 @@ export default function PrayBoard() {
 				arrow
 			>
 				{!isTempleAnimated && (
-					<button className='pray-btn' onClick={handleOpenForm}>
+					<button className='mb-8 pray-btn' onClick={handleOpenForm}>
 						點亮一盞光明燈
 					</button>
 				)}
@@ -296,7 +593,6 @@ export default function PrayBoard() {
 							size='small'
 							required
 						/>
-
 						<FormLabel className='mt-5 mb-2 dark:text-zinc-100 text-zinc-800'>您要祈福的股票</FormLabel>
 						<StockSelect setSelect={setSelectStockId} />
 						<FormLabel className='mt-5 mb-2 dark:text-zinc-100 text-zinc-800'>祈福語</FormLabel>
