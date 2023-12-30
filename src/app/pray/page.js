@@ -133,378 +133,57 @@ export default function PrayBoard() {
 					/>
 				</div>
 			)}
-			{/* 目前先設定可以放 30 盞燈 */}
+			{/* 目前先設定放 30 盞燈 */}
 			<LanternLayout otherStyle={`${isTempleAnimated ? 'absolute' : ''} pt-8`}>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[0])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute -top-10 left-10'
-						label={lightData[0]?.name}
-						isHovered={lightData[0] !== undefined}
-						isLighted={lightData[0] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[1])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute -top-12 right-48'
-						label={lightData[1]?.name}
-						isHovered={lightData[1] !== undefined}
-						isLighted={lightData[1] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[2])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-32 left-6'
-						label={lightData[2]?.name}
-						isHovered={lightData[2] !== undefined}
-						isLighted={lightData[2] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[3])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-72 -left-12'
-						label={lightData[3]?.name}
-						isHovered={lightData[3] !== undefined}
-						isLighted={lightData[3] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[4])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-64 left-40'
-						label={lightData[4]?.name}
-						isHovered={lightData[4] !== undefined}
-						isLighted={lightData[4] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[5])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-[400px] left-24'
-						label={lightData[5]?.name}
-						isHovered={lightData[5] !== undefined}
-						isLighted={lightData[5] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[6])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-8 left-48'
-						label={lightData[6]?.name}
-						isHovered={lightData[6] !== undefined}
-						isLighted={lightData[6] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[7])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute -top-6 left-88'
-						label={lightData[7]?.name}
-						isHovered={lightData[7] !== undefined}
-						isLighted={lightData[7] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[8])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-52 left-80'
-						label={lightData[8]?.name}
-						isHovered={lightData[8] !== undefined}
-						isLighted={lightData[8] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[9])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-[480px] left-72'
-						label={lightData[9]?.name}
-						isHovered={lightData[9] !== undefined}
-						isLighted={lightData[9] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[10])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute -top-4 right-[500px]'
-						label={lightData[10]?.name}
-						isHovered={lightData[10] !== undefined}
-						isLighted={lightData[10] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[11])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-20 left-[500px]'
-						label={lightData[11]?.name}
-						isHovered={lightData[11] !== undefined}
-						isLighted={lightData[11] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[12])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-72 left-[500px]'
-						label={lightData[12]?.name}
-						isHovered={lightData[12] !== undefined}
-						isLighted={lightData[12] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[13])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute top-[450px] left-[450px]'
-						label={lightData[13]?.name}
-						isHovered={lightData[13] !== undefined}
-						isLighted={lightData[13] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[14])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-4 -top-4'
-						label={lightData[14]?.name}
-						isHovered={lightData[14] !== undefined}
-						isLighted={lightData[14] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[15])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute -right-10 top-36'
-						label={lightData[15]?.name}
-						isHovered={lightData[15] !== undefined}
-						isLighted={lightData[15] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[16])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-0 top-96'
-						label={lightData[16]?.name}
-						isHovered={lightData[16] !== undefined}
-						isLighted={lightData[16] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[17])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-28 top-[480px]'
-						label={lightData[17]?.name}
-						isHovered={lightData[17] !== undefined}
-						isLighted={lightData[17] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[18])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-24 top-44'
-						label={lightData[18]?.name}
-						isHovered={lightData[18] !== undefined}
-						isLighted={lightData[18] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[19])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-40 top-88'
-						label={lightData[19]?.name}
-						isHovered={lightData[19] !== undefined}
-						isLighted={lightData[19] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[20])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-64 top-[500px]'
-						label={lightData[20]?.name}
-						isHovered={lightData[20] !== undefined}
-						isLighted={lightData[20] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[21])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-60 top-32'
-						label={lightData[21]?.name}
-						isHovered={lightData[21] !== undefined}
-						isLighted={lightData[21] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[22])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-96 top-10'
-						label={lightData[22]?.name}
-						isHovered={lightData[22] !== undefined}
-						isLighted={lightData[22] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[23])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-88 top-64'
-						label={lightData[23]?.name}
-						isHovered={lightData[23] !== undefined}
-						isLighted={lightData[23] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[24])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-[385px] top-[420px]'
-						label={lightData[24]?.name}
-						isHovered={lightData[24] !== undefined}
-						isLighted={lightData[24] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[25])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-[480px] top-48'
-						label={lightData[25]?.name}
-						isHovered={lightData[25] !== undefined}
-						isLighted={lightData[25] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[26])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-[520px] top-80'
-						label={lightData[26]?.name}
-						isHovered={lightData[26] !== undefined}
-						isLighted={lightData[26] !== undefined}
-					/>
-				</button>
-				<button
-					type='button'
-					className='relative'
-					onClick={(e) => handleLightData(e, lightData[27])}
-					onMouseLeave={() => setAnchorEl(null)}
-				>
-					<Lantern
-						position='absolute right-[525px] top-[500px]'
-						label={lightData[27]?.name}
-						isHovered={lightData[27] !== undefined}
-						isLighted={lightData[27] !== undefined}
-					/>
-				</button>
+				{[
+					'absolute -top-10 left-10',
+					'absolute -top-12 right-48',
+					'absolute top-32 left-6',
+					'absolute top-72 -left-12',
+					'absolute top-64 left-40',
+					'absolute top-[400px] left-24',
+					'absolute top-8 left-48',
+					'absolute -top-6 left-88',
+					'absolute top-52 left-80',
+					'absolute top-[480px] left-72',
+					'absolute -top-4 right-[500px]',
+					'absolute top-20 left-[500px]',
+					'absolute top-72 left-[500px]',
+					'absolute top-[450px] left-[450px]',
+					'absolute right-4 -top-4',
+					'absolute -right-10 top-36',
+					'absolute right-0 top-96',
+					'absolute right-28 top-[480px]',
+					'absolute right-24 top-44',
+					'absolute right-40 top-88',
+					'absolute right-64 top-[500px]',
+					'absolute right-60 top-32',
+					'absolute right-96 top-10',
+					'absolute right-88 top-64',
+					'absolute right-[385px] top-[420px]',
+					'absolute right-[480px] top-48',
+					'absolute right-[520px] top-80',
+					'absolute right-[525px] top-[500px]',
+				].map((position, index) => (
+					<button
+						type='button'
+						className='relative'
+						onClick={(e) => handleLightData(e, lightData[index])}
+						onMouseLeave={() => setAnchorEl(null)}
+					>
+						<Lantern
+							position={position}
+							label={lightData[index]?.name}
+							isHovered={lightData[index] !== undefined}
+							isLighted={lightData[index] !== undefined}
+						/>
+					</button>
+				))}
 			</LanternLayout>
 			{/* 祈福內容 */}
 			{selectedLightData && (
 				<Popover
 					open={Boolean(anchorEl)}
-					anchorEl={anchorEl}
 					sx={{
 						pointerEvents: 'none',
 						'& .MuiPopover-paper': {
@@ -516,14 +195,8 @@ export default function PrayBoard() {
 							marginTop: '-0.5rem',
 						},
 					}}
-					anchorOrigin={{
-						vertical: 'bottom',
-						horizontal: 'center',
-					}}
-					transformOrigin={{
-						vertical: 'top',
-						horizontal: 'center',
-					}}
+					anchorOrigin={{ vertical: 'center', horizontal: 'center' }}
+					transformOrigin={{ vertical: 250, horizontal: 'center' }}
 					onClose={() => setAnchorEl(null)}
 					disableRestoreFocus
 				>
