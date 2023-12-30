@@ -15,7 +15,9 @@ export function Lantern({ position = 'absolute', label = '', isLighted = true, i
 			<div className='rounded-t-lg left rounded-b-md' />
 			<div className='rounded-t-lg right rounded-b-md' />
 			<div className={isLighted ? 'lantern-flame' : ''} />
-			<div className={`w-8 mx-2 my-5 flex-center latern_label ${isHovered ? 'visible' : ''}`}>{label}</div>
+			<div className={`w-8 mx-2 my-5 flex-center latern_label ${isHovered ? 'visible bg-zinc-800/60 w-fit py-1' : ''}`}>
+				{label}
+			</div>
 		</div>
 	)
 }

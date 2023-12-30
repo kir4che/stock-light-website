@@ -138,7 +138,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[0])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -151,7 +151,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[1])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -164,7 +164,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[2])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -177,7 +177,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[3])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -190,7 +190,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[4])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -203,7 +203,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[5])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -216,7 +216,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[6])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -229,7 +229,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[7])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -242,7 +242,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[8])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -255,7 +255,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[9])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -268,7 +268,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[10])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -281,7 +281,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[11])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -294,7 +294,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[12])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -307,7 +307,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[13])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -320,7 +320,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[14])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -333,7 +333,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[15])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -346,7 +346,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[16])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -359,7 +359,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[17])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -372,7 +372,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[18])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -385,7 +385,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[19])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -398,7 +398,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[20])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -411,7 +411,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[21])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -424,7 +424,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[22])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -437,7 +437,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[23])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -450,7 +450,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[24])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -463,7 +463,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[25])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -476,7 +476,7 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[26])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
@@ -489,14 +489,14 @@ export default function PrayBoard() {
 				<button
 					type='button'
 					className='relative'
-					onClick={(e) => handleLightData(e, light)}
+					onClick={(e) => handleLightData(e, lightData[27])}
 					onMouseLeave={() => setAnchorEl(null)}
 				>
 					<Lantern
 						position='absolute right-[525px] top-[500px]'
-						label={lightData[28]?.name}
-						isHovered={lightData[28] !== undefined}
-						isLighted={lightData[28] !== undefined}
+						label={lightData[27]?.name}
+						isHovered={lightData[27] !== undefined}
+						isLighted={lightData[27] !== undefined}
 					/>
 				</button>
 			</LanternLayout>
