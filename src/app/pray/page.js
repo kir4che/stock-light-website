@@ -123,6 +123,7 @@ export default function PrayBoard() {
 						height={400}
 						className='absolute left-0 object-fill h-full max-w-[50%] leftDoor'
 						alt='temple'
+						priority={true}
 					/>
 					<Image
 						src='/assets/light/temple-gate-r.png'
@@ -130,6 +131,7 @@ export default function PrayBoard() {
 						height={400}
 						className='absolute right-0 object-fill h-full max-w-[50%] rightDoor'
 						alt='temple'
+						priority={true}
 					/>
 				</div>
 			)}
