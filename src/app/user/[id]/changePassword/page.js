@@ -10,6 +10,7 @@ import InputField from '@/components/ui/InputField'
 
 export default function ChangePassword() {
 	const { data: session } = useSession()
+	const token = session?.token || null
 
 	const [isSucceeded, setIsSucceeded] = useState(false)
 	const [newData, setNewData] = useState({
@@ -42,7 +43,7 @@ export default function ChangePassword() {
 				headers: {
 					'Content-Type': 'application/json',
 					Accept: 'application/json',
-					Authorization: session.token,
+					Authorization: token,
 				},
 			})
 			if (response.ok) setIsSucceeded(true)
