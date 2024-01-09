@@ -4,7 +4,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Input, Tab, Tabs } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
-import Cookies from 'js-cookie'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
@@ -13,7 +13,8 @@ import StockSelect from '@/components/ui/StockSelect'
 import stock100 from '@/data/stock100.json'
 
 export default function Portfolio() {
-	const token = Cookies.get('__Secure-next-auth.session-token')
+	const { data: session } = useSession()
+	const token = session?.token || null
 
 	const [tabIndex, setTabIndex] = useState(0)
 	const [currentPortfolioIndex, setCurrentPortfolioIndex] = useState(0)
