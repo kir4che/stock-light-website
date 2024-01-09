@@ -25,9 +25,6 @@ export default function Portfolio() {
 	const [isDeletePortfolioOpen, setIsDeletePortfolioOpen] = useState(false)
 	const [isEditNameOpen, setIsEditNameOpen] = useState(false)
 
-	const [isAddStock, setIsAddStock] = useState(false)
-	const [isDeleteStock, setIsDeleteStock] = useState(false)
-
 	const [newPortfolioName, setNewPortfolioName] = useState('')
 	const [newStockId, setNewStockId] = useState(null)
 	const [rowIds, setRowIds] = useState([])
@@ -80,6 +77,9 @@ export default function Portfolio() {
 		if (newPortfolioName === '') {
 			alert('請輸入您要新增的投資組合名稱！')
 			return
+		} else if (portfolioData.find((portfolio) => portfolio.group_name === newPortfolioName)) {
+			alert('已存在相同名稱的投資組合！')
+			return
 		}
 
 		try {
@@ -130,32 +130,15 @@ export default function Portfolio() {
 		}
 	}
 
-	// 修改投資組合：編輯名稱、新增股票、刪除股票
-	const updatePortfolio = async () => {
-		if (!portfolioData[currentPortfolioIndex]) return
-
-		let newGroupName = newPortfolioName === '' ? portfolioData[currentPortfolioIndex].group_name : newPortfolioName
-		let newStockIdArray = portfolioData[currentPortfolioIndex].data.map((row) => row.stock_id)
-
-		if (isAddStock) {
-			if (newStockIdArray.includes(newStockId)) alert('此股票已存在於投資組合中！')
-			else newStockIdArray.push(newStockId)
-			setIsAddStock(false)
-		}
-
-		if (isDeleteStock) {
-			let stocksToDelete = rows.filter((row) => rowIds.includes(row.id)).map((row) => row.stock_id)
-			newStockIdArray = newStockIdArray.filter((id) => !stocksToDelete.includes(id))
-			setIsDeleteStock(false)
-		}
-
+	// 更新編輯後的投資組合
+	const fetchUpdatePortfolio = async (stockIdArray, groupName) => {
 		try {
 			const response = await fetch(`${process.env.DB_URL}/api/user/updateGroup`, {
 				method: 'PATCH',
 				body: JSON.stringify({
 					old_group_name: portfolioData[currentPortfolioIndex].group_name,
-					new_group_name: newGroupName,
-					stock_id_array: newStockIdArray,
+					new_group_name: groupName,
+					stock_id_array: stockIdArray,
 				}),
 				headers: {
 					'Content-Type': 'application/json',
@@ -170,6 +153,30 @@ export default function Portfolio() {
 		} catch (error) {
 			console.error('Error: ', error)
 		}
+	}
+
+	// 編輯組合名稱
+	const editPortfolioName = () => {
+		fetchUpdatePortfolio([...portfolioData[currentPortfolioIndex].data.map((row) => row.stock_id)], newPortfolioName)
+		setNewPortfolioName('')
+	}
+
+	// 新增股票
+	const addStock = async () => {
+		let newStockIdArray = [...portfolioData[currentPortfolioIndex].data.map((row) => row.stock_id)]
+
+		if (newStockIdArray.includes(newStockId)) alert('此股票已存在於投資組合中！')
+		else newStockIdArray.push(newStockId)
+		fetchUpdatePortfolio(newStockIdArray, portfolioData[currentPortfolioIndex].group_name)
+	}
+
+	// 刪除股票
+	const deleteStock = async () => {
+		let newStockIdArray = [...portfolioData[currentPortfolioIndex].data.map((row) => row.stock_id)]
+		let stocksToDelete = rows.filter((row) => rowIds.includes(row.id)).map((row) => row.stock_id)
+		newStockIdArray = newStockIdArray.filter((id) => !stocksToDelete.includes(id))
+
+		fetchUpdatePortfolio(newStockIdArray, portfolioData[currentPortfolioIndex].group_name)
 	}
 
 	return (
@@ -258,7 +265,7 @@ export default function Portfolio() {
 							</DialogContent>
 							<DialogActions>
 								<Button onClick={() => setIsEditNameOpen(false)}>取消</Button>
-								<Button onClick={updatePortfolio}>保存</Button>
+								<Button onClick={editPortfolioName}>保存</Button>
 							</DialogActions>
 						</Dialog>
 					</>
@@ -270,10 +277,7 @@ export default function Portfolio() {
 						<StockSelect setSelect={setNewStockId} />
 						<button
 							className='font-bold text-white rounded-full w-7 h-7 flex-center bg-sky-400 hover:bg-sky-500'
-							onClick={() => {
-								setIsAddStock(true)
-								updatePortfolio()
-							}}
+							onClick={addStock}
 						>
 							＋
 						</button>
@@ -384,10 +388,7 @@ export default function Portfolio() {
 						<Button
 							size='small'
 							color='inherit'
-							onClick={() => {
-								setIsDeleteStock(true)
-								updatePortfolio()
-							}}
+							onClick={deleteStock}
 							className='px-4 mt-3 rounded-full dark:text-zinc-800 bg-primary_yellow hover:filter hover:brightness-90'
 						>
 							刪除股票

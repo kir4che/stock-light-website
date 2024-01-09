@@ -75,7 +75,7 @@ export default function News() {
 						)}
 						<SearchIcon
 							className='absolute cursor-pointer text-zinc-800 dark:text-zinc-800 right-3 hover:opacity-80'
-							onClick={() => handleNewsSearch}
+							onClick={handleNewsSearch}
 						/>
 					</Paper>
 					<SidebarBlock icon={<RocketLaunchIcon className='dark:text-white' />} title={'今日熱點'} />
