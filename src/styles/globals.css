@@ -306,10 +306,8 @@
 }
 
 .card:before {
+	@apply inline-block w-full h-[50vw] sm:h-[24vw] md:h-[25vw] lg:h-[16vw] xl:h-[12vw];
 	content: '';
-	display: block;
-	padding-bottom: 80%;
-	width: 100%;
 }
 
 .card__background {
