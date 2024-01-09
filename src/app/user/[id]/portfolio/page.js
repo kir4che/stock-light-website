@@ -27,7 +27,7 @@ export default function Portfolio() {
 	const [isEditNameOpen, setIsEditNameOpen] = useState(false)
 
 	const [newPortfolioName, setNewPortfolioName] = useState('')
-	const [newStockId, setNewStockId] = useState(null)
+	const [newStockId, setNewStockId] = useState(1101)
 	const [rowIds, setRowIds] = useState([])
 
 	useEffect(() => {
@@ -106,6 +106,15 @@ export default function Portfolio() {
 		}
 	}
 
+	const handleDeletePortfolioOpen = () => {
+		if (portfolioData.length === 0) {
+			alert('請先新增投資組合！')
+			setIsDeletePortfolioOpen(false)
+			return
+		}
+		setIsDeletePortfolioOpen(true)
+	}
+
 	// 移除投資組合
 	const deletePortfolio = async (portfolioName) => {
 		try {
@@ -155,6 +164,16 @@ export default function Portfolio() {
 		}
 	}
 
+	const handleEditNameOpen = () => {
+		if (portfolioData.length === 0) {
+			alert('請先新增投資組合！')
+			setIsEditNameOpen(false)
+			setNewPortfolioName('')
+			return
+		}
+		setIsEditNameOpen(true)
+	}
+
 	// 編輯組合名稱
 	const editPortfolioName = () => {
 		fetchUpdatePortfolio([...portfolioData[currentPortfolioIndex].data.map((row) => row.stock_id)], newPortfolioName)
@@ -164,7 +183,6 @@ export default function Portfolio() {
 	// 新增股票
 	const addStock = async () => {
 		let newStockIdArray = [...portfolioData[currentPortfolioIndex].data.map((row) => row.stock_id)]
-
 		if (newStockIdArray.includes(newStockId)) alert('此股票已存在於投資組合中！')
 		else newStockIdArray.push(newStockId)
 		fetchUpdatePortfolio(newStockIdArray, portfolioData[currentPortfolioIndex].group_name)
@@ -234,11 +252,7 @@ export default function Portfolio() {
 						<>
 							｜
 							<>
-								<Button
-									color='inherit'
-									className='text-xs hover:text-zinc-200'
-									onClick={() => setIsDeletePortfolioOpen(true)}
-								>
+								<Button color='inherit' className='text-xs hover:text-zinc-200' onClick={handleDeletePortfolioOpen}>
 									移除投資組合
 								</Button>
 								<Dialog open={isDeletePortfolioOpen} onClose={() => setIsDeletePortfolioOpen(false)}>
@@ -254,7 +268,7 @@ export default function Portfolio() {
 								</Dialog>
 								｜
 							</>
-							<Button color='inherit' className='text-xs hover:text-zinc-200' onClick={() => setIsEditNameOpen(true)}>
+							<Button color='inherit' className='text-xs hover:text-zinc-200' onClick={handleEditNameOpen}>
 								變更投資組合的名稱
 							</Button>
 							<Dialog maxWidth='xs' open={isEditNameOpen} onClose={() => setIsEditNameOpen(false)} fullWidth>
