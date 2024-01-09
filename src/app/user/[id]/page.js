@@ -3,7 +3,6 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 
 import StarryBackground from '@/components/common/StarryBackground'
 
@@ -11,9 +10,7 @@ export default function User() {
 	const { data: session, status } = useSession()
 	const router = useRouter()
 
-	useEffect(() => {
-		if (status === 'unauthenticated') router.push('/login')
-	}, [])
+	if (status === 'unauthenticated') router.push('/login')
 
 	const renderBtn = (label, path) => (
 		<button
