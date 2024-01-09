@@ -12,11 +12,7 @@ export default function User() {
 	const router = useRouter()
 
 	useEffect(() => {
-		try {
-			if (status === 'unauthenticated' && session) router.push('/login')
-		} catch (error) {
-			console.error('Error:', error)
-		}
+		if (status === 'unauthenticated' && session) router.push('/login')
 	}, [status, session])
 
 	const renderBtn = (label, path) => (
