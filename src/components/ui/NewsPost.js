@@ -7,7 +7,7 @@ export default function NewsPost({ news }) {
 	return (
 		news && (
 			<article className='gap-6 space-y-2 xs:space-y-0 xs:flex'>
-				<div className='xs:max-w-[225px] h-full w-full'>
+				{/* <div className='xs:max-w-[225px] h-full w-full'>
 					{news.imageSrc && (
 						<Image
 							src={news.imageSrc}
@@ -17,7 +17,7 @@ export default function NewsPost({ news }) {
 							alt={news.news_id || 'news-cover'}
 						/>
 					)}
-				</div>
+				</div> */}
 				<div className='space-y-2.5'>
 					<Link href={news.link} target='_blank' className='hover:text-zinc-500 dark:hover:text-zinc-300'>
 						<h4>{news.title}</h4>
