@@ -24,7 +24,7 @@ export default function News() {
 			const data = await response.json()
 
 			if (data.success) {
-				const sortedNews = data.slice(0, 100).data.sort((a, b) => {
+				const sortedNews = data.data.slice(0, 100).sort((a, b) => {
 					const dateA = new Date(a.time),
 						dateB = new Date(b.time)
 					return dateA > dateB
