@@ -1,32 +1,46 @@
 'use client'
 
-import { getCurrentDate } from '@/utils/getCurrentDate'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Tab, Tabs } from '@mui/material'
+import dynamic from 'next/dynamic'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useState } from 'react'
 
-import AnalysisTable from '@/components/Light/AnalysisTable'
-import PrayerCard from '@/components/Light/PrayerCard'
-import RagBot from '@/components/Light/RagBot'
-import TodayLantern from '@/components/Light/TodayLantern'
-import Loading from '@/components/common/Loading'
-import StarryBackground from '@/components/common/StarryBackground'
-import Breadcrumbs from '@/components/ui/Breadcrumbs'
-import stock100 from '@/data/stock100.json'
+import { getCurrentDate } from '@/utils/getCurrentDate'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import fetchStockByFactor from '@/utils/fetchStockByFactor'
 import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 
+import stock100 from '@/data/stock100.json'
+
+const Loading = dynamic(() => import('@/components/common/Loading'), { ssr: false })
+const StarryBackground = dynamic(() => import('@/components/common/StarryBackground'), { ssr: false })
+const Breadcrumbs = dynamic(() => import('@/components/ui/Breadcrumbs'), { ssr: false })
+const AnalysisTable = dynamic(() => import('@/components/Light/AnalysisTable'), { 
+  ssr: false,
+  loading: () => <div className="h-64 flex items-center justify-center"><Loading /></div>
+})
+const PrayerCard = dynamic(() => import('@/components/Light/PrayerCard'), { ssr: false })
+const RagBot = dynamic(() => import('@/components/Light/RagBot'), { ssr: false })
+const TodayLantern = dynamic(() => import('@/components/Light/TodayLantern'), { ssr: false })
+
+const Tab = dynamic(() => import('@mui/material/Tab').then(mod => mod.default), { ssr: false })
+const Tabs = dynamic(() => import('@mui/material/Tabs').then(mod => mod.default), { ssr: false })
+const ArrowDropDownIcon = dynamic(() => import('@mui/icons-material/ArrowDropDown'), { ssr: false })
+const ArrowDropUpIcon = dynamic(() => import('@mui/icons-material/ArrowDropUp'), { ssr: false })
+
 function ResultDashboard() {
+	const [mounted, setMounted] = useState(false)
+
 	const industry = useSearchParams().get('industry')
 	const factor = useSearchParams().get('factor')
 
 	const [isLoading, setIsLoading] = useState(true)
 	const [laternOpen, setLaternOpen] = useState(false)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
+
+	useEffect(() => {
+		setMounted(true)
+	}, [])
 
 	const [resultStockInfo, setResultStockInfo] = useState(null)
 	const [stockPrice, setStockPrice] = useState({
@@ -62,6 +76,10 @@ function ResultDashboard() {
 
 		resultStockInfo && fetchData(resultStockInfo[selectedTabIndex].stock_id)
 	}, [resultStockInfo, selectedTabIndex])
+
+	if (!mounted) {
+		return <div className="min-h-screen flex items-center justify-center"><Loading /></div>
+	}
 
 	return (
 		<StarryBackground className='pt-6 pb-10'>

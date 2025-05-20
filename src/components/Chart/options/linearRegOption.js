@@ -1,8 +1,23 @@
+import { useEffect, useState } from 'react'
 import * as echarts from 'echarts'
 import ecStat from 'echarts-stat'
 
 // 線性迴歸
 export function linearRegOption(stock, weather, weatherData, priceList) {
+	const [windowWidth, setWindowWidth] = useState(0)
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setWindowWidth(window.innerWidth)
+			window.addEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+
+		return () => {
+			if (typeof window !== "undefined")
+				window.removeEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+	}, [])
+
 	echarts.registerTransform(ecStat.transform.regression)
 
 	const resultData = []
@@ -55,10 +70,10 @@ export function linearRegOption(stock, weather, weatherData, priceList) {
 			},
 		],
 		grid: {
-			top: window.innerWidth > 768 ? '15%' : window.innerWidth > 576 ? '18%' : '24%',
-			left: window.innerWidth > 576 ? '5%' : '8%',
-			right: window.innerWidth > 768 ? '7%' : window.innerWidth > 576 ? '9%' : '14%',
-			height: window.innerWidth > 768 ? '76%' : window.innerWidth > 576 ? '72%' : '66%',
+			top: windowWidth > 768 ? '15%' : windowWidth > 576 ? '18%' : '24%',
+			left: windowWidth > 576 ? '5%' : '8%',
+			right: windowWidth > 768 ? '7%' : windowWidth > 576 ? '9%' : '14%',
+			height: windowWidth > 768 ? '76%' : windowWidth > 576 ? '72%' : '66%',
 		},
 	}
 

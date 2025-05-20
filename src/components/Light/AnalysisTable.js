@@ -105,6 +105,20 @@ export default function AnalysisTable({ stockId }) {
 		fetchSentimentData()
 	}, [stockId])
 
+	const [windowWidth, setWindowWidth] = useState(0)
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setWindowWidth(window.innerWidth)
+			window.addEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+
+		return () => {
+			if (typeof window !== "undefined")
+				window.removeEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+	}, [])
+
 	const RatioCard = (text, ratio) => (
 		<p className='flex flex-col text-center whitespace-nowrap'>
 			<span className='font-light opacity-80'>{text}</span>
@@ -438,18 +452,18 @@ export default function AnalysisTable({ stockId }) {
 								grid: {
 									top: '15%',
 									left:
-										window.innerWidth > 1024
+										windowWidth > 1024
 											? '14%'
-											: window.innerWidth > 614 && window.innerWidth < 800
+											: windowWidth > 614 && windowWidth < 800
 											? '9%'
-											: window.innerWidth > 520
+											: windowWidth > 520
 											? '10%'
-											: window.innerWidth > 450
+											: windowWidth > 450
 											? '12%'
 											: '14%',
 									right:
-										window.innerWidth > 1024 ? '7%' : window.innerWidth > 614 && window.innerWidth < 800 ? '6%' : '8%',
-									height: window.innerWidth > 1024 ? '66%' : '62%',
+										windowWidth > 1024 ? '7%' : windowWidth > 614 && window.innerWidth < 800 ? '6%' : '8%',
+									height: windowWidth > 1024 ? '66%' : '62%',
 								},
 							}}
 							customHeight='h-64 bg-white border-none lg:h-72 rounded-lg'
@@ -534,18 +548,18 @@ export default function AnalysisTable({ stockId }) {
 								grid: {
 									top: '15%',
 									left:
-										window.innerWidth > 1024
+										windowWidth > 1024
 											? '14%'
-											: window.innerWidth > 614 && window.innerWidth < 800
+											: windowWidth > 614 && windowWidth < 800
 											? '9%'
-											: window.innerWidth > 520
+											: windowWidth > 520
 											? '10%'
-											: window.innerWidth > 450
+											: windowWidth > 450
 											? '12%'
 											: '14%',
 									right:
-										window.innerWidth > 1024 ? '7%' : window.innerWidth > 614 && window.innerWidth < 800 ? '6%' : '8%',
-									height: window.innerWidth > 1024 ? '66%' : '62%',
+										windowWidth > 1024 ? '7%' : windowWidth > 614 && window.innerWidth < 800 ? '6%' : '8%',
+									height: windowWidth > 1024 ? '66%' : '62%',
 								},
 							}}
 							customHeight='h-64 bg-white border-none lg:h-72 rounded-lg'
@@ -700,30 +714,30 @@ export default function AnalysisTable({ stockId }) {
 										},
 									},
 									grid: {
-										top: window.innerWidth > 1024 ? '10%' : '12%',
+										top: windowWidth > 1024 ? '10%' : '12%',
 										left:
-											window.innerWidth > 768
+											windowWidth > 768
 												? '4%'
-												: window.innerWidth > 520
+												: windowWidth > 520
 												? '6%'
-												: window.innerWidth > 414
+												: windowWidth > 414
 												? '7%'
-												: window.innerWidth > 375
+												: windowWidth > 375
 												? '7.5%'
 												: '9%',
 										right:
-											window.innerWidth > 1024
+											windowWidth > 1024
 												? '5%'
-												: window.innerWidth > 768
+												: windowWidth > 768
 												? '6%'
-												: window.innerWidth > 520
+												: windowWidth > 520
 												? '8%'
-												: window.innerWidth > 414
+												: windowWidth > 414
 												? '10%'
-												: window.innerWidth > 375
+												: windowWidth > 375
 												? '11.5%'
 												: '9%',
-										height: window.innerWidth > 1024 ? '72%' : window.innerWidth > 520 ? '70%' : '68%',
+										height: windowWidth > 1024 ? '72%' : windowWidth > 520 ? '70%' : '68%',
 									},
 								}}
 								customHeight='h-72 sm:h-80 border-none shadow-none lg:h-88'
@@ -875,30 +889,30 @@ export default function AnalysisTable({ stockId }) {
 									},
 								},
 								grid: {
-									top: window.innerWidth > 1024 ? '15%' : window.innerWidth > 576 ? '19%' : '20%',
+									top: windowWidth > 1024 ? '15%' : windowWidth > 576 ? '19%' : '20%',
 									left:
-										window.innerWidth > 1024
+										windowWidth > 1024
 											? '7%'
-											: window.innerWidth > 768
+											: windowWidth > 768
 											? '9%'
-											: window.innerWidth > 576
+											: windowWidth > 576
 											? '10%'
-											: window.innerWidth > 480
+											: windowWidth > 480
 											? '13%'
-											: window.innerWidth > 414
+											: windowWidth > 414
 											? '15%'
 											: '17%',
 									right:
-										window.innerWidth > 768
+									windowWidth > 768
 											? '4%'
-											: window.innerWidth > 576
+											: windowWidth > 576
 											? '5%'
-											: window.innerWidth > 480
+											: windowWidth > 480
 											? '6%'
-											: window.innerWidth > 414
+											: windowWidth > 414
 											? '7%'
 											: '8%',
-									height: window.innerWidth > 1024 ? '69%' : window.innerWidth > 768 ? '65%' : '61%',
+									height: windowWidth > 1024 ? '69%' : windowWidth > 768 ? '65%' : '61%',
 								},
 								toolbox: {
 									feature: {
@@ -991,26 +1005,26 @@ export default function AnalysisTable({ stockId }) {
 								grid: {
 									top: '14%',
 									left:
-										window.innerWidth > 1024
+										windowWidth > 1024
 											? '3%'
-											: window.innerWidth > 520
+											: windowWidth > 520
 											? '5%'
-											: window.innerWidth > 414
+											: windowWidth > 414
 											? '6%'
-											: window.innerWidth > 375
+											: windowWidth > 375
 											? '7%'
 											: '9%',
 									right:
-										window.innerWidth > 1024
+										windowWidth > 1024
 											? '3%'
-											: window.innerWidth > 520
+											: windowWidth > 520
 											? '5%'
-											: window.innerWidth > 430
+											: windowWidth > 430
 											? '6%'
-											: window.innerWidth > 375
+											: windowWidth > 375
 											? '7%'
 											: '9%',
-									height: window.innerWidth > 1024 ? '69%' : '65%',
+									height: windowWidth > 1024 ? '69%' : '65%',
 								},
 								toolbox: {
 									feature: {
@@ -1060,8 +1074,8 @@ export default function AnalysisTable({ stockId }) {
 								},
 								grid: {
 									top: '14%',
-									left: window.innerWidth > 1024 ? '4%' : window.innerWidth > 520 ? '6%' : '9.6%',
-									right: window.innerWidth > 1024 ? '1%' : '2%',
+									left: windowWidth > 1024 ? '4%' : windowWidth > 520 ? '6%' : '9.6%',
+									right: windowWidth > 1024 ? '1%' : '2%',
 									height: '75%',
 								},
 								toolbox: {

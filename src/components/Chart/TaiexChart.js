@@ -46,6 +46,20 @@ export default function TaiexChart() {
 		fetchTaiex()
 	}, [])
 
+	const [windowWidth, setWindowWidth] = useState(0)
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setWindowWidth(window.innerWidth)
+			window.addEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+
+		return () => {
+			if (typeof window !== "undefined")
+				window.removeEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+	}, [])
+
 	return (
 		<>
 			<div className='items-baseline mt-10 tall:mt-4 xs:space-x-3 xs:flex xs:mt-0'>
@@ -150,12 +164,12 @@ export default function TaiexChart() {
 							top: '1.5%',
 							right: '0.5%',
 						},
-						grid: {
+						grid:	{
 							top: '8%',
-							left: window.innerWidth > 768 ? '7%' : window.innerWidth > 576 ? '12%' : '14%',
+							left: windowWidth > 768 ? '7%' : windowWidth > 576 ? '12%' : '14%',
 							right: '4%',
-							height: window.innerWidth > 768 ? '82%' : '78%',
-						},
+							height: windowWidth > 768 ? '82%' : '78%',
+						}
 					}}
 					customHeight='h-72 md:h-[400px] xl:h-[520px]'
 				/>

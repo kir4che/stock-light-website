@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 export function multiLineOption(
 	text,
 	date,
@@ -14,6 +16,20 @@ export function multiLineOption(
 		},
 	}
 ) {
+	const [windowWidth, setWindowWidth] = useState(0)
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setWindowWidth(window.innerWidth)
+			window.addEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+
+		return () => {
+			if (typeof window !== "undefined")
+				window.removeEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+	}, [])
+
 	if (!date) {
 		console.error('date is required.')
 		return {}
@@ -71,39 +87,47 @@ export function multiLineOption(
 			},
 		},
 		grid: {
-			top: window.innerWidth > 1024 ? '14%' : window.innerWidth > 576 ? '16%' : '18%',
-			left:
-				unit.name === '千元'
-					? window.innerWidth > 1024
-						? '7%'
-						: window.innerWidth > 768
-						? '10%'
-						: window.innerWidth > 576
-						? '12%'
-						: window.innerWidth > 480
-						? '16%'
-						: window.innerWidth > 414
-						? '19%'
-						: '24%'
-					: window.innerWidth > 1024
-					? '5%'
-					: window.innerWidth > 768
-					? '6%'
-					: window.innerWidth > 576
-					? '8%'
-					: window.innerWidth > 480
+			top: windowWidth > 1024
+				? '14%'
+				: windowWidth > 576
+				? '16%'
+				: '18%',
+			left: unit.name === '千元'
+				? windowWidth > 1024
+					? '7%'
+					: windowWidth > 768
 					? '10%'
-					: window.innerWidth > 414
+					: windowWidth > 576
 					? '12%'
-					: '14%',
-			right: window.innerWidth > 576 ? '3%' : '4%',
-			height:
-				window.innerWidth > 1024 ? '70%' : window.innerWidth > 768 ? '64%' : window.innerWidth > 414 ? '60%' : '58%',
+					: windowWidth > 480
+					? '16%'
+					: windowWidth > 414
+					? '19%'
+					: '24%'
+				: windowWidth > 1024
+				? '5%'
+				: windowWidth > 768
+				? '6%'
+				: windowWidth > 576
+				? '8%'
+				: windowWidth > 480
+				? '10%'
+				: windowWidth > 414
+				? '12%'
+				: '14%',
+			right: windowWidth > 576 ? '3%' : '4%',
+			height: windowWidth > 1024
+				? '70%'
+				: windowWidth > 768
+				? '64%'
+				: windowWidth > 414
+				? '60%'
+				: '58%',
 		},
 		toolbox: {
 			feature: {
-				magicType: { show: window.innerWidth > 576, type: ['line', 'bar'] },
-				restore: { show: window.innerWidth > 576 },
+				magicType: { show: windowWidth > 576, type: ['line', 'bar'] },
+				restore: { show: windowWidth > 576 },
 				saveAsImage: { show: true },
 			},
 			top: '1.5%',

@@ -1,20 +1,47 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { Suspense, useState, useEffect } from 'react'
 
-import TaiexChart from '@/components/Chart/TaiexChart'
+const TaiexChart = dynamic(
+  () => import('@/components/Chart/TaiexChart'),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="h-[500px] flex items-center justify-center">
+        <div className="animate-pulse text-gray-400">Loading chart...</div>
+      </div>
+    )
+  }
+)
+
 import Hero from '@/components/common/Hero'
 import { FlexCard } from '@/components/ui/FlexCard'
+import Loading from '@/components/common/Loading'
 
-export default function Home() {
-	const router = useRouter()
+function HomeContent() {
+  const router = useRouter()
+  const [mounted, setMounted] = useState(false)
 
-	return (
-		<>
-			<Hero />
-			<TaiexChart />
-			<div className='flex flex-col gap-8 mt-[6vw] md:mt-[3vw] lg:gap-16 xl:gap-20 h-min'>
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loading />
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <Hero />
+      <TaiexChart />
+      <div className='flex flex-col gap-8 mt-[6vw] md:mt-[3vw] lg:gap-16 xl:gap-20 h-min'>
 				<FlexCard
 					title='你曾在股市中感到迷惘嗎？'
 					content={
@@ -89,5 +116,19 @@ export default function Home() {
 				</article>
 			</div>
 		</>
-	)
+  )
 }
+
+function Home() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <Loading />
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
+  )
+}
+
+export default Home;

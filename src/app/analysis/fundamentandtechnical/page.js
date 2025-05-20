@@ -1,26 +1,40 @@
 'use client'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import { Tab, Tabs } from '@mui/material'
+import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useState } from 'react'
 
-import TabContent from '@/components/Analysis/TabContent'
-import Loading from '@/components/common/Loading'
-import StarryBackground from '@/components/common/StarryBackground'
-import StockSelect from '@/components/ui/StockSelect'
-import stock100 from '@/data/stock100.json'
 import { calculatePriceChange } from '@/utils/calculatePriceChange'
 import { convertDateTime } from '@/utils/convertDateTime'
 import fetchStockData from '@/utils/fetchStockData'
 import fetchStockPePb from '@/utils/fetchStockPePb'
 import { getCurrentDate } from '@/utils/getCurrentDate'
 
+import stock100 from '@/data/stock100.json'
+
+const Loading = dynamic(() => import('@/components/common/Loading'), { ssr: false })
+const StarryBackground = dynamic(() => import('@/components/common/StarryBackground'), { ssr: false })
+const StockSelect = dynamic(() => import('@/components/ui/StockSelect'), { ssr: false })
+const TabContent = dynamic(() => import('@/components/Analysis/TabContent'), { 
+  ssr: false,
+  loading: () => <div className="min-h-[400px] flex items-center justify-center"><Loading /></div>
+})
+
+const Tab = dynamic(() => import('@mui/material/Tab').then(mod => mod.default), { ssr: false })
+const Tabs = dynamic(() => import('@mui/material/Tabs').then(mod => mod.default), { ssr: false })
+const ArrowDropDownIcon = dynamic(() => import('@mui/icons-material/ArrowDropDown'), { ssr: false })
+const ArrowDropUpIcon = dynamic(() => import('@mui/icons-material/ArrowDropUp'), { ssr: false })
+
 export default function FundamentalAnalysis() {
+	const [mounted, setMounted] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const [selectedStockId, setSelectedStockId] = useState(1101)
 	const [selectedTabIndex, setSelectedTabIndex] = useState(0)
 	const [stockPePb, setStockPePb] = useState(null)
+	
+	const handleTabChange = useCallback((e, index) => {
+		setSelectedTabIndex(index);
+	}, []);
+	
 	const [stockData, setStockData] = useState({
 		date: [],
 		price: [],
@@ -32,13 +46,32 @@ export default function FundamentalAnalysis() {
 	})
 
 	useEffect(() => {
+		setMounted(true)
+		
 		const fetchData = async (stockId) => {
-			setStockPePb(await fetchStockPePb({ stockId, setIsLoading }))
-			setStockData(await fetchStockData({ stockId, setIsLoading }))
+			try {
+				setIsLoading(true)
+				const [pePbData, stockData] = await Promise.all([
+					fetchStockPePb({ stockId, setIsLoading }),
+					fetchStockData({ stockId, setIsLoading })
+				])
+				setStockPePb(pePbData)
+				setStockData(stockData)
+			} catch (error) {
+				console.error('Error fetching data:', error)
+			} finally {
+				setIsLoading(false)
+			}
 		}
 
-		fetchData(selectedStockId)
-	}, [selectedStockId])
+		if (mounted) {
+			fetchData(selectedStockId)
+		}
+	}, [selectedStockId, mounted])
+
+	if (!mounted) {
+		return <div className="min-h-screen flex items-center justify-center"><Loading /></div>
+	}
 
 	return (
 		<StarryBackground className='pt-8 pb-12 md:pt-10'>
@@ -104,7 +137,7 @@ export default function FundamentalAnalysis() {
 				<Tabs
 					variant='scrollable'
 					value={selectedTabIndex}
-					onChange={useCallback((e, index) => setSelectedTabIndex(index), [])}
+					onChange={handleTabChange}
 					className='mt-4 mb-2 bg-white rounded dark:bg-zinc-900/80'
 				>
 					{['股價走勢', '技術指標', '財務報表', '基本資料', '新聞'].map((label, index) => (

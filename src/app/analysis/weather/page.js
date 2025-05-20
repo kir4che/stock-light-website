@@ -1,36 +1,81 @@
 'use client'
 
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import Tooltip, { tooltipClasses } from '@mui/material/Tooltip'
-import { styled } from '@mui/material/styles'
-import { DataGrid } from '@mui/x-data-grid'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
-import React, { useEffect, useState } from 'react'
-
-import Chart from '@/components/Chart/Chart'
-import { linearRegOption } from '@/components/Chart/options/linearRegOption'
-import Loading from '@/components/common/Loading'
-import StarryBackground from '@/components/common/StarryBackground'
-import StockSelect from '@/components/ui/StockSelect'
-import stock100 from '@/data/stock100.json'
-import weatherList from '@/data/weatherList.json'
+import { useEffect, useState } from 'react'
 
 import { calculateR } from '@/utils/calculateR'
 
-const HtmlTooltip = styled(({ className, ...props }) => <Tooltip {...props} classes={{ popper: className }} />)(
-	({ theme }) => ({
-		[`& .${tooltipClasses.tooltip}`]: {
-			backgroundColor: '#f5f5f9',
-			color: 'rgba(0, 0, 0, 0.87)',
-			maxWidth: 220,
-			fontSize: theme.typography.pxToRem(12),
-			border: '1px solid #dadde9',
-		},
-	})
+import stock100 from '@/data/stock100.json'
+import weatherList from '@/data/weatherList.json'
+
+const Loading = dynamic(() => import('@/components/common/Loading'), { ssr: false })
+const StarryBackground = dynamic(() => import('@/components/common/StarryBackground'), { ssr: false })
+
+const DataGrid = dynamic(
+  () => import('@mui/x-data-grid').then((mod) => mod.DataGrid),
+  { ssr: false, loading: () => <Loading /> }
 )
 
+const ArrowDropDownIcon = dynamic(
+  () => import('@mui/icons-material/ArrowDropDown'),
+  { ssr: false }
+)
+
+const ArrowDropUpIcon = dynamic(
+  () => import('@mui/icons-material/ArrowDropUp'),
+  { ssr: false }
+)
+
+const Chart = dynamic(
+  () => import('@/components/Chart/Chart'),
+  { ssr: false, loading: () => <div className="h-[450px] flex items-center justify-center"><Loading /> </div> }
+)
+
+const StockSelect = dynamic(
+  () => import('@/components/ui/StockSelect'),
+  { ssr: false, loading: () => <div className="w-40 h-10 bg-gray-200 rounded animate-pulse"></div> }
+)
+
+const linearRegOption = dynamic(
+  () => import('@/components/Chart/options/linearRegOption').then(mod => mod.linearRegOption),
+  { ssr: false }
+)
+
+function HtmlTooltip({ children, ...props }) {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  if (!mounted) {
+    return <>{children}</>;
+  }
+  
+  const Tooltip = dynamic(
+    () => import('@mui/material/Tooltip'),
+    { 
+      ssr: false,
+      loading: () => <>{children}</>
+    }
+  );
+  
+  return (
+    <Tooltip 
+      {...props}
+      classes={{
+        tooltip: 'bg-white text-gray-900 max-w-[220px] text-xs border border-gray-200',
+        ...props.classes
+      }}
+    >
+      {children}
+    </Tooltip>
+  );
+}
+
 export default function WeatherAnalysis() {
+	const [mounted, setMounted] = useState(false)
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [selectedTab, setSelectedTab] = useState(0)
@@ -48,19 +93,30 @@ export default function WeatherAnalysis() {
 	const { stockName, weatherType } = chartData
 
 	const fetchWeatherPredict = async (stockId, weatherType) => {
-		setIsLoading(true)
+		if (!mounted) return;
+		
+		setIsLoading(true);
 
 		try {
-			const response = await fetch(`${process.env.DB_URL}/api/weather/predict/${weatherType}/${stockId}`, {
+			const baseUrl = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
+			const response = await fetch(`${baseUrl}/api/weather/predict/${weatherType}/${stockId}`, {
 				method: 'GET',
-			})
-			const data = await response.json()
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			
+			const data = await response.json();
 
-			if (data.success) {
+			if (data.success && mounted) {
 				setWeatherData({
-					weather: data.data.independent_datas,
-					stockPrice: data.data.dependent_datas,
-					stockInfo: data.data.stockinfo,
+					weather: data.data?.independent_datas || [],
+					stockPrice: data.data?.dependent_datas || [],
+					stockInfo: data.data?.stockinfo || {},
 				})
 				setIsLoading(false)
 			} else {
@@ -73,12 +129,29 @@ export default function WeatherAnalysis() {
 	}
 
 	useEffect(() => {
-		fetchWeatherPredict(selectedStockId, selectedWeatherType)
+		setMounted(true);
+		
+		if (typeof window !== 'undefined') {
+			fetchWeatherPredict(selectedStockId, selectedWeatherType);
+		}
+		
+		return () => setMounted(false);
+	}, [selectedStockId, selectedWeatherType])
+
+	useEffect(() => {
 		setChartData({
 			stockName: stock100.find((stock) => stock.stock_id === selectedStockId).name,
 			weatherType: weatherList[selectedTab].ch_name,
 		})
 	}, [selectedStockId, selectedWeatherType])
+
+	if (!mounted) {
+		return (
+			<div className="min-h-screen flex items-center justify-center">
+				<Loading />
+			</div>
+		)
+	}
 
 	return (
 		<StarryBackground className='w-full pt-8 pb-12'>

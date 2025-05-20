@@ -48,6 +48,20 @@ export default function DividendPolicy({ stockId, childOpen }) {
 		fetchDividendPolicy()
 	}, [stockId])
 
+	const [windowWidth, setWindowWidth] = useState(0)
+
+	useEffect(() => {
+		if (typeof window !== "undefined") {
+			setWindowWidth(window.innerWidth)
+			window.addEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+
+		return () => {
+			if (typeof window !== "undefined")
+				window.removeEventListener("resize", () => setWindowWidth(window.innerWidth))
+		}
+	}, [])
+
 	return (
 		childOpen && (
 			<section className='w-full space-y-4 overflow-x-auto'>
@@ -86,11 +100,11 @@ export default function DividendPolicy({ stockId, childOpen }) {
 							},
 						},
 						grid: {
-							top: window.innerWidth > 768 ? '18%' : window.innerWidth > 576 ? '24%' : '26%',
-							left: window.innerWidth > 768 ? '4%' : window.innerWidth > 576 ? '6%' : '7.2%',
-							right: window.innerWidth > 768 ? '4%' : window.innerWidth > 576 ? '4%' : '5%',
-							height: window.innerWidth > 768 ? '70%' : '62%',
-						},
+							top: windowWidth > 768 ? '18%' : windowWidth > 576 ? '24%' : '26%',
+							left: windowWidth > 768 ? '4%' : windowWidth > 576 ? '6%' : '7.2%',
+							right: windowWidth > 768 ? '4%' : windowWidth > 576 ? '4%' : '5%',
+							height: windowWidth > 768 ? '70%' : '62%',
+						}
 					}}
 					customHeight='h-72 md:h-88 lg:h-[450px]'
 				/>

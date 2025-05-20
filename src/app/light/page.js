@@ -76,7 +76,7 @@ export default function Light() {
 	}, [sponsorOpen])
 
 	useEffect(() => {
-		window.scrollTo(0, 0)
+		typeof window !== "undefined" && window.scrollTo(0, 0)
 		lightSucceed &&
 			setTimeout(() => {
 				router.push(

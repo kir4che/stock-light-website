@@ -21,7 +21,7 @@ module.exports = {
 				md: '800px',
 				900: '900px',
 				1080: '1080px',
-				tall: { raw: '(min-height: 800px)' },
+				tall: { min: '800px' },
 			},
 			width: {
 				25: '6.25rem',
